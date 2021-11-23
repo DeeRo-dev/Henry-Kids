@@ -1,0 +1,34 @@
+.nav{
+  background:rgba(253, 236, 2, 0.918);
+  display: grid;
+  width: 100%;
+  height: 80px;
+  align-items: center;
+  font-family: 'Mukta', sans-serif;
+
+  grid-template-columns: repeat(7, 1fr);
+  
+}
+.contentSearch{
+  background: #fff;
+  grid-column: 2/4;
+}
+.contentBoton{
+  grid-column: 7/8;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10px;
+}
+.botonInSesion{
+  font-family: 'Akaya Telivigala', cursive;
+  background: #000;
+  color: #fff;
+  padding: 0.2em 0.6em;
+  border: 2px solid;
+  border-color: #fff;
+  transition: all 1s ease; 
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  
+}
