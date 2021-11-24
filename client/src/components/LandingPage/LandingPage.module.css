@@ -1,25 +1,55 @@
-:root{
-  --amarillo: #FFD200;
-  --naranja: #FF8D00;
+:root {
+  --amarillo: #ffd200;
+  --naranja: #ff8d00;
+  --verde: #a1d1af;
 }
+
 .containerBackground {
   display: flex;
   width: 100vw;
   height: 100vh;
 }
 .background {
-/*  background: url("./landing.png");  */
+  background: url("./img/landing.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   width: 100vw;
-
 }
 
-.btn{
+.buttonIngresar {
+  padding-right: 40px;
+  padding-left: 40px;
+  margin-top: 58vh;
+  margin-right: 62vw;
   background-color: var(--amarillo);
+  font-family: montserrat;
+  font-weight: bold;
+  font-size: 24px;
 }
 
-.btn:hover{
-  background-color: grey;
+.buttonIngresar:hover {
+  background-color: #a1d1af;
+}
+
+.buttonRegistrarse {
+  padding-right: 17px;
+  padding-left: 17px;
+  margin-top: 6vh;
+  margin-right: 55.5vw;
+  background-color: var(--naranja);
+  font-family: montserrat;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.buttonRegistrarse:hover {
+  background-color: #a1d1af;
+}
+
+.logo {
+  float: left;
+  width: 60px;
+  margin-top: 25px;
+  margin-left: 30px;
 }
