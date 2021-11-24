@@ -20,9 +20,6 @@ module.exports = (sequelize) => {
       },
       technology: {
         type: DataTypes.STRING(300),
-        validate: {
-          irUrl: true,
-        },
       },
       description: {
         type: DataTypes.TEXT,
@@ -33,9 +30,7 @@ module.exports = (sequelize) => {
       },
       img_link: {
         type: DataTypes.STRING(300),
-        validate: {
-          irUrl: true,
-        },
+       
       },
     },
     {
