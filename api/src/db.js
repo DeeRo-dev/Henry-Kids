@@ -35,8 +35,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Clase , Category} = sequelize.models;
 
 // Aca vendrian las relaciones
-Clase.belongsToMany(Category,{through:'tipoCurso'})
-Category.belongsToMany(Clase,{through:'TipoCurso'})
+Clase.belongsToMany(Category,{through:'CatCurso'})
+Category.belongsToMany(Clase,{through:'CatCurso'})
 // Categori.hasMany(Curso);
 
 
