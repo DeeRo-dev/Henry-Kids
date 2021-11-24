@@ -2,13 +2,13 @@ const {  Class, Category, Recommendation, Comment, valoration} = require("../db"
 const Sequelize = require('sequelize');
 
 
-async function addClase(req, res) {
+async function addClass(req, res) {
 
     let data = { ...req.body};
 
     try {
 
-        const createClase = await Clase.create({
+        const createClass = await Class.create({
             title: data.title,
             description: data.description,
             studio_material: data.studio_material,
@@ -27,7 +27,7 @@ async function addClase(req, res) {
 
         // })
 
-        return res.json({message: 'Clase created succesfully', Clase: createdClase});
+        return res.json({message: 'Clase created succesfully', Class: createdClass});
     }
 
     catch (error) {
@@ -35,4 +35,8 @@ async function addClase(req, res) {
         res.status(500).send('Internal Server Error')
     }
 
+};
+
+module.exports = {
+    addClass,
 };

@@ -3,7 +3,7 @@ const { addClase } = require('../controllers/clases');
 const router = Router();
 
 
-router.post('/', addClase);
+router.post('/', addClass);
 
 
 
