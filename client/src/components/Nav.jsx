@@ -1,40 +1,39 @@
 import React from "react";
-// import { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { getNameDogs } from "../store/actions";
 import {Link} from 'react-router-dom'
 import style from './css/Nav.module.css'
-
-
+import {Icon} from '@material-ui/core'
 
 
 export default function Nav(){
 
-  // const dispatch = useDispatch();
-  // const [name, setName] = useState('');
-
-// function handleInput(e){
-//   e.preventDefault();
-//   setName(e.target.value)
- 
-// }
-// function handdleSubmit(e){
-//   e.preventDefault();
-//  console.log( e.target.value);
-//   dispatch(getNameDogs(name))
-//   setName(' ')
-// }
-
+  // function handdleSubmit(e){
+  //   e.preventDefault();
+  //  console.log( e.target.value);
+ // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
+  // }
   return(
     <nav className={style.nav}>
       <div className={style.logo}>
-      <h3>Henry Kids</h3>
+     <img className={style.logo }src="https://i.imgur.com/AWEe2XR.png" alt="not found" />
       </div>
+      
       <div className={style.contentSearch}>
-      <p>search</p>
-    </div>
+        <div className={style.buscador}>
+          <button className={style.iconoBuscar}>
+             <Icon >
+             search
+          </Icon>
+          </button>
+         
+         <input type="text" 
+                placeholder='Buscar' 
+                className={style.inputSearch}/>
+          {/* <button type='submit' > Buscar</button> */}
+      </div>
+      </div>
+   
      <div className={style.contenCat}>
-       <select name="" id="">
+       <select name="" id="" className={style.select}>
          <option value="">javascript</option>
          <option value="">HTML</option>
          <option value="">CSS</option>
@@ -43,14 +42,14 @@ export default function Nav(){
        </select>
      </div>
     <div className={style.contenValorado}>
-    <select name="" id="">
-         <option value="">Mas valorado</option>
+    <select name="" id="" className={style.select}>
+         <option value="" >Mas valorado</option>
          <option value="">Menos valorado</option>
        </select>
        </div>
        <div className={style.contenDuracion}>
-           <select name="" id="">
-         <option value="">max duración</option>
+           <select name="" id="" className={style.select}>
+         <option value="">Máx duración</option>
          <option value="">Menos duración</option>
        </select>
        </div>
