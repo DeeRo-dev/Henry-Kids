@@ -32,11 +32,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Clase , Category} = sequelize.models;
+const { Class , Category} = sequelize.models;
 
 // Aca vendrian las relaciones
-Clase.belongsToMany(Category,{through:'CatCurso'})
-Category.belongsToMany(Clase,{through:'CatCurso'})
+Class.belongsToMany(Category,{through:'CatCurso'})
+Category.belongsToMany(Class,{through:'CatCurso'})
 // Categori.hasMany(Curso);
 
 
