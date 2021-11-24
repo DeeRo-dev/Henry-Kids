@@ -8,17 +8,16 @@
   height: 100vh;
 }
 .background {
- background: url("./landing.png"); 
+/*  background: url("./landing.png");  */
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100vw;
+  background-size: cover;
   width: 100vw;
 
 }
 
 .btn{
-  margin-top: 50vh;
-  /* background-color: black; */
+  background-color: var(--amarillo);
 }
 
 .btn:hover{
