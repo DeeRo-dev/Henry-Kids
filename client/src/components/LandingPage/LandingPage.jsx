@@ -5,9 +5,8 @@ import { Button } from "@material-ui/core";
 export default function LandingPage() {
   return (
     <div className={styles.containerBackground}>
-
       <div className={styles.background}>
-      <img
+        <img
           className={styles.logo}
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
