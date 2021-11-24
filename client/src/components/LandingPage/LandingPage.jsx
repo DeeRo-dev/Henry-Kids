@@ -11,6 +11,7 @@ export default function LandingPage() {
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         ></img>
+        <div className={styles.containerBtns}>
         <Button
           className={styles.buttonIngresar}
           variant="contained"
@@ -25,7 +26,7 @@ export default function LandingPage() {
         >
           Registrarse
         </Button>
-
+        </div>
         {/* <Link to="/home">Home</Link>  */}
       </div>
     </div>
