@@ -7,7 +7,7 @@ function App() {
     /* Add Browser Route */
     <BrowserRouter>
       <div className="App">
-      <Nav/>
+      
         <Routes>
       
         </Routes>
