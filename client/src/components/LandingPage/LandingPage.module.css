@@ -1,0 +1,26 @@
+:root{
+  --amarillo: #FFD200;
+  --naranja: #FF8D00;
+}
+.containerBackground {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+.background {
+ background: url("./landing.png"); 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100vw;
+  width: 100vw;
+
+}
+
+.btn{
+  margin-top: 50vh;
+  /* background-color: black; */
+}
+
+.btn:hover{
+  background-color: grey;
+}
