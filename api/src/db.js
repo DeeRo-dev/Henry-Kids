@@ -32,12 +32,15 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Class , Category} = sequelize.models;
+const { Class , Category ,Evaluation} = sequelize.models;
 
 // Aca vendrian las relaciones
 Class.belongsToMany(Category,{through:'CatCurso'})
 Category.belongsToMany(Class,{through:'CatCurso'})
-// Categori.hasMany(Curso);
+
+
+Class.hasMany(Evaluation);
+Evaluation.belongsTo(Class);
 
 
 module.exports = {

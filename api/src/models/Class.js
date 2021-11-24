@@ -28,19 +28,19 @@ module.exports = (Sequelize) => {
       studio_material: {
         type: DataTypes.STRING(300),
         validate: {
-          irUrl: true,
+          isUrl: true,
         },
       },
       video_link: {
         type: DataTypes.STRING(300),
         validate: {
-          irUrl: true,
+          isUrl: true,
         },
       },
       game_link: {
         type: DataTypes.STRING(300),
         validate: {
-          irUrl: true,
+          isUrl: true,
         },
       },
       state: {
@@ -52,7 +52,7 @@ module.exports = (Sequelize) => {
         allowNull: false,
       },
       date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
       },
     },
