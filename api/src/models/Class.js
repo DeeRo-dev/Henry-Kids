@@ -51,22 +51,10 @@ module.exports = (Sequelize) => {
         type: DataTypes.ENUM("Basica", "Intermedia", "Alta"),
         allowNull: false,
       },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-    },
-    {
-      // don't add the timestamp attributes (updatedAt, createdAt)
-      timestamps: false,
-
-      // If don't want createdAt
-      createdAt: false,
-
-      // If don't want updatedAt
-      updatedAt: false,
-
-      // your other configuration here
+      // date: {
+      //   type: DataTypes.DATE,
+      //   // allowNull: true,
+      // },
     }
   );
 };
