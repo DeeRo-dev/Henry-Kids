@@ -27,7 +27,7 @@ async function addClass(req, res, next) {
 
         // })
 
-        return res.json({message: 'Clase created succesfully', Class: createClass}).send(createClass);
+        return res.json({message: 'Clase created succesfully', Class: createClass});
     }
 
     catch (error) {
