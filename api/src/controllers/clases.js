@@ -2,7 +2,7 @@ const {  Class, Category, Recommendation, Comment, valoration} = require("../db"
 const Sequelize = require('sequelize');
 
 
-async function addClass(req, res) {
+async function addClass(req, res, next) {
 
     let data = { ...req.body};
 
@@ -16,10 +16,10 @@ async function addClass(req, res) {
             video_link: data.video_link,
             game_link: data.game_link,
             state: data.state,
-            difficulty: data.difficulty,
-            date: data.date
+            difficulty: data.difficulty
 
         });
+
         
         // me falta agregarle la categoty, recommendation,comment. --- por hacer ---
 
@@ -27,7 +27,7 @@ async function addClass(req, res) {
 
         // })
 
-        return res.json({message: 'Clase created succesfully', Class: createdClass});
+        return res.json({message: 'Clase created succesfully', Class: createClass}).send(createClass);
     }
 
     catch (error) {

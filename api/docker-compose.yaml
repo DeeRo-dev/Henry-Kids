@@ -20,4 +20,4 @@ services:
     environment:
       POSTGRES_PASSWORD: mypassword
       POSTGRES_USER: kids
-      POSTGRES_DB: henry_kids
+      POSTGRES_DB: kids
