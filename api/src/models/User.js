@@ -8,7 +8,6 @@ module.exports = (sequelize) => {
   sequelize.define('user', {
      firstName: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notEmpty: true
@@ -17,7 +16,6 @@ module.exports = (sequelize) => {
 
      lastName: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notEmpty: true
@@ -40,6 +38,12 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    
+      type: {
+      type: DataTypes.ENUM('teacher', 'student'),
+      allowNull: false
+    }
+
 
     photo:{
       type: DataTypes.STRING,
