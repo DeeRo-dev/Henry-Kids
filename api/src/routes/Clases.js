@@ -7,9 +7,9 @@ const router = Router();
 router.post('/', addClass);
 router.delete('/:id', deleteClass);
 
-router.get("/", getClass)
+// router.get("/", getClass)
 
-router.get("/all", getClassEjempl)
+// router.get("/all", getClassEjempl)
 
 
 module.exports = router;
