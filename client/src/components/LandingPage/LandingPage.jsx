@@ -14,8 +14,12 @@ export default function LandingPage() {
       backgroundColor: "var(--amarillo)",
       fontFamily: "montserrat",
       fontWeight: "bold",
-      fontSize: "24px"
+      fontSize: "24px",
+      "&:hover": {
+        backgroundColor: "green"
+      },
     },
+    
     
     label: {
       color: "white",
