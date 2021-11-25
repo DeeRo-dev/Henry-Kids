@@ -6,7 +6,9 @@ import Card from "../Card/Card.jsx"
 
 
 export default function Home(){
-  
+  fetch('http://localhost:3001/allClasses/all')
+  .then(response => response.json())
+  .then(data => console.log(data));
   return (
   <div >
     <div>
@@ -18,7 +20,7 @@ export default function Home(){
 {/* //base de datos 
 //que tenga info harcord
 //que sea un arrray de 10 elementos con la info que necesitamos */}
-
+{/* 
 <div className={style.carta}>
   <Card/>
   <Card/>
@@ -28,7 +30,7 @@ export default function Home(){
   <Card/>
   <Card/> 
   <Card/>
-</div>
+</div> */}
 
 {/*     
       {

@@ -1,3 +1,4 @@
+import { StylesContext } from '@material-ui/styles'
 import React from 'react'
 import './Card.module.css'
 
@@ -5,6 +6,8 @@ export default function Card({id, title, category, description, video_link, diff
 
 
     return (
+        <div className={StylesContext.contentCard}>
+
         
         <div className="container">
             <div className="card">
@@ -34,6 +37,7 @@ export default function Card({id, title, category, description, video_link, diff
         </div>
 
 
+        </div>
     )
 
 }
