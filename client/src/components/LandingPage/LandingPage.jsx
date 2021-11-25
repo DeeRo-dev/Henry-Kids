@@ -13,6 +13,27 @@ import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   const [modal, setModal] = useState(false);
+  const [modalIngresar, setModalIngresar] = useState(false);
+
+  const toggleModal = (e) => {
+    setModal(!modal);
+  };
+
+  const toggleModalIngresar = (e) => {
+    setModalIngresar(!modalIngresar);
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
+
+  if (modalIngresar) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
 
   const StyleButtonCrearCuenta = withStyles({
     root: {
@@ -100,7 +121,7 @@ export default function LandingPage() {
         <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
-              onClick={(e) => toggleModal(e)}
+              onClick={(e) => toggleModalIngresar(e)}
               className={styles.btnIngresar}
               /* variant="contained"
               color="primary" */
@@ -116,6 +137,60 @@ export default function LandingPage() {
               Registrarse
             </StyleButtonRegistrarse>
           </div>
+
+          {modalIngresar && (
+            <div className={styles.modal}>
+              <div
+                onClick={toggleModalIngresar}
+                className={styles.overlay}
+              ></div>
+              <div className={styles.modal_content_Ingresar}>
+                <button
+                  className={styles.close_modal}
+                  onClick={toggleModalIngresar}
+                >
+                  x
+                </button>
+
+                <div>
+                  <form>
+                    <input type="text" placeholder="Email:" />
+                    <input type="password" placeholder="Contraseña:" />
+
+                    <FormControl component="fieldset">
+                      <RadioGroup
+                        aria-label="Type"
+                        defaultValue="female"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel
+                          value="Alumno"
+                          control={<Radio />}
+                          label="Alumno"
+                        />
+                        <FormControlLabel
+                          value="Profesor"
+                          control={<Radio />}
+                          label="Profesor"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+
+                    <Link className={styles.btnCrear} to="/home">
+                      <StyleButtonCrearCuenta
+                        type="submit"
+                        className={styles.btnCrearCuenta}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Ingresar
+                      </StyleButtonCrearCuenta>
+                    </Link>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
 
           {modal && (
             <div className={styles.modal}>
@@ -136,35 +211,35 @@ export default function LandingPage() {
                       type="password"
                       placeholder="Confirmar contraseña:"
                     />
-<div>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="gender"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="Alumno"
-                          control={<Radio />}
-                          label="Alumno"
-                        />
-                        <FormControlLabel
-                          value="Profesor"
-                          control={<Radio />}
-                          label="Profesor"
-                        />
-                      </RadioGroup>
-                    </FormControl>
+                    <div>
+                      <FormControl component="fieldset">
+                        <RadioGroup
+                          aria-label="gender"
+                          defaultValue="female"
+                          name="radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            value="Alumno"
+                            control={<Radio />}
+                            label="Alumno"
+                          />
+                          <FormControlLabel
+                            value="Profesor"
+                            control={<Radio />}
+                            label="Profesor"
+                          />
+                        </RadioGroup>
+                      </FormControl>
                     </div>
-                    <Link to="/home">
-                    <StyleButtonCrearCuenta
-                      type="submit"
-                      className={styles.btnCrearCuenta}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Crear cuenta
-                    </StyleButtonCrearCuenta>
+                    <Link className={styles.btnCrear} to="/home">
+                      <StyleButtonCrearCuenta
+                        type="submit"
+                        className={styles.btnCrearCuenta}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Crear cuenta
+                      </StyleButtonCrearCuenta>
                     </Link>
                   </form>
                 </div>
