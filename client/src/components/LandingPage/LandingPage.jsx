@@ -61,7 +61,7 @@ export default function LandingPage() {
               variant="contained"
               color="primary"
             >
-              Registrarse
+              Registrar
             </Button>
           </div>
 
