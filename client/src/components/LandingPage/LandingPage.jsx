@@ -81,14 +81,22 @@ export default function LandingPage() {
     document.body.classList.remove("active-modal");
   }
 
+
+
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-        <img
+      <Link to="home"  >
+     <img
           className={styles.logo}
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
+         
         />
+      </Link>
+        
+      
+       
         <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar

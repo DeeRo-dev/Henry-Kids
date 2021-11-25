@@ -14,10 +14,13 @@ export default function Nav(){
   return(
     <nav className={style.nav}>
       <div className={style.logo}>
-     <img className={style.logo }src="https://i.imgur.com/AWEe2XR.png" alt="not found" />
+        <Link to="/">
+            <img className={style.logo }src="https://i.imgur.com/AWEe2XR.png" alt="not found" />
+        </Link>
+   
       </div>
       
-      <div className={style.contentSearch}>
+     <div  className={style.contentSearch}>
         <div className={style.buscador}>
           <button className={style.iconoBuscar}>
              <Icon >
@@ -28,7 +31,6 @@ export default function Nav(){
          <input type="text" 
                 placeholder='Buscar' 
                 className={style.inputSearch}/>
-          {/* <button type='submit' > Buscar</button> */}
       </div>
       </div>
    

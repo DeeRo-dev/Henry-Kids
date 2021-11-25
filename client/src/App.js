@@ -1,7 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage.jsx"
-import Nav from "./components/Nav.jsx"
+
+import Home from "./components/Home/home";
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <div className="App">
         <Routes>
         <Route path="/" element = {<LandingPage/>}/>
-        <Route path="/home" element = {<Nav/>}/>
+        <Route path="/home" element = {<Home/>}/>
         </Routes>
       </div>
     </BrowserRouter>
