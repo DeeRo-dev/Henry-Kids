@@ -78,6 +78,14 @@ export default function Nav() {
               ⭐
             </option>
           </select>
+         
+       <Link to="/create-clase">
+         <button className={styles.botonClase}>
+             Crear una clase
+          </button>
+      </Link>
+  
+
         </div>
         <div className={styles.imagen}>
           <img

@@ -1,8 +1,8 @@
 import React from "react";
 import style from  './Home.module.css'
-import Nav from "../Nav";
+import Nav from "../Nav/Nav.jsx";
 import { Link } from "react-router-dom";
-
+import Card from "../Card/Card.jsx"
 
 
 export default function Home(){
@@ -12,20 +12,23 @@ export default function Home(){
     <div>
          <Nav/>
     </div>
- <div>
-    <Link to="/create-clase">
-        <button>
-      Crear una clase
-   </button>
-      </Link>
-  
- </div>
+    
 <div className="contentCards">
 
 {/* //base de datos 
 //que tenga info harcord
 //que sea un arrray de 10 elementos con la info que necesitamos */}
 
+<div className={style.carta}>
+  <Card/>
+  <Card/>
+  <Card/>
+  <Card/>
+  <Card/>
+  <Card/>
+  <Card/> 
+  <Card/>
+</div>
 
 {/*     
       {

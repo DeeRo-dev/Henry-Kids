@@ -92,9 +92,7 @@ export default function LandingPage() {
     },
   })(Button);
 
-  const toggleModal = (e) => {
-    setModal(!modal);
-  };
+  
 
   if (modal) {
     document.body.classList.add("active-modal");
