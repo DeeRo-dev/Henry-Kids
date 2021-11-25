@@ -19,14 +19,14 @@ async function addClass(req, res, next) {
             difficulty: data.difficulty
 
         });
-        
+
         // me falta agregarle la category, recommendation,comment, etc. --- por hacer ---
 
-        let createCategory = await Category.findById(
-            data.id
-        )
+        // let createCategory = await Category.findById(
+        //     data.id
+        // )
 
-        await createClass.setCategory(createCategory);
+        // await createClass.setCategory(createCategory);
 
         return res.json({message: 'Clase created succesfully', Class: createClass});
     }
