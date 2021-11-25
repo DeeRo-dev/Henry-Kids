@@ -9,6 +9,7 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   const [modal, setModal] = useState(false);
@@ -147,6 +148,7 @@ export default function LandingPage() {
                       </RadioGroup>
                     </FormControl>
                     </div>
+                    <Link to="/home">
                     <StyleButtonCrearCuenta
                       type="submit"
                       className={styles.btnCrearCuenta}
@@ -155,6 +157,7 @@ export default function LandingPage() {
                     >
                       Crear cuenta
                     </StyleButtonCrearCuenta>
+                    </Link>
                   </form>
                 </div>
               </div>
