@@ -1,8 +1,12 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage.jsx"
-import Nav from "./components/Nav.jsx"
-import Card from "./components/Card/Card";
+import FormularioClase from "./components/FormularioClase/FormularioClase.jsx";
+import Home from "./components/Home/home";
 
 function App() {
   return (
@@ -10,8 +14,8 @@ function App() {
       <div className="App">
         <Routes>
         <Route path="/" element = {<LandingPage/>}/>
-        <Route path="/home" element = {<Nav/>}/>
-        <Route path="/card" element = {<Card/>}/>
+        <Route path="/home" element = {<Home/>}/>
+        <Route path="/create-clase" element = {<FormularioClase/>}/>
         </Routes>
       </div>
     </BrowserRouter>

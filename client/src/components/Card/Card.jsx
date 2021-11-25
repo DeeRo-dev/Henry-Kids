@@ -1,10 +1,11 @@
 import React from 'react'
-import './Card.css'
+import './Card.module.css'
 
 export default function Card({id, title, category, description, video_link, difficulty, game_link, valoration}) {
 
 
     return (
+        
         <div className="container">
             <div className="card">
                 <div className="card-header">
