@@ -11,7 +11,7 @@ export default function Card({id, title, category, description, video_link, diff
                     <img src="https://www.grupoeducar.cl/wp-content//uploads/2017/10/actualidad.png" alt="rover" />
                 </div>
                 <div className="card-body">
-                    <span className="categClasse.jsxory">Javascript{category}</span>
+                    <span className="category">Javascript{category}</span>
 
                     <div className='title'>
                         Fundamentos de la Programacion{title}
