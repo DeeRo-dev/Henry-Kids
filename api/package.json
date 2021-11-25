@@ -22,6 +22,7 @@
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
     "pg": "^8.7.1",
-    "sequelize": "^6.12.0-alpha.1"
+    "sequelize": "^6.12.0-alpha.1",
+    "sequelize-bcrypt": "^1.1.0"
   }
 }
