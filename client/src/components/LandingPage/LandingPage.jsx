@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import styles from "./LandingPage.module.css";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 export default function LandingPage() {
@@ -120,6 +127,26 @@ export default function LandingPage() {
                       type="password"
                       placeholder="Confirmar contraseña:"
                     />
+<div>
+                    <FormControl component="fieldset">
+                      <RadioGroup
+                        aria-label="gender"
+                        defaultValue="female"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel
+                          value="Alumno"
+                          control={<Radio />}
+                          label="Alumno"
+                        />
+                        <FormControlLabel
+                          value="Profesor"
+                          control={<Radio />}
+                          label="Profesor"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                    </div>
                     <StyleButtonCrearCuenta
                       type="submit"
                       className={styles.btnCrearCuenta}
