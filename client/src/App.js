@@ -5,6 +5,7 @@ import {
   Routes
 } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage.jsx"
+import Nav from "./components/Nav/Nav.jsx"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="App">
         <Routes>
         <Route path="/" element = {<LandingPage/>}/>
+        <Route path="/home" element = {<Nav/>}/>
         </Routes>
       </div>
     </BrowserRouter>
