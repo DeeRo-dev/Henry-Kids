@@ -1,3 +1,16 @@
+/* .containerBackground {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+.background {
+  background: url("https://i.imgur.com/7Dl1ISR.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 300vw;
+} */
+
 .nav {
   display: flex;
   width: 100%;
@@ -6,6 +19,7 @@
   justify-content: space-between;
   box-shadow: 0 1px 10px -0px var(--amarillo);
   grid-template-columns: repeat(7, 1fr);
+  position: absolute;
 }
 .logo {
   background: #fff;
@@ -95,6 +109,7 @@ select:focus{
   border: none;
   font-family: Roboto, -apple-system, BlinkMacSystemFont;
   font-size: 20px;
+  /* color: white; */
 }
 .select:hover {
   border-bottom: 1px solid #ff8d00;
@@ -102,6 +117,13 @@ select:focus{
   box-shadow: 0 4px 3px -2px #cea74a;
 }
 
+.selects{
+  font-size: 10px;
+  /* color: white; */
+}
+
 /* 
 #FFD200 (AMARILLO)
 #FF8D00 (NARANJA) */
+
+
