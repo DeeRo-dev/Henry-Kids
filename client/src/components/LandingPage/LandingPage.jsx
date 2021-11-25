@@ -6,7 +6,28 @@ import { withStyles } from "@material-ui/styles";
 export default function LandingPage() {
   const [modal, setModal] = useState(false);
 
-  const StyledButton = withStyles({
+  const StyleButtonCrearCuenta = withStyles({
+    root: {
+      marginTop: "20px",
+      width: "60%",
+      border: "0",
+      backgroundColor: "#ff8d00",
+      borderRadius: "5px",
+      height: "50px",
+      color: "white",
+      fontWeight: "400",
+      fontSize: "1em",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
+
+    label: {
+      color: "white",
+    },
+  })(Button);
+
+  const StyleButtonIngresar = withStyles({
     root: {
       paddingRight: "40px",
       paddingLeft: "40px",
@@ -16,15 +37,30 @@ export default function LandingPage() {
       fontWeight: "bold",
       fontSize: "24px",
       "&:hover": {
-        backgroundColor: "green"
+        backgroundColor: "var(--verde)",
       },
     },
-    
-    
+
     label: {
       color: "white",
-    }
-    
+    },
+  })(Button);
+
+  const StyleButtonRegistrarse = withStyles({
+    root: {
+      paddingRight: "17px",
+      paddingLeft: "17px",
+      backgroundColor: "var(--naranja)",
+      fontFamily: "montserrat",
+      fontWeight: "bold",
+      fontSize: "24px",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
+    label: {
+      color: "white",
+    },
   })(Button);
 
   const toggleModal = (e) => {
@@ -47,22 +83,22 @@ export default function LandingPage() {
         />
         <div>
           <div className={styles.containerBtns}>
-            <StyledButton
+            <StyleButtonIngresar
               onClick={(e) => toggleModal(e)}
-               className={styles.btnIngresar}
+              className={styles.btnIngresar}
               /* variant="contained"
               color="primary" */
             >
               Ingresar
-            </StyledButton>
-            <Button
+            </StyleButtonIngresar>
+            <StyleButtonRegistrarse
               onClick={toggleModal}
-              className={styles.btnRegistrarse}
+              /* className={styles.btnRegistrarse} */
               variant="contained"
               color="primary"
             >
-              Registrar
-            </Button>
+              Registrarse
+            </StyleButtonRegistrarse>
           </div>
 
           {modal && (
@@ -79,16 +115,19 @@ export default function LandingPage() {
                     <input type="text" placeholder="Apellido:" />
                     <input type="text" placeholder="Nombre de usuario:" />
                     <input type="text" placeholder="Email:" />
-                    <input type="text" placeholder="Contraseña:" />
-                    <input type="text" placeholder="Confirmar contraseña:" />
-                    <Button
+                    <input type="password" placeholder="Contraseña:" />
+                    <input
+                      type="password"
+                      placeholder="Confirmar contraseña:"
+                    />
+                    <StyleButtonCrearCuenta
                       type="submit"
                       className={styles.btnCrearCuenta}
                       variant="contained"
                       color="primary"
                     >
                       Crear cuenta
-                    </Button>
+                    </StyleButtonCrearCuenta>
                   </form>
                 </div>
               </div>
