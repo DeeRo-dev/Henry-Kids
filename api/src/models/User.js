@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const useBcrypt = require('sequelize-bcrypt');
+// const useBcrypt = require('sequelize-bcrypt');
 // require('sequelize-isunique-validator')(Sequelize);
 
 

@@ -1,61 +1,69 @@
-import React from "react";
-import style from  './Home.module.css'
+import React ,{useState, useEffect} from "react";
+// import style from  './Home.module.css'
 import Nav from "../Nav/Nav.jsx";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Card from "../Card/Card.jsx"
-
+import { response } from "../../../../api/src/app.js";
+import { styled } from "@material-ui/core";
+import style from './Home.module.css'
 
 export default function Home(){
-  fetch('http://localhost:3001/allClasses/all')
-  .then(response => response.json())
-  .then(data => console.log(data));
+//   const api = 'http://localhost:3001/allClasses';
+//  const db =[];
+
+// const [cursos, setCursos] = useState([])
+
+// useEffect(()=>{
+// getCursos()
+// },[])
+
+  
+
+  // function getCursos(){
+  //    fetch(api)
+  //     .then(res => {return res.json()})
+  //     .then(data => db.push(data))
+  //       setCursos(db)
+  //     }
+        
+  // }
+ 
   return (
-  <div >
+  <div className={style.home}>
     <div>
          <Nav/>
     </div>
     
-<div className="contentCards">
+    <div className="cards">
 
-{/* //base de datos 
-//que tenga info harcord
-//que sea un arrray de 10 elementos con la info que necesitamos */}
-{/* 
-<div className={style.carta}>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/> 
-  <Card/>
-</div> */}
-
-{/*     
-      {
-        LOQUETENGODEBASEDEDATOS?.map(e => {
-         
-           return (
-            <div className='cartas'  key={e.id}>
-             
-              <Card id={e.id}              
-              title={e.title} 
-              category={e.category}
-              description={e.description} 
-              video_link={e.video_link} 
-              difficulty={e.difficulty}
-              game_link={e.game_link} 
-              valoration={e.valoration}
-              />
+      {/* {
+    
+      //  db?.map(e => {
+        
+      //      return ( 
+      //        <div>
+      //       <div className='cartas'  key={e.id}>
+           
+      //         <Card id={e.id}              
+      //         title={e.title} 
+      //         category={e.category}
+      //         description={e.description} 
+      //         video_link={e.video_link} 
+      //         difficulty={e.difficulty}
+      //         game_link={e.game_link} 
+      //         valoration={e.valoration}
+      //         />
               
-            </div>
-          
-            )})
-      } */}
-  
+      //       </div>
+           
+      //    </div>
+      //       )})
+     
+      }
+   */}
 </div>
 
   </div>
+
   )
 }
