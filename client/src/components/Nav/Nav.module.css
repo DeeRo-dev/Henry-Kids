@@ -77,9 +77,7 @@
     cursor:pointer
 }
 
-select:focus{
-  outline:none;
-} 
+
 .img{
   width: auto;
   height: 100%;
@@ -116,7 +114,9 @@ select:focus{
   cursor: pointer;
   box-shadow: 0 4px 3px -2px #cea74a;
 }
-
+select:focus{
+  outline:none;
+} 
 .selects{
   font-size: 10px;
   /* color: white; */

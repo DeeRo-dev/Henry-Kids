@@ -1,32 +1,138 @@
+.background {
+  background: url('https://i.imgur.com/7Dl1ISR.png');
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  overflow-x:hidden;
+  overflow-y:hidden
 
-  .background {
-    background: url('https://i.imgur.com/7Dl1ISR.png');
-    background-position: center;
-    background-size: cover;
-    width: 100vw;
-    overflow-x:hidden;
-    overflow-y:hidden
-  
+}
+
+.containerBackground {
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;  
+}
+
+
+
+
+
+.modal, .overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49,49,49,0.8);
+}
+.close_modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0px 7px;
+  background: none;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  cursor:pointer;
+}
+
+
+.close_modal:hover {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0px 7px;
+  background: none;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  transform: scale(1.2, 1.2)
+}
+
+.close_modal:active {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0px 7px;
+  background: none;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  transform: scale(1, 1)
+}
+
+.modal_content {
+  background-color: white;
+  font: 1em Helvetica;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  line-height: 1.4;
+  padding: 30px 28px;
+  border-radius: 3px;
+  float: left;
+  width: 300px;
+  height: 490px;
+  text-align: center;
+  border-radius: 20px;
+  transition: all 400ms ease;
+}
+
+.modal_content:hover {
+  box-shadow: 0px 0px 25px rgb(255, 237, 179);
+  transform: translate(-50%, -41%);
+}
+
+  /* .label{
+    padding: .2em;
   }
 
-  .containerBackground {
-    display: flex;
-    flex-direction:column;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;  
-  }
-
-  .input{
+ .label{
+    display: block;
+    margin: 0 auto;
+    width: 80%;
     border: 0;
-    outline: 0;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    height: 45px;
+    line-height: 45px;  
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: rgba(0,0,0,.4);
+  } */
+
+  .btnCrear {
+    text-decoration:none
+  }
+  form{
+    font-size: 15px;
+  }
+
+  .select {
     background: transparent;
-    border-bottom: 1px solid black;
-    margin-bottom: 20px;
-    margin-top: 3px;
-    font-size: 14px
+    border: none;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont;
+    font-size: 18px;
+    color: rgba(0,0,0,.4)
+    /* color: white; */
   }
-  
-  .label{
-    font-size:18px
+  .select:hover {
+    border-bottom: 1px solid #ff8d00;
+    cursor: pointer;
+    box-shadow: 0 4px 3px -2px #cea74a;
   }
+  select:focus{
+    outline:none;
+  } 
