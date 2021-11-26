@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 
+
 export default function Nav() {
   // function handdleSubmit(e){
   //   e.preventDefault();
@@ -80,8 +81,8 @@ export default function Nav() {
           </select>
          
        <Link to="/create-clase">
-         <button className={styles.botonClase}>
-             Crear una clase
+         <button className={styles.blue}>
+             Crear clase
           </button>
       </Link>
   
