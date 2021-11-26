@@ -81,8 +81,8 @@ export default function Nav() {
           </select>
          
        <Link to="/create-clase">
-         <button className={styles.botonClase}>
-             Crear una clase
+         <button className={styles.blue}>
+             Crear clase
           </button>
       </Link>
   

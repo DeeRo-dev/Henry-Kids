@@ -13,14 +13,14 @@ import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 
 export default function FormularioClase() {
+  const [modal, setModal] = useState(false);
   const [input, setInput] = useState({
     title: "",
     description: "",
-    material: "",
-    videolink: "",
-    gamelink: "",
-    state: "",
-    dificulty: "",
+    studio_material: "",
+    video_link: "",
+    game_link: "",
+    difficulty: "",
     date: "",
   });
 
@@ -42,26 +42,17 @@ export default function FormularioClase() {
     e.preventDefault();
 
     try {
-      axios.post("http://localhost:3001/", input);
+      axios.post("http://localhost:3001/class", input);
     } catch (error) {
       console.log(error);
     }
   }
-
-  const [modal, setModal] = useState(false);
-  const [modalIngresar, setModalIngresar] = useState(false);
 
   const toggleModal = (e) => {
     setModal(!modal);
   };
 
   if (modal) {
-    document.body.classList.add("active-modal");
-  } else {
-    document.body.classList.remove("active-modal");
-  }
-
-  if (modalIngresar) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
@@ -94,53 +85,67 @@ export default function FormularioClase() {
         <div className={styles.modal}>
           <div onClick={toggleModal} className={styles.overlay}></div>
           <div className={styles.modal_content}>
-            <button
-              className={styles.close_modal}
-              onClick={toggleModal}
-            ></button>
+            <Link className={styles.btnCrear} to="/home">
+              <button className={styles.close_modal} onClick={toggleModal}>
+                x
+              </button>
+            </Link>
             <div>
-              <form>
-                <input type="text" placeholder="Titulo" />
-                <input type="text" placeholder="Descripcion" />
-                <input type="text" placeholder="Material de estudio" />
-                <input type="text" placeholder="Link al video" />
-                <input type="password" placeholder="Link de juegos" />
-                <select
-                  name="state"
+              <form onSubmit={(e) => onSubmit(e)}>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Titulo"
                   onChange={handleChange}
-                  className={styles.select}
-                >
-                  <option
-                    value=""
-                    selected
-                    disabled
-                    hidden
+                />
+                <input
+                  type="text"
+                  name="description"
+                  placeholder="Descripcion"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="studio_material"
+                  placeholder="Material de estudio"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="video_link"
+                  placeholder="Link al video"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="game_link"
+                  placeholder="Link de juegos"
+                  onChange={handleChange}
+                />
+                <div className={styles.containerOptions}>
+                  {" "}
+                  <select
+                    name="difficulty"
+                    className={styles.select}
                     onChange={handleChange}
                   >
-                    Dificultad
-                  </option>
-                  <option value={true}>Básica</option>
-                  <option value={false}>Intermedia</option>
-                  <option value={false}>Alta</option>
-                </select>
-                <input
-                  type="date"
-                  name="date"
-                  onChange={handleChange}
-                  min="2021-01-01"
-                  max="2025-12-31"
-                />
+                    <option value="" selected disabled hidden>
+                      Dificultad
+                    </option>
+                    <option value="Basica">Básica</option>
+                    <option value="Intermedia">Intermedia</option>
+                    <option value="Alta">Alta</option>
+                  </select>
+                </div>
 
-                <Link className={styles.btnCrear} to="/home">
-                  <StyleButtonCrearCuenta
-                    type="submit"
-                    className={styles.btnCrearCuenta}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Crear clase
-                  </StyleButtonCrearCuenta>
-                </Link>
+                <StyleButtonCrearCuenta
+                  type="submit"
+                  className={styles.btnCrearCuenta}
+                  variant="contained"
+                  color="primary"
+                >
+                  Crear clase
+                </StyleButtonCrearCuenta>
               </form>
             </div>
           </div>

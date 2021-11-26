@@ -16,10 +16,24 @@
   height: 100vh;  
 }
 
+[type=date]{
+  margin-right: 9px;
+  margin-left: 2px;
+  margin-bottom: 15px;
+  background: transparent;
+  border: none;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.616)
+  /* color: white; */
+}
 
-
-
-
+.containerOptions{
+  display: flex;
+  flex-direction:column;
+  align-items: flex-start;
+  margin-left: 25px;
+}
 .modal, .overlay {
   width: 100vw;
   height: 100vh;
@@ -85,7 +99,7 @@
   border-radius: 3px;
   float: left;
   width: 300px;
-  height: 490px;
+  height: 450px;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;
@@ -121,11 +135,14 @@
   }
 
   .select {
+    margin-right: 9px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     background: transparent;
     border: none;
     font-family: Roboto, -apple-system, BlinkMacSystemFont;
     font-size: 18px;
-    color: rgba(0,0,0,.4)
+    color: rgba(0, 0, 0, 0.616)
     /* color: white; */
   }
   .select:hover {
