@@ -1,15 +1,13 @@
 import React ,{useState, useEffect} from "react";
-// import style from  './Home.module.css'
 import Nav from "../Nav/Nav.jsx";
 // import { Link } from "react-router-dom";
-import Card from "../Card/Card.jsx"
-import { response } from "../../../../api/src/app.js";
 import { styled } from "@material-ui/core";
 import style from './Home.module.css'
+import Card from "../Card/Card.jsx";
 
 export default function Home(){
-//   const api = 'http://localhost:3001/allClasses';
-//  const db =[];
+   const api = 'http://localhost:3001/allClasses';
+ const db =[];
 
 // const [cursos, setCursos] = useState([])
 
@@ -19,23 +17,27 @@ export default function Home(){
 
   
 
-  // function getCursos(){
+  // // function getCursos(){
   //    fetch(api)
   //     .then(res => {return res.json()})
   //     .then(data => db.push(data))
-  //       setCursos(db)
-  //     }
+  //       console.log(db) 
         
-  // }
+  // //  }
  
   return (
   <div className={style.home}>
     <div>
          <Nav/>
     </div>
-    
-    <div className="cards">
-
+   
+    <div className={style.cards}>
+    <Card/>
+    <Card/>
+    <Card/>
+    <Card/>
+    <Card/>
+    <Card/>
       {/* {
     
       //  db?.map(e => {

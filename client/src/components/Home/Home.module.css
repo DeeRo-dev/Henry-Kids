@@ -3,11 +3,13 @@
   height: 100%;
 }
 .cards{
+  
+  margin-top: 100px;
+  /* background: chartreuse; */
   width: 100%;
   height: 800px;
   display: grid;
-  grid-template-columns:  repeat(4, 1fr) ;
+  grid-template-columns:  repeat(3, 1fr) ;
   grid-template-rows:  repeat(2,360px);
-  gap: 1em;
-  
+  gap: 2em;
 }

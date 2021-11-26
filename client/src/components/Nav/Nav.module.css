@@ -18,8 +18,10 @@
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 1px 10px -0px var(--amarillo);
-  grid-template-columns: repeat(7, 1fr);
-  position: absolute;
+  background: #fff;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
 }
 .logo {
   background: #fff;
