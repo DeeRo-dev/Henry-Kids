@@ -1,14 +1,33 @@
 import React, { useState } from "react";
 import styles from "./FormStyles.module.css";
 import axios from "axios";
-import {
-  Button,
-} from "@material-ui/core";
+import { Button, Snackbar  } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
+import { makeStyles } from '@material-ui/core/styles';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
+
 
 export default function FormularioClase() {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(true);
+
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -35,7 +54,6 @@ export default function FormularioClase() {
 
   function onSubmit(e) {
     e.preventDefault();
-
     try {
       axios.post("http://localhost:3001/class", input);
     } catch (error) {
@@ -74,6 +92,23 @@ export default function FormularioClase() {
     },
   })(Button);
 
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
+
   return (
     <div className={styles.background}>
       <div className={styles.containerBackground}>
@@ -86,7 +121,7 @@ export default function FormularioClase() {
               </button>
             </Link>
             <div>
-              <form onSubmit={(e) => onSubmit(e)}>
+              <form onSubmit={onSubmit}>
                 <input
                   type="text"
                   name="title"
@@ -132,6 +167,23 @@ export default function FormularioClase() {
                     <option value="Alta">Alta</option>
                   </select>
                 </div>
+                {/* <div className={styles.containerOptions}>
+                  {" "}
+                  <select
+                    name="categorias"
+                    className={styles.select}
+                    onChange={handleChange}
+                  >
+                    <option value="" selected disabled hidden>
+                      Categoría
+                    </option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="React">React</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                  </select>
+                </div> */}
+
 
                 <StyleButtonCrearCuenta
                   type="submit"
@@ -141,6 +193,14 @@ export default function FormularioClase() {
                 >
                   Crear clase
                 </StyleButtonCrearCuenta>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+  <Alert onClose={handleClose} severity="success">
+    This is a success message!
+  </Alert>
+</Snackbar>
+<Alert severity="success">
+    This is a success message!
+  </Alert>
               </form>
             </div>
           </div>

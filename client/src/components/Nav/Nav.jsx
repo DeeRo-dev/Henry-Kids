@@ -38,8 +38,6 @@ export default function Nav() {
           </button>
           {/* <button type='submit' > Buscar</button> */}
         </div>
-        {/* </div> */}
-
         <div className={styles.contenCat}>
           <select name="" id="" className={styles.select}>
             <option value="" selected disabled hidden>

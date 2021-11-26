@@ -2,6 +2,10 @@
 /* * {
   box-sizing: border-box;
 }*/
+
+
+
+
 .contentCard {
   display: flex;
   justify-content: center;
@@ -14,7 +18,7 @@
 } 
 
 .card {
-  margin: 10px; 
+  margin: 30px; 
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.7);
@@ -27,11 +31,9 @@
 .card:hover{
   box-shadow: 10px 1px 20px rgba(0,0,0,0.8);  
   transform: translateY(-3%);
-  
 }
 
 .cardHeader img {
-
   width: 250px;
   height: 170px;
  object-fit:fill;
