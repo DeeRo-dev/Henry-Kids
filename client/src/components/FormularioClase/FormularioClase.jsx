@@ -1,101 +1,151 @@
-import React, { useState } from "react"
-import styles from './FormStyles.module.css' 
-import axios from 'axios'
-
-
+import React, { useState } from "react";
+import styles from "./FormStyles.module.css";
+import axios from "axios";
+import {
+  Button,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/styles";
 
 export default function FormularioClase() {
+  const [modal, setModal] = useState(false);
+  const [input, setInput] = useState({
+    title: "",
+    description: "",
+    studio_material: "",
+    video_link: "",
+    game_link: "",
+    difficulty: "",
+    date: "",
+  });
 
+  function handleChange(e) {
+    if (e.target.value === "Seleccione") {
+      setInput({
+        ...input,
+        [e.target.name]: "",
+      });
+    } else {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    }
+  }
 
-    const [input, setInput] = useState({
-        title: '',
-        description: '',
-        material: '',
-        videolink: '',
-        gamelink: '',
-        state: '',
-        dificulty: '',
-        date: ''
-    })
+  function onSubmit(e) {
+    e.preventDefault();
 
-    function handleChange(e) {
-        if (e.target.value === 'Seleccione'){
-        setInput({
-            ...input,
-            [e.target.name]:''
-        })
-        } else{
-            setInput({
-            ...input,
-             [e.target.name]:e.target.value
-            })
-        }
-     }
+    try {
+      axios.post("http://localhost:3001/class", input);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-     function onSubmit(e){
-         e.preventDefault();
+  const toggleModal = (e) => {
+    setModal(!modal);
+  };
 
-        try {
-               axios.post ('http://localhost:3001/',input);
-            ;
-          } catch (error) {
-            console.log (error);
-          }
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
 
-     }
+  const StyleButtonCrearCuenta = withStyles({
+    root: {
+      marginTop: "20px",
+      width: "60%",
+      border: "0",
+      backgroundColor: "#ff8d00",
+      borderRadius: "5px",
+      height: "50px",
+      color: "white",
+      fontWeight: "400",
+      fontSize: "1em",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
 
+    label: {
+      color: "white",
+    },
+  })(Button);
 
-      
-    return (
-        <div className={styles.background} >
-            <h1>Crear nueva Clase</h1>
+  return (
+    <div className={styles.background}>
+      <div className={styles.containerBackground}>
+        <div className={styles.modal}>
+          <div onClick={toggleModal} className={styles.overlay}></div>
+          <div className={styles.modal_content}>
+            <Link className={styles.btnCrear} to="/home">
+              <button className={styles.close_modal} onClick={toggleModal}>
+                x
+              </button>
+            </Link>
+            <div>
+              <form onSubmit={(e) => onSubmit(e)}>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Titulo"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="description"
+                  placeholder="Descripcion"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="studio_material"
+                  placeholder="Material de estudio"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="video_link"
+                  placeholder="Link al video"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="game_link"
+                  placeholder="Link de juegos"
+                  onChange={handleChange}
+                />
+                <div className={styles.containerOptions}>
+                  {" "}
+                  <select
+                    name="difficulty"
+                    className={styles.select}
+                    onChange={handleChange}
+                  >
+                    <option value="" selected disabled hidden>
+                      Dificultad
+                    </option>
+                    <option value="Basica">Básica</option>
+                    <option value="Intermedia">Intermedia</option>
+                    <option value="Alta">Alta</option>
+                  </select>
+                </div>
 
-
-            <form className={styles.containerBackground} onSubmit={onSubmit}>
-                
-                <label className={styles.label}>Titulo de la clase</label>
-                <input className={styles.input} name='title' type='text' onChange={handleChange} />
-                
-                <label className={styles.label}> Descripcion de la clase</label>
-                <textarea className={styles.input} name='description' type='text'
-                     onChange={handleChange}/>
-               
-                <label className={styles.label}> Material de estudio</label>
-                <input  className={styles.input} name='material' type='text' placeholder='Ingrese URL' onChange={handleChange} />
-               
-                <label className={styles.label}>Link video clase</label>
-                <input className={styles.input} name='videolink' type='text'placeholder='Ingrese URL' onChange={handleChange} />
-               
-                <label className={styles.label}>Link juego clase</label>
-                <input  className={styles.input} name='gamelink' type='text' placeholder='Ingrese URL' onChange={handleChange} />
-               
-                <label className={styles.label}>Estado de la clase</label>
-                
-                <select className={styles.input} name='state' onChange={handleChange}> 
-                
-                <option >Seleccione</option>
-                    <option value={true}>Publicada</option>
-                    <option value={false}>Deshabilitada</option>
-                </select>
-               
-                <label className={styles.label}>Dificultad de la clase</label>
-        
-                <select className={styles.input} name='dificulty' onChange={handleChange}>
-                <option >Seleccione</option>
-                    <option value='Basica'>Basica</option>
-                    <option value='Intermedia'>Intermedia</option>
-                    <option value='Alta'>Alta</option>
-                </select>
-               
-                <label className={styles.label}>Fecha de publicacion</label>
-                <input  className={styles.input} type="date" name="date" onChange={handleChange}
-                    min="2021-01-01" max="2025-12-31" />
-               
-                    <button type='submit'>CREAR</button>
-           
-            </form>
+                <StyleButtonCrearCuenta
+                  type="submit"
+                  className={styles.btnCrearCuenta}
+                  variant="contained"
+                  color="primary"
+                >
+                  Crear clase
+                </StyleButtonCrearCuenta>
+              </form>
+            </div>
+          </div>
         </div>
-
-    )
-
+      </div>
+    </div>
+  );
 }
