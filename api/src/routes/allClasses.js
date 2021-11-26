@@ -41,10 +41,6 @@ router.get("/all", async (req, res, next) => {
       game_link:"https://scratch.mit.edu/projects/56791332",
       state:true,
       difficulty:"Basica",
-<<<<<<< HEAD
-     
-=======
->>>>>>> a2755f79d8d404dc2771b0158eda3c6a568eb88f
 
       });
     arr.push(newCalss);
