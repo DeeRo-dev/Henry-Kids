@@ -1,4 +1,3 @@
-const axios = require("axios");
 const { User } = require("../db.js");
 
 async function createUser(req, res, next) {
@@ -24,8 +23,22 @@ async function createUser(req, res, next) {
   }
 }
 
+async function getUserId(req,res,next){
+  try {
+    const { id } = req.params;
+    const userDetail = await User.findAll({
+      where: {
+        id: id,
+      },
+    });
+    res.send(userDetail);
+  } catch (error) {
+    next(error);
+  }
+}
 
 module.exports = {
-    createUser
+    createUser,
+    getUserId,
    
 };

@@ -22,7 +22,7 @@ async function getCat(req, res, next) {
     }
     res.status(200).send(category);
   } catch (error) {
-    res.status(400).send(pok);
+    res.status(400).send(category);
   }
 }
 
@@ -66,7 +66,12 @@ async function getCatId(req, res, next) {
     const id = req.params.id;
     let cat;
     if (id) {
-      cat = await Pokemon.findByPk(id);
+      // cat = await Category.findById(id);
+      cat = await Category.findAll({
+        where: {
+          id: { id },
+        },
+      });
     }
     res.status(200).send(cat);
   } catch (error) {
@@ -75,30 +80,32 @@ async function getCatId(req, res, next) {
   }
 }
 
-async function putCat(req, res, next){
-    const { name, technology, description, img_link} = req.body;
-    const cat = Category.findByPk(name)
-    if(!cat){
-        return res.status(400).json({ mensage: "No existe un usuario con ese nombre" });
-    }else{
-        try {
-            const newCategory = await Category.update({
-              name,
-              technology,
-              description,
-              img_link,
-            });
-            res.status(200).send(newCategory);
-          } catch (error) {
-            next(error);
+async function putCat(req, res, next) {
+  const { name, technology, description, img_link } = req.body;
+  const cat = Category.findByPk(name);
+  if (!cat) {
+    return res
+      .status(400)
+      .json({ mensage: "No existe un usuario con ese nombre" });
+  } else {
+    try {
+      const newCategory = await Category.update({
+        name,
+        technology,
+        description,
+        img_link,
+      });
+      res.status(200).send(newCategory);
+    } catch (error) {
+      next(error);
     }
-}}
-
+  }
+}
 
 module.exports = {
   getCat,
   getEjemplo,
   addCate,
   getCatId,
-  putCat
+  putCat,
 };
