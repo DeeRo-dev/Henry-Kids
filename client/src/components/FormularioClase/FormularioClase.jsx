@@ -3,11 +3,6 @@ import styles from "./FormStyles.module.css";
 import axios from "axios";
 import {
   Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
