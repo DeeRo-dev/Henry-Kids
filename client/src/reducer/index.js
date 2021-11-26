@@ -1,6 +1,7 @@
 
 const initialState ={
     allClasses:[],
+    classById: []
 }
 
 
@@ -12,6 +13,12 @@ export default function rootReducer(state= initialState, action){
                 ...state,
                 allClasses: action.data
             }
+        case "GET_CLASS_BY_ID":
+            return {
+                ...state,
+                classById: action.data
+            }    
+
      
         default: return state;
     }   

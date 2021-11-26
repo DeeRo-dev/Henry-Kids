@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from "../Nav/Nav.jsx";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { styled } from "@material-ui/core";
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
 import { getAllclasses } from "../../actions/index.js";
-
+ 
 
 export default function Home() {
   
@@ -15,7 +15,7 @@ export default function Home() {
 
   useEffect(()=> dispatch(getAllclasses()),[dispatch])
   
-  console.log(allClasses)
+  
 
 
   return (
@@ -27,7 +27,7 @@ export default function Home() {
 
       <div className={styles.cards}>
       {allClasses.map((e) => { 
-        return (<div key= {e.id}> <Card 
+        return (<div key= {e.id}> <Link to={'/home/'+ e.id}> <Card 
         id={e.id}
         title={e.title}
         category={e.category}
@@ -36,7 +36,7 @@ export default function Home() {
         difficulty={e.difficulty}
         game_link={e.game_link}
         valoration={e.valoration}
-        /> </div>)}
+        /> </Link></div>)}
       )} 
       </div>
     
