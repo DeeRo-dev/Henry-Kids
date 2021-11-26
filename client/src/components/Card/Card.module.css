@@ -15,7 +15,7 @@ body {
 } */
 
 .card {
-  margin: 10px;
+  margin: 10px; 
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.7);
@@ -23,6 +23,7 @@ body {
   width: 250px;
   height:390px;
   transition: all 300ms ease;
+  height:370px
 }
 .card:hover{
   box-shadow: 10px 1px 20px rgba(0,0,0,0.8);  
@@ -30,14 +31,14 @@ body {
   
 }
 
-.card-header img {
+.cardHeader img {
 
   width: 250px;
   height: 170px;
  object-fit:fill;
  
 }
-.card-body {
+.cardbody {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,7 +73,7 @@ font-size: 12px
 
 .category {
   margin-top: 5px;
-  background-color: #47bcd4;
+  background-color: #d4a44a;
   border-radius: 3px;
   
 }
