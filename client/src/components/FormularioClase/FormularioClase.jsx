@@ -1,14 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./FormStyles.module.css";
 import axios from "axios";
-import { Button, Snackbar  } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+import { Button, Snackbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
-import { makeStyles } from '@material-ui/core/styles';
-import MuiAlert from '@material-ui/lab/Alert';
-
-
-
+import { makeStyles } from "@material-ui/core/styles";
+import MuiAlert from "@material-ui/lab/Alert";
+import { createClass } from "../../actions/index.js";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -16,18 +16,24 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
   },
 }));
 
-
+const StyleAlert = withStyles({
+  root: {
+    marginBottom: "-10px",
+    width: "300px",
+  },
+})(Snackbar);
 
 export default function FormularioClase() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [modal, setModal] = useState(true);
-
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -39,26 +45,18 @@ export default function FormularioClase() {
   });
 
   function handleChange(e) {
-    if (e.target.value === "Seleccione") {
-      setInput({
-        ...input,
-        [e.target.name]: "",
-      });
-    } else {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      });
-    }
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
   }
 
   function onSubmit(e) {
     e.preventDefault();
-    try {
-      axios.post("http://localhost:3001/class", input);
-    } catch (error) {
-      console.log(error);
-    }
+    setTimeout(() => {
+      dispatch(createClass(input));
+      navigate("/home");
+    }, 2000);
   }
 
   const toggleModal = (e) => {
@@ -100,14 +98,12 @@ export default function FormularioClase() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
-
-
 
   return (
     <div className={styles.background}>
@@ -184,23 +180,19 @@ export default function FormularioClase() {
                   </select>
                 </div> */}
 
-
                 <StyleButtonCrearCuenta
                   type="submit"
                   className={styles.btnCrearCuenta}
                   variant="contained"
                   color="primary"
+                  onClick={handleClick}
                 >
                   Crear clase
                 </StyleButtonCrearCuenta>
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-  <Alert onClose={handleClose} severity="success">
-    This is a success message!
-  </Alert>
-</Snackbar>
-<Alert severity="success">
-    This is a success message!
-  </Alert>
+
+                <StyleAlert open={open} onClose={handleClose}>
+                  <Alert severity="success">¡Clase creada exitosamente!</Alert>
+                </StyleAlert>
               </form>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux"
 import styles from "./LandingPage.module.css";
 import {
   Button,
@@ -9,11 +10,62 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { postUser } from "../../actions/index.js";
+
+// function validate(pokemon){
+//   let errors = {};
+//   if (!pokemon.name){
+//     errors.name = "Se requiere un nombre"
+//   } return errors
+// }
 
 export default function LandingPage() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
+  // const [errors,setErrors] = useState({});
+
+
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: [],
+    userName: "",
+    type: 0,
+    email: 0,
+    password: 0
+  });
+
+
+  function onInputChange(e) {
+    e.preventDefault();
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+    // setErrors(
+    //   validate({
+    //     ...user,
+    //     [e.target.name]: e.target.value,
+    //   })
+    // );
+  }
+  
+  function onSubmit(e) {
+    e.preventDefault();
+    dispatch(postUser(user));
+    setUser({
+      firstName: "",
+      lastName: "",
+      userName: "",
+      type: "",
+      email: "",
+      password: "",
+    });
+   navigate("/home");
+  }
+  
 
   const toggleModal = (e) => {
     setModal(!modal);
@@ -102,6 +154,7 @@ export default function LandingPage() {
 
 
 
+
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
@@ -152,7 +205,7 @@ export default function LandingPage() {
 
                 <div>
                   <form>
-                    <input type="text" placeholder="Email:" />
+                    <input name="email" type="text" placeholder="Email:" />
                     <input type="password" placeholder="Contraseña:" />
 
                     <FormControl component="fieldset">
@@ -199,12 +252,12 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <form>
-                    <input type="text" placeholder="Nombre:" />
-                    <input type="text" placeholder="Apellido:" />
-                    <input type="text" placeholder="Nombre de usuario:" />
-                    <input type="text" placeholder="Email:" />
-                    <input type="password" placeholder="Contraseña:" />
+                  <form onSumbit={onSubmit}>
+                    <input name="firstName" type="text" placeholder="Nombre:" onChange={e=>onInputChange(e)}/>
+                    <input name="lastName" type="text" placeholder="Apellido:" onChange={e=>onInputChange(e)} />
+                    <input name="userName" type="text" placeholder="Nombre de usuario:" onChange={e=>onInputChange(e)} />
+                    <input name="email" type="text" placeholder="Email:" onChange={e=>onInputChange(e)} />
+                    <input name="password" type="password" placeholder="Contraseña:" onChange={e=>onInputChange(e)} />
                     <input
                       type="password"
                       placeholder="Confirmar contraseña:"
@@ -214,7 +267,9 @@ export default function LandingPage() {
                         <RadioGroup
                           aria-label="gender"
                           defaultValue="female"
-                          name="radio-buttons-group"
+                          //  name="radio-buttons-group"
+                           name="type"
+                           onChange={e=>onInputChange(e)}
                         >
                           <FormControlLabel
                             value="Alumno"
@@ -225,11 +280,12 @@ export default function LandingPage() {
                             value="Profesor"
                             control={<Radio />}
                             label="Profesor"
+                         
                           />
                         </RadioGroup>
                       </FormControl>
                     </div>
-                    <Link className={styles.btnCrear} to="/home">
+                    {/* <Link className={styles.btnCrear} to="/home"> */}
                       <StyleButtonCrearCuenta
                         type="submit"
                         className={styles.btnCrearCuenta}
@@ -238,7 +294,7 @@ export default function LandingPage() {
                       >
                         Crear cuenta
                       </StyleButtonCrearCuenta>
-                    </Link>
+                    {/* </Link> */}
                   </form>
                 </div>
               </div>

@@ -8,3 +8,20 @@ export function getAllclasses() {
     }
 
 }
+
+export function createClass(input) {
+  return async function (dispatch) {
+      let response = await axios.post("http://localhost:3001/class", input)    
+      dispatch({ type: "CREATE_CLASS", data: response.data });
+  }
+
+}
+export function postUser(input) {
+        return async (dispatch) => {
+          const json = await axios.post("http://localhost:3001/user", input);
+          return dispatch({
+            type: "POST_USER",
+            payload: json.data,
+          });
+        };
+      }
