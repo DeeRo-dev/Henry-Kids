@@ -29,14 +29,32 @@ async function getCat(req, res, next) {
 async function getEjemplo(req, res, next) {
   try {
     let arr = [];
-    const newCategory = await Category.create({
+    const newCategory1 = await Category.create({
       name: "JavaScrip",
       technology: "JavaScript",
       description: "programacion web ",
       img_link:
         "https://i.blogs.es/544e7d/650_1000_javascript_logo/1366_2000.png",
     });
-    arr.push(newCategory);
+    arr.push(newCategory1);
+    const newCategory2 = await Category.create({
+      name: "React",
+      technology: "React",
+      description:
+        "React es una biblioteca Javascript de código abierto diseñada para crear interfaces de usuario con el objetivo de facilitar el desarrollo de aplicaciones en una sola página. ",
+      img_link:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/React.svg/1200px-React.svg.png",
+    });
+    arr.push(newCategory2);
+    const newCategory3 = await Category.create({
+      name: "HTML",
+      technology: "HTML",
+      description:
+        "HTML, siglas en inglés de HyperText Markup Language, hace referencia al lenguaje de marcado para la elaboración de páginas web",
+      img_link:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/640px-HTML5_logo_and_wordmark.svg.png",
+    });
+    arr.push(newCategory3);
     res.send(arr);
   } catch (error) {
     console.log(error);

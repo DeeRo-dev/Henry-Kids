@@ -17,4 +17,6 @@ router.get("/all", getClassEjempl)
 router.get("/:id", GetClassId)
 
 
+
+
 module.exports = router;
