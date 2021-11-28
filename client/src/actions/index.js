@@ -25,3 +25,10 @@ export function postUser(input) {
           });
         };
       }
+export function getClassById(id){
+    return async function(dispatch){
+        let response= await axios.get(`http://localhost:3001/class/${id}`)
+         dispatch({ type: 'GET_CLASS_BY_ID', data: response.data })
+    }
+    
+}

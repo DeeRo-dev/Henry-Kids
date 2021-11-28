@@ -16,32 +16,30 @@ export default function Card({
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <img
-          src="https://www.grupoeducar.cl/wp-content//uploads/2017/10/actualidad.png"
+          src="https://www.redeszone.net/app/uploads-redeszone.net/2019/04/javascript-chrome-firefox.jpg"
           alt="rover"
         />
       </div>
-      <div className={styles.cardBody}>
-        <span className={styles.category}>Javascript{category}</span>
 
+        <p className={styles.category}>JavaScript{category}</p>
         <div className={styles.title}>
           {title}
         </div>
-
         <div className={styles.description}>
           {description} 
         </div>
 
         <div className={styles.instructor}>Dificultad: {difficulty} </div>
 
-        <div className={styles.instructor}>valoracion</div>
-        <div className={styles.valoration}>
+        <div className={styles.instructor}>Valoracion</div>
+        <p className={styles.valoration}>
           {valoration}
           <img
             src="https://dondeestanlasluces.files.wordpress.com/2017/08/stars.png"
             alt="user"
           />
-        </div>
+        </p>
       </div>
-    </div>
+  
   );
 }

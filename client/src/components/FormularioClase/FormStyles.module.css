@@ -2,17 +2,13 @@
   background: url('https://i.imgur.com/7Dl1ISR.png');
   background-position: center;
   background-size: cover;
-  width: 100vw;
   overflow-x:hidden;
-  overflow-y:hidden
-
+  overflow-y:hidden;
 }
 
 .containerBackground {
   display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;  
+  justify-content: center; 
 }
 
 [type=date]{
@@ -36,13 +32,7 @@
 .modal, .overlay {
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-}
-
+} 
 .overlay {
   background: rgba(49,49,49,0.8);
 }

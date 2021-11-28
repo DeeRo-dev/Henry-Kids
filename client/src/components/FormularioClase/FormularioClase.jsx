@@ -51,10 +51,20 @@ export default function FormularioClase() {
     });
   }
 
-  function onSubmit(e) {
+  function handleOnSubmit(e) {
     e.preventDefault();
+    dispatch(createClass(input));
+    setInput({
+      title: "",
+      description: "",
+      studio_material: "",
+      video_link: "",
+      game_link: "",
+      difficulty: "",
+      date: "",
+    });
+    setOpen(true);
     setTimeout(() => {
-      dispatch(createClass(input));
       navigate("/home");
     }, 2000);
   }
@@ -93,10 +103,6 @@ export default function FormularioClase() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -117,7 +123,7 @@ export default function FormularioClase() {
               </button>
             </Link>
             <div>
-              <form onSubmit={onSubmit}>
+              <form>
                 <input
                   type="text"
                   name="title"
@@ -181,11 +187,11 @@ export default function FormularioClase() {
                 </div> */}
 
                 <StyleButtonCrearCuenta
-                  type="submit"
+                  onClick={(e) => handleOnSubmit(e)}
+                  type="button"
                   className={styles.btnCrearCuenta}
                   variant="contained"
                   color="primary"
-                  onClick={handleClick}
                 >
                   Crear clase
                 </StyleButtonCrearCuenta>

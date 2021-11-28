@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import styles from "./LandingPage.module.css";
 import {
   Button,
@@ -21,22 +21,20 @@ import { postUser } from "../../actions/index.js";
 // }
 
 export default function LandingPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
 
-
   const [user, setUser] = useState({
     firstName: "",
-    lastName: [],
+    lastName: "",
     userName: "",
-    type: 0,
-    email: 0,
-    password: 0
+    type: "",
+    email: "",
+    password: "",
   });
-
 
   function onInputChange(e) {
     e.preventDefault();
@@ -44,15 +42,15 @@ export default function LandingPage() {
       ...user,
       [e.target.name]: e.target.value,
     });
-    // setErrors(
-    //   validate({
-    //     ...user,
-    //     [e.target.name]: e.target.value,
-    //   })
-    // );
   }
-  
-  function onSubmit(e) {
+  // setErrors(
+  //   validate({
+  //     ...user,
+  //     [e.target.name]: e.target.value,
+  //   })
+  // );
+
+  function handleOnSubmit(e) {
     e.preventDefault();
     dispatch(postUser(user));
     setUser({
@@ -62,10 +60,10 @@ export default function LandingPage() {
       type: "",
       email: "",
       password: "",
-    });
-   navigate("/home");
+    }); 
+    navigate("/home");
+
   }
-  
 
   const toggleModal = (e) => {
     setModal(!modal);
@@ -144,31 +142,23 @@ export default function LandingPage() {
     },
   })(Button);
 
-  
-
   if (modal) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
   }
 
-
-
-
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-      <Link to="home"  >
-     <img
-          className={styles.logo}
-          src="https://i.imgur.com/AWEe2XR.png"
-          alt="img"
-         
-        />
-      </Link>
-        
-      
-       
+        <Link to="home">
+          <img
+            className={styles.logo}
+            src="https://i.imgur.com/AWEe2XR.png"
+            alt="img"
+          />
+        </Link>
+
         <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
@@ -181,7 +171,7 @@ export default function LandingPage() {
             </StyleButtonIngresar>
             <StyleButtonRegistrarse
               onClick={toggleModal}
-              /* className={styles.btnRegistrarse} */
+              className={styles.btnRegistrarse}
               variant="contained"
               color="primary"
             >
@@ -252,12 +242,37 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <form onSumbit={onSubmit}>
-                    <input name="firstName" type="text" placeholder="Nombre:" onChange={e=>onInputChange(e)}/>
-                    <input name="lastName" type="text" placeholder="Apellido:" onChange={e=>onInputChange(e)} />
-                    <input name="userName" type="text" placeholder="Nombre de usuario:" onChange={e=>onInputChange(e)} />
-                    <input name="email" type="text" placeholder="Email:" onChange={e=>onInputChange(e)} />
-                    <input name="password" type="password" placeholder="Contraseña:" onChange={e=>onInputChange(e)} />
+                  <form>
+                    <input
+                      name="firstName"
+                      type="text"
+                      placeholder="Nombre:"
+                      onChange={(e) => onInputChange(e)}
+                    />
+                    <input
+                      name="lastName"
+                      type="text"
+                      placeholder="Apellido:"
+                      onChange={(e) => onInputChange(e)}
+                    />
+                    <input
+                      name="userName"
+                      type="text"
+                      placeholder="Nombre de usuario:"
+                      onChange={(e) => onInputChange(e)}
+                    />
+                    <input
+                      name="email"
+                      type="text"
+                      placeholder="Email:"
+                      onChange={(e) => onInputChange(e)}
+                    />
+                    <input
+                      name="password"
+                      type="password"
+                      placeholder="Contraseña:"
+                      onChange={(e) => onInputChange(e)}
+                    />
                     <input
                       type="password"
                       placeholder="Confirmar contraseña:"
@@ -268,32 +283,33 @@ export default function LandingPage() {
                           aria-label="gender"
                           defaultValue="female"
                           //  name="radio-buttons-group"
-                           name="type"
-                           onChange={e=>onInputChange(e)}
+                          name="type"
+                          onChange={(e) => onInputChange(e)}
                         >
                           <FormControlLabel
-                            value="Alumno"
+                            value="student"
                             control={<Radio />}
                             label="Alumno"
                           />
                           <FormControlLabel
-                            value="Profesor"
+                            value="teacher"
                             control={<Radio />}
                             label="Profesor"
-                         
                           />
                         </RadioGroup>
                       </FormControl>
                     </div>
                     {/* <Link className={styles.btnCrear} to="/home"> */}
-                      <StyleButtonCrearCuenta
-                        type="submit"
-                        className={styles.btnCrearCuenta}
-                        variant="contained"
-                        color="primary"
-                      >
-                        Crear cuenta
-                      </StyleButtonCrearCuenta>
+
+                    <StyleButtonCrearCuenta
+                      onClick={(e) => handleOnSubmit(e)}
+                      type="button"
+                      className={styles.btnCrearCuenta}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Crear cuenta
+                    </StyleButtonCrearCuenta>
                     {/* </Link> */}
                   </form>
                 </div>

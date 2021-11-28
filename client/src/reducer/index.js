@@ -1,6 +1,7 @@
 const initialState = {
   allClasses: [],
   user: [],
+  classById: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -17,6 +18,11 @@ export default function rootReducer(state = initialState, action) {
     case "CREATE_CLASS":
       return {
         ...state,
+      };
+    case "GET_CLASS_BY_ID":
+      return {
+        ...state,
+        classById: action.data,
       };
 
     default:
