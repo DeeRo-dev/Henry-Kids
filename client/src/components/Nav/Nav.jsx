@@ -78,13 +78,12 @@ export default function Nav() {
             </option>
           </select>
          
-       <Link to="/create-clase">
+       {/* <Link to="/create-clase">
          <button className={styles.blue}>
              Crear clase
           </button>
       </Link>
-  
-
+   */}
         </div>
         <div className={styles.imagen}>
           <img

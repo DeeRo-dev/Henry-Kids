@@ -13,8 +13,6 @@ export default function Home() {
 
   useEffect(() => dispatch(getAllclasses()), [dispatch]);
 
-  console.log(allClasses);
-
   return (
     <div className={styles.home}>
       <div>

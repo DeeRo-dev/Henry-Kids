@@ -65,7 +65,7 @@ export default function FormularioClase() {
     });
     setOpen(true);
     setTimeout(() => {
-      navigate("/home");
+      navigate("/home/teacher");
     }, 2000);
   }
 
@@ -117,7 +117,7 @@ export default function FormularioClase() {
         <div className={styles.modal}>
           <div onClick={toggleModal} className={styles.overlay}></div>
           <div className={styles.modal_content}>
-            <Link className={styles.btnCrear} to="/home">
+            <Link className={styles.btnCrear} to="/home/teacher">
               <button className={styles.close_modal} onClick={toggleModal}>
                 x
               </button>

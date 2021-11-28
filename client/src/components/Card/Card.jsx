@@ -30,8 +30,6 @@ export default function Card({
         </div>
 
         <div className={styles.instructor}>Dificultad: {difficulty} </div>
-
-        <div className={styles.instructor}>Valoracion</div>
         <p className={styles.valoration}>
           {valoration}
           <img

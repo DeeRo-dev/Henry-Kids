@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./LandingPage.module.css";
+import { withStyles } from "@material-ui/styles";
+import { Link, useNavigate } from "react-router-dom";
+import { postUser } from "../../actions/index.js";
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  provider,
+} from "../../firebase/firebaseConfig";
 import {
   Button,
   FormControl,
@@ -9,9 +20,6 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
-import { Link, useNavigate } from "react-router-dom";
-import { postUser } from "../../actions/index.js";
 
 // function validate(pokemon){
 //   let errors = {};
@@ -26,7 +34,6 @@ export default function LandingPage() {
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
-
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -35,35 +42,6 @@ export default function LandingPage() {
     email: "",
     password: "",
   });
-
-  function onInputChange(e) {
-    e.preventDefault();
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-  }
-  // setErrors(
-  //   validate({
-  //     ...user,
-  //     [e.target.name]: e.target.value,
-  //   })
-  // );
-
-  function handleOnSubmit(e) {
-    e.preventDefault();
-    dispatch(postUser(user));
-    setUser({
-      firstName: "",
-      lastName: "",
-      userName: "",
-      type: "",
-      email: "",
-      password: "",
-    }); 
-    navigate("/home");
-
-  }
 
   const toggleModal = (e) => {
     setModal(!modal);
@@ -85,6 +63,53 @@ export default function LandingPage() {
     document.body.classList.remove("active-modal");
   }
 
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
+
+  const StyleButtonIngresarConCorreo = withStyles({
+    root: {
+      marginTop: "20px",
+      width: "70%",
+      border: "0",
+      backgroundColor: "#ff8d00",
+      borderRadius: "5px",
+      height: "50px",
+      color: "white",
+      fontWeight: "400",
+      fontSize: "1em",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
+
+    label: {
+      color: "white",
+    },
+  })(Button);
+
+  const StyleButtonIngresarConGoogle = withStyles({
+    root: {
+      marginTop: "15px",
+      width: "70%",
+      border: "0",
+      backgroundColor: "#ff8d00",
+      borderRadius: "5px",
+      height: "50px",
+      color: "white",
+      fontWeight: "400",
+      fontSize: "1em",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
+    label: {
+      color: "white",
+    },
+  })(Button);
+
   const StyleButtonCrearCuenta = withStyles({
     root: {
       marginTop: "20px",
@@ -100,7 +125,6 @@ export default function LandingPage() {
         backgroundColor: "var(--verde)",
       },
     },
-
     label: {
       color: "white",
     },
@@ -142,16 +166,87 @@ export default function LandingPage() {
     },
   })(Button);
 
-  if (modal) {
-    document.body.classList.add("active-modal");
-  } else {
-    document.body.classList.remove("active-modal");
+  function onInputChange(e) {
+    e.preventDefault();
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   }
+  // setErrors(
+  //   validate({
+  //     ...user,
+  //     [e.target.name]: e.target.value,
+  //   })
+  // );
+
+  const registrarUsuario = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, user.email, user.password)
+      .then((userCredential) => {
+        console.log(userCredential.user);
+        dispatch(postUser(user)).then((res) => {
+          console.log(res);
+          setUser({
+            firstName: "",
+            lastName: "",
+            userName: "",
+            type: "",
+            email: "",
+            password: "",
+          });
+          if (user.type === "student") {
+            //  console.log(userCredential.user);
+            navigate("/home/student");
+          } else {
+            navigate("/home/teacher");
+          }
+    
+        });
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
+  };
+
+  const ingresarUsuario = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, user.email, user.password)
+      .then((userCredential) => {
+           console.log(userCredential.user);
+           navigate("/home/student")
+      })
+      .catch((error) => {
+        alert(error.code);
+      });
+  };
+
+  /* const ingresarUsuarioConGoogle = (e) => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log(credential.accessToken);
+        // The signed-in user info.
+        console.log(result.user);
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  }; */
 
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-        <Link to="home">
+        <Link to="/home/student">
           <img
             className={styles.logo}
             src="https://i.imgur.com/AWEe2XR.png"
@@ -179,6 +274,7 @@ export default function LandingPage() {
             </StyleButtonRegistrarse>
           </div>
 
+          {/* INGRESAR */}
           {modalIngresar && (
             <div className={styles.modal}>
               <div
@@ -195,43 +291,44 @@ export default function LandingPage() {
 
                 <div>
                   <form>
-                    <input name="email" type="text" placeholder="Email:" />
-                    <input type="password" placeholder="Contraseña:" />
+                    <input
+                      onChange={(e) => onInputChange(e)}
+                      name="email"
+                      type="text"
+                      placeholder="Email:"
+                    />
+                    <input
+                      onChange={(e) => onInputChange(e)}
+                      name="password"
+                      type="password"
+                      placeholder="Contraseña:"
+                    />
 
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="Type"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="Alumno"
-                          control={<Radio />}
-                          label="Alumno"
-                        />
-                        <FormControlLabel
-                          value="Profesor"
-                          control={<Radio />}
-                          label="Profesor"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-
-                    <Link className={styles.btnCrear} to="/home">
-                      <StyleButtonCrearCuenta
-                        type="submit"
-                        className={styles.btnCrearCuenta}
-                        variant="contained"
-                        color="primary"
-                      >
-                        Ingresar
-                      </StyleButtonCrearCuenta>
-                    </Link>
+                    <StyleButtonIngresarConCorreo
+                      onClick={(e) => ingresarUsuario(e)}
+                      type="submit"
+                      className={styles.btnCrearCuenta}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Ingresar
+                    </StyleButtonIngresarConCorreo>
+                   {/*  <StyleButtonIngresarConGoogle
+                      onClick={(e) => ingresarUsuarioConGoogle(e)}
+                      type="button"
+                      className={styles.btnCrearCuenta}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Ingresar con google
+                    </StyleButtonIngresarConGoogle> */}
                   </form>
                 </div>
               </div>
             </div>
           )}
+
+          {/* REGISTRARSE */}
 
           {modal && (
             <div className={styles.modal}>
@@ -302,7 +399,7 @@ export default function LandingPage() {
                     {/* <Link className={styles.btnCrear} to="/home"> */}
 
                     <StyleButtonCrearCuenta
-                      onClick={(e) => handleOnSubmit(e)}
+                      onClick={(e) => registrarUsuario(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
                       variant="contained"
