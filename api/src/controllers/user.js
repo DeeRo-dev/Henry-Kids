@@ -1,4 +1,4 @@
-const { User } = require("../db.js");
+const { User,Class } = require("../db.js");
 
 
 // funcion para crear Usuario.
@@ -80,6 +80,7 @@ async function getUser(req,res,next){
         title: {
           [Op.iLike]: `%${req.query.title}%`,
         },
+        include: { model:  Class },
       },
     }).then((User) => {
       if (User.length === 0) {
