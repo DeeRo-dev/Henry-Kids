@@ -56,6 +56,7 @@ async function deleteClass(req, res) {
   }
 }
 
+// funcion para poder editar una clase.
 async function editClass(req, res, next) {
   const changes = req.body;
   try {
@@ -66,6 +67,7 @@ async function editClass(req, res, next) {
   }
 }
 
+// funcion para traernos 1 clase.
 async function getClass(req, res, next) {
   if (req.query.title) {
     return Class.findAll({
@@ -92,6 +94,7 @@ async function getClass(req, res, next) {
   }
 }
 
+// funcion pàra crear y traernos 1 clase (ejemplo).
 async function getClassEjempl(req, res, next) {
     try {
         let arr = [];
@@ -113,7 +116,7 @@ async function getClassEjempl(req, res, next) {
 }
 
 
-
+// funcion para traernos 1 clase por id.
 async function GetClassId(req, res, next) {
     try {
         const { id } = req.params;

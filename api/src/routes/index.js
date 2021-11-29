@@ -15,6 +15,8 @@ const router = Router();
 router.use("/category", categoryRutes); // esto me genera /kids/category*  (traigo las rotuterdel archivo pokemon.js)
 router.use("/class", classRoutes);
 router.use("/user", classUser);
+
+
 // Esto hay que moverlo a Clases.js
 router.use("/allClasses", allClasses); // Ruta para traer todas las clases
 router.use("/:id/", classDetail); // Ruta para detalles por ID
