@@ -1,10 +1,11 @@
-const {  Class, Category, Recommendation, Comment, Evaluation} = require("../db");
+const {  Class, Category, Recommendation, Comment, valoration} = require("../db");
 const Sequelize = require('sequelize');
 
-// funcion para poder crear clases nuevas.
+
 async function addClass(req, res, next) {
 
     let data = { ...req.body};
+
 
     try {
 
@@ -19,16 +20,24 @@ async function addClass(req, res, next) {
             difficulty: data.difficulty
 
         });
+// Me pergunto si no seria mas interesante hacer varios try...
+        ///?const categoryId = await Category.findOne({where:{name: data.category}})
+        ///?const userId = await User.findOne({where:{username: data.username}})
+        await createClass.setCategories(parseInt(categoryId.id));
+        await createClass.setUsers(parseInt(userId.id));
+        const newClass = await Class.findOne({where:
+        {title: data.title}},
+        {include: Category}
+      );
 
-        // me falta agregarle la category, recommendation,comment, etc. --- por hacer ---
+        
+        // me falta agregarle la categoty, recommendation,comment. --- por hacer ---
 
-        // let createCategory = await Category.findById(
-        //     data.id
-        // )
+        // let createCategory = await Category.create({
 
-        // await createClass.setCategory(createCategory);
+        // })
 
-        return res.json({message: 'Clase created succesfully', Class: createClass});
+        return res.json({message: 'Clase created succesfully', Class: createClass/*newClass*/}).send(createClass);
     }
 
     catch (error) {
@@ -36,29 +45,8 @@ async function addClass(req, res, next) {
         res.status(500).send('Internal Server Error')
     }
 
-
 };
-
-// funcion para poder eliminar una clase mediante el id.
-async function deleteClass(req, res){
-    
-    try {
-        const deleClass = await Class.destroy({
-            where: {
-                id: req.params.id
-            }
-        })  
-
-        res.send("Was successfully removed");  
-    }
-    catch (error) {
-        return res.status(400).send({error: "something went wrong :("});
-    };
-};
-
-
 
 module.exports = {
     addClass,
-    deleteClass,
 };
