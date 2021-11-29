@@ -1,59 +1,38 @@
-import React from "react";
-import style from  './Home.module.css'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
 import { Link } from "react-router-dom";
-import Card from "../Card/Card.jsx"
+import { styled } from "@material-ui/core";
+import styles from "./Home.module.css";
+import Card from "../Card/Card.jsx";
+import { getAllclasses } from "../../actions/index.js";
 
+export default function Home() {
+  const dispatch = useDispatch();
+  const allClasses = useSelector((state) => state.allClasses);
 
-export default function Home(){
-  
+  useEffect(() => dispatch(getAllclasses()), [dispatch]);
+
   return (
-  <div >
-    <div>
-         <Nav/>
+    <div className={styles.home}>
+      <div>
+        <Nav />
+      </div>
+
+      <div className={styles.cards}>
+      {allClasses.map((e) => { 
+        return (<div key= {e.id}> <Link to={'/home/'+ e.id}> <Card 
+        id={e.id}
+        title={e.title}
+        category={e.category}
+        description={e.description}
+        video_link={e.video_link}
+        difficulty={e.difficulty}
+        game_link={e.game_link}
+        valoration={e.valoration}
+        /> </Link></div>)}
+      )} 
+      </div>
     </div>
-    
-<div className="contentCards">
-
-{/* //base de datos 
-//que tenga info harcord
-//que sea un arrray de 10 elementos con la info que necesitamos */}
-
-<div className={style.carta}>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/>
-  <Card/> 
-  <Card/>
-</div>
-
-{/*     
-      {
-        LOQUETENGODEBASEDEDATOS?.map(e => {
-         
-           return (
-            <div className='cartas'  key={e.id}>
-             
-              <Card id={e.id}              
-              title={e.title} 
-              category={e.category}
-              description={e.description} 
-              video_link={e.video_link} 
-              difficulty={e.difficulty}
-              game_link={e.game_link} 
-              valoration={e.valoration}
-              />
-              
-            </div>
-          
-            )})
-      } */}
-  
-</div>
-
-  </div>
-  )
+  );
 }

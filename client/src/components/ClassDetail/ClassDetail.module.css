@@ -1,0 +1,29 @@
+.contentDetail {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.contentTitle {
+  font-family: "Merienda One", cursive;
+  font-size: 20px;
+  color: var(--naranja);
+  user-select: none;
+}
+
+.contentVideo {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.contentDescription {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-family: Roboto;
+  font-size: 20px;
+}
+
+
+

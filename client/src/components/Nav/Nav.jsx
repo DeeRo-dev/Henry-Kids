@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 
+
 export default function Nav() {
   // function handdleSubmit(e){
   //   e.preventDefault();
@@ -37,8 +38,6 @@ export default function Nav() {
           </button>
           {/* <button type='submit' > Buscar</button> */}
         </div>
-        {/* </div> */}
-
         <div className={styles.contenCat}>
           <select name="" id="" className={styles.select}>
             <option value="" selected disabled hidden>
@@ -79,13 +78,12 @@ export default function Nav() {
             </option>
           </select>
          
-       <Link to="/create-clase">
-         <button className={styles.botonClase}>
-             Crear una clase
+       {/* <Link to="/create-clase">
+         <button className={styles.blue}>
+             Crear clase
           </button>
       </Link>
-  
-
+   */}
         </div>
         <div className={styles.imagen}>
           <img

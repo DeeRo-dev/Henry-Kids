@@ -1,55 +1,51 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const useBcrypt = require('sequelize-bcrypt');
+const { Sequelize, DataTypes } = require("sequelize");
+// const useBcrypt = require('sequelize-bcrypt');
 // require('sequelize-isunique-validator')(Sequelize);
 
-
 module.exports = (sequelize) => {
-
-  sequelize.define('user', {
-     firstName: {
+  sequelize.define("user", {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
 
-     lastName: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
 
-     userName: {
+    userName: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
-
+        notEmpty: true,
+      },
     },
 
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
-    },
-    
-      type: {
-      type: DataTypes.ENUM('teacher', 'student'),
-      allowNull: false
+      autoIncrement: true,
     },
 
+    type: {
+      type: DataTypes.ENUM("teacher", "student"),
+      allowNull: false,
+    },
 
-    photo:{
+    photo: {
       type: DataTypes.STRING,
-      validate:{
-        isUrl: true
-      }
+      validate: {
+        isUrl: true,
+      },
     },
 
     email: {
@@ -57,20 +53,18 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         isEmail: {
-          msg: 'No es una dirección de correo electrónico.'
+          msg: "No es una dirección de correo electrónico.",
         },
         // isUnique: sequelize.validateIsUnique('email',
         // 'Esta dirección de correo electrónico ya existe.')
-      }
+      },
     },
-    password:{
-       type: DataTypes.STRING,
-       allowNull: false,
-       validate: {
-        is: /^[a-zA-Z0-9]+$/i
-      }
-
-    }
-
-    });
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^[a-zA-Z0-9]+$/i,
+      },
+    },
+  });
 };

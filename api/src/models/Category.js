@@ -4,11 +4,17 @@ module.exports = (sequelize) => {
   sequelize.define(
     "category",
     {
+      // id: {
+      //   type: DataTypes.UUID,
+      //   allowNull: false,
+      //   primaryKey: true,
+      //   defaultValue: DataTypes.UUIDV4, //me genera automaticamente un UUIDV4(para configurar bien el id)
+      // },
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4, //me genera automaticamente un UUIDV4(para configurar bien el id)
+        autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,
@@ -29,7 +35,7 @@ module.exports = (sequelize) => {
         // allowNull: false,
       },
       img_link: {
-        type: DataTypes.STRING(300),
+        type: DataTypes.STRING(1000),
        
       },
     },
