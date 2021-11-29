@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const useBcrypt = require('sequelize-bcrypt');
-require('sequelize-isunique-validator')(Sequelize);
+// const useBcrypt = require('sequelize-bcrypt');
+// require('sequelize-isunique-validator')(Sequelize);
 
 
 module.exports = (sequelize) => {
@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
       type: {
       type: DataTypes.ENUM('teacher', 'student'),
       allowNull: false
-    }
+    },
 
 
     photo:{
@@ -59,10 +59,9 @@ module.exports = (sequelize) => {
         isEmail: {
           msg: 'No es una dirección de correo electrónico.'
         },
-        isUnique: sequelize.validateIsUnique('email',
-        'Esta dirección de correo electrónico ya existe.')
+        // isUnique: sequelize.validateIsUnique('email',
+        // 'Esta dirección de correo electrónico ya existe.')
       }
-
     },
     password:{
        type: DataTypes.STRING,
