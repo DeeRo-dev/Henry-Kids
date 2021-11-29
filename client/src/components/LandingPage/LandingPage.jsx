@@ -185,25 +185,24 @@ export default function LandingPage() {
     createUserWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
         console.log(userCredential.user);
-        dispatch(postUser(user)).then((res) => {
-          console.log(res);
-          setUser({
-            firstName: "",
-            lastName: "",
-            userName: "",
-            type: "",
-            email: "",
-            password: "",
-          });
-          if (user.type === "student") {
-            //  console.log(userCredential.user);
-            navigate("/home/student");
-          } else {
-            navigate("/home/teacher");
-          }
-    
+        /* dispatch(postUser(user)).then((res) => { */
+
+        setUser({
+          firstName: "",
+          lastName: "",
+          userName: "",
+          type: "",
+          email: "",
+          password: "",
         });
+        if (user.type === "student") {
+          //  console.log(userCredential.user);
+          navigate("/home/student");
+        } else {
+          navigate("/home/teacher");
+        }
       })
+      /*    }) */
       .catch((error) => {
         console.log(error.code);
       });
@@ -213,8 +212,13 @@ export default function LandingPage() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-           console.log(userCredential.user);
-           navigate("/home/student")
+        console.log(userCredential.user);
+        if (user.type === "student") {
+          //  console.log(userCredential.user);
+          navigate("/home/student");
+        } else {
+          navigate("/home/teacher");
+        }
       })
       .catch((error) => {
         alert(error.code);
@@ -304,6 +308,27 @@ export default function LandingPage() {
                       placeholder="Contraseña:"
                     />
 
+                    <FormControl component="fieldset">
+                      <RadioGroup
+                        aria-label="gender"
+                        defaultValue="female"
+                        //  name="radio-buttons-group"
+                        name="type"
+                        onChange={(e) => onInputChange(e)}
+                      >
+                        <FormControlLabel
+                          value="student"
+                          control={<Radio />}
+                          label="Alumno"
+                        />
+                        <FormControlLabel
+                          value="teacher"
+                          control={<Radio />}
+                          label="Profesor"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+
                     <StyleButtonIngresarConCorreo
                       onClick={(e) => ingresarUsuario(e)}
                       type="submit"
@@ -313,7 +338,8 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                   {/*  <StyleButtonIngresarConGoogle
+
+                    {/*  <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
