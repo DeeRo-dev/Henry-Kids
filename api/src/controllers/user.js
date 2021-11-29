@@ -16,8 +16,7 @@ async function createUser(req, res, next) {
     });
 
     const newUser = await User.findOne({ where: { userName } });
-
-    return res.send(newUser);
+    res.status(200).send(newUser);
   } catch {
     (err) => err(next);
   }
