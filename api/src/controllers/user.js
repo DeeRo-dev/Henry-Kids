@@ -16,8 +16,7 @@ async function createUser(req, res, next) {
     });
 
     const newUser = await User.findOne({ where: { userName } });
-
-    return res.send(newUser);
+    res.status(200).send(newUser);
   } catch {
     (err) => err(next);
   }
@@ -36,9 +35,32 @@ async function getUserId(req,res,next){
     next(error);
   }
 }
-
+async function getUser(req,res,next){
+  if (req.query.title) {
+    return User.findAll({
+      attributes: ["id", "firstName", "lastName", "userName","type","photo","email","password"],
+      where: {
+        title: {
+          [Op.iLike]: `%${req.query.title}%`,
+        },
+      },
+    }).then((User) => {
+      if (User.length === 0) {
+        return res.send("Not class found");
+      }
+      res.send(User);
+    });
+  } else {
+    return User.findAll({
+      attributes: ["id", "firstName", "lastName", "userName","type","photo","email","password"],
+    }).then((User) => {
+      res.send(User);
+    });
+  }
+}
 module.exports = {
     createUser,
     getUserId,
+    getUser
    
 };
