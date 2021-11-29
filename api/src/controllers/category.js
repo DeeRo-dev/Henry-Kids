@@ -9,12 +9,12 @@ const Sequelize = require("sequelize");
 
 async function getCat(req, res, next) {
   try {
-    let name = req.query.name;
+    let name1 = req.query.name;
     let category;
-    if (name) {
+    if (name1) {
       category = await Category.findAll({
         where: {
-          name: { [Op.iLike]: "%" + name + "%" }, //le dice que busque cualquier elemento que tena el name en alguna parte
+          name:  name1  , //le dice que busque cualquier elemento que tena el name en alguna parte
         },
       });
     } else {
@@ -87,7 +87,7 @@ async function getCatId(req, res, next) {
       // cat = await Category.findById(id);
       cat = await Category.findAll({
         where: {
-          id: { id },
+          id:  id ,
         },
       });
     }

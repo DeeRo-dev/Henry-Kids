@@ -32,7 +32,7 @@ async function getAlu(req, res, next) {
   res.status(200).send(favoritos);
 }
 
-async function getProf(req,res,next){
+async function getProf(req, res, next) {
   const cursos = await User.findAll({
     where: {
       id: req.params.idUs,
@@ -43,8 +43,20 @@ async function getProf(req,res,next){
   res.status(200).send(cursos);
 }
 
+async function delFav(req, res, next) {
+  try {
+    const { idUs, idClas } = req.params;
+    const user = await User.findByPk(idUs);
+    user.removeClass(idClas);
+    res.status(200).send(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   relClassUser,
   getAlu,
-  getProf
+  getProf,
+  delFav,
 };

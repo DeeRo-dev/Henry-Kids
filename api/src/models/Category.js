@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         // allowNull: false,
       },
       img_link: {
-        type: DataTypes.STRING(300),
+        type: DataTypes.STRING(1000),
        
       },
     },
