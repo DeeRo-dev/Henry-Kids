@@ -6,19 +6,21 @@ import Home from "./components/Home/home";
 import HomeTeacher from "./components/HomeTeacher/HomeTeacher";
 import ClassDetail from "./components/ClassDetail/ClassDetail";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
+import {AuthContextProvider} from "./firebase/auth"
+import Root from "./components/root/root";
 function App() {
   return (
     <BrowserRouter>
+     <AuthContextProvider>
       <div className="App">
+      <Root>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          {/* <PrivateRoute path="/dashboard" auth={auth} component={Home} /> */}
-          <Route path="/home/student" element={<Home />} />
-          <Route path="/home/teacher" element={<HomeTeacher />} />
-          <Route path="/create-clase" element={<FormularioClase />} />
-          <Route path="/home/:id" element={<ClassDetail />} />
+          <PrivateRoute type="private" path="/home" element={<Home/>} />
+          <PrivateRoute type="public" path="/" component={LandingPage} />
         </Routes>
+        </Root>
       </div>
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }
