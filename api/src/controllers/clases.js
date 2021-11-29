@@ -27,7 +27,7 @@ async function addClass(req, res, next) {
       createClass.addCategory(data.catId);
     }
     if (data.usId) {
-      createClass.addUser(data.usId, { as: "profesor" });
+      createClass.addUser(data.usId, { as: "teacher" });
     }
     res.status(200).send(createClass);
   } catch (error) {
@@ -112,7 +112,6 @@ async function getClassEjempl(req, res, next) {
   }
 }
 
-
 // funcion para traernos 1 clase por id.
 async function GetClassId(req, res, next) {
   try {
@@ -121,7 +120,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model: Category, Evaluation },
+      include: { model:  User, Category, Evaluation },
     });
     res.send(classDetail);
   } catch (error) {
