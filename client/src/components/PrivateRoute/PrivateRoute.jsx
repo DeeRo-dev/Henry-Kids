@@ -1,20 +1,33 @@
-// import React from "react";
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { AuthContext } from '../context/auth';
 
-// import {
-//     Route,
-//     Redirect
-//   } from "react-router-dom";
-// //   import FormularioClase from "./components/FormularioClase/FormularioClase.jsx";
-//   import Home from "./components/Home/home";
-// //   import HomeTeacher from "./components/HomeTeacher/HomeTeacher";
-// //   import ClassDetail from "./components/ClassDetail/ClassDetail";
+class PrivateRoute extends React.Component {
+    render() {
+        const {
+            type,
+            history,
+            ...rest
+        } = this.props;
+        const {
+            isLoggedIn,
+        } = this.context;
 
-  
-// export default function PrivateRoute(props){ 
-//    return <Route {...props}/>
-// }
-// const {isAuthenticated } = props.path
-    
+        if (type === 'private' && !isLoggedIn) {
+            return <Redirect to="/" />;
+        } else if (type === 'public' && isLoggedIn) {
+            return <Redirect to="/home" />;
+        }
+
+        return <Route {...rest} />;
+    };
+}
+
+PrivateRoute.contextType = AuthContext;
+
+export default PrivateRoute;
+
+
 // if (isAuthenticated) {
 //     return <Route path="/home/student" element = {<Home/>}/>
 //     // <Route path="/home/teacher" element = {<HomeTeacher/>}/>
@@ -31,3 +44,10 @@
        
 
 
+
+{/* <Route path="/" element={<LandingPage />} />
+          <PrivateRoute type="public" path="/" component={LandingPage} />
+          <Route path="/home/student" element={<Home />} />
+          <Route path="/home/teacher" element={<HomeTeacher />} />
+          <Route path="/create-clase" element={<FormularioClase />} />
+          <Route path="/home/:id" element={<ClassDetail />} /> */}
