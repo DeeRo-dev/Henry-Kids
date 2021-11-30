@@ -23,7 +23,7 @@ async function getComments(req, res, next){
   let result
   try{
     const {id} = req.body;
-      const electedClass = await Class.findOne(where: {id}
+      const electedClass = await Class.findOne({where: {id}}
        );
       if(!electedClass.comments.length){
         result = 'Esta clase no ha sido comentada todavía.'
@@ -31,17 +31,17 @@ async function getComments(req, res, next){
       result = electedClass.comments.map(item => {
       return {
       id: item.id,
-      name: item.name})
-    }
+      name: item.name}
+    })
     res.send(result);
-  }catch{
-    (err) = next(err);
+    }
+  } catch {
+    (err) => next(err);
   }
 
 }
 
-module.experts ={
+module.exports ={
   createComment,
-  getComments
-  
+  getComments  
 }
