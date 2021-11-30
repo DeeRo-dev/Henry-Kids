@@ -17,6 +17,7 @@ function App() {
         <Route path="/home/teacher" element={<HomeTeacher />} />
         <Route path="/create-clase" element={<FormularioClase />} />
         <Route path="/home/:id" element={<ClassDetail />} />
+        
       </Routes>
     </div>
   </BrowserRouter>

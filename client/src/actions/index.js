@@ -8,9 +8,9 @@ export function getAllclasses() {
     }
 
 }
-export function getAllClassTeacher() {
+export function getAllClassTeacher(id) {
   return async function (dispatch) {
-      let response = await axios.get("http://localhost:3001/cursos/:idClas")    
+      let response = await axios.get(`http://localhost:3001/cursos/${id}`)    
       dispatch({ 
         type: "GET_ALL_CLASSES_TEACHER",
        data: response.data 

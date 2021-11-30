@@ -5,7 +5,7 @@ import NavTeacher from "../NavTeacher/NavTeacher.jsx";
 import styles from "./HomeTeacher.module.css";
  import CardTeacher from "../CardTeacher/CardTeacher.jsx";
 import { getAllClassTeacher } from "../../actions/index.js";
-
+import { useParams } from "react-router-dom";
 export default function Home() {
 var array = [{
   id:12,
@@ -19,11 +19,12 @@ var array = [{
 }] 
   const allClassTeacher = useSelector((state) => state.allClassTeacher);
 
+  const { id } = useParams();
    const dispatch = useDispatch();
-   useEffect(() => dispatch( getAllClassTeacher()),
-    [dispatch]);
 
-    
+   useEffect(() => {
+    dispatch(getAllClassTeacher(id));
+  }, [id, dispatch]);
 
   return (
     <div >
