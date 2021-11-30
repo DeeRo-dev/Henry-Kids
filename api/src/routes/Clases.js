@@ -6,7 +6,9 @@ const {
   getClassEjempl,
   editClass,
   GetClassId,
-  addEval
+  addEval,
+  getEval,
+  
 } = require("../controllers/clases");
 
 const router = Router();
@@ -23,6 +25,9 @@ router.get("/all", getClassEjempl);
 
 router.get("/:id", GetClassId);
 
-router.post("/eva",addEval)
+router.post("/nota",addEval)
+
+router.get("/nota/:idClas",getEval)
+
 
 module.exports = router;
