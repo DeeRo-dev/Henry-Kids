@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Nav from '../Nav/Nav.jsx';
-import {Link, useNavigate} from 'react-router-dom';
-import {styled} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+// import {styled} from '@material-ui/core';
 import styles from './Home.module.css';
 import Card from '../Card/Card.jsx';
 import {getAllclasses} from '../../actions/index.js';
 import Pagination from '../Pagination/Pagination.jsx';
-import { auth } from "../../firebase/firebaseConfig";
+
 
 export default function Home() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
 
@@ -36,17 +35,7 @@ export default function Home() {
     setPage (num);
   }
 
-  function signOutUser(e) {
-    auth
-      .signOut(auth)
-      .then(() => {
-        console.log("done");
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+ 
 
   return (
     <div className={styles.home}>
@@ -56,8 +45,6 @@ export default function Home() {
 
 
       <div className={styles.cards}>
-        <button onClick={signOutUser}> Salir </button>
-
         {allClasses.map((e) => {
           return (
             <div key={e.id}>
