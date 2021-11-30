@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./CardTeacher.module.css"
+import LongMenu from "../MenuDesplegable/MenuDesplegable";
+
 
 export default function CardTeacher({
   id,
@@ -38,6 +40,7 @@ export default function CardTeacher({
             alt="user"
           />
         </p>
+        <LongMenu/>
       </div>
   
   );

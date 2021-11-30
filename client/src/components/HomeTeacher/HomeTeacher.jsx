@@ -15,7 +15,7 @@ var array = [{
   video_link: 'https://www.youtube.com/watch?v=3crsQUKgaDc',
   difficulty: 'Basica',
   game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
-  valoration:3,
+  
 }] 
   const allClassTeacher = useSelector((state) => state.allClassTeacher);
 
