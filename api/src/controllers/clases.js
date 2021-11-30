@@ -29,6 +29,10 @@ async function addClass(req, res, next) {
     if (data.usId) {
       createClass.addUser(data.usId, { as: "teacher" });
     }
+    await Evaluation.create({
+      Evaluation: 1,
+      classId: createClass.id,
+    });
     res.status(200).send(createClass);
   } catch (error) {
     res.status(500).send(error);
@@ -120,9 +124,34 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model:  User, Category, Evaluation },
+      include: { model: User, Category, Evaluation },
     });
     res.send(classDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function addEval(req, res, next) {
+  let data = { ...req.body };
+  try {
+    const Eva = await Evaluation.findAll({
+      where: {
+        classId: data.classId,
+      },
+    })
+    const aux=parseInt(Eva[0].dataValues.Evaluation)
+    const aux2=parseInt(Eva[0].dataValues.id_evaluation)+1
+    const prom=Math.round((aux+data.eva)/aux2)
+    console.log(aux,data.eva,aux2,prom)
+    const change = {
+      Evaluation: prom,
+    };
+    const result = await Evaluation.update(change, {
+      where: { classId: data.classId },
+    });
+   
+    res.status(200).send(result);
   } catch (error) {
     next(error);
   }
@@ -135,4 +164,5 @@ module.exports = {
   getClass,
   getClassEjempl,
   GetClassId,
+  addEval,
 };

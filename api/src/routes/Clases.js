@@ -6,6 +6,7 @@ const {
   getClassEjempl,
   editClass,
   GetClassId,
+  addEval
 } = require("../controllers/clases");
 
 const router = Router();
@@ -21,5 +22,7 @@ router.get("/", getClass);
 router.get("/all", getClassEjempl);
 
 router.get("/:id", GetClassId);
+
+router.post("/eva",addEval)
 
 module.exports = router;

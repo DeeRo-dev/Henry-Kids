@@ -46,6 +46,9 @@ Category.belongsToMany(Class, { through: "CatCurso" });
 Class.hasMany(Evaluation);
 Evaluation.belongsTo(Class);
 
+User.hasOne(Evaluation)
+Evaluation.belongsTo(User);
+
 Class.belongsToMany(User, { through: "clasUser" });
 User.belongsToMany(Class, { through: "clasUser" });
 
