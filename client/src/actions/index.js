@@ -8,6 +8,16 @@ export function getAllclasses() {
     }
 
 }
+export function getAllClassTeacher() {
+  return async function (dispatch) {
+      let response = await axios.get("http://localhost:3001/cursos/:idClas")    
+      dispatch({ 
+        type: "GET_ALL_CLASSES_TEACHER",
+       data: response.data 
+      });
+  }
+
+}
 
 export function createClass(input) {
   return async function (dispatch) {
