@@ -16,24 +16,34 @@ var array = [{
   difficulty: 'Basica',
   game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
   
-}] 
-  const allClassTeacher = useSelector((state) => state.allClassTeacher);
+},
+{
+ id:12,
+  title:'Clase23',
+  category: 'Objetos',
+  description:'un curso orientado a la programacion de onjetos ',
+  video_link: 'https://www.youtube.com/watch?v=3crsQUKgaDc',
+  difficulty: 'Basica',
+  game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
+}
+] 
+  // const allClassTeacher = useSelector((state) => state.allClassTeacher);
 
-  const { id } = useParams();
-   const dispatch = useDispatch();
+  // const { id } = useParams();
+  //  const dispatch = useDispatch();
 
-   useEffect(() => {
-    dispatch(getAllClassTeacher(id));
-  }, [id, dispatch]);
+  //  useEffect(() => {
+  //   dispatch(getAllClassTeacher(id));
+  // }, [id, dispatch]);
 
   return (
-    <div >
+    <div className={styles.home}>
       <div className={styles.nav}>
       <NavTeacher />
       </div>
 
 
-      <div >
+      <div className={styles.cards}>
       {array.map((e) => { 
         return (
         <div key= {e.id}> 

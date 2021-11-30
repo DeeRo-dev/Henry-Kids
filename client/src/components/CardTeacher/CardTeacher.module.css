@@ -24,7 +24,7 @@
   width: 250px;
   height: 200px;
   transition: all 300ms ease;
-  height: 320px;
+  height: 350px;
 }
 .card:hover {
   box-shadow: 1px -3px 10px var(--verde);

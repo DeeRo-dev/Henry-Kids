@@ -18,6 +18,8 @@ export default function CardTeacher({
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
+       
+      <LongMenu/>
         <img
           src="https://www.redeszone.net/app/uploads-redeszone.net/2019/04/javascript-chrome-firefox.jpg"
           alt="rover"
@@ -40,7 +42,7 @@ export default function CardTeacher({
             alt="user"
           />
         </p>
-        <LongMenu/>
+     
       </div>
   
   );
