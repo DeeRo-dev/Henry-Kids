@@ -1,31 +1,31 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { AuthContext } from '../context/auth';
+// import React from 'react';
+// import { Route, Redirect } from 'react-router-dom';
+// import { AuthContext } from '../context/auth';
 
-class PrivateRoute extends React.Component {
-    render() {
-        const {
-            type,
-            history,
-            ...rest
-        } = this.props;
-        const {
-            isLoggedIn,
-        } = this.context;
+// class PrivateRoute extends React.Component {
+//     render() {
+//         const {
+//             type,
+//             history,
+//             ...rest
+//         } = this.props;
+//         const {
+//             isLoggedIn,
+//         } = this.context;
 
-        if (type === 'private' && !isLoggedIn) {
-            return <Redirect to="/" />;
-        } else if (type === 'public' && isLoggedIn) {
-            return <Redirect to="/home" />;
-        }
+//         if (type === 'private' && !isLoggedIn) {
+//             return <Redirect to="/" />;
+//         } else if (type === 'public' && isLoggedIn) {
+//             return <Redirect to="/home" />;
+//         }
 
-        return <Route {...rest} />;
-    };
-}
+//         return <Route {...rest} />;
+//     };
+// }
 
-PrivateRoute.contextType = AuthContext;
+// PrivateRoute.contextType = AuthContext;
 
-export default PrivateRoute;
+// export default PrivateRoute;
 
 
 // if (isAuthenticated) {
