@@ -19,11 +19,11 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {!sessionPersistense ? (
+         {/*  {!sessionPersistense ? ( */}
             <Route path="/" element={<LandingPage />} />
-          ) : (
+        {/*   ) : ( */}
             <Route path="/home/student" element={<Home />} />
-          )}
+       {/*    )} */}
           <Route path="/home/teacher" element={<HomeTeacher />} />
           <Route path="/create-clase" element={<FormularioClase />} />
           <Route path="/home/:id" element={<ClassDetail />} />
