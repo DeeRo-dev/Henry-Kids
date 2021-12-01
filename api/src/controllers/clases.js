@@ -14,6 +14,7 @@ async function addClass(req, res, next) {
 
   try {
     const createClass = await Class.create({
+     
       title: data.title,
       description: data.description,
       studio_material: data.studio_material,
@@ -29,6 +30,10 @@ async function addClass(req, res, next) {
     if (data.usId) {
       createClass.addUser(data.usId, { as: "teacher" });
     }
+    await Evaluation.create({
+      Evaluation: 1,
+      classId: createClass.id,
+    });
     res.status(200).send(createClass);
   } catch (error) {
     res.status(500).send(error);
@@ -73,7 +78,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: { model: Evaluation },
+      include: [Category,Evaluation,User],
     }).then((Class) => {
       if (Class.length === 0) {
         return res.send("Not class found");
@@ -120,8 +125,50 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model:  User, Category, Evaluation },
+      include: { model: User, Category, Evaluation },
     });
+    res.send(classDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function addEval(req, res, next) {
+  let data = { ...req.body };
+  try {
+    const Eva = await Evaluation.findAll({
+      where: {
+        classId: data.classId,
+      },
+    });
+    const aux = parseInt(Eva[0].dataValues.Evaluation);
+    const aux2 = parseInt(Eva[0].dataValues.id_evaluation) + 1;
+    const prom = Math.round((aux + data.nota) / aux2);
+    // console.log(aux, data.eva, aux2, prom);
+    const change = {
+      Evaluation: prom,
+      userId: data.userId,
+    };
+    const result = await Evaluation.update(change, {
+      where: { classId: data.classId },
+    });
+
+    res.status(200).send({ msj: "se cargo la nota" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getEval(req, res, next) {
+  try {
+    const { idClas } = req.params;
+    const classDetail = await Class.findAll({
+      where: {
+        id: idClas,
+      },
+      include: [Evaluation],
+    });
+    console.log(classDetail);
     res.send(classDetail);
   } catch (error) {
     next(error);
@@ -135,4 +182,6 @@ module.exports = {
   getClass,
   getClassEjempl,
   GetClassId,
+  addEval,
+  getEval,
 };

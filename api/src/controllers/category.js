@@ -6,6 +6,7 @@ const {
   valoration,
 } = require("../db");
 const Sequelize = require("sequelize");
+const { mapFinderOptions } = require("sequelize/dist/lib/utils");
 
 async function getCat(req, res, next) {
   try {
@@ -14,7 +15,7 @@ async function getCat(req, res, next) {
     if (name1) {
       category = await Category.findAll({
         where: {
-          name:  name1  , //le dice que busque cualquier elemento que tena el name en alguna parte
+          name: name1, //le dice que busque cualquier elemento que tena el name en alguna parte
         },
       });
     } else {
@@ -87,7 +88,7 @@ async function getCatId(req, res, next) {
       // cat = await Category.findById(id);
       cat = await Category.findAll({
         where: {
-          id:  id ,
+          id: id,
         },
       });
     }
@@ -120,10 +121,21 @@ async function putCat(req, res, next) {
   }
 }
 
+async function getName(req, res, next) {
+  const arr = [];
+  const category = await Category.findAll();
+  console.log(category[0].dataValues.name);
+  category.map((a)=>{
+    arr.push(a.dataValues.name)
+  })
+  res.status(200).send(arr);
+}
+
 module.exports = {
   getCat,
   getEjemplo,
   addCate,
   getCatId,
   putCat,
+  getName,
 };
