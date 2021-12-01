@@ -5,8 +5,8 @@ export function getAllclasses() {
     return async function (dispatch) {
         let response = await axios.get("https://henry-kids.herokuapp.com/class")    
         dispatch({ type: "GET_ALL_CLASSES", data: response.data });
-    }
-
+      }
+     
 }
 // export function getAllClassTeacher(id) {
 //   return async function (dispatch) {

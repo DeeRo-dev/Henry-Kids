@@ -58,7 +58,7 @@ var array = [{
   title:'altoCurso',
   category: 'java',
   description:'uncursito de java ',
-  video_link: 'https://www.youtube.com/watch?v=3crsQUKgaDc',
+  video_link: 'https://www.youtube.com/watch?v=RqQ1d1qEWlE',
   difficulty: 'Basica',
   game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
   
@@ -68,7 +68,7 @@ var array = [{
   title:'Clase23',
   category: 'Objetos',
   description:'un curso orientado a la programacion de onjetos ',
-  video_link: 'https://www.youtube.com/watch?v=3crsQUKgaDc',
+  video_link: 'https://www.youtube.com/watch?v=rbuYtrNUxg4',
   difficulty: 'Basica',
   game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
 }
