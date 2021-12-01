@@ -165,7 +165,7 @@ async function getEval(req, res, next) {
       where: {
         id: idClas,
       },
-      include: [Evaluation, User],
+      include: [Evaluation],
     });
     console.log(classDetail);
     res.send(classDetail);
