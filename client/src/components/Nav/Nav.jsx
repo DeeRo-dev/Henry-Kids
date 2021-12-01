@@ -1,8 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
 import { Link,useNavigate } from "react-router-dom";
-=======
->>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 import Menu from '@material-ui/core/Menu';
