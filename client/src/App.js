@@ -5,8 +5,11 @@ import FormularioClase from "./components/FormularioClase/FormularioClase.jsx";
 import Home from "./components/Home/home";
 import HomeTeacher from "./components/HomeTeacher/HomeTeacher";
 import ClassDetail from "./components/ClassDetail/ClassDetail";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
+/* import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx"; */
 import { auth } from "../src/firebase/firebaseConfig";
+import ModifyClass from "./components/ModifyClass/ModifyClass";
+import FavsContainer from "./components/FavsContainer/FavsContainer";
+
 
 function App() {
   let sessionPersistense = "";
@@ -27,6 +30,8 @@ function App() {
           <Route path="/home/teacher" element={<HomeTeacher />} />
           <Route path="/create-clase" element={<FormularioClase />} />
           <Route path="/home/:id" element={<ClassDetail />} />
+          <Route path="/modify" element={<ModifyClass />} />
+          <Route path="/prueba" element={<FavsContainer />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -35,10 +35,24 @@ export function postUser(input) {
           });
         };
       }
-export function getClassById(id){
+
+      export function getClassById(id){
     return async function(dispatch){
         let response= await axios.get(`http://localhost:3001/class/${id}`)
          dispatch({ type: 'GET_CLASS_BY_ID', data: response.data })
-    }
-    
+    }   
+}
+
+export function getFavorites(idUs) {
+  return async function (dispatch) {
+    let response = await axios.get(`http://localhost:3001/fav/${idUs}`)
+    dispatch({ type: 'GET_FAVORITES', data: response.data })
+  }
+}
+
+export function ModifyClasses(id, input) {
+  return async function (dispatch) {
+    let response = await axios.put(`http://localhost:3001/class/${id}`, input)
+    dispatch({ type: 'MODIFY_CLASSES', data: response.data })
+  }
 }
