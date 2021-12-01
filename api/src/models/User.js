@@ -65,5 +65,9 @@ module.exports = (sequelize) => {
         is: /^[a-zA-Z0-9]+$/i,
       },
     },
+  },{
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
   });
 };
