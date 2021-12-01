@@ -1,7 +1,9 @@
 import React from "react";
-import styles from "./Card.module.css";
+import styles from "./CardTeacher.module.css"
+import LongMenu from "../MenuDesplegable/MenuDesplegable";
 
-export default function Card({
+
+export default function CardTeacher({
   id,
   title,
   category,
@@ -10,10 +12,14 @@ export default function Card({
   difficulty,
   game_link,
   valoration,
-}) {
+
+}){
+
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
+       
+      <LongMenu/>
         <img
           src="https://www.redeszone.net/app/uploads-redeszone.net/2019/04/javascript-chrome-firefox.jpg"
           alt="rover"
@@ -36,6 +42,7 @@ export default function Card({
             alt="user"
           />
         </p>
+     
       </div>
   
   );

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Nav from '../Nav/Nav.jsx';
@@ -8,6 +9,17 @@ import Card from '../Card/Card.jsx';
 import {getAllclasses} from '../../actions/index.js';
 import Pagination from '../Pagination/Pagination.jsx';
 
+=======
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Nav from "../Nav/Nav.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./Home.module.css";
+import Card from "../Card/Card.jsx";
+import { getAllclasses } from "../../actions/index.js";
+import { auth } from "../../firebase/firebaseConfig";
+import Pagination from './../Pagination/Pagination';
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -16,7 +28,7 @@ export default function Home() {
   useEffect (() => dispatch (getAllclasses ()), [dispatch]);
 
   let cardsInPage = 8;
-  let [page, setPage] = useState (1);
+  let [page, setPage] = useState(1);
 
   useEffect (() => {
     setPage (1);
@@ -35,7 +47,22 @@ export default function Home() {
     setPage (num);
   }
 
+<<<<<<< HEAD
  
+=======
+  function signOutUser(e) {
+    auth
+      .signOut(auth)
+      .then(() => {
+        navigate("/");
+        window.location.reload();
+        localStorage.clear();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 
   return (
     <div className={styles.home}>
@@ -48,9 +75,7 @@ export default function Home() {
         {allClasses.map((e) => {
           return (
             <div key={e.id}>
-              {" "}
-              <Link to={"/home/" + e.id}>
-                {" "}
+              <Link to={"/home/student/" + e.id}>
                 <Card
                   id={e.id}
                   title={e.title}
@@ -75,6 +100,7 @@ export default function Home() {
         />
       </div>
 
+      <button onClick={signOutUser}> Salir </button>
     </div>
   );
 }

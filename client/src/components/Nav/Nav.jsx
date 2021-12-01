@@ -1,5 +1,8 @@
 import React from "react";
+<<<<<<< HEAD
 import { Link,useNavigate } from "react-router-dom";
+=======
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 import Menu from '@material-ui/core/Menu';
@@ -37,13 +40,13 @@ const signOutUser = (e) =>  {
       <div className={styles.background}>
       <nav className={styles.nav}>
         <div className={styles.logo}>
-        <Link to="/">
+      
           <img
             className={styles.logo}
             src="https://i.imgur.com/AWEe2XR.png"
             alt="not found"
           />
-          </Link>
+ 
         </div>
 
         <div className={styles.contentSearch}>

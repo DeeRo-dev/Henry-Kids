@@ -3,11 +3,25 @@ const axios = require('axios')
 
 export function getAllclasses() {
     return async function (dispatch) {
+<<<<<<< HEAD
         let response = await axios.get("https://henry-kids.herokuapp.com/allClasses")    
+=======
+        let response = await axios.get("https://henry-kids.herokuapp.com/class")    
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
         dispatch({ type: "GET_ALL_CLASSES", data: response.data });
     }
 
 }
+// export function getAllClassTeacher(id) {
+//   return async function (dispatch) {
+//       let response = await axios.get(`http://localhost:3001/cursos/${id}`)    
+//       dispatch({ 
+//         type: "GET_ALL_CLASSES_TEACHER",
+//        data: response.data 
+//       });
+//   }
+
+// }
 
 export function createClass(input) {
   return async function (dispatch) {
@@ -25,10 +39,24 @@ export function postUser(input) {
           });
         };
       }
-export function getClassById(id){
+
+      export function getClassById(id){
     return async function(dispatch){
         let response= await axios.get(`https://henry-kids.herokuapp.com/class/${id}`)
          dispatch({ type: 'GET_CLASS_BY_ID', data: response.data })
-    }
-    
+    }   
+}
+
+export function getFavorites(idUs) {
+  return async function (dispatch) {
+    let response = await axios.get(`https://henry-kids.herokuapp.com/fav/${idUs}`)
+    dispatch({ type: 'GET_FAVORITES', data: response.data })
+  }
+}
+
+export function ModifyClasses(id, input) {
+  return async function (dispatch) {
+    let response = await axios.put(`https://henry-kids.herokuapp.com/class/${id}`, input)
+    dispatch({ type: 'MODIFY_CLASSES', data: response.data })
+  }
 }
