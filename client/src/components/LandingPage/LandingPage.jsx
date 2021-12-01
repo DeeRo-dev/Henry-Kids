@@ -180,24 +180,6 @@ export default function LandingPage() {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-<<<<<<< HEAD
-        console.log(userCredential.user);
-        /* dispatch(postUser(user)).then((res) => { */
-
-        setUser({
-          firstName: "",
-          lastName: "",
-          userName: "",
-          type: "",
-          email: "",
-          password: "",
-        });
-        if (user.type === "student") {
-          //  console.log(userCredential.user);
-          navigate("/home/student");
-        } else {
-          navigate("/home/teacher");
-=======
         localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((user) => {
           localStorage.setItem("sessionUser", user.uid);
@@ -210,7 +192,6 @@ export default function LandingPage() {
         } else {
           navigate("/home/teacher");
           window.location.reload()
->>>>>>> dev
         }
       })
       /*    }) */
@@ -223,15 +204,6 @@ export default function LandingPage() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-<<<<<<< HEAD
-        console.log(userCredential.user);
-        if (user.type === "student") {
-          //  console.log(userCredential.user);
-          navigate("/home/student");
-        } else {
-          navigate("/home/teacher");
-        }
-=======
         localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((user) => {
           localStorage.setItem("sessionUser", user.uid);
@@ -243,7 +215,6 @@ export default function LandingPage() {
         navigate("/home/teacher");
         window.location.reload()
       }
->>>>>>> dev
       })
       .catch((error) => {
         alert(error.code);
@@ -331,10 +302,6 @@ export default function LandingPage() {
                       type="password"
                       placeholder="Contraseña:"
                     />
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
                     <FormControl component="fieldset">
                       <RadioGroup
                         aria-label="gender"
@@ -355,10 +322,6 @@ export default function LandingPage() {
                         />
                       </RadioGroup>
                     </FormControl>
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
                     <StyleButtonIngresarConCorreo
                       onClick={(e) => ingresarUsuario(e)}
                       type="submit"
@@ -368,10 +331,6 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
                     {/*  <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
