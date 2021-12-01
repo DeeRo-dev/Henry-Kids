@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ClassDetail.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { getClassById } from "../../actions";
 // import Nav from "../Nav/Nav";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 export default function ClassDetail() {
+  const navigate = useNavigate();
+  const detail = useSelector((state) => state.classById[0]);
   //   // id, title, category, description, video_link, difficulty, game_link, valoration,
 
   const { id } = useParams();
@@ -16,28 +18,28 @@ export default function ClassDetail() {
 
   useEffect(() => {
     dispatch(getClassById(id));
-  }, [id, dispatch]);
+    if(!detail) navigate("/home/student");
+  }, [id, dispatch, detail, navigate]);
 
-  const detail = useSelector((state) => state.classById);
-  console.log(detail);
 
+  
   return (
-    
     <div className={styles.contentDetail}>
-      <Link to="/home/student"><ArrowBackIosIcon/></Link>
-      {detail.length > 0 ? (
+      {detail && (
         <div>
           {/* <div className={styles.contentCategory}>
                         <p>JAVASCRIPT</p>
                     </div> */}
-
+          <Link to="/home/student">
+            <ArrowBackIosIcon />
+          </Link>
           <div className={styles.contentTitle}>
-            <h1>{detail[0].title}</h1>
+            <h1>{detail.title}</h1>
           </div>
 
           <div className={styles.contentVideo}>
             <ReactPlayer
-              url={detail[0].video_link}
+              url={detail.video_link}
               className={styles.react_player}
               playing={false}
               width="640px"
@@ -51,9 +53,7 @@ export default function ClassDetail() {
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> */}
           </div>
 
-          <div className={styles.contentDescription}>
-            {detail[0].description}
-          </div>
+          <div className={styles.contentDescription}>{detail.description}</div>
 
           {/*  <div className={styles.contentGame}>
                         {detail[0].game_link}  <p>game_link</p>
@@ -68,15 +68,9 @@ export default function ClassDetail() {
             Dificultad: {detail[0].difficulty}
           </div> */}
 
-          <div className={styles.contentValoration}>{detail[0].valoration}</div>
-        </div>
-      ) : (
-        <div>
-          {" "}
-          <h1>Loading...</h1>{" "}
+          <div className={styles.contentValoration}>{detail.valoration}</div>
         </div>
       )}
     </div>
-  
   );
 }

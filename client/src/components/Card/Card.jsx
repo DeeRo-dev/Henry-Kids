@@ -1,4 +1,3 @@
-import { StylesContext } from "@material-ui/styles";
 import React from "react";
 import styles from "./Card.module.css";
 

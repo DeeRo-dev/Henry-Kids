@@ -11,13 +11,13 @@ export default function Nav() {
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
-        <Link to="/">
+       
           <img
             className={styles.logo}
             src="https://i.imgur.com/AWEe2XR.png"
             alt="not found"
           />
-        </Link>
+     
       </div>
 
       {/* <div className={styles.contentSearch}>
@@ -75,7 +75,7 @@ export default function Nav() {
             </option>
           </select> */}
 
-        <Link to="/create-clase">
+        <Link to="/home/create-clase">
           <button className={styles.blue}>Crear clase</button>
         </Link>
       </div>

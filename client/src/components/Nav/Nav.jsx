@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 
@@ -15,13 +14,13 @@ export default function Nav() {
       <div className={styles.background}>
       <nav className={styles.nav}>
         <div className={styles.logo}>
-        <Link to="/">
+      
           <img
             className={styles.logo}
             src="https://i.imgur.com/AWEe2XR.png"
             alt="not found"
           />
-          </Link>
+ 
         </div>
 
         <div className={styles.contentSearch}>
