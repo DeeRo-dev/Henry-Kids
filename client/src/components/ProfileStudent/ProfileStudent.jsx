@@ -9,6 +9,7 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import FavsContainer from '../FavsContainer/FavsContainer.jsx';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,7 +79,7 @@ export default function ScrollableTabsButtonForce() {
       
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={1}></TabPanel>
+      <TabPanel value={value} index={1}>  <FavsContainer/> </TabPanel>
       <TabPanel value={value} index={2}>  </TabPanel>
       <TabPanel value={value} index={3}>  </TabPanel>
     </div>
