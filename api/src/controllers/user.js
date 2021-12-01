@@ -112,10 +112,27 @@ async function getUser(req, res, next) {
     });
   }
 }
+
+async function getTipo(req,res,next){
+  try {
+    const { id } = req.params;
+    const userDetail = await User.findAll({
+      where: {
+        id: id,
+      },
+    });
+    const aux=userDetail[0].dataValues.type
+    res.send(aux);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createUser,
   getUserId,
   getUser,
   editUser,
   deleteUser,
+  getTipo
 };
