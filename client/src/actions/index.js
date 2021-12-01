@@ -3,7 +3,11 @@ const axios = require('axios')
 
 export function getAllclasses() {
     return async function (dispatch) {
+<<<<<<< HEAD
+        let response = await axios.get("https://henry-kids.herokuapp.com/allClasses")    
+=======
         let response = await axios.get("https://henry-kids.herokuapp.com/class")    
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
         dispatch({ type: "GET_ALL_CLASSES", data: response.data });
       }
      

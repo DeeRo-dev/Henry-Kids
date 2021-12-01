@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Nav from '../Nav/Nav.jsx';
+import {Link} from 'react-router-dom';
+// import {styled} from '@material-ui/core';
+import styles from './Home.module.css';
+import Card from '../Card/Card.jsx';
+import {getAllclasses} from '../../actions/index.js';
+import Pagination from '../Pagination/Pagination.jsx';
+
+=======
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
@@ -7,10 +19,10 @@ import Card from "../Card/Card.jsx";
 import { getAllclasses } from "../../actions/index.js";
 import { auth } from "../../firebase/firebaseConfig";
 import Pagination from './../Pagination/Pagination';
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 
 
 export default function Home() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
 
@@ -36,6 +48,9 @@ export default function Home() {
     setPage(num);
   }
 
+<<<<<<< HEAD
+ 
+=======
   function signOutUser(e) {
     auth
       .signOut(auth)
@@ -48,6 +63,7 @@ export default function Home() {
         console.log(error);
       });
   }
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 
   return (
     <div className={styles.home}>
