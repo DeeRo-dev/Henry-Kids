@@ -15,15 +15,15 @@ export default function CardTeacher({
 
 }) {
 
-  let firstIndex = video_link.indexOf("=") + 1;
-  let slice = video_link.slice(firstIndex, video_link.length)
+  let firstIndex = video_link && video_link.indexOf("=") + 1;
+  let slice = video_link && video_link.slice(firstIndex, video_link.length)
 
   let url = `https://img.youtube.com/vi/${slice}/hqdefault.jpg`
 
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-        <LongMenu />
+        <LongMenu id={id}/>
 
         <div>
           <img src={url} alt='Contenido sin imagen disponible' />

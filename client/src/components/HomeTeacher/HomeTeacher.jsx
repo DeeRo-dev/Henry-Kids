@@ -1,18 +1,13 @@
 import React ,{ useState, useEffect }from "react";
-import /*  useDispatch, useSelector */ "react-redux";
-
 import { useDispatch, useSelector } from "react-redux";
 import NavTeacher from "../NavTeacher/NavTeacher.jsx";
 import Pagination from "../Pagination/Pagination.jsx";
-// import { styled } from "@material-ui/core";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
-// import Card from "../Card/Card.jsx";
-// import { getAllclasses } from "../../actions/index.js";
  import CardTeacher from "../CardTeacher/CardTeacher.jsx";
 import { getAllClassTeacher } from "../../actions/index.js";
-import { useParams } from "react-router-dom";
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -29,77 +24,51 @@ export default function Home() {
         console.log(error);
       });
   }
-  // const dispatch = useDispatch();
-  // useEffect(() => dispatch(getAllclasses()), [dispatch]);
+
+  const allClassTeacher = useSelector((state) => state.allClassTeacher);
+
+  const dispatch = useDispatch();
+ 
   
-  // let cardsInPage = 8;
-  // let [page, setPage] = useState (1);
+  let cardsInPage = 8;
+  let [page, setPage] = useState (1);
 
-  // useEffect (() => {
-  //   setPage (1);
-  // }, []);
+  useEffect (() => {
+    setPage (1);
+  }, []);
 
-  // let currentPage;
-  // let indexLastPage = page * cardsInPage;
-  // let indexFirstPage = indexLastPage - cardsInPage;
+  let currentPage;
+  let indexLastPage = page * cardsInPage;
+  let indexFirstPage = indexLastPage - cardsInPage;
 
-  // allClasses.length > 9
-  //   ? (currentPage = allClasses.slice (indexFirstPage, indexLastPage))
-  //   : (currentPage = allClasses);
+  allClassTeacher.length > 9
+    ? (currentPage = allClassTeacher.slice (indexFirstPage, indexLastPage))
+    : (currentPage = allClassTeacher);
 
-  // function Paginate (e, num) {
-  //   e.preventDefault ();
-  //   setPage (num);
-  // }
   
+    function Paginate (e, num) {
+    e.preventDefault ();
+    setPage (num);
+  }
   
-var array = [{
-  id:12,
-  title:'altoCurso',
-  category: 'java',
-  description:'uncursito de java ',
-  video_link: 'https://www.youtube.com/watch?v=RqQ1d1qEWlE',
-  difficulty: 'Basica',
-  game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
+  let idUser = window.localStorage.sessionUser 
+   
+   useEffect(() => {
+    dispatch(getAllClassTeacher(idUser))
+  }, [idUser, dispatch]);
+
+
+  // window.localStorage.type
   
-},
-{
- id:12,
-  title:'Clase23',
-  category: 'Objetos',
-  description:'un curso orientado a la programacion de onjetos ',
-  video_link: 'https://www.youtube.com/watch?v=rbuYtrNUxg4',
-  difficulty: 'Basica',
-  game_link:'https://www.youtube.com/watch?v=3crsQUKgaDc',
-}
-] 
-  // const allClassTeacher = useSelector((state) => state.allClassTeacher);
-
-  // const { id } = useParams();
-  //  const dispatch = useDispatch();
-
-  //  useEffect(() => {
-  //   dispatch(getAllClassTeacher(id));
-  // }, [id, dispatch]);
-
   return (
     <div className={styles.home}>
       <div className={styles.nav}>
       <NavTeacher />
       </div>
     
-    
- 
-   
-      {/* <div>
-           <Pagination cardsInPage={cardsInPage} totalElements={allClasses.length}
-          paginate={Paginate} /> 
-      </div>
-       */}
-
 
       <div className={styles.cards}>
-      {array.map((e) => { 
+      {currentPage.map((e) => { 
         return (
         <div key= {e.id}> 
          <CardTeacher 
@@ -114,6 +83,12 @@ var array = [{
         /> </div>)}
       )} 
       </div>
+
+      <div>
+           <Pagination cardsInPage={cardsInPage} totalElements={allClassTeacher.length}
+          paginate={Paginate} /> 
+      </div>
+      
 
     </div>
   );

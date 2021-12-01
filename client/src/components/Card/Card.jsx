@@ -13,8 +13,8 @@ export default function Card({
 }) {
 
 
-  let firstIndex = video_link.indexOf("=") + 1;
-  let slice = video_link.slice(firstIndex, video_link.length)
+  let firstIndex = video_link && video_link.indexOf("=") + 1;
+  let slice = video_link && video_link.slice(firstIndex, video_link.length)
 
   let url = `https://img.youtube.com/vi/${slice}/hqdefault.jpg`
 

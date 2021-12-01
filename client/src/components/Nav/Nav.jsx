@@ -25,6 +25,8 @@ const signOutUser = (e) =>  {
       .then(() => {
         console.log("done");
         navigate("/");
+        window.location.reload();
+        localStorage.clear();
       })
       .catch((error) => {
         console.log(error);
