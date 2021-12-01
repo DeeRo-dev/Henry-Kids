@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define("user", {
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       validate: {
         notEmpty: true,
       },

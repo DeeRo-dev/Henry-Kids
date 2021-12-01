@@ -3,11 +3,12 @@ const { User,Class } = require("../db.js");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
-  const { firstName, lastName, userName, type, photo, email, password } =
+  const { firstName, lastName, userName, type, photo, email, password,id } =
     req.body;
 
   try {
     const user = await User.create({
+      id,
       firstName,
       lastName,
       userName,

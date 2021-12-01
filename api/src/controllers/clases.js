@@ -14,6 +14,7 @@ async function addClass(req, res, next) {
 
   try {
     const createClass = await Class.create({
+     
       title: data.title,
       description: data.description,
       studio_material: data.studio_material,
@@ -77,7 +78,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: { model: Evaluation },
+      include: [Category,Evaluation,User],
     }).then((Class) => {
       if (Class.length === 0) {
         return res.send("Not class found");
