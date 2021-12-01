@@ -3,18 +3,15 @@ const Sequelize = require("sequelize");
 
 async function createComment(req, res, next){
   const {name, classId} = req.body;
-
   try{
-    const commentCreation = await Comment.create({name});
-    const comment = await Comment.findOne({where: {name}});
-    const commentedClass = await Class.findByPk(parseInt(classId));
-    commentedClass.setComment(comment.id);
-    const result = Comment.findByPk(comment.id);
-    res.send(comment);
-  }catch{
-    (err) => next(err);
-  }
-  
+    const comment = await Comment.create({name});
+    await comment.setClass(parseInt(classId));
+    const verifiedComment = await Comment.findOne({where:{name}});
+    
+    res.send(verifiedComment);
+      }catch{
+      err => next(err);
+      }
 }
 
 
@@ -45,3 +42,5 @@ module.exports ={
   createComment,
   getComments  
 }
+
+
