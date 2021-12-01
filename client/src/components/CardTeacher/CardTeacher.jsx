@@ -13,28 +13,33 @@ export default function CardTeacher({
   game_link,
   valoration,
 
-}){
+}) {
+
+  let firstIndex = video_link.indexOf("=") + 1;
+  let slice = video_link.slice(firstIndex, video_link.length)
+
+  let url = `https://img.youtube.com/vi/${slice}/hqdefault.jpg`
 
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-       
-      <LongMenu/>
-        <img
-          src="https://www.redeszone.net/app/uploads-redeszone.net/2019/04/javascript-chrome-firefox.jpg"
-          alt="rover"
-        />
-      </div>
+        <LongMenu />
+
+        <div>
+          <img src={url} alt='Contenido sin imagen disponible' />
+        </div>
 
         <p className={styles.category}>JavaScript{category}</p>
         <div className={styles.title}>
           {title}
         </div>
         <div className={styles.description}>
-          {description} 
+          {description}
         </div>
 
-        <div className={styles.instructor}>Dificultad: {difficulty} </div>
+        <div
+          className={styles.instructor}>Dificultad: {difficulty}
+        </div>
         <p className={styles.valoration}>
           {valoration}
           <img
@@ -42,8 +47,8 @@ export default function CardTeacher({
             alt="user"
           />
         </p>
-     
+
       </div>
-  
+    </div>
   );
 }

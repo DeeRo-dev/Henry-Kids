@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Nav from '../Nav/Nav.jsx';
+import {Link} from 'react-router-dom';
+// import {styled} from '@material-ui/core';
+import styles from './Home.module.css';
+import Card from '../Card/Card.jsx';
+import {getAllclasses} from '../../actions/index.js';
+import Pagination from '../Pagination/Pagination.jsx';
+
+=======
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
@@ -7,19 +19,20 @@ import Card from "../Card/Card.jsx";
 import { getAllclasses } from "../../actions/index.js";
 import { auth } from "../../firebase/firebaseConfig";
 import Pagination from './../Pagination/Pagination';
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
+
 
 export default function Home() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
 
-  useEffect (() => dispatch (getAllclasses ()), [dispatch]);
-
+  useEffect(() => { dispatch(getAllclasses()) },[dispatch]);
+  
   let cardsInPage = 8;
   let [page, setPage] = useState(1);
 
-  useEffect (() => {
-    setPage (1);
+  useEffect(() => {
+    setPage(1);
   }, []);
 
   let currentPage;
@@ -27,14 +40,17 @@ export default function Home() {
   let indexFirstPage = indexLastPage - cardsInPage;
 
   allClasses.length > 9
-    ? (currentPage = allClasses.slice (indexFirstPage, indexLastPage))
+    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
     : (currentPage = allClasses);
 
-  function Paginate (e, num) {
-    e.preventDefault ();
-    setPage (num);
+  function Paginate(e, num) {
+    e.preventDefault();
+    setPage(num);
   }
 
+<<<<<<< HEAD
+ 
+=======
   function signOutUser(e) {
     auth
       .signOut(auth)
@@ -47,6 +63,7 @@ export default function Home() {
         console.log(error);
       });
   }
+>>>>>>> fbb77b48f46da3361dc16e31a89c25d4af5de366
 
   return (
     <div className={styles.home}>
@@ -56,7 +73,7 @@ export default function Home() {
 
 
       <div className={styles.cards}>
-        {allClasses.map((e) => {
+        {currentPage.map((e) => {
           return (
             <div key={e.id}>
               <Link to={"/home/student/" + e.id}>
