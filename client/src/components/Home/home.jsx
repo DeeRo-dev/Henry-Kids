@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { styled } from "@material-ui/core";
+
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
 import { getAllclasses } from "../../actions/index.js";
@@ -19,9 +19,9 @@ export default function Home() {
     auth
       .signOut(auth)
       .then(() => {
-        console.log("done");
         navigate("/");
-        localStorage.clear()
+        window.location.reload();
+        localStorage.clear();
       })
       .catch((error) => {
         console.log(error);
@@ -35,13 +35,10 @@ export default function Home() {
       </div>
 
       <div className={styles.cards}>
-
         {allClasses.map((e) => {
           return (
             <div key={e.id}>
-              {" "}
-              <Link to={"/home/" + e.id}>
-                {" "}
+              <Link to={"/home/student/" + e.id}>
                 <Card
                   id={e.id}
                   title={e.title}

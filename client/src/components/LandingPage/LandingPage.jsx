@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postUser } from "../../actions/index.js";
 import {
   auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  provider,
 } from "../../firebase/firebaseConfig";
 import {
   Button,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
 } from "@material-ui/core";
@@ -90,7 +86,7 @@ export default function LandingPage() {
     },
   })(Button);
 
-  const StyleButtonIngresarConGoogle = withStyles({
+/*   const StyleButtonIngresarConGoogle = withStyles({
     root: {
       marginTop: "15px",
       width: "70%",
@@ -108,7 +104,7 @@ export default function LandingPage() {
     label: {
       color: "white",
     },
-  })(Button);
+  })(Button); */
 
   const StyleButtonCrearCuenta = withStyles({
     root: {
@@ -198,8 +194,10 @@ export default function LandingPage() {
           if (user.type === "student") {
             //  console.log(userCredential.user);
             navigate("/home/student");
+            window.location.reload()
           } else {
             navigate("/home/teacher");
+            window.location.reload()
           }
         });
       })
@@ -215,12 +213,13 @@ export default function LandingPage() {
         localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((user) => {
           localStorage.setItem("sessionUser", user.uid);
-          console.log(user);
         });
         if(user.type === "student"){
         navigate("/home/student");
+        window.location.reload()
       }else{
         navigate("/home/teacher");
+        window.location.reload()
       }
       })
       .catch((error) => {
@@ -253,13 +252,12 @@ export default function LandingPage() {
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-        <Link to="/home/student">
           <img
             className={styles.logo}
             src="https://i.imgur.com/AWEe2XR.png"
             alt="img"
           />
-        </Link>
+   
 
         <div>
           <div className={styles.containerBtns}>

@@ -14,9 +14,10 @@ export default function Home() {
     auth
       .signOut(auth)
       .then(() => {
-        console.log("done");
         navigate("/");
+        window.location.reload()
         localStorage.clear()
+        console.log("done");
       })
       .catch((error) => {
         console.log(error);
