@@ -180,26 +180,19 @@ export default function LandingPage() {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-        console.log(userCredential.user);
-        dispatch(postUser(user)).then((res) => {
-          console.log(res);
-          setUser({
-            firstName: "",
-            lastName: "",
-            userName: "",
-            type: "",
-            email: "",
-            password: "",
-          });
-          if (user.type === "student") {
-            //  console.log(userCredential.user);
-            navigate("/home/student");
-            window.location.reload()
-          } else {
-            navigate("/home/teacher");
-            window.location.reload()
-          }
+        localStorage.setItem("type", user.type);
+        auth.onAuthStateChanged((user) => {
+          localStorage.setItem("sessionUser", user.uid);
         });
+        dispatch(postUser(user))
+        if (user.type === "student") {
+          //  console.log(userCredential.user);
+          navigate("/home/student");
+          window.location.reload()
+        } else {
+          navigate("/home/teacher");
+          window.location.reload()
+        }
       })
       .catch((error) => {
         console.log(error.code);

@@ -20,6 +20,7 @@ const teacherRoutes = [
   { path: "/modify", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> }
 ];
+
 const { type } = localStorage;
 
 function App() {
