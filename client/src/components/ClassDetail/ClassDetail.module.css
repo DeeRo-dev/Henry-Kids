@@ -1,10 +1,10 @@
 .contentDetail {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
 }
 
 .contentTitle {
+  margin-top: 50px;
   font-family: "Merienda One", cursive;
   font-size: 20px;
   color: var(--naranja);

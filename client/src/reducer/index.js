@@ -2,6 +2,8 @@ const initialState = {
   allClasses: [],
   user: [],
   classById: [],
+  allClassTeacher: [],
+  favorites:[]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -11,18 +13,38 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allClasses: action.data,
       };
+
     case "POST_USER":
       return {
         ...state,
       };
+
     case "CREATE_CLASS":
       return {
         ...state,
       };
+      
     case "GET_CLASS_BY_ID":
       return {
         ...state,
         classById: action.data,
+      };
+
+    case "GET_ALL_CLASSES_TEACHER":
+      return {
+        ...state,
+        allClassTeacher: action.data,
+      };
+
+    case 'GET_FAVORITES':
+      return {
+        ...state,
+        favorites: action.data
+      };
+
+    case 'MODIFY_CLASS':
+      return {
+        ...state,
       };
 
     default:

@@ -1,4 +1,5 @@
 const {
+  User,
   Class,
   Category,
   Recommendation,
@@ -22,22 +23,15 @@ async function addClass(req, res, next) {
       state: data.state,
       difficulty: data.difficulty,
     });
-
-    // me falta agregarle la category, recommendation,comment, etc. --- por hacer ---
-
-    // let createCategory = await Category.findById(
-    //     data.id
-    // )
-
-    // await createClass.setCategory(createCategory);
-
-    return res.json({
-      message: "Clase created succesfully",
-      Class: createClass,
-    });
+    if (data.catId) {
+      createClass.addCategory(data.catId);
+    }
+    if (data.usId) {
+      createClass.addUser(data.usId, { as: "teacher" });
+    }
+    res.status(200).send(createClass);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send(error);
   }
 }
 
@@ -56,16 +50,20 @@ async function deleteClass(req, res) {
   }
 }
 
+// funcion para poder editar una clase.
 async function editClass(req, res, next) {
   const changes = req.body;
   try {
-    const result = await Class.update(changes, { where: { id: req.params.id, } });
+    const result = await Class.update(changes, {
+      where: { id: req.params.id },
+    });
     res.send("Was successfully edited");
   } catch (err) {
     next(err);
   }
 }
 
+// funcion para traernos 1 clase.
 async function getClass(req, res, next) {
   if (req.query.title) {
     return Class.findAll({
@@ -92,43 +90,43 @@ async function getClass(req, res, next) {
   }
 }
 
+// funcion pàra crear y traernos 1 clase (ejemplo).
 async function getClassEjempl(req, res, next) {
-    try {
-        let arr = [];
-        const newCalss = await Class.create({
-          title:"CursoEjemplo",
-          description:"Battle tested, Open Sourced reusable modules for Salesforce",
-          strudio_material:"https://www.datasert.com/products/libshare/",
-          video_link:"https://www.youtube.com/watch?v=y9HQ5txZ410&ab_channel=YOSContenidos",
-          game_link:"https://scratch.mit.edu/projects/56791332",
-          state:true,
-          difficulty:"Basica"        
-    
-          });
-        arr.push(newCalss);
-        res.send(arr);
-      } catch (error) {
-        console.log(error);
-      }
+  try {
+    let arr = [];
+    const newCalss = await Class.create({
+      title: "CursoEjemplo",
+      description:
+        "Battle tested, Open Sourced reusable modules for Salesforce",
+      strudio_material: "https://www.datasert.com/products/libshare/",
+      video_link:
+        "https://www.youtube.com/watch?v=y9HQ5txZ410&ab_channel=YOSContenidos",
+      game_link: "https://scratch.mit.edu/projects/56791332",
+      state: true,
+      difficulty: "Basica",
+    });
+    arr.push(newCalss);
+    res.send(arr);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-
-
+// funcion para traernos 1 clase por id.
 async function GetClassId(req, res, next) {
-    try {
-        const { id } = req.params;
-        const classDetail = await Class.findAll({
-          where: {
-            id: id,
-          },
-          include: { model: Category, Evaluation },
-        });
-        res.send(classDetail);
-      } catch (error) {
-        next(error);
-      }
+  try {
+    const { id } = req.params;
+    const classDetail = await Class.findAll({
+      where: {
+        id: id,
+      },
+      include: { model:  User, Category, Evaluation },
+    });
+    res.send(classDetail);
+  } catch (error) {
+    next(error);
+  }
 }
-
 
 module.exports = {
   addClass,
@@ -136,5 +134,5 @@ module.exports = {
   editClass,
   getClass,
   getClassEjempl,
-  GetClassId
+  GetClassId,
 };
