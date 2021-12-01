@@ -1,28 +1,27 @@
 {
-    "name": "api",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "start": "nodemon -L",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-      "axios": "^0.24.0",
-      "const": "^1.0.0",
-      "cookie": "^0.4.1",
-      "cookie-parser": "^1.4.6",
-      "dotenv": "^10.0.0",
-      "express": "^4.17.1",
-      "fs": "0.0.1-security",
-      "morgan": "^1.10.0",
-      "nodemon": "^2.0.15",
-      "path": "^0.12.7",
-      "pg": "^8.7.1",
-      "sequelize": "^6.12.0-alpha.1"
-    }
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -L",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "const": "^1.0.0",
+    "cookie": "^0.4.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-alpha.1"
   }
-  
+}

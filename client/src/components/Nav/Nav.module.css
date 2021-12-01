@@ -95,6 +95,7 @@
   border: none;
 } */
 
+
 .imagen{
     display: inline-block;
     position: relative;
@@ -110,7 +111,6 @@
 .img{
   width: auto;
   height: 100%;
- 
   float:right;
 }
 .contentBoton {
