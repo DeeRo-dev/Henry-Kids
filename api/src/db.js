@@ -49,6 +49,11 @@ Evaluation.belongsTo(Class);
 Class.belongsToMany(User, { through: "clasUser" });
 User.belongsToMany(Class, { through: "clasUser" });
 
+User.hasOne(Evaluation);
+Evaluation.belongsTo(User);
+
+
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

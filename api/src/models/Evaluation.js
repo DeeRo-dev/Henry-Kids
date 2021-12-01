@@ -9,8 +9,16 @@ module.exports = (sequelize) => {
       autoIncrement: true,
     },
     Evaluation: {
-      type: DataTypes.ENUM("1", "2", "3", "4", "5"),
+      type: DataTypes.INTEGER,
       allowNull: false,
+      validate:{
+        max:5,
+        min:1,
+      }
     },
+  },{
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
   });
 };

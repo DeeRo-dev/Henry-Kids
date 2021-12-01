@@ -7,8 +7,7 @@ const {
   editUser,
   getUser,
 } = require("../controllers/user");
-// const { Router } = require("express");
-// const { createUser, getUserId, getUser } = require("../controllers/user");
+
 
 const router = Router();
 
