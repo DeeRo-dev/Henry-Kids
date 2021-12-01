@@ -86,7 +86,6 @@ var array = [{
     <div className={styles.home}>
       <div className={styles.nav}>
       <NavTeacher />
-      <button onClick={signOutUser}> Salir </button>
       </div>
     
     

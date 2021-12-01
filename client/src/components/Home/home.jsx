@@ -83,8 +83,6 @@ export default function Home() {
           paginate={Paginate}
         />
       </div>
-
-      <button onClick={signOutUser}> Salir </button>
     </div>
   );
 }
