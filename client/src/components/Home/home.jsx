@@ -21,6 +21,7 @@ export default function Home() {
       .then(() => {
         console.log("done");
         navigate("/");
+        localStorage.clear()
       })
       .catch((error) => {
         console.log(error);
@@ -34,7 +35,6 @@ export default function Home() {
       </div>
 
       <div className={styles.cards}>
-        <button onClick={signOutUser}> Salir </button>
 
         {allClasses.map((e) => {
           return (
@@ -57,6 +57,7 @@ export default function Home() {
           );
         })}
       </div>
+      <button onClick={signOutUser}> Salir </button>
     </div>
   );
 }

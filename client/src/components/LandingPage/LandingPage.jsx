@@ -201,7 +201,6 @@ export default function LandingPage() {
           } else {
             navigate("/home/teacher");
           }
-    
         });
       })
       .catch((error) => {
@@ -213,8 +212,16 @@ export default function LandingPage() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-           console.log(userCredential.user);
-           navigate("/home/student")
+        localStorage.setItem("type", user.type);
+        auth.onAuthStateChanged((user) => {
+          localStorage.setItem("sessionUser", user.uid);
+          console.log(user);
+        });
+        if(user.type === "student"){
+        navigate("/home/student");
+      }else{
+        navigate("/home/teacher");
+      }
       })
       .catch((error) => {
         alert(error.code);
@@ -303,7 +310,26 @@ export default function LandingPage() {
                       type="password"
                       placeholder="Contraseña:"
                     />
-
+                    <FormControl component="fieldset">
+                      <RadioGroup
+                        aria-label="gender"
+                        defaultValue="female"
+                        //  name="radio-buttons-group"
+                        name="type"
+                        onChange={(e) => onInputChange(e)}
+                      >
+                        <FormControlLabel
+                          value="student"
+                          control={<Radio />}
+                          label="Alumno"
+                        />
+                        <FormControlLabel
+                          value="teacher"
+                          control={<Radio />}
+                          label="Profesor"
+                        />
+                      </RadioGroup>
+                    </FormControl>
                     <StyleButtonIngresarConCorreo
                       onClick={(e) => ingresarUsuario(e)}
                       type="submit"
@@ -313,7 +339,7 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                   {/*  <StyleButtonIngresarConGoogle
+                    {/*  <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
