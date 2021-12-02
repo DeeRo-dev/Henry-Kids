@@ -29,7 +29,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: [ Category, Evaluation, User ],
+      include: [ Category, Evaluation, User, Comment ],
     })
     
   }
@@ -37,7 +37,7 @@ async function getClass(req, res, next) {
 
     results = await Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
-      include: [ Category, Evaluation, User ],
+      include: [ Category, Evaluation, User, Comment ],
     })
     
   }
@@ -120,9 +120,9 @@ async function deleteClass(req, res) {
       },
     });
 
-    res.send("Was successfully removed");
+    res.send("It was successfully removed.");
   } catch (error) {
-    return res.status(400).send({ error: "something went wrong :(" });
+    return res.status(400).send({ error: "Something went wrong :(" });
   }
 }
 
@@ -159,7 +159,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: [Category, Evaluation, User],
+      include: [Category, Evaluation, User, Comment],
     }).then((Class) => {
       if (Class.length === 0) {
         return res.send("Not class found");
@@ -169,7 +169,7 @@ async function getClass(req, res, next) {
   } else {
     return Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
-      include: [Category, Evaluation, User],
+      include: [Category, Evaluation, User, Comment],
     }).then((Class) => {
       res.send(Class);
     });
@@ -206,7 +206,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model: User, Category, Evaluation },
+      include: { model: User, Category, Evaluation, Comment },
     });
     res.send(classDetail);
   } catch (error) {
