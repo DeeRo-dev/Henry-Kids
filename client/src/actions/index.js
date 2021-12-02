@@ -8,6 +8,14 @@ export function getAllclasses() {
       }
      
 }
+export function searchClass(name) {
+  return async function (dispatch) {
+      return dispatch({
+        type: "SEARCH_CLASS",
+        payload: name,
+      });
+    } 
+}
 
 export function getAllClassTeacher(id) {
   return async function (dispatch) {
@@ -65,28 +73,11 @@ export function DeleteClass(id) {
 }
 export function getCategory(){
   return async function(dispatch){
-    var info = await axios ("/category")
+    var info = await axios ("https://henry-kids.herokuapp.com/category")
       console.log(info)
       return dispatch({
         tyoe:"GET_CATEGORY",
         payload: info.data
       })
   } 
-}
-
-export function searchClass(payload) {
-  return async (dispatch) => {
-    try {
-      const json = await axios.get(
-        `/class?name=${payload}`
-      );
-      return dispatch({
-        type: "SEARCH_CLASS",
-        payload: json.data,
-        dataLength: payload.length,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
 }

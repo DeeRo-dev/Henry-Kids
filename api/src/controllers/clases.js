@@ -18,10 +18,8 @@ async function getClass(req, res, next) {
   // GET https://localhost:3001/class?filter=category&category_id=1
 
   let results = []
-
   // Aca manejamos la busqueda por el search (por title).
   if (req.query.title) {
-
     results = await Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
       where: {
@@ -80,6 +78,46 @@ async function getClass(req, res, next) {
 
 }
 
+
+
+/* // funcion para traernos 1 clase.
+async function getClass(req, res, next) {
+
+  // if (req.query.name) {
+  //   const { name } = req.query;
+  //   res.send(
+  //     await Class.findAll({
+  //       where: {
+  //         title: { [Op.iLike]: `${name}%` },
+  //       }
+  //     })
+  //   );
+  // }
+  
+  if (req.query.title) {
+    return Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      where: {
+        title: {
+          [Op.iLike]: `%${req.query.title}%`,
+        },
+      },
+      include: [Category, Evaluation, User],
+    }).then((Class) => {
+      if (Class.length === 0) {
+        return res.send("Not class found");
+      }
+      res.send(Class);
+    });
+  } else {
+    return Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      include: [Category, Evaluation, User],
+    }).then((Class) => {
+      res.send(Class);
+    });
+  }
+} */
 // funcion para poder crear clases nuevas.
 async function addClass(req, res, next) {
   let data = { ...req.body };
@@ -139,42 +177,7 @@ async function editClass(req, res, next) {
   }
 }
 
-// funcion para traernos 1 clase.
-async function getClass(req, res, next) {
-  if (req.query.name) {
-    const { name } = req.query;
-    res.send(
-      await Class.findAll({
-        where: {
-          title: { [Op.iLike]: `${name}%` },
-        },
-      })
-    );
-  }
-  if (req.query.title) {
-    return Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      where: {
-        title: {
-          [Op.iLike]: `%${req.query.title}%`,
-        },
-      },
-      include: [Category, Evaluation, User],
-    }).then((Class) => {
-      if (Class.length === 0) {
-        return res.send("Not class found");
-      }
-      res.send(Class);
-    });
-  } else {
-    return Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      include: [Category, Evaluation, User],
-    }).then((Class) => {
-      res.send(Class);
-    });
-  }
-}
+
 
 // funcion pàra crear y traernos 1 clase (ejemplo).
 async function getClassEjempl(req, res, next) {

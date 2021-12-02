@@ -20,6 +20,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+      case "SEARCH_CLASS":
+        return {
+          ...state,
+          allClasses: action.payload 
+        };
 
     case "CREATE_CLASS":
       return {
@@ -53,18 +58,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         category:action.payload
       };
-      case "SEARCH_CLASS":
-        if (action.dataLength === 1 || !action.payload.length) {
-          return {
-            ...state,
-            class: state.allClasses,
-          };
-        } else {
-          return {
-            ...state,
-            class: action.payload,
-          };
-        }
     default:
       return state;
   }
