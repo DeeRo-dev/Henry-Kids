@@ -16,6 +16,7 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
+import { confirmPasswordReset } from "@firebase/auth";
 
 // function validate(pokemon){
 //   let errors = {};
@@ -31,6 +32,7 @@ export default function LandingPage() {
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
   const [user, setUser] = useState({
+    id: 1,
     firstName: "",
     lastName: "",
     userName: "",
@@ -86,7 +88,7 @@ export default function LandingPage() {
     },
   })(Button);
 
-/*   const StyleButtonIngresarConGoogle = withStyles({
+  /*   const StyleButtonIngresarConGoogle = withStyles({
     root: {
       marginTop: "15px",
       width: "70%",
@@ -181,18 +183,20 @@ export default function LandingPage() {
     createUserWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
         localStorage.setItem("type", user.type);
-        auth.onAuthStateChanged((user) => {
-          localStorage.setItem("sessionUser", user.uid);
+        auth.onAuthStateChanged((userCredential) => {
+          localStorage.setItem("sessionUser", userCredential.uid);
+          if (user.type === "student") {
+            //  console.log(userCredential.user);
+            console.log("entró")
+            dispatch(postUser(user)).then(() => {
+              navigate("/home/student");
+              window.location.reload();
+            });
+          } else {
+            navigate("/home/teacher");
+            window.location.reload();
+          }
         });
-        dispatch(postUser(user))
-        if (user.type === "student") {
-          //  console.log(userCredential.user);
-          navigate("/home/student");
-          window.location.reload()
-        } else {
-          navigate("/home/teacher");
-          window.location.reload()
-        }
       })
       .catch((error) => {
         console.log(error.code);
@@ -207,13 +211,13 @@ export default function LandingPage() {
         auth.onAuthStateChanged((user) => {
           localStorage.setItem("sessionUser", user.uid);
         });
-        if(user.type === "student"){
-        navigate("/home/student");
-        window.location.reload()
-      }else{
-        navigate("/home/teacher");
-        window.location.reload()
-      }
+        if (user.type === "student") {
+          navigate("/home/student");
+          window.location.reload();
+        } else {
+          navigate("/home/teacher");
+          window.location.reload();
+        }
       })
       .catch((error) => {
         alert(error.code);
@@ -245,12 +249,11 @@ export default function LandingPage() {
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-          <img
-            className={styles.logo}
-            src="https://i.imgur.com/AWEe2XR.png"
-            alt="img"
-          />
-   
+        <img
+          className={styles.logo}
+          src="https://i.imgur.com/AWEe2XR.png"
+          alt="img"
+        />
 
         <div>
           <div className={styles.containerBtns}>

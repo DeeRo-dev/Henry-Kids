@@ -20,6 +20,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+      case "EDIT_USER":
+        return{
+          ...state,
+          user: action.currenUser
+        }
       case "SEARCH_CLASS":
         return {
           ...state,
