@@ -56,7 +56,7 @@ export default function rootReducer(state = initialState, action) {
       case "SEARCH_CLASSES":
         return {
           ...state,
-        allClasses: action.payload,
+        classes: action.payload,
         };
     default:
       return state;
