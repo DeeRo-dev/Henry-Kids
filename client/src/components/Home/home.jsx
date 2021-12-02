@@ -7,31 +7,26 @@ import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
 import { editUser, getAllclasses } from "../../actions/index.js";
 import Pagination from "../Pagination/Pagination.jsx";
+import { auth } from "../../firebase/firebaseConfig.js";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
   useEffect(() => {
-    const user = window.localStorage.sessionUser
-    console.log(user)
+    auth.onAuthStateChanged((userCredential) => {console.log(userCredential)})
     /* dispatch(
-      editUser(1, {
-        id: window.localStorage.sessionUser,
-        firstName: "Marlon",
-        lastName: "De La Roche",
-        userName: "marlondelaroch3",
+      editUser("4", {
+        id: 5,
+        firstName: "pepe",
+        lastName: "pepe",
+        userName: "pepe",
         type: "student",
         photo: null,
-        email: "marlondelaroch3@gmail.com",
-        password: "marlon1101",
-      })
-    )
-      .then(() => {
-        console.log("entró");
-      })
-      .catch((e) => {
-        console.log(e);
-      }); */
+        email: "pepe@gmail.com",
+        password: "pepe1101",
+      }),
+      [window.localStorage.sessionUser]
+    ); */
   });
 
   useEffect(() => {

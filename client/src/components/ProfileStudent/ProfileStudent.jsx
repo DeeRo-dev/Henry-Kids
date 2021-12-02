@@ -10,6 +10,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import FavsContainer from '../FavsContainer/FavsContainer.jsx';
+import styles from "./ProfileStudent.module.css";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -81,7 +82,17 @@ export default function ScrollableTabsButtonForce() {
       </AppBar>
       <TabPanel value={value} index={1}>  <FavsContainer/> </TabPanel>
       <TabPanel value={value} index={2}>  </TabPanel>
-      <TabPanel value={value} index={3}>  </TabPanel>
+      <TabPanel value={value} index={3}> 
+      <h1> Buenaaaas </h1>
+                     {/* <div className={styles.form}>
+                    <form >
+                    <input
+                      name="firstName"
+                      type="text"
+                      placeholder="Nombre:"/>
+                  </form>
+                  </div> */}
+       </TabPanel>
     </div>
   );
 }

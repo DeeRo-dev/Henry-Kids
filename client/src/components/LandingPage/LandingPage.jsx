@@ -32,7 +32,7 @@ export default function LandingPage() {
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
   const [user, setUser] = useState({
-    id: 1,
+    id: "2",
     firstName: "",
     lastName: "",
     userName: "",
@@ -187,11 +187,13 @@ export default function LandingPage() {
           localStorage.setItem("sessionUser", userCredential.uid);
           if (user.type === "student") {
             //  console.log(userCredential.user);
-            console.log("entró")
             dispatch(postUser(user)).then(() => {
+              console.log("entró")
               navigate("/home/student");
               window.location.reload();
-            });
+            }).catch((e) => {
+              console.log(e)
+            })
           } else {
             navigate("/home/teacher");
             window.location.reload();
