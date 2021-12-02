@@ -4,9 +4,16 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("user", {
+
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      // autoIncrement: true,
+    },
     firstName: {
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
       validate: {
         notEmpty: true,
       },
@@ -29,25 +36,19 @@ module.exports = (sequelize) => {
       },
     },
 
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+  
 
     type: {
-      type: DataTypes.ENUM("teacher", "student"),
-      allowNull: false,
+      type: DataTypes.ENUM("teacher", "student","admin"),
+      defaultValue:"student",
+      // allowNull: false,
     },
-
     photo: {
       type: DataTypes.STRING,
       validate: {
         isUrl: true,
       },
     },
-
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -66,6 +67,10 @@ module.exports = (sequelize) => {
         is: /^[a-zA-Z0-9]+$/i,
       },
     },
+    solictud:{
+      type:DataTypes.BOOLEAN(),
+      defaultValue:false,
+    }
   },{
     timestamps: false,
     createdAt: false,

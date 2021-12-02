@@ -1,3 +1,4 @@
+const { Association } = require("sequelize/dist");
 const { User, Class } = require("../db.js");
 
 // funcion para crear Usuario.
@@ -113,7 +114,7 @@ async function getUser(req, res, next) {
   }
 }
 
-async function getTipo(req,res,next){
+async function getTipo(req, res, next) {
   try {
     const { id } = req.params;
     const userDetail = await User.findAll({
@@ -121,8 +122,57 @@ async function getTipo(req,res,next){
         id: id,
       },
     });
-    const aux=userDetail[0].dataValues.type
+    const aux = userDetail[0].dataValues.type;
     res.send(aux);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function solTeacher(req, res, next) {
+  const changes = {
+    solictud: true,
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    console.log(result);
+    res.send("el Usario esta en la lista de espera de Profesores  ");
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function solAceptadaTeacher(req,res,next){
+  const changes = {
+    type: "teacher",
+    solictud:null,
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(result);
+    res.send("el Usario esta en la lista Profesores");
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getSolicitudTecher (req,res,next){
+  try {
+    const userDetail = await User.findAll({
+      where: {
+        solictud:true
+      },
+    });
+    res.send(userDetail);
   } catch (error) {
     next(error);
   }
@@ -134,5 +184,8 @@ module.exports = {
   getUser,
   editUser,
   deleteUser,
-  getTipo
+  getTipo,
+  solTeacher,
+  solAceptadaTeacher,
+  getSolicitudTecher
 };
