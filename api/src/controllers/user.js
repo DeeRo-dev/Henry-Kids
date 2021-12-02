@@ -32,6 +32,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
+      include:[Class]
     });
     res.send(userDetail);
   } catch (error) {
