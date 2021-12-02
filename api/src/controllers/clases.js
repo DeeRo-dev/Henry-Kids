@@ -57,7 +57,7 @@ async function getClass(req, res, next) {
       }
      
       results = await filterByCategory(results, req.query.category_id)
-
+      break;
 
     case "difficulty":
       
@@ -70,7 +70,7 @@ async function getClass(req, res, next) {
       }
      
       results = await filterByDifficulty(results, req.query.difficulty)
-
+      break;
 
     case "valoration":
       break;
