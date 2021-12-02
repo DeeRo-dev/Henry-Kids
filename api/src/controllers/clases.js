@@ -86,7 +86,6 @@ async function addClass(req, res, next) {
 
   try {
     const createClass = await Class.create({
-     
       title: data.title,
       description: data.description,
       studio_material: data.studio_material,

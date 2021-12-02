@@ -3,7 +3,8 @@ const initialState = {
   user: [],
   classById: [],
   allClassTeacher: [],
-  favorites:[]
+  favorites:[],
+  category:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -46,6 +47,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case 'GET_CATEGORY':
+      return{
+        ...state,
+        category:action.payload
+      }
 
     default:
       return state;

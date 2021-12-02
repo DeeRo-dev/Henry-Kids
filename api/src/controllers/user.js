@@ -1,9 +1,8 @@
-const { User,Class } = require("../db.js");
-
+const { User, Class } = require("../db.js");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
-  const { firstName, lastName, userName, type, photo, email, password,id } =
+  const { firstName, lastName, userName, type, photo, email, password, id } =
     req.body;
 
   try {
@@ -50,7 +49,6 @@ async function deleteUser(req, res, next) {
     });
 
     res.send("Was successfully removed");
-
   } catch (err) {
     next(err);
   }
@@ -63,25 +61,33 @@ async function editUser(req, res, next) {
     const result = await User.update(changes, {
       where: {
         id: req.params.id,
-      }
+      },
     });
 
     res.send("Was successfully edited");
-
   } catch (err) {
     next(err);
   }
 }
 
-async function getUser(req,res,next){
+async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
-      attributes: ["id", "firstName", "lastName", "userName","type","photo","email","password"],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "userName",
+        "type",
+        "photo",
+        "email",
+        "password",
+      ],
       where: {
         title: {
           [Op.iLike]: `%${req.query.title}%`,
         },
-        include: { model:  Class },
+        include: { model: Class },
       },
     }).then((User) => {
       if (User.length === 0) {
@@ -91,18 +97,42 @@ async function getUser(req,res,next){
     });
   } else {
     return User.findAll({
-      attributes: ["id", "firstName", "lastName", "userName","type","photo","email","password"],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "userName",
+        "type",
+        "photo",
+        "email",
+        "password",
+      ],
     }).then((User) => {
       res.send(User);
     });
   }
 }
+
+async function getTipo(req,res,next){
+  try {
+    const { id } = req.params;
+    const userDetail = await User.findAll({
+      where: {
+        id: id,
+      },
+    });
+    const aux=userDetail[0].dataValues.type
+    res.send(aux);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createUser,
   getUserId,
   getUser,
   editUser,
-  deleteUser
-
-   
+  deleteUser,
+  getTipo
 };

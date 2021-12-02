@@ -5,7 +5,8 @@ import styles from "./Nav.module.css";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from "../../firebase/firebaseConfig";
-
+import {useState} from 'react'
+import { useSelector } from "react-redux";
 
 export default function Nav() {
   const navigate = useNavigate();
@@ -33,7 +34,20 @@ const signOutUser = (e) =>  {
       });
   }
   
-
+  // function handdleSubmit(e){
+  //   e.preventDefault();
+  //  console.log( e.target.value);
+  // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
+  // }
+  const category = useSelector((state) => state.category)
+  let nameCate = category.map( e => e.name)
+  nameCate = nameCate.join().split(",");
+  nameCate = nameCate.filter((e) => e);
+  console.log(nameCate)
+  function handleCategory(e){
+    e.preventDefault();
+    console.log(category)
+  }
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
@@ -63,14 +77,13 @@ const signOutUser = (e) =>  {
           {/* <button type='submit' > Buscar</button> */}
         </div>
         <div className={styles.contenCat}>
-          <select name="" id="" className={styles.select}>
-            <option value="" selected disabled hidden>
-              Categorías
-            </option>
-            <option value="">JavaScript</option>
-            <option value="">React</option>
-            <option value="">HTML</option>
-            <option value="">CSS</option>
+          <select name="" id="" className={styles.select} onChange={(e) => handleCategory(e)}>
+          {
+            nameCate.map((nameCate) => (
+               <option value={nameCate.name} key={nameCate.id}>{nameCate.name}</option>
+               
+            ))
+          }
           </select>
         </div>
         <div className={styles.contenValorado}>

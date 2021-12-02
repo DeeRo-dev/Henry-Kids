@@ -63,3 +63,13 @@ export function DeleteClass(id) {
     dispatch({ type: 'DELETE_CLASSES', data: response.data })
   }
 }
+export function getCategory(){
+  return async function(dispatch){
+    var info = await axios ("https://henry-kids.herokuapp.com/category")
+      console.log(info)
+      return dispatch({
+        tyoe:"GET_CATEGORY",
+        payload: info.data
+      })
+  } 
+}
