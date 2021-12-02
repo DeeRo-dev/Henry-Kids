@@ -73,7 +73,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: { model: Evaluation },
+      include: [Comment],
     }).then((Class) => {
       if (Class.length === 0) {
         return res.send("Not class found");
@@ -83,7 +83,7 @@ async function getClass(req, res, next) {
   } else {
     return Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
-      include: { model: Evaluation },
+      include: [ Comment ],
     }).then((Class) => {
       res.send(Class);
     });
@@ -120,7 +120,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model:  User, Category, Evaluation },
+      include: [ User, Category, Evaluation ],
     });
     res.send(classDetail);
   } catch (error) {
