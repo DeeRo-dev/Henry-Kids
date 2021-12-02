@@ -23,7 +23,7 @@ export default function FormularioClase() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const category = useSelector(state => state.category)
-  console.log( "category, useselector",category)
+ 
   
   let id = window.localStorage.sessionUser;
 
