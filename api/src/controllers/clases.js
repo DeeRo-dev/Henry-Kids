@@ -13,6 +13,7 @@ const { filterByCategory } = require("../filters/filterByCategory");
 const { filterByDifficulty } = require("../filters/filterByDifficulty");
 const { searchTitle } = require("../search/searchTitle")
 
+
 // funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
 async function getClass(req, res, next) {
 
