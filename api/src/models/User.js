@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
     },
 
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
     },
