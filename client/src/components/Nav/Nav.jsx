@@ -6,17 +6,18 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from "../../firebase/firebaseConfig";
 import {useState} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import { searchClass } from "../../actions/index";
-
+import { useSelector, useDispatch} from "react-redux";
+import { searchClass } from "../../actions/index.js";
 
 export default function Nav() {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = useState(null);
   const [flag, setFlag] = useState(true);
   const [flag2, setFlag2] = useState(true);
   const [classFound, setClassFound] = useState("");
-  const dispatch = useDispatch();
+  
   const [, setClass] = useState("");
   const actualClass = useSelector((state) => state.allClasses);
 
@@ -44,10 +45,6 @@ export default function Nav() {
       dispatch(searchClass(value));
     }
   }
-
-
-
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -107,7 +104,7 @@ const signOutUser = (e) =>  {
             type="text"
             placeholder="Buscar por profesor/curso..."
             className={styles.inputSearch}
-            onChange={(e) => handleInput(e)}
+            onChange={e=>handleInput(e)}
           />
           <button className={styles.buscador}>
             <Icon>search</Icon>

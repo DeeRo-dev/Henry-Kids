@@ -8,6 +8,7 @@ export function getAllclasses() {
       }
      
 }
+
 export function getAllClassTeacher(id) {
   return async function (dispatch) {
       let response = await axios.get(`/cursos/${id}`)    
@@ -16,7 +17,6 @@ export function getAllClassTeacher(id) {
        data: response.data 
       });
   }
-
 }
 
 export function createClass(input) {
@@ -74,12 +74,12 @@ export function getCategory(){
   } 
 }
 
-
-
 export function searchClass(payload) {
   return async (dispatch) => {
     try {
-      const json = await axios.get(`/class?name=${payload}`);
+      const json = await axios.get(
+        `/class?name=${payload}`
+      );
       return dispatch({
         type: "SEARCH_CLASS",
         payload: json.data,
