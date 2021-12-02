@@ -3,7 +3,7 @@ const categoryRutes = require("./category");
 const classRoutes = require("./Clases")
 const classUser = require("./user")
 const relClassUser=require("./relClassUser")
-const commentUser = require("./comment")
+const commentRouter = require("./comment")
 const evaluationRoutes=require("./evaluation")
 
 
@@ -19,7 +19,7 @@ router.use("/class", classRoutes);
 router.use("/user", classUser);
 router.use("/",relClassUser);
 router.use("/evaluation", evaluationRoutes);
-router.use("/comment", commentUser);
+router.use("/comment", commentRouter);
 
 
 
