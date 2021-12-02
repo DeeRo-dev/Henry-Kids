@@ -1,4 +1,6 @@
 const { Router } = require("express");
+const router = Router();
+
 const {
   addClass,
   deleteClass,
@@ -10,15 +12,21 @@ const {
   getEval
 } = require("../controllers/clases");
 
-const router = Router();
 
 router.post("/", addClass);
 router.delete("/:id", deleteClass);
 router.put("/:id", editClass);
 // router.get("/", getClass);
 router.get("/gio", async (req, res, next) => {
-  try {
-    const {title} = req.query
+    if(req.query.title){
+      const {title} = req.query
+      res.send("entró")
+    }else{
+      res.send("no entró")
+    }
+  
+  
+  /* const {title} = req.query
     //Recibo la request en una variable
     let classTotal = await getClass(); //Guardo mi controlador que trae todos los pokemons en una variable..
     if (title) { //Consulto si me pasan un nombre y lo busco en la variable de arriba
@@ -31,9 +39,7 @@ router.get("/gio", async (req, res, next) => {
     } else {
       res.status(200).send(classTotal); //Sino devuelvo todos los pokemons
     }
-  } catch (error) {
-    next(error);
-  }
+  } */
 });
 
 router.get("/all", getClassEjempl);
