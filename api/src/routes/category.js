@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const { Category } = require("../db");
-const { getCat , getEjemplo, addCate , getCatId , putCat} = require('../controllers/category');
+const { getCat , getEjemplo, addCate , getCatId , putCat,getName} = require('../controllers/category');
 
 const router = Router();
 
 router.get('/',getCat);
+
+router.get("/name", getName)
 
 router.get("/all", getEjemplo)
 
