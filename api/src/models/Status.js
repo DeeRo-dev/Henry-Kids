@@ -4,8 +4,7 @@ module.exports = (sequelize) => {
 
   sequelize.define('status', {
      name: {
-      type: DataTypes.STRING,
-      unique: true,
+      type: DataTypes.ENUM(['favorite', 'en curso', 'concluído']),
       allowNull: false
     },
     id: {
