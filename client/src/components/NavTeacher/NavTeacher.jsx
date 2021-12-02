@@ -1,17 +1,18 @@
 import React from "react";
+import {useEffect, useState} from 'react'
 import { Link,useNavigate } from "react-router-dom";
 import styles from "./NavTeacher.module.css";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from "../../firebase/firebaseConfig";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch} from "react-redux";
+import { getCategory } from "../../actions";
 
 export default function Nav() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const open = Boolean(anchorEl);
-
+  const dispatch = useDispatch()
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -40,13 +41,15 @@ export default function Nav() {
   // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
   // }
   
-  const category = useSelector((state) => state.category)
- let nameCate = category.map( e => e.name)
-  nameCate = nameCate.join().split(",");
-  nameCate = nameCate.filter((e) => e);
+  const allCategory = useSelector((state) => state.category)
+ console.log(allCategory)
+
+ useEffect(()=> {
+  dispatch(getCategory())
+}, [dispatch])
 
   function handleCategory(e){
-    e.preventDefault(); console.log(category)
+    e.preventDefault();
   }
 
   return (
@@ -79,8 +82,8 @@ export default function Nav() {
       <div className={styles.contenCat}>
         <select name="" id="" className={styles.select}  onChange={(e) => handleCategory(e)}>
         {
-            nameCate.map((nameCate) => (
-               <option value={nameCate.name} key={nameCate.id}>{nameCate.name}</option>
+            allCategory.map((e) => (
+               <option value={e} key={e}>{e}</option>
                
             ))
           }

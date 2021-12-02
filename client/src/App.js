@@ -9,12 +9,14 @@ import ClassDetail from "./components/ClassDetail/ClassDetail";
 import { auth } from "../src/firebase/firebaseConfig";
 import ProfileStudent from "./components/ProfileStudent/ProfileStudent";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
+import RegisterTeacher from "./components/registerTeacher/registerTeacher";
 
 const studentRoutes = [
   { path: "/home/student", element: <Home /> },
   { path: "/home/student/:id", element: <ClassDetail /> },
   { path: "/*", element: <Home /> },
-  { path: "/home/student/profile", element: <ProfileStudent />}
+  { path: "/home/student/profile", element: <ProfileStudent />},
+  { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },

@@ -5,13 +5,14 @@ import styles from "./Nav.module.css";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from "../../firebase/firebaseConfig";
-import {useState} from 'react'
-import { useSelector } from "react-redux";
+import {useState, useEffect} from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { getCategory } from "../../actions";
 
 export default function Nav() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -39,14 +40,16 @@ const signOutUser = (e) =>  {
   //  console.log( e.target.value);
   // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
   // }
-  const category = useSelector((state) => state.category)
-  let nameCate = category.map( e => e.name)
-  nameCate = nameCate.join().split(",");
-  nameCate = nameCate.filter((e) => e);
-  console.log(nameCate)
+  const allCategory = useSelector((state) => state.category)
+ console.log(allCategory)
+
+ useEffect(()=> {
+  dispatch(getCategory())
+}, [dispatch])
+  // console.log(category)
   function handleCategory(e){
     e.preventDefault();
-    console.log(category)
+    // console.log(category)
   }
   return (
     <div className={styles.containerBackground}>
@@ -79,8 +82,8 @@ const signOutUser = (e) =>  {
         <div className={styles.contenCat}>
           <select name="" id="" className={styles.select} onChange={(e) => handleCategory(e)}>
           {
-            nameCate.map((nameCate) => (
-               <option value={nameCate.name} key={nameCate.id}>{nameCate.name}</option>
+             allCategory.map((e) => (
+              <option value={e} key={e}>{e}</option>
                
             ))
           }
@@ -115,6 +118,12 @@ const signOutUser = (e) =>  {
             </option>
           </select>
          
+         <div>
+           <Link to={"/home/student/register-teacher"}>
+           
+           <input type="submit" value="Te gustaria enseñar ?" className={styles.butonLoginTeach} />
+         </Link>
+         </div>
        {/* <Link to="/create-clase">
          <button className={styles.blue}>
              Crear clase
