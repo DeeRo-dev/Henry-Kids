@@ -11,6 +11,14 @@ const Sequelize = require("sequelize");
 const { filterByCategory} = require("../filters/filterByCategory");
 const { filterByDifficulty} = require("../filters/filterByDifficulty")
 
+
+
+
+
+
+
+
+
 // funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
 async function getClass(req, res, next) {
 
