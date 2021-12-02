@@ -26,7 +26,7 @@ export default function FormularioClase() {
  
   
   let id = window.localStorage.sessionUser;
-
+console.log(id)
   useEffect(() => {
     dispatch(getCategory())
   }, [dispatch])

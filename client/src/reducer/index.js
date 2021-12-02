@@ -7,6 +7,7 @@ const initialState = {
   favorites: [],
   category: [],
   
+  
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -67,7 +68,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allClasses: action.data
-      }
+      };
+
+      case 'DELETE_CLASSES':
+        return{ 
+          ...state,
+        }
       
     default:
       return state;

@@ -19,9 +19,9 @@ export function searchClass(name) {
     } 
 }
 
-export function getAllClassTeacher(id) {
+export function getAllClassTeacher(idUser) {
   return async function (dispatch) {
-      let response = await axios.get(`/cursos/${id}`)    
+      let response = await axios.get(`/cursos/${idUser}`)    
       dispatch({ 
         type: "GET_ALL_CLASSES_TEACHER",
        data: response.data 
@@ -69,7 +69,7 @@ export function ModifyClasses(id, input) {
 
 export function DeleteClass(id) {
   return async function (dispatch) {
-    let response = await axios.put(`/class/${id}`)
+    let response = await axios.delete(`/class/${id}`)
     dispatch({ type: 'DELETE_CLASSES', data: response.data })
   }
 }
