@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./FormStyles.module.css";
 import { useNavigate } from "react-router-dom";
 import { Button, Snackbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import MuiAlert from "@material-ui/lab/Alert";
-import { createClass } from "../../actions/index.js";
+import { createClass, getCategory } from "../../actions/index.js";
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -21,6 +22,16 @@ const StyleAlert = withStyles({
 export default function FormularioClase() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const category = useSelector(state => state.category)
+  console.log( "category, useselector",category)
+  
+  let id = window.localStorage.sessionUser;
+
+  useEffect(() => {
+    dispatch(getCategory())
+  }, [dispatch])
+
+ 
   const [modal, setModal] = useState(true);
   const [input, setInput] = useState({
     title: "",
@@ -29,14 +40,28 @@ export default function FormularioClase() {
     video_link: "",
     game_link: "",
     difficulty: "",
-    date: "",
+    idUs: id,
+    catId:""
   });
 
+  function searchId(categ) {
+    let idCat = category.find((item) => item.name === categ)
+    return idCat.id
+  }
+
   function handleChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "category") {
+      console.log(e.target.value)
+      setInput({
+        ...input,
+        catId: searchId(e.target.value),
+      });
+    } else {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    }
   }
 
   function handleOnSubmit(e) {
@@ -49,8 +74,10 @@ export default function FormularioClase() {
       video_link: "",
       game_link: "",
       difficulty: "",
-      date: "",
+      idUs: id,
+      catId: "",
     });
+    
     setOpen(true);
     setTimeout(() => {
       navigate("/home/teacher");
@@ -157,22 +184,16 @@ export default function FormularioClase() {
                     <option value="Alta">Alta</option>
                   </select>
                 </div>
-                {/* <div className={styles.containerOptions}>
-                  {" "}
-                  <select
-                    name="categorias"
-                    className={styles.select}
-                    onChange={handleChange}
-                  >
-                    <option value="" selected disabled hidden>
-                      Categoría
-                    </option>
-                    <option value="Javascript">Javascript</option>
-                    <option value="React">React</option>
-                    <option value="HTML">HTML</option>
-                    <option value="CSS">CSS</option>
+                <div className={styles.containerOptions}>
+
+                  <select name="category" className={styles.select} onChange={handleChange}>
+                    {
+                      category.map((e) => (
+                        <option value={e.name} key={e.id}>{e.name}</option>
+                      ))
+                    }
                   </select>
-                </div> */}
+                </div>
 
                 <StyleButtonCrearCuenta
                   onClick={(e) => handleOnSubmit(e)}

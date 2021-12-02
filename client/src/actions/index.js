@@ -1,3 +1,5 @@
+import { async } from '@firebase/util';
+
 const axios = require('axios')
 
 
@@ -73,11 +75,18 @@ export function DeleteClass(id) {
 }
 export function getCategory(){
   return async function(dispatch){
-    var info = await axios ("https://henry-kids.herokuapp.com/category")
+    var info = await axios.get("/category")
       console.log(info)
       return dispatch({
-        tyoe:"GET_CATEGORY",
+        type:"GET_CATEGORY",
         payload: info.data
       })
   } 
 }
+ 
+export function difficultyFilter(input){
+    return async function(dispatch){
+      let response = await axios.get('difficulty/obtener?difficulty=Alta')
+      dispatch({type:'DIFFICULTY_FILTER', data:response.data})
+    }
+  }

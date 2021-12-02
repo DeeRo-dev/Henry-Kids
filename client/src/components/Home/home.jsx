@@ -7,7 +7,7 @@ import styles from './Home.module.css';
 import Card from '../Card/Card.jsx';
 import {getAllclasses} from '../../actions/index.js';
 import Pagination from '../Pagination/Pagination.jsx';
-
+import DifficultyFilter from '../DifficultyFilter/DifficultyFilter'
 
 
 export default function Home() {
@@ -15,6 +15,9 @@ export default function Home() {
   const allClasses = useSelector((state) => state.allClasses);
 
   useEffect(() => { dispatch(getAllclasses()) },[dispatch]);
+ 
+  
+
   
   let cardsInPage = 8;
   let [page, setPage] = useState(1);
@@ -35,8 +38,6 @@ export default function Home() {
     e.preventDefault();
     setPage(num);
   }
-
-
 
   return (
     <div className={styles.home}>
@@ -65,7 +66,7 @@ export default function Home() {
           );
         })}
       </div>
-
+      
       <div>
         <Pagination
           cardsInPage={cardsInPage}
