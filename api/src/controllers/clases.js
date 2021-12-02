@@ -70,6 +70,16 @@ async function editClass(req, res, next) {
 
 // funcion para traernos 1 clase.
 async function getClass(req, res, next) {
+  if (req.query.name) {
+    const { name } = req.query;
+    res.send(
+      await Class.findAll({
+        where: {
+          title: { [Op.iLike]: `${name}%` },
+        },
+      })
+    );
+  }
   if (req.query.title) {
     return Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
