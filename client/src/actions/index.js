@@ -6,12 +6,18 @@ export function getAllclasses() {
     dispatch({ type: "GET_ALL_CLASSES", data: response.data });
   };
 }
-export function searchClass(name) {
-  return async function (dispatch) {
-    return dispatch({
-      type: "SEARCH_CLASS",
-      payload: name,
-    });
+export function searchClass(payload) {
+ return async (dispatch) => {
+    try {
+      const json = await axios.get(`/class?title=${payload}`);
+      return dispatch({
+        type: "SEARCH_CLASS",
+        payload: json.data,
+        dataLength: payload.length,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 
@@ -40,6 +46,8 @@ export function createClass(input) {
     dispatch({ type: "CREATE_CLASS", data: response.data });
   };
 }
+
+
 export function postUser(input) {
   return async (dispatch) => {
     const json = await axios.post("/user", input);

@@ -1,6 +1,6 @@
 const initialState = {
   allClasses: [],
-  class: [],
+  classes: [],
   user: [],
   classById: [],
   allClassTeacher: [],
@@ -14,7 +14,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allClasses: action.data,
-        class: action.data
+        classes: action.data
       };
     case "POST_USER":
       return {
@@ -26,10 +26,17 @@ export default function rootReducer(state = initialState, action) {
           user: action.currenUser
         }
       case "SEARCH_CLASS":
-        return {
-          ...state,
-          allClasses: action.payload 
-        };
+        if (action.dataLength === 1 || !action.payload.length) {
+          return {
+            ...state,
+            allClasses: state.classes,
+          };
+        } else {
+          return {
+            ...state,
+            allClasses: action.payload,
+          };
+        }
 
     case "CREATE_CLASS":
       return {

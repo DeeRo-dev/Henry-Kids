@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import FavsContainer from '../FavsContainer/FavsContainer.jsx';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import PersonPinIcon from "@material-ui/icons/PersonPin";
+import HelpIcon from "@material-ui/icons/Help";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import FavsContainer from "../FavsContainer/FavsContainer.jsx";
 import styles from "./ProfileStudent.module.css";
 
 function TabPanel(props) {
@@ -41,14 +41,14 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
+    "aria-controls": `scrollable-force-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: '100%',
+    width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -73,18 +73,16 @@ export default function ScrollableTabsButtonForce() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-      
           <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
-          <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(2)} />
+          <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(2)}  />
           <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} />
-      
+
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={1}>  <FavsContainer/> </TabPanel>
-      <TabPanel value={value} index={2}>  </TabPanel>
-      <TabPanel value={value} index={3}> 
-      <h1> Buenaaaas </h1>
-                     {/* <div className={styles.form}>
+ <TabPanel value={value} index={3}>  Local 2 </TabPanel>
+      <TabPanel value={value} index={2}>
+        Local 3
+      {/* <div className={styles.form}>
                     <form >
                     <input
                       name="firstName"
@@ -92,7 +90,10 @@ export default function ScrollableTabsButtonForce() {
                       placeholder="Nombre:"/>
                   </form>
                   </div> */}
-       </TabPanel>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        Local 1
+      </TabPanel>
     </div>
   );
 }

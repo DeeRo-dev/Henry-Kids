@@ -1,51 +1,22 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { auth } from "../../firebase/firebaseConfig";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { searchClass } from "../../actions/index.js";
-
+import { useSelector} from "react-redux";
+import SearchBar from "../SearchBar/SearchBar"
 
 export default function Nav() {
 
-
-  //   try {
-  //     let name = req.query.name; 
-  //     let pokemonsTotal = await getAllPokemons(); 
-  //     if (name) { 
-  //       let pokemonName = await pokemonsTotal.filter((el) => 
-  //         el.name.toLowerCase().includes(name.toLowerCase())
-  //       );
-  //       pokemonName.length
-  //         ? res.status(200).send(pokemonName) 
-  //         : res.status(404).send("El pokemon ingresado no existe"); 
-  //     } else {
-  //       res.status(200).send(pokemonsTotal); 
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // );
-
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+ 
   
-  const [name,setName] = useState("")
 
-  const handleInputChange = (e) => {
-    e.preventDefault()
-    setName(e.target.value);
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-         dispatch(searchClass(name))
-  }
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -94,22 +65,7 @@ export default function Nav() {
               alt="not found"
             />
           </div>
-
-          <div className={styles.contentSearch}>
-            {/* <div className={styles.buscador}> */}
-            {/* <button className={styles.iconoBuscar}> */}
-            {/* </button> */}
-            <input
-              type="text"
-              placeholder="Buscar por profesor/curso..."
-              className={styles.inputSearch}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <button className={styles.buscador} onClick={(e) => handleSubmit(e)}>
-              <Icon>search</Icon>
-            </button>
-            {/* <button type='submit' > Buscar</button> */}
-          </div>
+          <div> <SearchBar/></div>
           <div className={styles.contenCat}>
             <select
               name=""
