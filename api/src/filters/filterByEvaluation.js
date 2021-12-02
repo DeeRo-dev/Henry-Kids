@@ -1,9 +1,9 @@
 
-async function  filterByDifficulty(array, difficulty){
+async function  filterByDifficulty(array, evaluation){
 
     let results = await array.filter(function(e){
         
-        if (e.difficulty.toLowerCase() === difficulty.toLowerCase()) {
+        if (e.difficulty === evaluation) {
             return e
         }
     
