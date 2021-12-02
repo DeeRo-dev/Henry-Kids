@@ -2,23 +2,25 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Nav from '../Nav/Nav.jsx';
 import {Link} from 'react-router-dom';
-import {styled} from '@material-ui/core';
+// import {styled} from '@material-ui/core';
 import styles from './Home.module.css';
 import Card from '../Card/Card.jsx';
 import {getAllclasses} from '../../actions/index.js';
 import Pagination from '../Pagination/Pagination.jsx';
 
-export default function Home () {
-  const dispatch = useDispatch ();
 
-  useEffect (() => dispatch (getAllclasses ()), [dispatch]);
-  const allClasses = useSelector (state => state.allClasses);
 
+export default function Home() {
+  const dispatch = useDispatch();
+  const allClasses = useSelector((state) => state.allClasses);
+
+  useEffect(() => { dispatch(getAllclasses()) },[dispatch]);
+  
   let cardsInPage = 8;
-  let [page, setPage] = useState (1);
+  let [page, setPage] = useState(1);
 
-  useEffect (() => {
-    setPage (1);
+  useEffect(() => {
+    setPage(1);
   }, []);
 
   let currentPage;
@@ -26,13 +28,15 @@ export default function Home () {
   let indexFirstPage = indexLastPage - cardsInPage;
 
   allClasses.length > 9
-    ? (currentPage = allClasses.slice (indexFirstPage, indexLastPage))
+    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
     : (currentPage = allClasses);
 
-  function Paginate (e, num) {
-    e.preventDefault ();
-    setPage (num);
+  function Paginate(e, num) {
+    e.preventDefault();
+    setPage(num);
   }
+
+
 
   return (
     <div className={styles.home}>
@@ -42,12 +46,10 @@ export default function Home () {
 
 
       <div className={styles.cards}>
-        {currentPage.map (e => {
+        {currentPage.map((e) => {
           return (
             <div key={e.id}>
-              {' '}
-              <Link to={'/home/' + e.id}>
-                {' '}
+              <Link to={"/home/student/" + e.id}>
                 <Card
                   id={e.id}
                   title={e.title}
@@ -57,8 +59,7 @@ export default function Home () {
                   difficulty={e.difficulty}
                   game_link={e.game_link}
                   valoration={e.valoration}
-                />
-                {' '}
+                />{" "}
               </Link>
             </div>
           );
@@ -72,7 +73,6 @@ export default function Home () {
           paginate={Paginate}
         />
       </div>
-
     </div>
   );
 }

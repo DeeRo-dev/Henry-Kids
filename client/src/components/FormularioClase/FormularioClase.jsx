@@ -1,28 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./FormStyles.module.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Snackbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 import { createClass } from "../../actions/index.js";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
 const StyleAlert = withStyles({
   root: {
     marginBottom: "-10px",
@@ -100,8 +88,8 @@ export default function FormularioClase() {
     },
   })(Button);
 
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+
+  const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {

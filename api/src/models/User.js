@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define("user", {
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       validate: {
         notEmpty: true,
       },
@@ -33,7 +33,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
 
     type: {
@@ -66,5 +65,9 @@ module.exports = (sequelize) => {
         is: /^[a-zA-Z0-9]+$/i,
       },
     },
+  },{
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
   });
 };

@@ -8,6 +8,78 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 
+const { filterByCategory} = require("../filters/filterByCategory");
+const { filterByDifficulty} = require("../filters/filterByDifficulty")
+
+// funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
+async function getClass(req, res, next) {
+
+  // modelo ruta para filtro por Category
+  // GET https://localhost:3001/class?filter=category&category_id=1
+
+  let results = []
+
+  // Aca manejamos la busqueda por el search (por title).
+  if (req.query.title) {
+
+    results = await Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      where: {
+        title: {
+          [Op.iLike]: `%${req.query.title}%`,
+        },
+      },
+      include: [ Category, Evaluation, User ],
+    })
+    
+  }
+  else {
+
+    results = await Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      include: [ Category, Evaluation, User ],
+    })
+    
+  }
+
+
+  // Aca van los filters.
+  
+  switch (req.query.filter) {
+    case "category":
+
+      // modelo ruta 
+      // GET https://localhost:3001/class?filter=category&category_id=1
+
+      // Valido si tengo el category_id en el query string del request
+      if (!req.query.category_id) {
+        return res.status(400).send({ error: "category_id is required" });
+      }
+     
+      results = await filterByCategory(results, req.query.category_id)
+      break;
+
+    case "difficulty":
+      
+      // modelo ruta 
+      // GET https://localhost:3001/class?filter=difficulty&difficulty=Basica
+
+      // Valido si tengo el category_id en el query string del request
+      if (!req.query.difficulty) {
+        return res.status(400).send({ error: "difficulty is required" });
+      }
+     
+      results = await filterByDifficulty(results, req.query.difficulty)
+      break;
+
+    case "valoration":
+      break;
+  }
+  
+  res.send(results);
+
+}
+
 // funcion para poder crear clases nuevas.
 async function addClass(req, res, next) {
   let data = { ...req.body };
@@ -29,6 +101,10 @@ async function addClass(req, res, next) {
     if (data.usId) {
       createClass.addUser(data.usId, { as: "teacher" });
     }
+    await Evaluation.create({
+      Evaluation: 1,
+      classId: createClass.id,
+    });
     res.status(200).send(createClass);
   } catch (error) {
     res.status(500).send(error);
@@ -65,6 +141,16 @@ async function editClass(req, res, next) {
 
 // funcion para traernos 1 clase.
 async function getClass(req, res, next) {
+  if (req.query.name) {
+    const { name } = req.query;
+    res.send(
+      await Class.findAll({
+        where: {
+          title: { [Op.iLike]: `${name}%` },
+        },
+      })
+    );
+  }
   if (req.query.title) {
     return Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
@@ -73,7 +159,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: { model: Evaluation },
+      include: [Category, Evaluation, User],
     }).then((Class) => {
       if (Class.length === 0) {
         return res.send("Not class found");
@@ -83,7 +169,7 @@ async function getClass(req, res, next) {
   } else {
     return Class.findAll({
       attributes: ["id", "title", "description", "difficulty"],
-      include: { model: Evaluation },
+      include: [Category, Evaluation, User],
     }).then((Class) => {
       res.send(Class);
     });
@@ -120,7 +206,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model:  User, Category, Evaluation },
+      include: { model: User, Category, Evaluation },
     });
     res.send(classDetail);
   } catch (error) {
@@ -128,11 +214,57 @@ async function GetClassId(req, res, next) {
   }
 }
 
+async function addEval(req, res, next) {
+  let data = { ...req.body };
+  try {
+    const Eva = await Evaluation.findAll({
+      where: {
+        classId: data.classId,
+      },
+    });
+    const aux = parseInt(Eva[0].dataValues.Evaluation);
+    const aux2 = parseInt(Eva[0].dataValues.id_evaluation) + 1;
+    const prom = Math.round((aux + data.nota) / aux2);
+    // console.log(aux, data.eva, aux2, prom);
+    const change = {
+      Evaluation: prom,
+      userId: data.userId,
+    };
+    const result = await Evaluation.update(change, {
+      where: { classId: data.classId },
+    });
+
+    res.status(200).send({ msj: "se cargo la nota" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getEval(req, res, next) {
+  try {
+    const { idClas } = req.params;
+    const classDetail = await Class.findAll({
+      where: {
+        id: idClas,
+      },
+      include: [Evaluation],
+    });
+    console.log(classDetail);
+    res.send(classDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+
+
 module.exports = {
   addClass,
   deleteClass,
   editClass,
   getClass,
   getClassEjempl,
-  GetClassId,
+  GetClassId
+  
 };
