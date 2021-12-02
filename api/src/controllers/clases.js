@@ -12,13 +12,6 @@ const { filterByCategory} = require("../filters/filterByCategory");
 const { filterByDifficulty} = require("../filters/filterByDifficulty")
 
 
-
-
-
-
-
-
-
 // funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
 async function getClass(req, res, next) {
 
@@ -35,7 +28,7 @@ async function getClass(req, res, next) {
           [Op.iLike]: `%${req.query.title}%`,
         },
       },
-      include: [ Category, Evaluation, User, Comment ],
+      include: [ Category, Evaluation, User, Comment],
     })
     
   }
@@ -148,7 +141,7 @@ async function addClass(req, res, next) {
       createClass.addUser(data.usId, { as: "teacher" });
     }
     await Evaluation.create({
-      Evaluation: 1,
+      Evaluation: 1, 
       classId: createClass.id,
     });
     res.status(200).send(createClass);
