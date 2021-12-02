@@ -23,7 +23,7 @@ export default function rootReducer(state = initialState, action) {
       case "EDIT_USER":
         return{
           ...state,
-          user: action.currenUser
+          user: action.currentUser
         }
       case "SEARCH_CLASS":
         if (action.dataLength === 1 || !action.payload.length) {

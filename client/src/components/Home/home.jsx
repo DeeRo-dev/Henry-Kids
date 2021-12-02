@@ -12,25 +12,14 @@ import { auth } from "../../firebase/firebaseConfig.js";
 export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
-  useEffect(() => {
-    auth.onAuthStateChanged((userCredential) => {console.log(userCredential)})
-    /* dispatch(
-      editUser("4", {
-        id: 5,
-        firstName: "pepe",
-        lastName: "pepe",
-        userName: "pepe",
-        type: "student",
-        photo: null,
-        email: "pepe@gmail.com",
-        password: "pepe1101",
-      }),
-      [window.localStorage.sessionUser]
-    ); */
-  });
 
   useEffect(() => {
     dispatch(getAllclasses());
+    dispatch(
+      editUser("provi", {
+        id: window.localStorage.sessionUser,
+      })
+    );
   }, [dispatch]);
 
   let cardsInPage = 8;

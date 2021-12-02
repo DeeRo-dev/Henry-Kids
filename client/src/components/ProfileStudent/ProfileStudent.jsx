@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { editUser } from "../../actions";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -9,12 +11,10 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import FavsContainer from "../FavsContainer/FavsContainer.jsx";
+// import FavsContainer from "../FavsContainer/FavsContainer.jsx";
 import styles from "./ProfileStudent.module.css";
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -53,14 +53,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ScrollableTabsButtonForce() {
+
+export default function ProfileStudent() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
+  const [modalIngresar, setModalIngresar] = useState(false);
+
+  const toggleModalIngresar = (e) => {
+    e.preventDefault()
+    setModalIngresar(!modalIngresar);
+  };
+
+  const [user, setUser] = useState({
+    userName: "",
+    photo:""
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    // /* dispatch(editUser(data)); 
+    setUser({
+      userName: "", 
+      photo: "" 
+    });
+  }
+
+    
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -74,26 +97,59 @@ export default function ScrollableTabsButtonForce() {
           aria-label="scrollable force tabs example"
         >
           <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
-          <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(2)}  />
+          <Tab
+            label="Editar Perfil"
+            icon={<PersonPinIcon />}
+            {...a11yProps(2)}
+          />
           <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} />
-
         </Tabs>
       </AppBar>
- <TabPanel value={value} index={3}>  Local 2 </TabPanel>
-      <TabPanel value={value} index={2}>
-        Local 3
-      {/* <div className={styles.form}>
-                    <form >
-                    <input
-                      name="firstName"
-                      type="text"
-                      placeholder="Nombre:"/>
-                  </form>
-                  </div> */}
+      <TabPanel value={value} index={1}>
+        <form>
+          <button> Cambiar username</button>
+          <button onClick={(e) => toggleModalIngresar(e)}> Cambiar foto</button>
+          
+          {modalIngresar && (
+            <div className={styles.modal}>
+              <div
+                onClick={toggleModalIngresar}
+                className={styles.overlay}
+              ></div>
+              <div className={styles.modal_content_Ingresar}>
+                <button
+                  className={styles.close_modal}
+                  onClick={toggleModalIngresar}
+                >
+                  x
+                </button>
+                
+                <div className={styles.containerImgPerfil}>
+             <div className={styles.imagen}>
+            <img
+              src="https://i.imgur.com/S7meZ49.png"
+              alt="404"
+              className={styles.img} 
+            />{" "}
+          </div>
+          <div className={styles.imagen}>
+            <img
+              src="https://i.imgur.com/iWMCoOA.png"
+              alt="404"
+              className={styles.img} 
+            />{" "}
+          </div>
+          </div>
+              </div>
+            </div>
+          )}
+          {/* <input name="firstName" type="text" placeholder="Nombre de usuario:" />
+          <input name="firstName" type="text" placeholder="Contraseña nueva:" />
+          <input name="firstName" type="text" placeholder="Contraseña actual:" /> */}
+        </form>
       </TabPanel>
-      <TabPanel value={value} index={3}>
-        Local 1
-      </TabPanel>
+      <TabPanel value={value} index={2}></TabPanel>
+      <TabPanel value={value} index={3}></TabPanel>
     </div>
   );
 }

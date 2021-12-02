@@ -9,7 +9,8 @@ export function getAllclasses() {
 export function searchClass(payload) {
  return async (dispatch) => {
     try {
-      const json = await axios.get(`/class?title=${payload}`);
+      const json = await axios.get(
+   `/class?title=${payload}`);
       return dispatch({
         type: "SEARCH_CLASS",
         payload: json.data,
@@ -30,9 +31,9 @@ export function getAllClassTeacher(id) {
     });
   };
 }
-export function editUser(id, data) {
+export function editUser(id, user) {
   return async function (dispatch) {
-    let userUpdate = await axios.put(`/user/${id}`, data);
+    let userUpdate = await axios.put(`/user/${id}`, user);
       dispatch({
       type: "EDIT_USER",
       currentUser: userUpdate
