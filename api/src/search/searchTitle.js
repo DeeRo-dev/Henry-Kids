@@ -1,9 +1,9 @@
 
-async function  filterByDifficulty(array, difficulty){
+async function  searchTitle(array, title){
     
     let results = await array.filter(function(e){
         
-        if (e.difficulty.toLowerCase() === difficulty.toLowerCase()) {
+        if (e.title.toLowerCase().includes(title.toLowerCase())) {
             return e
         }
     
@@ -14,5 +14,5 @@ async function  filterByDifficulty(array, difficulty){
 
   
 module.exports = { 
-    filterByDifficulty
+    searchTitle
 };

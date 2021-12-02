@@ -1,18 +1,5 @@
 
-async function  filterByDifficulty(array, evaluation){
 
-    let results = await array.filter(function(e){
-        
-        if (e.difficulty === evaluation) {
-            return e
-        }
+module.exports = {
     
-    })
-   
-    return results
 }
-
-  
-module.exports = { 
-    filterByDifficulty
-};

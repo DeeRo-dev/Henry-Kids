@@ -8,48 +8,33 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 
-const { filterByCategory} = require("../filters/filterByCategory");
-const { filterByDifficulty} = require("../filters/filterByDifficulty")
 
-
-
-
-
-
-
+const { filterByCategory } = require("../filters/filterByCategory");
+const { filterByDifficulty } = require("../filters/filterByDifficulty");
+const { searchTitle } = require("../search/searchTitle")
 
 
 // funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
 async function getClass(req, res, next) {
 
-  // modelo ruta para filtro por Category
-  // GET https://localhost:3001/class?filter=category&category_id=1
-
   let results = []
+
+  results = await Class.findAll({
+    attributes: ["id", "title", "description", "difficulty", "video_link", "game_link", "studio_material"],
+    include: [ Category, Evaluation, User ],
+  })
+
   // Aca manejamos la busqueda por el search (por title).
+  // modelo ruta 
+  // GET https://localhost:3001/class?title=javascript
+
   if (req.query.title) {
-    results = await Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      where: {
-        title: {
-          [Op.iLike]: `%${req.query.title}%`,
-        },
-      },
-      include: [ Category, Evaluation, User ],
-    })
     
-  }
-  else {
-
-    results = await Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      include: [ Category, Evaluation, User ],
-    })
+    results = await searchTitle(results, req.query.title)
     
   }
 
-
-  // Aca van los filters.
+  // Aca manejamos los filters.
   
   switch (req.query.filter) {
     case "category":
@@ -70,7 +55,7 @@ async function getClass(req, res, next) {
       // modelo ruta 
       // GET https://localhost:3001/class?filter=difficulty&difficulty=Basica
 
-      // Valido si tengo el category_id en el query string del request
+      // Valido si tengo el la dificultad en el query string del request
       if (!req.query.difficulty) {
         return res.status(400).send({ error: "difficulty is required" });
       }
@@ -86,46 +71,6 @@ async function getClass(req, res, next) {
 
 }
 
-
-
-/* // funcion para traernos 1 clase.
-async function getClass(req, res, next) {
-
-  // if (req.query.name) {
-  //   const { name } = req.query;
-  //   res.send(
-  //     await Class.findAll({
-  //       where: {
-  //         title: { [Op.iLike]: `${name}%` },
-  //       }
-  //     })
-  //   );
-  // }
-  
-  if (req.query.title) {
-    return Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      where: {
-        title: {
-          [Op.iLike]: `%${req.query.title}%`,
-        },
-      },
-      include: [Category, Evaluation, User],
-    }).then((Class) => {
-      if (Class.length === 0) {
-        return res.send("Not class found");
-      }
-      res.send(Class);
-    });
-  } else {
-    return Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      include: [Category, Evaluation, User],
-    }).then((Class) => {
-      res.send(Class);
-    });
-  }
-} */
 // funcion para poder crear clases nuevas.
 async function addClass(req, res, next) {
   let data = { ...req.body };
@@ -185,8 +130,6 @@ async function editClass(req, res, next) {
   }
 }
 
-
-
 // funcion pàra crear y traernos 1 clase (ejemplo).
 async function getClassEjempl(req, res, next) {
   try {
@@ -219,48 +162,6 @@ async function GetClassId(req, res, next) {
       },
       include: { model: User, Category, Evaluation },
     });
-    res.send(classDetail);
-  } catch (error) {
-    next(error);
-  }
-}
-
-async function addEval(req, res, next) {
-  let data = { ...req.body };
-  try {
-    const Eva = await Evaluation.findAll({
-      where: {
-        classId: data.classId,
-      },
-    });
-    const aux = parseInt(Eva[0].dataValues.Evaluation);
-    const aux2 = parseInt(Eva[0].dataValues.id_evaluation) + 1;
-    const prom = Math.round((aux + data.nota) / aux2);
-    // console.log(aux, data.eva, aux2, prom);
-    const change = {
-      Evaluation: prom,
-      userId: data.userId,
-    };
-    const result = await Evaluation.update(change, {
-      where: { classId: data.classId },
-    });
-
-    res.status(200).send({ msj: "se cargo la nota" });
-  } catch (error) {
-    next(error);
-  }
-}
-
-async function getEval(req, res, next) {
-  try {
-    const { idClas } = req.params;
-    const classDetail = await Class.findAll({
-      where: {
-        id: idClas,
-      },
-      include: [Evaluation],
-    });
-    console.log(classDetail);
     res.send(classDetail);
   } catch (error) {
     next(error);
