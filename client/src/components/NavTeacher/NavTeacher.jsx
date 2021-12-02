@@ -126,7 +126,7 @@ export default function Nav() {
     <div className={styles.imagen}>
       
       <img
-            src="https://static.guiainfantil.com/media/24057/c/el-desarrollo-de-un-nino-de-5-anos-que-aprenden-los-ninos-a-esta-edad-md.jpg"
+            src="https://static.diariofemenino.com/media/13502/carta-gracias-profesor.jpg"
             alt="404"
             className={styles.img}
             aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/> </div>

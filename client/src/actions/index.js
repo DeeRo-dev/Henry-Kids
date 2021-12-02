@@ -8,6 +8,14 @@ export function getAllclasses() {
       }
      
 }
+export function searchClass(name) {
+  return async function (dispatch) {
+      return dispatch({
+        type: "SEARCH_CLASS",
+        payload: name,
+      });
+    } 
+}
 
 export function getAllClassTeacher(id) {
   return async function (dispatch) {
@@ -72,21 +80,4 @@ export function getCategory(){
         payload: info.data
       })
   } 
-}
-
-export function searchClass(payload) {
-  return async (dispatch) => {
-    try {
-      const json = await axios.get(
-        `/class?name=${payload}`
-      );
-      return dispatch({
-        type: "SEARCH_CLASS",
-        payload: json.data,
-        dataLength: payload.length,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
 }

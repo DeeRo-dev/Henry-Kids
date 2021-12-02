@@ -8,13 +8,130 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 
+const { filterByCategory} = require("../filters/filterByCategory");
+const { filterByDifficulty} = require("../filters/filterByDifficulty")
+
+
+
+
+
+
+
+
+
+// funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
+async function getClass(req, res, next) {
+
+  // modelo ruta para filtro por Category
+  // GET https://localhost:3001/class?filter=category&category_id=1
+
+  let results = []
+  // Aca manejamos la busqueda por el search (por title).
+  if (req.query.title) {
+    results = await Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      where: {
+        title: {
+          [Op.iLike]: `%${req.query.title}%`,
+        },
+      },
+      include: [ Category, Evaluation, User ],
+    })
+    
+  }
+  else {
+
+    results = await Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      include: [ Category, Evaluation, User ],
+    })
+    
+  }
+
+
+  // Aca van los filters.
+  
+  switch (req.query.filter) {
+    case "category":
+
+      // modelo ruta 
+      // GET https://localhost:3001/class?filter=category&category_id=1
+
+      // Valido si tengo el category_id en el query string del request
+      if (!req.query.category_id) {
+        return res.status(400).send({ error: "category_id is required" });
+      }
+     
+      results = await filterByCategory(results, req.query.category_id)
+      break;
+
+    case "difficulty":
+      
+      // modelo ruta 
+      // GET https://localhost:3001/class?filter=difficulty&difficulty=Basica
+
+      // Valido si tengo el category_id en el query string del request
+      if (!req.query.difficulty) {
+        return res.status(400).send({ error: "difficulty is required" });
+      }
+     
+      results = await filterByDifficulty(results, req.query.difficulty)
+      break;
+
+    case "valoration":
+      break;
+  }
+  
+  res.send(results);
+
+}
+
+
+
+/* // funcion para traernos 1 clase.
+async function getClass(req, res, next) {
+
+  // if (req.query.name) {
+  //   const { name } = req.query;
+  //   res.send(
+  //     await Class.findAll({
+  //       where: {
+  //         title: { [Op.iLike]: `${name}%` },
+  //       }
+  //     })
+  //   );
+  // }
+  
+  if (req.query.title) {
+    return Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      where: {
+        title: {
+          [Op.iLike]: `%${req.query.title}%`,
+        },
+      },
+      include: [Category, Evaluation, User],
+    }).then((Class) => {
+      if (Class.length === 0) {
+        return res.send("Not class found");
+      }
+      res.send(Class);
+    });
+  } else {
+    return Class.findAll({
+      attributes: ["id", "title", "description", "difficulty"],
+      include: [Category, Evaluation, User],
+    }).then((Class) => {
+      res.send(Class);
+    });
+  }
+} */
 // funcion para poder crear clases nuevas.
 async function addClass(req, res, next) {
   let data = { ...req.body };
 
   try {
     const createClass = await Class.create({
-     
       title: data.title,
       description: data.description,
       studio_material: data.studio_material,
@@ -68,42 +185,7 @@ async function editClass(req, res, next) {
   }
 }
 
-// funcion para traernos 1 clase.
-async function getClass(req, res, next) {
-  if (req.query.name) {
-    const { name } = req.query;
-    res.send(
-      await Class.findAll({
-        where: {
-          title: { [Op.iLike]: `${name}%` },
-        },
-      })
-    );
-  }
-  if (req.query.title) {
-    return Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      where: {
-        title: {
-          [Op.iLike]: `%${req.query.title}%`,
-        },
-      },
-      include: [Category,Evaluation,User],
-    }).then((Class) => {
-      if (Class.length === 0) {
-        return res.send("Not class found");
-      }
-      res.send(Class);
-    });
-  } else {
-    return Class.findAll({
-      attributes: ["id", "title", "description", "difficulty"],
-      include: { model: Evaluation },
-    }).then((Class) => {
-      res.send(Class);
-    });
-  }
-}
+
 
 // funcion pàra crear y traernos 1 clase (ejemplo).
 async function getClassEjempl(req, res, next) {
@@ -185,13 +267,15 @@ async function getEval(req, res, next) {
   }
 }
 
+
+
+
 module.exports = {
   addClass,
   deleteClass,
   editClass,
   getClass,
   getClassEjempl,
-  GetClassId,
-  addEval,
-  getEval,
+  GetClassId
+  
 };

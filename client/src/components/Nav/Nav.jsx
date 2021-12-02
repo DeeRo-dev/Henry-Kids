@@ -9,11 +9,43 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { searchClass } from "../../actions/index.js";
 
+
 export default function Nav() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+
+  //   try {
+  //     let name = req.query.name; 
+  //     let pokemonsTotal = await getAllPokemons(); 
+  //     if (name) { 
+  //       let pokemonName = await pokemonsTotal.filter((el) => 
+  //         el.name.toLowerCase().includes(name.toLowerCase())
+  //       );
+  //       pokemonName.length
+  //         ? res.status(200).send(pokemonName) 
+  //         : res.status(404).send("El pokemon ingresado no existe"); 
+  //     } else {
+  //       res.status(200).send(pokemonsTotal); 
+  //     }
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // );
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const [name,setName] = useState("")
+
+  const handleInputChange = (e) => {
+    e.preventDefault()
+    setName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+         dispatch(searchClass(name))
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -71,8 +103,9 @@ export default function Nav() {
               type="text"
               placeholder="Buscar por profesor/curso..."
               className={styles.inputSearch}
+              onChange={(e) => handleInputChange(e)}
             />
-            <button className={styles.buscador}>
+            <button className={styles.buscador} onClick={(e) => handleSubmit(e)}>
               <Icon>search</Icon>
             </button>
             {/* <button type='submit' > Buscar</button> */}
