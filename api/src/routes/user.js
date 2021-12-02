@@ -6,7 +6,7 @@ const {
   deleteUser,
   editUser,
   getUser,
-  getTipo
+  getType
 } = require("../controllers/user");
 
 
@@ -18,6 +18,6 @@ router.post("/", createUser);
 router.get("/:id", getUserId);
 router.delete("/:id", deleteUser);
 router.put("/:id", editUser);
-router.get("/typo/:id",getTipo)
+router.get("/typo/:id",getType)
 
 module.exports = router;

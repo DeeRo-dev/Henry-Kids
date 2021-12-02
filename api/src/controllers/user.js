@@ -114,7 +114,7 @@ async function getUser(req, res, next) {
   }
 }
 
-async function getTipo(req,res,next){
+async function getType(req,res,next){
   try {
     const { id } = req.params;
     const userDetail = await User.findAll({
@@ -122,7 +122,7 @@ async function getTipo(req,res,next){
         id: id,
       },
     });
-    const aux=userDetail[0].dataValues.type
+    const aux = userDetail[0].dataValues.type
     res.send(aux);
   } catch (error) {
     next(error);
@@ -135,5 +135,5 @@ module.exports = {
   getUser,
   editUser,
   deleteUser,
-  getTipo
+  getType
 };
