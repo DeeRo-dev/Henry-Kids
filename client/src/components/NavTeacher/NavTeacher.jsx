@@ -1,6 +1,6 @@
 import React from "react";
 import {useEffect, useState} from 'react'
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./NavTeacher.module.css";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,7 +10,7 @@ import { getCategory } from "../../actions";
 
 
 
-export default function Nav() {
+export default function NavTeacher() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const open = Boolean(anchorEl);
@@ -132,7 +132,7 @@ export default function Nav() {
             src="https://static.diariofemenino.com/media/13502/carta-gracias-profesor.jpg"
             alt="404"
             className={styles.img}
-            aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/> </div>
+            onClick={handleClick}/> </div>
             
      
       <Menu

@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { /* useState, */ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
-import { Link } from "react-router-dom";
 // import {styled} from '@material-ui/core';
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
-import { editUser, getAllclasses, getUser } from "../../actions/index.js";
-import Pagination from "../Pagination/Pagination.jsx";
-import { auth } from "../../firebase/firebaseConfig.js";
-
+import { editUser, getAllclasses/* ,getUser   */} from "../../actions/index.js";
+// // imp/* or/* t Pag */inati */on from "../Pagination/Pagination.jsx";
+// // import { auth } from "../../firebase/firebaseConfig.js";
+// 
 export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);

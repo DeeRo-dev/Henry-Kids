@@ -16,7 +16,7 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { confirmPasswordReset } from "@firebase/auth";
+// import { confirmPasswordReset } from "@firebase/auth";
 
 // function validate(pokemon){
 //   let errors = {};
@@ -202,7 +202,7 @@ export default function LandingPage() {
         });
       })
       .catch((error) => {
-        console.log(error.code);
+        alert(error.code);
       });
   };
 

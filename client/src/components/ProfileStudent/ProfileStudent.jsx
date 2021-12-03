@@ -11,7 +11,7 @@ import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 // import FavsContainer from "../FavsContainer/FavsContainer.jsx";
-import styles from "./ProfileStudent.module.css";
+// import styles from "./ProfileStudent.module.css";
 
 import ModifyUser from "../ModifyUser/ModifyUser";
 function TabPanel(props) {
