@@ -13,8 +13,6 @@ async function createUser(req, res, next) {
       userName,
       type,
       photo,
-      email,
-      password,
     });
 
     const newUser = await User.findOne({ where: { userName } });
