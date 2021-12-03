@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
         validate: {
           isUrl: true,
         },
-      },
+      } /*,
 
       email: {
         type: DataTypes.STRING,
@@ -71,7 +71,7 @@ module.exports = (sequelize) => {
     {
       timestamps: false,
       createdAt: false,
-      updatedAt: false,
+      updatedAt: false,*/
     }
   );
 };
