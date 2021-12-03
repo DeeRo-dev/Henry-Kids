@@ -194,8 +194,12 @@ export default function LandingPage() {
               console.log(e)
             })
           } else {
-            navigate("/home/teacher");
+            dispatch(postUser(user)).then(() => {
+              navigate("/home/teacher");
             window.location.reload();
+            }).catch((e) => {
+              console.log(e)
+            })
           }
         });
       })
