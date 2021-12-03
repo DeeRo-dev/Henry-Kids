@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { async } from '@firebase/util';
 
 const axios = require('axios')
@@ -18,57 +17,19 @@ export function searchClass(name) {
       payload: name,
     });
   }
-=======
-const axios = require("axios");
-
-export function getAllclasses() {
-  return async function (dispatch) {
-    let response = await axios.get("/class");
-    dispatch({ type: "GET_ALL_CLASSES", data: response.data });
-  };
-}
-export function searchClass(payload) {
- return async (dispatch) => {
-    try {
-      const json = await axios.get(
-   `/class?title=${payload}`);
-      return dispatch({
-        type: "SEARCH_CLASS",
-        payload: json.data,
-        dataLength: payload.length,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
->>>>>>> funcionalidad-buscador
 }
 
 export function getAllClassTeacher(idUser) {
   return async function (dispatch) {
-<<<<<<< HEAD
     let response = await axios.get(`/cursos/${idUser}`)
     dispatch({
       type: "GET_ALL_CLASSES_TEACHER",
       data: response.data
     });
   }
-=======
-    let response = await axios.get(`/cursos/${id}`);
-    dispatch({
-      type: "GET_ALL_CLASSES_TEACHER",
-      data: response.data,
-    });
-  };
->>>>>>> funcionalidad-buscador
 }
 export function editUser(id, user) {
   return async function (dispatch) {
-<<<<<<< HEAD
-    let response = await axios.post("/class", input)
-    dispatch({ type: "CREATE_CLASS", data: response.data });
-  }
-=======
     let userUpdate = await axios.put(`/user/${id}`, user);
       dispatch({
       type: "EDIT_USER",
@@ -77,7 +38,6 @@ export function editUser(id, user) {
   };
 }
 
->>>>>>> funcionalidad-buscador
 
 export function getUser(input) {
   return async (dispatch) => {
@@ -93,24 +53,13 @@ export function getUser(input) {
 export function postUser(input) {
   return async (dispatch) => {
     const json = await axios.post("/user", input);
-<<<<<<< HEAD
-    return dispatch({
-=======
       dispatch({
->>>>>>> funcionalidad-buscador
       type: "POST_USER",
       payload: json.data,
     });
   };
 }
 
-<<<<<<< HEAD
-export function getClassById(id) {
-  return async function (dispatch) {
-    let response = await axios.get(`/class/${id}`)
-    dispatch({ type: 'GET_CLASS_BY_ID', data: response.data })
-  }
-=======
 export function createClass(input) {
   return async function (dispatch) {
     let response = await axios.post("/class", input);
@@ -123,7 +72,6 @@ export function getClassById(id) {
     let response = await axios.get(`/class/${id}`);
     dispatch({ type: "GET_CLASS_BY_ID", data: response.data });
   };
->>>>>>> funcionalidad-buscador
 }
 
 export function getFavorites(idUs) {
@@ -142,7 +90,6 @@ export function ModifyClasses(id, input) {
 
 export function DeleteClass(id) {
   return async function (dispatch) {
-<<<<<<< HEAD
     let response = await axios.delete(`/class/${id}`)
     dispatch({ type: 'DELETE_CLASSES', data: response.data })
   }
@@ -172,19 +119,5 @@ export function setFavorite(idUser, id) {
     dispatch({ type: 'SET_FAVORITE', response })
   }
 }
-=======
-    let response = await axios.put(`/class/${id}`);
-    dispatch({ type: "DELETE_CLASSES", data: response.data });
-  };
-}
-export function getCategory() {
-  return async function (dispatch) {
-    var info = await axios("https://henry-kids.herokuapp.com/category");
-    console.log(info);
-    return dispatch({
-      tyoe: "GET_CATEGORY",
-      payload: info.data,
-    });
-  };
-}
->>>>>>> funcionalidad-buscador
+  
+

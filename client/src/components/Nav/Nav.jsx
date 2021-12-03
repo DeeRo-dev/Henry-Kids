@@ -5,15 +5,12 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { auth } from "../../firebase/firebaseConfig";
 import { useState } from "react";
-<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { searchClass } from "../../actions/index.js";
 import DifficultyFilter from '../DifficultyFilter/DifficultyFilter'
-=======
-import { useDispatch, useSelector } from "react-redux";
+
 import SearchBar from "../SearchBar/SearchBar";
 import { getUser } from "../../actions";
->>>>>>> funcionalidad-buscador
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
