@@ -131,6 +131,20 @@ async function getName(req, res, next) {
   res.status(200).send(arr);
 }
 
+async function deleteCategory(req, res, next) {
+  try {
+    const deleteCategory = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.send("Was successfully removed");
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   getCat,
   getEjemplo,
@@ -138,4 +152,5 @@ module.exports = {
   getCatId,
   putCat,
   getName,
+  deleteCategory
 };
