@@ -7,7 +7,7 @@ import styles from './Home.module.css';
 import Card from '../Card/Card.jsx';
 import {getAllclasses} from '../../actions/index.js';
 import Pagination from '../Pagination/Pagination.jsx';
-import DifficultyFilter from '../DifficultyFilter/DifficultyFilter'
+
 
 
 export default function Home() {
@@ -50,7 +50,7 @@ export default function Home() {
         {currentPage.map((e) => {
           return (
             <div key={e.id}>
-              <Link to={"/home/student/" + e.id}>
+              <Link to={`/home/student/${e.id}`}>
                 <Card
                   id={e.id}
                   title={e.title}
@@ -60,8 +60,8 @@ export default function Home() {
                   difficulty={e.difficulty}
                   game_link={e.game_link}
                   valoration={e.valoration}
-                />{" "}
-              </Link>
+                />
+            </Link>
             </div>
           );
         })}

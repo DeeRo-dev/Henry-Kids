@@ -20,7 +20,7 @@ export function searchClass(name) {
 }
 
 export function getAllClassTeacher(idUser) {
-  return async function (dispatch) {
+  return async function (dispatch) { console.log('entro')
       let response = await axios.get(`/cursos/${idUser}`)    
       dispatch({ 
         type: "GET_ALL_CLASSES_TEACHER",
@@ -90,3 +90,5 @@ export function difficultyFilter(input){
       dispatch({type:'DIFFICULTY_FILTER', data:response.data})
     }
   }
+
+  

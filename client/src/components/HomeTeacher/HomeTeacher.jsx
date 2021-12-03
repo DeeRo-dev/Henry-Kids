@@ -10,7 +10,7 @@ import { getAllClassTeacher } from "../../actions/index.js";
 
 
 export default function Home() {
-
+/* 
 let arrayy = [
   {
     id: 25464,
@@ -146,7 +146,7 @@ let arrayy = [
   },
 
 
-]
+] */
 
   const navigate = useNavigate();
   function signOutUser(e) {
@@ -179,7 +179,7 @@ let arrayy = [
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
-  arrayy.length > 9
+ currentPage && currentPage.length > 9
     ? (currentPage = allClassTeacher.slice (indexFirstPage, indexLastPage))
     : (currentPage = allClassTeacher);
 
@@ -206,7 +206,7 @@ let arrayy = [
     
 
       <div className={styles.cards}>
-      {arrayy.map((e) => { 
+      {currentPage.map((e) => { 
         return (
         <div key= {e.id}> 
          <CardTeacher 

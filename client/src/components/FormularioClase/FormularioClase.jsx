@@ -40,7 +40,7 @@ console.log(id)
     video_link: "",
     game_link: "",
     difficulty: "",
-    idUs: id,
+    userId: id,
     catId:""
   });
 
@@ -74,7 +74,7 @@ console.log(id)
       video_link: "",
       game_link: "",
       difficulty: "",
-      idUs: id,
+      userId: id,
       catId: "",
     });
     
