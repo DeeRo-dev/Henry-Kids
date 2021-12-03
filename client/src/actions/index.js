@@ -94,10 +94,9 @@ export function DeleteClass(id) {
     dispatch({ type: 'DELETE_CLASSES', data: response.data })
   }
 }
-
-export function getCategory() {
-  return async function (dispatch) {
-    var info = await axios.get("/category")
+export function getCategory(){
+  return async function(dispatch){
+    var info = await axios.get("/category/name")
     console.log(info)
     return dispatch({
       type: "GET_CATEGORY",
