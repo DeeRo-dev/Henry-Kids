@@ -73,6 +73,9 @@ const { Class, Category, Evaluation, User, Comment, Status} = sequelize.models;
 Class.belongsToMany(Category, { through: "CatCurso" });
 Category.belongsToMany(Class, { through: "CatCurso" });
 
+Class.belongsToMany(Comment, { through: "CatCurso" });
+Comment.belongsToMany(Class, { through: "CatCurso" });
+
 Class.hasMany(Evaluation);
 Evaluation.belongsTo(Class);
 
