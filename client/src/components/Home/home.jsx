@@ -13,13 +13,13 @@ export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
  
-  let currentPage;
-  let indexLastPage = page * cardsInPage;
-  let indexFirstPage = indexLastPage - cardsInPage;
+  // let currentPage;
+  // let indexLastPage = page * cardsInPage;
+  // let indexFirstPage = indexLastPage - cardsInPage;
 
-  allClasses.length > 9
-    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
-    : (currentPage = allClasses);
+  // allClasses.length > 9
+  //   ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
+  //   : (currentPage = allClasses);
 
   
   useEffect(() => {
@@ -31,19 +31,19 @@ export default function Home() {
     );
   }, [dispatch]);
 
-  let cardsInPage = 8;
-  let [page, setPage] = useState(1);
+  // let cardsInPage = 8;
+  // let [page, setPage] = useState(1);
 
-  useEffect(() => {
-    setPage(1);
-  }, []);
+  // useEffect(() => {
+  //   setPage(1);
+/*   }, []); */
 
   
 
-  function Paginate(e, num) {
-    e.preventDefault();
-    setPage(num);
-  }
+  // function Paginate(e, num) {
+  //   e.preventDefault();
+  //   setPage(num);
+  // }
 
   return (
     <div className={styles.home}>
@@ -52,7 +52,7 @@ export default function Home() {
       </div>
 
       <div className={styles.cards}>
-        {currentPage.map((e) => {
+        {/* currentPage */allClasses.map((e) => {
           return (
             <div key={e.id}>
              {/*  <Link to={`/home/student/${e.id}`}> */}
@@ -74,11 +74,11 @@ export default function Home() {
       </div>
       
       <div>
-        <Pagination
+        {/* <Pagination
           cardsInPage={cardsInPage}
           totalElements={allClasses.length}
           paginate={Paginate}
-        />
+        /> */}
       </div>
     </div>
   );
