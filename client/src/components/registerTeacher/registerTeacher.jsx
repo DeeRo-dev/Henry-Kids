@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./registerTeacher.module.css";
+// import {
+//   Button,
+//   FormControl,
+//   FormControlLabel,
+//   Radio,
+//   RadioGroup,
+// } from "@material-ui/core";
 
 function onInputChange(e){
   e.preventDefault();
@@ -8,7 +15,74 @@ function onInputChange(e){
 
 
 export default function registerTeacher(){
+  // const [modal, setModal] = useState(false);
+
+
+  // const toggleModal = (e) => {
+  //   setModal(!modal);
+  // };
+
+
 return(
+//   <div className={styles.modal}>
+//   <div onClick={toggleModal} className={styles.overlay}></div>
+//   <div className={styles.modal_content}>
+//     <button className={styles.close_modal} onClick={toggleModal}>
+//       x
+//     </button>
+
+//     <div>
+//       <form>
+//         <input
+//           name="firstName"
+//           type="text"
+//           placeholder="Nombre:"
+//           onChange={(e) => onInputChange(e)}
+//         />
+//         <input
+//           name="lastName"
+//           type="text"
+//           placeholder="Apellido:"
+//           onChange={(e) => onInputChange(e)}
+//         />
+//         <input
+//           name="userName"
+//           type="text"
+//           placeholder="Nombre de usuario:"
+//           onChange={(e) => onInputChange(e)}
+//         />
+//         <input
+//           name="email"
+//           type="text"
+//           placeholder="Email:"
+//           onChange={(e) => onInputChange(e)}
+//         />
+//         <input
+//           name="password"
+//           type="password"
+//           placeholder="Contraseña:"
+//           onChange={(e) => onInputChange(e)}
+//         />
+//         <input
+//           type="password"
+//           placeholder="Confirmar contraseña:"
+//         />
+   
+//         {/* <Link className={styles.btnCrear} to="/home"> */}
+
+//         <StyleButtonCrearCuenta
+//           type="button"
+//           className={styles.btnCrearCuenta}
+//           variant="contained"
+//           color="primary"
+//         >
+//           Enviar
+//         </StyleButtonCrearCuenta>
+//         {/* </Link> */}
+//       </form>
+//     </div>
+//   </div>
+// </div>
   <div className={styles.contentForm}>
     <form action="">
       <div  className={styles.contentInputs}>
