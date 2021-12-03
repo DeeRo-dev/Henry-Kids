@@ -33,7 +33,7 @@ const navigate = useNavigate();
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
- currentPage.length > 9
+ currentPage && currentPage.length > 9
     ? (currentPage = allClassTeacher.slice (indexFirstPage, indexLastPage))
     : (currentPage = allClassTeacher);
 

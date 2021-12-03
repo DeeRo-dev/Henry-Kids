@@ -1,13 +1,14 @@
-import React, { /* useState, */ useEffect } from "react";
+import React, {  useState,  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
 // import {styled} from '@material-ui/core';
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
 import { editUser, getAllclasses/* ,getUser   */} from "../../actions/index.js";
-// // imp/* or/* t Pag */inati */on from "../Pagination/Pagination.jsx";
+import Pagination from "../Pagination/Pagination.jsx";
 // // import { auth } from "../../firebase/firebaseConfig.js";
-// 
+import { Link } from "react-router-dom";
+
 export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
@@ -20,10 +21,14 @@ export default function Home() {
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
-  allClasses.length > 9
+  currentPage && currentPage.length > 9
     ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
     : (currentPage = allClasses);
 
+    // useEffect(() => {
+    //   setPage(1);
+    // }, []); 
+  
   
   useEffect(() => {
     dispatch(getAllclasses());
@@ -34,10 +39,6 @@ export default function Home() {
     );
   }, [dispatch]);
 
-
-   useEffect(() => {
-    setPage(1);
-  }, []); 
 
   
 
