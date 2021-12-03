@@ -5,7 +5,7 @@ import Pagination from "../Pagination/Pagination.jsx";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
- import CardTeacher from "../CardTeacher/CardTeacher.jsx";
+import CardTeacher from "../CardTeacher/CardTeacher.jsx";
 import { getAllClassTeacher, editUser } from "../../actions/index.js";
 
 
@@ -46,7 +46,7 @@ const navigate = useNavigate();
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
- currentPage && currentPage.length > 9
+ currentPage.length > 9
     ? (currentPage = allClassTeacher.slice (indexFirstPage, indexLastPage))
     : (currentPage = allClassTeacher);
 
