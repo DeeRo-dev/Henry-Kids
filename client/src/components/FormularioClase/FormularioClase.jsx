@@ -74,7 +74,7 @@ export default function FormularioClase() {
       video_link: "",
       game_link: "",
       difficulty: "",
-      id: id,
+      usId: id,
       catId: "",
     });
     
