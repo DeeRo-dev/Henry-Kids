@@ -41,10 +41,14 @@ export function editUser(id, user) {
   };
 }
 
-export function createClass(input) {
-  return async function (dispatch) {
-    let response = await axios.post("/class", input);
-    dispatch({ type: "CREATE_CLASS", data: response.data });
+
+export function getUser(input) {
+  return async (dispatch) => {
+    const json = await axios.get(`/user/${input}`);
+      dispatch({
+      type: "GET_USER",
+      payload: json.data,
+    });
   };
 }
 
@@ -56,6 +60,13 @@ export function postUser(input) {
       type: "POST_USER",
       payload: json.data,
     });
+  };
+}
+
+export function createClass(input) {
+  return async function (dispatch) {
+    let response = await axios.post("/class", input);
+    dispatch({ type: "CREATE_CLASS", data: response.data });
   };
 }
 

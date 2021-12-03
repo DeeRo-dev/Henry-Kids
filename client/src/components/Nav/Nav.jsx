@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Nav.module.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { auth } from "../../firebase/firebaseConfig";
 import { useState } from "react";
-import { useSelector} from "react-redux";
-import SearchBar from "../SearchBar/SearchBar"
+import { useDispatch, useSelector } from "react-redux";
+import SearchBar from "../SearchBar/SearchBar";
+import { getUser } from "../../actions";
 
 export default function Nav() {
-
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
- 
-  
+  const currentUser = useSelector((state) => state.user[0]);
 
-
-
+  useEffect(() => {
+    dispatch(getUser(window.localStorage.sessionUser));
+  }, [dispatch]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,7 +66,10 @@ export default function Nav() {
               alt="not found"
             />
           </div>
-          <div> <SearchBar/></div>
+          <div>
+            {" "}
+            <SearchBar />
+          </div>
           <div className={styles.contenCat}>
             <select
               name=""
@@ -119,11 +123,10 @@ export default function Nav() {
 
           <div className={styles.imagen}>
             <img
-              src="https://static.guiainfantil.com/media/24057/c/el-desarrollo-de-un-nino-de-5-anos-que-aprenden-los-ninos-a-esta-edad-md.jpg"
+              src={ currentUser ? currentUser.photo 
+                : "https://f5c4537feeb2b644adaf-b9c0667778661278083bed3d7c96b2f8.ssl.cf1.rackcdn.com/artistas/perfil-usuario.png"}
               alt="404"
               className={styles.img}
-              aria-controls="simple-menu"
-              aria-haspopup="true"
               onClick={handleClick}
             />{" "}
           </div>
