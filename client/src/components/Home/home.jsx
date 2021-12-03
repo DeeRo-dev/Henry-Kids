@@ -13,7 +13,13 @@ export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
  
-  
+  let currentPage;
+  let indexLastPage = page * cardsInPage;
+  let indexFirstPage = indexLastPage - cardsInPage;
+
+  allClasses.length > 9
+    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
+    : (currentPage = allClasses);
 
   
   useEffect(() => {
@@ -32,13 +38,7 @@ export default function Home() {
     setPage(1);
   }, []);
 
-  let currentPage;
-  let indexLastPage = page * cardsInPage;
-  let indexFirstPage = indexLastPage - cardsInPage;
-
-  allClasses.length > 9
-    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
-    : (currentPage = allClasses);
+  
 
   function Paginate(e, num) {
     e.preventDefault();

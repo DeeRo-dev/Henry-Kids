@@ -50,7 +50,7 @@ export default function SearchBar() {
       {/* </button> */}
       <input
         type="text"
-        placeholder="Buscar por profesor/curso..."
+        placeholder="Buscar curso..."
         className={styles.inputSearch}
         onChange={(e) => handleInput(e)}
       />

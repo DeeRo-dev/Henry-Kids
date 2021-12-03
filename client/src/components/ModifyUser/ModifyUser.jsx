@@ -12,6 +12,7 @@ export default function ModifyUser() {
   const [user, setUser] = useState({
     id: "",
     userName: "",
+    password:"",
     photo: "",
   });
 

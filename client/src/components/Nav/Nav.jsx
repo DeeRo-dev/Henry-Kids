@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Nav.module.css";
+import SearchBar from "../SearchBar/SearchBar"
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Icon } from "@material-ui/core"
@@ -70,21 +71,7 @@ export default function Nav() {
           />
  
         </div>
-
-        <div className={styles.contentSearch}>
-          {/* <div className={styles.buscador}> */}
-          {/* <button className={styles.iconoBuscar}> */}
-          {/* </button> */}
-          <input
-            type="text"
-            placeholder="Buscar por profesor/curso..."
-            className={styles.inputSearch}
-          />
-          <button className={styles.buscador}>
-            <Icon>search</Icon>
-          </button>
-          {/* <button type='submit' > Buscar</button> */}
-        </div>
+       <SearchBar/>
         <div className={styles.contenCat}>
           <select name="" id="" className={styles.select} onChange={(e) => handleCategory(e)}>
           {
