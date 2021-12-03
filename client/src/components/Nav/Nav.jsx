@@ -1,19 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Nav.module.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Icon } from "@material-ui/core"
 import { auth } from "../../firebase/firebaseConfig";
-import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { getCategory } from "../../actions";
+import { getCategory, getUser } from "../../actions";
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user[0]);
 
   useEffect(() => {
