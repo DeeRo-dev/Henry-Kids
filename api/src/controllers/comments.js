@@ -16,7 +16,7 @@ async function createComment(req, res, next){
 
 
 async function getComments(req, res, next){
-  //Id de la clase...
+  
   let result
   try{
     const {id} = req.body;
