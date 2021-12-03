@@ -108,7 +108,7 @@ export function getCategory() {
 
 export function difficultyFilter(input) {
   return async function (dispatch) {
-    let response = await axios.get('/class/difficulty/obtener?difficulty=' + input);
+    let response = await axios.get('/class?filter=difficulty&difficulty=' + input);
     dispatch({ type: 'DIFFICULTY_FILTER', data: response.data })
   }
 }
