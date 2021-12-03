@@ -12,6 +12,7 @@ export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const currentUser = useSelector((state) => state.user[0]);
 
   useEffect(() => {
