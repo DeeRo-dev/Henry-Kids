@@ -8,7 +8,7 @@ import { auth } from "../../firebase/firebaseConfig";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { searchClass } from "../../actions/index.js";
-
+import DifficultyFilter from '../DifficultyFilter/DifficultyFilter'
 
 export default function Nav() {
 
@@ -78,7 +78,7 @@ export default function Nav() {
   let nameCate = category.map((e) => e.name);
   nameCate = nameCate.join().split(",");
   nameCate = nameCate.filter((e) => e);
-  console.log(nameCate);
+  
   function handleCategory(e) {
     e.preventDefault();
     console.log(category);
@@ -124,6 +124,7 @@ export default function Nav() {
               ))}
             </select>
           </div>
+          <DifficultyFilter/>
           <div className={styles.contenValorado}>
             <select name="" id="" className={styles.select}>
               <option
@@ -160,7 +161,7 @@ export default function Nav() {
       </Link>
    */}
           </div>
-
+          
           <div className={styles.imagen}>
             <img
               src="https://static.guiainfantil.com/media/24057/c/el-desarrollo-de-un-nino-de-5-anos-que-aprenden-los-ninos-a-esta-edad-md.jpg"

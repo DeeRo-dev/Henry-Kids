@@ -26,7 +26,7 @@ export default function FormularioClase() {
  
   
   let id = window.localStorage.sessionUser;
-console.log(id)
+
   useEffect(() => {
     dispatch(getCategory())
   }, [dispatch])
@@ -40,7 +40,7 @@ console.log(id)
     video_link: "",
     game_link: "",
     difficulty: "",
-    userId: id,
+    id: id,
     catId:""
   });
 
@@ -74,7 +74,7 @@ console.log(id)
       video_link: "",
       game_link: "",
       difficulty: "",
-      userId: id,
+      id: id,
       catId: "",
     });
     

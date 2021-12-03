@@ -74,6 +74,11 @@ export default function rootReducer(state = initialState, action) {
         return{ 
           ...state,
         }
+
+        case 'SET_FAVORITE':
+        return{ 
+          ...state,
+        }
       
     default:
       return state;

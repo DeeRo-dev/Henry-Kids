@@ -50,8 +50,9 @@ export default function Home() {
         {currentPage.map((e) => {
           return (
             <div key={e.id}>
-              <Link to={`/home/student/${e.id}`}>
+             {/*  <Link to={`/home/student/${e.id}`}> */}
                 <Card
+                  value={e.title}
                   id={e.id}
                   title={e.title}
                   category={e.category}
@@ -61,7 +62,7 @@ export default function Home() {
                   game_link={e.game_link}
                   valoration={e.valoration}
                 />
-            </Link>
+           {/*  </Link> */}
             </div>
           );
         })}

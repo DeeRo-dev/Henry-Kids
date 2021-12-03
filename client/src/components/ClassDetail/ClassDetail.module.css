@@ -1,6 +1,13 @@
+
 .contentDetail {
   display: flex;
   justify-content: center;
+
+  background: url('https://i.imgur.com/7Dl1ISR.png');
+  background-position: center;
+  background-size: cover;
+  overflow-x:hidden;
+  overflow-y:hidden;
 }
 
 .contentTitle {

@@ -42,7 +42,7 @@ export default function FavsContainer() {
                     return (
                         <div key={e.id}>
                             {' '}
-                            <Link to={'/home/' + e.id}>
+                            <Link to={`/home/${e.id}`}>
                                 {' '}
                                 <Card
                                     id={e.id}
