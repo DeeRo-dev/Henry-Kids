@@ -3,7 +3,8 @@ const categoryRutes = require("./category");
 const classRoutes = require("./Clases");
 const classUser = require("./user");
 const relClassUser=require("./relClassUser");
-const evaluationRoutes=require("./evaluation")
+const evaluationRoutes=require("./evaluation");
+const commentRouter=require("./comment")
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -16,7 +17,8 @@ router.use("/category", categoryRutes); // esto me genera /kids/category*  (trai
 router.use("/class", classRoutes);
 router.use("/user", classUser);
 router.use("/",relClassUser);
-router.use("/evaluation", evaluationRoutes)
+router.use("/evaluation", evaluationRoutes);
+router.use("/comment", commentRouter);
 // Esto hay que moverlo a Clases.js
 
 module.exports = router;
