@@ -12,8 +12,6 @@ import { auth } from "../../firebase/firebaseConfig.js";
 export default function Home() {
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
-
-  useEffect(() => { dispatch(getAllclasses()) },[dispatch]);
  
   
 
