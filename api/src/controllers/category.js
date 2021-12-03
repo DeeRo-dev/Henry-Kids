@@ -31,7 +31,7 @@ async function getEjemplo(req, res, next) {
   try {
     let arr = [];
     const newCategory1 = await Category.create({
-      name: "JavaScrip",
+      name: "JavaScript",
       technology: "JavaScript",
       description: "programacion web ",
       img_link:
