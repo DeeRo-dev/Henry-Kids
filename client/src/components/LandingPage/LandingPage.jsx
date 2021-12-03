@@ -37,8 +37,6 @@ export default function LandingPage() {
     lastName: "",
     userName: "",
     type: "",
-    email: "",
-    password: "",
   });
 
   const toggleModal = (e) => {
@@ -191,7 +189,7 @@ export default function LandingPage() {
               navigate("/home/student");
               window.location.reload();
             }).catch((e) => {
-              console.log(e)
+              console.log(e + "este")
             })
           } else {
             dispatch(postUser(user)).then(() => {
