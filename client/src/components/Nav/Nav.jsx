@@ -1,51 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Icon } from "@material-ui/core";
 import styles from "./Nav.module.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { auth } from "../../firebase/firebaseConfig";
 import { useState } from "react";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { searchClass } from "../../actions/index.js";
 import DifficultyFilter from '../DifficultyFilter/DifficultyFilter'
+=======
+import { useDispatch, useSelector } from "react-redux";
+import SearchBar from "../SearchBar/SearchBar";
+import { getUser } from "../../actions";
+>>>>>>> funcionalidad-buscador
 
 export default function Nav() {
-
-
-  //   try {
-  //     let name = req.query.name; 
-  //     let pokemonsTotal = await getAllPokemons(); 
-  //     if (name) { 
-  //       let pokemonName = await pokemonsTotal.filter((el) => 
-  //         el.name.toLowerCase().includes(name.toLowerCase())
-  //       );
-  //       pokemonName.length
-  //         ? res.status(200).send(pokemonName) 
-  //         : res.status(404).send("El pokemon ingresado no existe"); 
-  //     } else {
-  //       res.status(200).send(pokemonsTotal); 
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // );
-
   const [anchorEl, setAnchorEl] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  const [name,setName] = useState("")
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user[0]);
 
-  const handleInputChange = (e) => {
-    e.preventDefault()
-    setName(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-         dispatch(searchClass(name))
-  }
+  useEffect(() => {
+    dispatch(getUser(window.localStorage.sessionUser));
+  }, [dispatch]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -94,21 +72,9 @@ export default function Nav() {
               alt="not found"
             />
           </div>
-
-          <div className={styles.contentSearch}>
-            {/* <div className={styles.buscador}> */}
-            {/* <button className={styles.iconoBuscar}> */}
-            {/* </button> */}
-            <input
-              type="text"
-              placeholder="Buscar por profesor/curso..."
-              className={styles.inputSearch}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <button className={styles.buscador} onClick={(e) => handleSubmit(e)}>
-              <Icon>search</Icon>
-            </button>
-            {/* <button type='submit' > Buscar</button> */}
+          <div>
+            {" "}
+            <SearchBar />
           </div>
           <div className={styles.contenCat}>
             <select
@@ -164,11 +130,10 @@ export default function Nav() {
           
           <div className={styles.imagen}>
             <img
-              src="https://static.guiainfantil.com/media/24057/c/el-desarrollo-de-un-nino-de-5-anos-que-aprenden-los-ninos-a-esta-edad-md.jpg"
+              src={ currentUser ? currentUser.photo 
+                : "https://f5c4537feeb2b644adaf-b9c0667778661278083bed3d7c96b2f8.ssl.cf1.rackcdn.com/artistas/perfil-usuario.png"}
               alt="404"
               className={styles.img}
-              aria-controls="simple-menu"
-              aria-haspopup="true"
               onClick={handleClick}
             />{" "}
           </div>

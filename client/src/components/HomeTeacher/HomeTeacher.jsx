@@ -6,7 +6,7 @@ import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
  import CardTeacher from "../CardTeacher/CardTeacher.jsx";
-import { getAllClassTeacher } from "../../actions/index.js";
+import { getAllClassTeacher, editUser } from "../../actions/index.js";
 
 
 export default function Home() {
@@ -172,8 +172,13 @@ let arrayy = [
   let [page, setPage] = useState (1);
 
   useEffect (() => {
+    dispatch(
+      editUser("provi", {
+        id: window.localStorage.sessionUser,
+      })
+    );
     setPage (1);
-  }, []);
+  });
 
   let currentPage;
   let indexLastPage = page * cardsInPage;

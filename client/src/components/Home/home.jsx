@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import Nav from '../Nav/Nav.jsx';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Nav from "../Nav/Nav.jsx";
+import { Link } from "react-router-dom";
 // import {styled} from '@material-ui/core';
-import styles from './Home.module.css';
-import Card from '../Card/Card.jsx';
-import {getAllclasses} from '../../actions/index.js';
-import Pagination from '../Pagination/Pagination.jsx';
-
-
+import styles from "./Home.module.css";
+import Card from "../Card/Card.jsx";
+import { editUser, getAllclasses, getUser } from "../../actions/index.js";
+import Pagination from "../Pagination/Pagination.jsx";
+import { auth } from "../../firebase/firebaseConfig.js";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -19,6 +18,15 @@ export default function Home() {
   
 
   
+  useEffect(() => {
+    dispatch(getAllclasses());
+    dispatch(
+      editUser("provi", {
+        id: window.localStorage.sessionUser,
+      })
+    );
+  }, [dispatch]);
+
   let cardsInPage = 8;
   let [page, setPage] = useState(1);
 
@@ -44,7 +52,6 @@ export default function Home() {
       <div>
         <Nav />
       </div>
-
 
       <div className={styles.cards}>
         {currentPage.map((e) => {
