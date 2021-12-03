@@ -21,13 +21,13 @@ export default function Home() {
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
-  currentPage && currentPage.length > 9
-    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
-    : (currentPage = allClasses);
+  if (allClasses.length > 8){
+    currentPage = allClasses.slice(indexFirstPage, indexLastPage)
+  } else currentPage = allClasses;
 
-    // useEffect(() => {
-    //   setPage(1);
-    // }, []); 
+    useEffect(() => {
+      setPage(1);
+    }, []); 
   
   
   useEffect(() => {
