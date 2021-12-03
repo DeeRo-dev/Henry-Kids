@@ -67,6 +67,8 @@
 .title {
   margin-top: 8px;
   font-size: 20px;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .card-body p {
@@ -84,4 +86,16 @@
 a {
   text-decoration: none;
   color: inherit
+}
+.icono{
+  position: absolute;
+  z-index: 1;
+  margin-top: 10px;
+  margin-left: 90px;
+ background: transparent;
+  border: none;
+}
+.icono:hover{
+  cursor:pointer;
+ 
 }

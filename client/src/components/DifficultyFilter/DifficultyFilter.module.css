@@ -1,0 +1,16 @@
+.select {
+    background: transparent;
+    border: none;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont;
+    font-size: 20px;
+    /* color: white; */
+  }
+
+  .select:hover {
+    border-bottom: 1px solid #ff8d00;
+    cursor: pointer;
+    box-shadow: 0 4px 3px -2px #cea74a;
+  }
+  select:focus{
+    outline:none;
+  } 

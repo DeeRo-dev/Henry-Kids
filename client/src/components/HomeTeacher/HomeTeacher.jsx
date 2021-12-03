@@ -6,11 +6,11 @@ import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
  import CardTeacher from "../CardTeacher/CardTeacher.jsx";
-import { getAllClassTeacher } from "../../actions/index.js";
+import { getAllClassTeacher, editUser } from "../../actions/index.js";
 
 
 export default function Home() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
   function signOutUser(e) {
     auth
       .signOut(auth)
@@ -34,14 +34,19 @@ export default function Home() {
   let [page, setPage] = useState (1);
 
   useEffect (() => {
+    dispatch(
+      editUser("provi", {
+        id: window.localStorage.sessionUser,
+      })
+    );
     setPage (1);
-  }, []);
+  });
 
   let currentPage;
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
-  allClassTeacher.length > 9
+ currentPage && currentPage.length > 9
     ? (currentPage = allClassTeacher.slice (indexFirstPage, indexLastPage))
     : (currentPage = allClassTeacher);
 
@@ -55,10 +60,10 @@ export default function Home() {
    
    useEffect(() => {
     dispatch(getAllClassTeacher(idUser))
-  }, [idUser, dispatch]);
+  }, [idUser, dispatch ]);
 
 
-  // window.localStorage.type
+ 
   
   return (
     <div className={styles.home}>

@@ -4,21 +4,28 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import style from './MenuDesplegable.module.css'
-import {Link ,useParams} from 'react-router-dom';
+import {Link } from 'react-router-dom';
+import { DeleteClass } from '../../actions';
+import { useDispatch } from 'react-redux';
+
 /* const options = [
   'Borrar',
   'Editar',
   
 ]; */
 
-const ITEM_HEIGHT = 48;
+
+
+
 
 export default function LongMenu(props) {
 
-  const { id } = useParams();
-
+  const ITEM_HEIGHT = 48;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  
+  
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +35,13 @@ export default function LongMenu(props) {
     setAnchorEl(null);
   };
 
-  console.log(id)
+
+  function onSubmit(e , props){
+    e.preventDefault();
+    alert("clase eliminada")
+    dispatch(DeleteClass(props.id))
+  }
+
 
   return (
     <div className={style.menu}>
@@ -59,13 +72,13 @@ export default function LongMenu(props) {
             {option}
           </MenuItem>
         ))} */}
-        <MenuItem id ={id}  onClick={handleClose}>
-           <Link to={"home/modify"+ id}>
+        <MenuItem id ={props.id}  onClick={handleClose}>
+           <Link to={"/home/modify/"+ props.id}>
               Editar
            </Link>
           </MenuItem>
-          <MenuItem   onClick={handleClose}>
-            Borrar
+          <MenuItem   onClick={(e)=> onSubmit(e)}>
+             Borrar    
           </MenuItem>
       </Menu>
     </div>

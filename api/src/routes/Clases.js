@@ -1,4 +1,6 @@
 const { Router } = require("express");
+const router = Router();
+
 const {
   addClass,
   deleteClass,
@@ -8,26 +10,14 @@ const {
   GetClassId,
   addEval,
   getEval,
-  
 } = require("../controllers/clases");
 
-const router = Router();
-
 router.post("/", addClass);
-
 router.delete("/:id", deleteClass);
-
 router.put("/:id", editClass);
-
 router.get("/", getClass);
 
 router.get("/all", getClassEjempl);
-
 router.get("/:id", GetClassId);
-
-router.post("/nota",addEval)
-
-router.get("/nota/:idClas",getEval)
-
 
 module.exports = router;

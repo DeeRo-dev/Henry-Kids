@@ -21,7 +21,7 @@ const studentRoutes = [
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
   { path: "home/create-clase", element: <FormularioClase /> },
-  { path: "home/modify", element: <ModifyClass /> },
+  { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> }
 ];
 
