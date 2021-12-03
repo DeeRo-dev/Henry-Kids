@@ -55,7 +55,7 @@ const navigate = useNavigate();
       <NavTeacher />
       </div>
       <div className={styles.cards}>
-      {allClassTeacher.map((e) => { 
+      {currentPage.map((e) => { 
         return (
         <div key= {e.id}> 
          <CardTeacher 
