@@ -53,6 +53,12 @@ export default function Nav() {
  useEffect(()=> {
   dispatch(getCategory())
 }, [dispatch])
+
+function searchId(categ) {
+  let idCat = allCategory.find((item) => item.name === categ)
+  return idCat.id
+}
+
   // console.log(category)
   function handleCategory(e){
     e.preventDefault();
@@ -76,7 +82,7 @@ export default function Nav() {
           <select name="" id="" className={styles.select} onChange={(e) => handleCategory(e)}>
           {
              allCategory.map((e) => (
-              <option value={e} key={e}>{e}</option>
+              <option value={e.name} key={e.id}>{e.name}</option>
                
             ))
           }

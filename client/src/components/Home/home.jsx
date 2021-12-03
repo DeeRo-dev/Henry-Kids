@@ -54,7 +54,7 @@ export default function Home() {
       </div>
 
       <div className={styles.cards}>
-        {currentPage.map((e) => {
+        {currentPage && currentPage.map((e) => {
           return (
             <div key={e.id}>
               <Link to={"/home/student/" + e.id}>

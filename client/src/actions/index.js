@@ -96,7 +96,7 @@ export function DeleteClass(id) {
 }
 export function getCategory(){
   return async function(dispatch){
-    var info = await axios.get("/category/name")
+    var info = await axios.get("/category")
     console.log(info)
     return dispatch({
       type: "GET_CATEGORY",

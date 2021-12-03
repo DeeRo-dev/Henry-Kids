@@ -51,7 +51,7 @@ export default function FormularioClase() {
 
   function handleChange(e) {
     if (e.target.name === "category") {
-      console.log(e.target.value)
+      
       setInput({
         ...input,
         catId: searchId(e.target.value),
