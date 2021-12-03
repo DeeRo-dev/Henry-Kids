@@ -23,14 +23,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-<<<<<<< HEAD
-
-    case "SEARCH_CLASS":
-      return {
-        ...state,
-        allClasses: action.payload
-      };
-=======
       case "EDIT_USER":
         return{
           ...state,
@@ -52,7 +44,6 @@ export default function rootReducer(state = initialState, action) {
             allClasses: action.payload,
           };
         }
->>>>>>> funcionalidad-buscador
 
     case "CREATE_CLASS":
       return {
