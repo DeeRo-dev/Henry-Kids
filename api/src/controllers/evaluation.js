@@ -1,5 +1,6 @@
 const {
   Evaluation,
+  Class
 } = require("../db");
 const Sequelize = require("sequelize");
 
