@@ -82,7 +82,8 @@ export function getFavorites(idUs) {
 }
 
 export function ModifyClasses(id, input) {
-  return async function (dispatch) {
+  
+  return async function (dispatch) {console.log(id)
     let response = await axios.put(`/class/${id}`, input);
     dispatch({ type: "MODIFY_CLASSES", data: response.data });
   };
@@ -97,9 +98,19 @@ export function DeleteClass(id) {
 export function getCategory(){
   return async function(dispatch){
     var info = await axios.get("/category/name")
-    console.log(info)
     return dispatch({
       type: "GET_CATEGORY",
+      payload: info.data
+    })
+  }
+}
+
+export function getCategoryAll(){
+  return async function(dispatch){
+    var info = await axios.get("/category")
+    console.log(info)
+    return dispatch({
+      type: "GET_CATEGORY_ALL",
       payload: info.data
     })
   }

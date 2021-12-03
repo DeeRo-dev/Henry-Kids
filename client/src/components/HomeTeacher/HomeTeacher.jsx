@@ -13,12 +13,20 @@ export default function HomeTeacher() {
 const navigate = useNavigate();
 
   const allClassTeacher = useSelector((state) => state.allClassTeacher);
+  
 
   const dispatch = useDispatch();
  
   
   let cardsInPage = 8;
   let [page, setPage] = useState (1);
+
+  
+  let idUser = window.localStorage.sessionUser 
+   
+   useEffect(() => {
+    dispatch(getAllClassTeacher(idUser))
+  }, [idUser, dispatch ]);
 
   useEffect (() => {
     dispatch(
@@ -42,13 +50,7 @@ const navigate = useNavigate();
     e.preventDefault ();
     setPage (num);
   }
-  
-  let idUser = window.localStorage.sessionUser 
-   
-   useEffect(() => {
-    dispatch(getAllClassTeacher(idUser))
-  }, [idUser, dispatch ]);
-
+ 
   return (
     <div className={styles.home}>
       <div className={styles.nav}>
