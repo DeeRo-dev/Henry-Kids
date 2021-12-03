@@ -94,30 +94,15 @@ export function DeleteClass(id) {
     dispatch({ type: 'DELETE_CLASSES', data: response.data })
   }
 }
-
-export function getCategory() {
-  return async function (dispatch) {
-    var info = await axios.get("/category")
+export function getCategory(){
+  return async function(dispatch){
+    var info = await axios.get("/category/name")
     console.log(info)
-    return dispatch({
-      type: "GET_CATEGORY",
-      payload: info.data
-    })
-  }
-}
-
-export function difficultyFilter(input) {
-  return async function (dispatch) {
-    let response = await axios.get('/class/difficulty/obtener?difficulty=' + input);
-    dispatch({ type: 'DIFFICULTY_FILTER', data: response.data })
-  }
-}
-
-export function setFavorite(idUser, id) {
-  return async function (dispatch) {
-    let response = await axios.post(`/fav/${idUser}/${id}`); 
-    dispatch({ type: 'SET_FAVORITE', response })
-  }
+      return dispatch({
+        type:"GET_CATEGORY",
+        payload: info.data
+      })
+  } 
 }
   
 

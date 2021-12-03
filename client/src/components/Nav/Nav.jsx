@@ -4,18 +4,16 @@ import styles from "./Nav.module.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { auth } from "../../firebase/firebaseConfig";
-import { useState } from "react";
+import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { searchClass } from "../../actions/index.js";
-import DifficultyFilter from '../DifficultyFilter/DifficultyFilter'
-
-import SearchBar from "../SearchBar/SearchBar";
-import { getUser } from "../../actions";
+import { getCategory } from "../../actions";
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user[0]);
 
   useEffect(() => {
@@ -49,75 +47,91 @@ export default function Nav() {
   //  console.log( e.target.value);
   // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
   // }
-  const category = useSelector((state) => state.category);
-  let nameCate = category.map((e) => e.name);
-  nameCate = nameCate.join().split(",");
-  nameCate = nameCate.filter((e) => e);
-  
-  function handleCategory(e) {
+  const allCategory = useSelector((state) => state.category)
+ console.log(allCategory)
+
+ useEffect(()=> {
+  dispatch(getCategory())
+}, [dispatch])
+  // console.log(category)
+  function handleCategory(e){
     e.preventDefault();
-    console.log(category);
+    // console.log(category)
   }
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-        <nav className={styles.nav}>
-          <div className={styles.logo}>
-            <img
-              className={styles.logo}
-              src="https://i.imgur.com/AWEe2XR.png"
-              alt="not found"
-            />
-          </div>
-          <div>
-            {" "}
-            <SearchBar />
-          </div>
-          <div className={styles.contenCat}>
-            <select
-              name=""
-              id=""
-              className={styles.select}
-              onChange={(e) => handleCategory(e)}
-            >
-              {nameCate.map((nameCate) => (
-                <option value={nameCate.name} key={nameCate.id}>
-                  {nameCate.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <DifficultyFilter/>
-          <div className={styles.contenValorado}>
-            <select name="" id="" className={styles.select}>
-              <option
-                value=""
-                selected
-                disabled
-                hidden
-                className={styles.selects}
-              >
-                {" "}
-                Valoración{" "}
-              </option>
-              <option value="" className={styles.selects}>
-                ⭐⭐⭐⭐⭐
-              </option>
-              <option value="" className={styles.selects}>
-                ⭐⭐⭐⭐
-              </option>
-              <option value="" className={styles.selects}>
-                ⭐⭐⭐
-              </option>
-              <option value="" className={styles.selects}>
-                ⭐⭐
-              </option>
-              <option value="" className={styles.selects}>
-                ⭐
-              </option>
-            </select>
+      <nav className={styles.nav}>
+        <div className={styles.logo}>
+      
+          <img
+            className={styles.logo}
+            src="https://i.imgur.com/AWEe2XR.png"
+            alt="not found"
+          />
+ 
+        </div>
 
-            {/* <Link to="/create-clase">
+        <div className={styles.contentSearch}>
+          {/* <div className={styles.buscador}> */}
+          {/* <button className={styles.iconoBuscar}> */}
+          {/* </button> */}
+          <input
+            type="text"
+            placeholder="Buscar por profesor/curso..."
+            className={styles.inputSearch}
+          />
+          <button className={styles.buscador}>
+            <Icon>search</Icon>
+          </button>
+          {/* <button type='submit' > Buscar</button> */}
+        </div>
+        <div className={styles.contenCat}>
+          <select name="" id="" className={styles.select} onChange={(e) => handleCategory(e)}>
+          {
+             allCategory.map((e) => (
+              <option value={e} key={e}>{e}</option>
+               
+            ))
+          }
+          </select>
+        </div>
+        <div className={styles.contenValorado}>
+          <select name="" id="" className={styles.select}>
+            <option
+              value=""
+              selected
+              disabled
+              hidden
+              className={styles.selects}
+            >
+              {" "}
+              Valoración{" "}
+            </option>
+            <option value="" className={styles.selects}>
+              ⭐⭐⭐⭐⭐
+            </option>
+            <option value="" className={styles.selects}>
+              ⭐⭐⭐⭐
+            </option>
+            <option value="" className={styles.selects}>
+              ⭐⭐⭐
+            </option>
+            <option value="" className={styles.selects}>
+              ⭐⭐
+            </option>
+            <option value="" className={styles.selects}>
+              ⭐
+            </option>
+          </select>
+         
+         <div>
+           <Link to={"/home/student/register-teacher"}>
+           
+           <input type="submit" value="Te gustaria enseñar ?" className={styles.butonLoginTeach} />
+         </Link>
+         </div>
+       {/* <Link to="/create-clase">
          <button className={styles.blue}>
              Crear clase
           </button>
