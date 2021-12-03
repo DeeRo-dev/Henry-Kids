@@ -4,26 +4,13 @@ import NavTeacher from "../NavTeacher/NavTeacher.jsx";
 import Pagination from "../Pagination/Pagination.jsx";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
  import CardTeacher from "../CardTeacher/CardTeacher.jsx";
-import { getAllClassTeacher, editUser } from "../../actions/index.js";
+import { getAllClassTeacher, editUser} from "../../actions/index.js";
 
 
-export default function Home() {
+export default function HomeTeacher() {
 const navigate = useNavigate();
-  function signOutUser(e) {
-    auth
-      .signOut(auth)
-      .then(() => {
-        navigate("/");
-        window.location.reload()
-        localStorage.clear()
-        console.log("done");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   const allClassTeacher = useSelector((state) => state.allClassTeacher);
 
@@ -40,7 +27,7 @@ const navigate = useNavigate();
       })
     );
     setPage (1);
-  });
+  }, [setPage, dispatch]);
 
   let currentPage;
   let indexLastPage = page * cardsInPage;
@@ -62,18 +49,13 @@ const navigate = useNavigate();
     dispatch(getAllClassTeacher(idUser))
   }, [idUser, dispatch ]);
 
-
- 
-  
   return (
     <div className={styles.home}>
       <div className={styles.nav}>
       <NavTeacher />
       </div>
-    
-
       <div className={styles.cards}>
-      {currentPage.map((e) => { 
+      {allClassTeacher.map((e) => { 
         return (
         <div key= {e.id}> 
          <CardTeacher 

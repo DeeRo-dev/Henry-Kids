@@ -6,7 +6,7 @@ import Home from "./components/Home/home";
 import HomeTeacher from "./components/HomeTeacher/HomeTeacher";
 import ClassDetail from "./components/ClassDetail/ClassDetail";
 // import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
-import { auth } from "../src/firebase/firebaseConfig";
+// import { auth } from "../src/firebase/firebaseConfig";
 import ProfileStudent from "./components/ProfileStudent/ProfileStudent";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/registerTeacher/registerTeacher";
