@@ -4,9 +4,9 @@ import NavTeacher from "../NavTeacher/NavTeacher.jsx";
 import Pagination from "../Pagination/Pagination.jsx";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
- import CardTeacher from "../CardTeacher/CardTeacher.jsx";
-import { getAllClassTeacher, editUser} from "../../actions/index.js";
+import { useNavigate } from "react-router";
+import CardTeacher from "../CardTeacher/CardTeacher.jsx";
+import { getAllClassTeacher, editUser } from "../../actions/index.js";
 
 
 export default function HomeTeacher() {
