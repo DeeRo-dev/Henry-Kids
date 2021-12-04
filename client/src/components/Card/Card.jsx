@@ -3,8 +3,10 @@ import styles from "./Card.module.css";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFavorite } from "../../actions";
+
+
 
 export default function Card({
   id,
@@ -18,28 +20,20 @@ export default function Card({
   valoration,
 }) {
 
+
   let firstIndex = video_link && video_link.indexOf("=") + 1;
   let slice = video_link && video_link.slice(firstIndex, video_link.length)
 
   let url = `https://img.youtube.com/vi/${slice}/hqdefault.jpg`
   
-  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
 
   const idUser = window.localStorage.sessionUser
   
-  function onClickNav(event, id){
-   /*  event.stopPropagation(); */
-    event.preventDefault();
-   return navigate(`/home/student/${id}`)
-  }
-  
-  
   function onclickFav(event, idUser, id){
-   /* event.stopPropagation(); */
-   event.preventDefault();
+   event.preventDefault()
     dispatch(setFavorite(idUser, id))
-    console.log('fav')
   }
 
   return (
@@ -61,11 +55,10 @@ export default function Card({
           {title}
         </div>
 
-        <div className={styles.description} onClick={(event)=>onClickNav(event, id)}>
+        <div /* className={styles.description} onClick={(event)=>onClickNav(event, id)} */>
           {description}
         </div>
-
-        <div className={styles.instructor}>Dificultad: {difficulty} </div>
+        <div className={styles.difficulty}>Dificultad: {difficulty} </div>
         <p className={styles.valoration}>
           {valoration}
           <img
@@ -73,6 +66,7 @@ export default function Card({
             alt="user"
           />
         </p>
+     
       </div>
     </div>
   );

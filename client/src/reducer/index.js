@@ -65,7 +65,7 @@ export default function rootReducer(state = initialState, action) {
     case "GET_FAVORITES":
       return {
         ...state,
-        favorites: action.data[0].classes
+        favorites: action.data[0]?.classes
       };
 
     case "MODIFY_CLASS":

@@ -4,10 +4,12 @@ import Nav from "../Nav/Nav.jsx";
 // import {styled} from '@material-ui/core';
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
-import { editUser, getAllclasses/* ,getUser   */} from "../../actions/index.js";
+import { editUser, getAllclasses,/* ,getUser   */
+getFavorites} from "../../actions/index.js";
 import Pagination from "../Pagination/Pagination.jsx";
 // // import { auth } from "../../firebase/firebaseConfig.js";
 import { Link } from "react-router-dom";
+
 
 export default function Home() {
   
@@ -36,6 +38,7 @@ export default function Home() {
   
   useEffect(() => {
     dispatch(getAllclasses());
+    dispatch(getFavorites())
     dispatch(
       editUser("provi", {
         id: window.localStorage.sessionUser,

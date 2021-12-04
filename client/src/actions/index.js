@@ -23,8 +23,7 @@ export function getAllClassTeacher(idUser) {
   return async function (dispatch) {console.log(idUser)
     let response = await axios.get(`/cursos/${idUser}`)
    /*  let data = response.data[0] ? response.data[0].classes
-                                : response.data*/
-                                
+                                : response.data*/                              
     dispatch({
       type: "GET_ALL_CLASSES_TEACHER",
       data: response.data

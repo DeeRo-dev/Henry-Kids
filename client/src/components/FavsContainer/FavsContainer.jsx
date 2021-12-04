@@ -27,7 +27,7 @@ export default function FavsContainer() {
     let indexLastPage = page * cardsInPage;
     let indexFirstPage = indexLastPage - cardsInPage;
 
-    favorites.length > 9
+    favorites?.length > 8
         ? (currentPage = favorites.slice(indexFirstPage, indexLastPage))
         : (currentPage = favorites);
 
@@ -42,11 +42,11 @@ export default function FavsContainer() {
         <div className={styles.home}>
             <Nav/>
             <div className={styles.cards}>
-                {currentPage.map(e => {
+                {currentPage?.map(e => {
                     return (
                         <div key={e.id}>
                             {' '}
-                            <Link to={`/home/${e.id}`}>
+                            <Link to={"/home/student/" + e.id}>
                                 {' '}
                                 <Card
                                     id={e.id}
@@ -69,7 +69,7 @@ export default function FavsContainer() {
             <div>
                 <Pagination
                     cardsInPage={cardsInPage}
-                    totalElements={favorites.length}
+                    totalElements={favorites?.length}
                     paginate={Paginate}
                 />
             </div>

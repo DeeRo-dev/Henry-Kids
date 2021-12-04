@@ -37,7 +37,7 @@ export default function HomeTeacher() {
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
-  allClassTeacher?.length > 4
+  allClassTeacher?.length > 8
     ? currentPage = allClassTeacher.slice(indexFirstPage, indexLastPage)
     : currentPage = allClassTeacher;
 
