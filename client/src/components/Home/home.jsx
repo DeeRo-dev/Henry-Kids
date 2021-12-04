@@ -5,15 +5,38 @@ import { Link } from "react-router-dom";
 import { styled } from "@material-ui/core";
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
-import { editUser, getAllClasses } from "../../actions/index.js";
+import { editUser, getAllClasses, getFavorites } from "../../actions/index.js";
 import Paged from "../Paged/Paged.jsx";
 
+
 export default function Home() {
+  
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
+ 
+  let [page, setPage] = useState(1);
+  let cardsInPage = 8;
 
+  let currentPage;
+  let indexLastPage = page * cardsInPage;
+  let indexFirstPage = indexLastPage - cardsInPage;
+/* 
+  currentPage && currentPage.length > 9
+    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
+    : (currentPage = allClasses);
+ */
+    if (allClasses.length > 8) {
+      currentPage = allClasses.slice(indexFirstPage, indexLastPage);
+  } else currentPage = allClasses
+
+    useEffect(() => {
+      setPage(1);
+    }, []); 
+  
+  
   useEffect(() => {
     dispatch(getAllClasses());
+    dispatch(getFavorites())
     dispatch(
       editUser("provi", {
         id: window.localStorage.sessionUser,
@@ -21,16 +44,6 @@ export default function Home() {
     );
   }, [dispatch]);
 
-  let cardsInPage = 8;
-  let [page, setPage] = useState(1);
-
-  useEffect(() => {
-    setPage(1);
-  }, []);
-
-  let currentPage;
-  let indexLastPage = page * cardsInPage;
-  let indexFirstPage = indexLastPage - cardsInPage;
 
   allClasses.length > 9
     ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
@@ -48,7 +61,7 @@ export default function Home() {
       </div>
 
       <div className={styles.cards}>
-        {currentPage.map((e) => {
+        {currentPage?.map((e) => {
           return (
             <div key={e.id}>
               <Link to={"/home/student/" + e.id}>

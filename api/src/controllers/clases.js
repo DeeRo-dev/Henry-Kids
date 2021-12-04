@@ -93,7 +93,7 @@ async function addClass(req, res, next) {
       createClass.addUser(data.usId, { as: "teacher" });
     }
     await Evaluation.create({
-      Evaluation: 1,
+      Promedio:0,
       classId: createClass.id,
     });
     res.status(200).send(createClass);

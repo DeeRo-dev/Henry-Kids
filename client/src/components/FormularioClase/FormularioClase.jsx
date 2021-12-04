@@ -6,7 +6,7 @@ import { Button, Snackbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import MuiAlert from "@material-ui/lab/Alert";
-import { createClass, getCategory } from "../../actions/index.js";
+import { createClass, getCategory, getCategoryAll } from "../../actions/index.js";
 
 
 function Alert(props) {
@@ -22,13 +22,13 @@ const StyleAlert = withStyles({
 export default function FormularioClase() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const category = useSelector(state => state.category)
+  const category = useSelector(state => state.categoryAll)
  
   
   let id = window.localStorage.sessionUser;
 
   useEffect(() => {
-    dispatch(getCategory())
+    dispatch(getCategoryAll())
   }, [dispatch])
 
  

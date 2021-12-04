@@ -6,6 +6,8 @@ const initialState = {
   allClassTeacher: [],
   favorites: [],
   category: [],
+  categoryAll:[]
+  
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -57,13 +59,13 @@ export default function rootReducer(state = initialState, action) {
     case "GET_ALL_CLASSES_TEACHER":
       return {
         ...state,
-        allClassTeacher: action.data,
+        allClassTeacher: action.data[0]?.classes
       };
 
     case "GET_FAVORITES":
       return {
         ...state,
-        favorites: action.data,
+        favorites: action.data[0]?.classes
       };
     case "FILTER_BY_CATEGORY":
       return {
@@ -87,21 +89,27 @@ export default function rootReducer(state = initialState, action) {
         category: action.payload,
       };
 
+      case "GET_CATEGORY_ALL":
+      return {
+        ...state,
+        categoryAll: action.payload
+      };
+
     case "DIFFICULTY_FILTER":
       return {
         ...state,
         allClasses: action.data,
       };
 
-    case "DELETE_CLASSES":
-      return {
-        ...state,
-      };
-
     case "SET_FAVORITE":
       return {
         ...state,
       };
+      case 'DELETE_CLASSES':
+        return{ 
+          ...state,
+          allClassTeacher: state.allClassTeacher.filter(c =>  c.id !== action.data )
+        }
 
     default:
       return state;
