@@ -7,9 +7,9 @@ const {
   editUser,
   getUser,
   getTipo,
-  solTeacher,
-  solAceptadaTeacher,
-  getSolicitudTecher
+  // solTeacher,
+  // solAceptadaTeacher,
+  // getSolicitudTecher
 
 } = require("../controllers/user");
 
@@ -23,7 +23,7 @@ router.get("/:id", getUserId);
 router.delete("/:id", deleteUser);
 router.put("/:id", editUser);
 router.get("/typo/:id",getTipo)
-router.put("/solicitud/:id", solTeacher )
-router.put("/solicitud/aceptada/:id", solAceptadaTeacher )
-router.get("/solicitud/lista", getSolicitudTecher )
+// router.put("/solicitud/:id", solTeacher )
+// router.put("/solicitud/aceptada/:id", solAceptadaTeacher )
+// router.get("/solicitud/lista", getSolicitudTecher )
 module.exports = router;
