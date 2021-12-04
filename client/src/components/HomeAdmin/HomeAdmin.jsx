@@ -17,7 +17,7 @@ export default function HomeAdmin(){
         <p>Prueba</p>
         <p>Profesores</p>
         <p>Usuarios</p>
-       
+       dasdawsd
         </div>
     </div>
   )
