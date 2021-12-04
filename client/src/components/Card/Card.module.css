@@ -36,7 +36,9 @@
   height: 135px;
   object-fit: fill;
 }
-
+.img{
+  margin-top: 33px;
+}
 .description {
   margin-top: 0px;
   margin-left: 4px;

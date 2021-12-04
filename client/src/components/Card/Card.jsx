@@ -27,26 +27,41 @@ export default function Card({
   const dispatch = useDispatch();
 
   const idUser = window.localStorage.sessionUser
-  console.log(idUser)
   
+  function onClickNav(event, id){
+   /*  event.stopPropagation(); */
+    event.preventDefault();
+   return navigate(`/home/student/${id}`)
+  }
+  
+  
+  function onclickFav(event, idUser, id){
+   /* event.stopPropagation(); */
+   event.preventDefault();
+    dispatch(setFavorite(idUser, id))
+    console.log('fav')
+  }
+
   return (
     <div className={styles.card} value={value}>
-      <div className={styles.cardHeader}>
-        <button className={styles.icono} value={title} onClick={() => { 
-          dispatch(setFavorite(idUser, id)) }}><FavoriteBorderIcon /></button>
-
-        <div>
-          <img src={url} alt='Contenido sin imagen disponible' className={styles.img} />
-        </div>
+      <div>
+      <FavoriteBorderIcon className={styles.icono} value={title} onClick={
+         (event)=>onclickFav(event, idUser, id) }/>
       </div>
-      <div onClick={() => navigate(`/home/student/${id}`)}>
+     
+      
+        <div className={styles.cardHeader}>
+          <img src={url} alt='Contenido sin imagen disponible' className={styles.img} />
+
+      </div>
+      <div>
         <p className={styles.category}>JavaScript{category}</p>
 
         <div className={styles.title} >
           {title}
         </div>
 
-        <div className={styles.description}>
+        <div className={styles.description} onClick={(event)=>onClickNav(event, id)}>
           {description}
         </div>
 

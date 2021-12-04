@@ -5,13 +5,16 @@ import styles from './FavsContainer.module.css';
 import { getFavorites } from '../../actions/index.js';
 import Pagination from '../Pagination/Pagination.jsx';
 import Card from '../Card/Card'
+import Nav from '../Nav/Nav';
 
 
 export default function FavsContainer() {
     const dispatch = useDispatch();
-
-    useEffect(() => dispatch(getFavorites()), [dispatch]);
-    const favorites = useSelector(state => state.favorites);
+    const idUser = window.localStorage.sessionUser
+    const favorites = useSelector(state => state.favorites)
+   
+   
+    useEffect(() => dispatch(getFavorites(idUser)), [dispatch,idUser]);
 
     let cardsInPage = 8;
     let [page, setPage] = useState(1);
@@ -37,6 +40,7 @@ export default function FavsContainer() {
 
     return (
         <div className={styles.home}>
+            <Nav/>
             <div className={styles.cards}>
                 {currentPage.map(e => {
                     return (

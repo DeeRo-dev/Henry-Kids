@@ -59,13 +59,13 @@ export default function rootReducer(state = initialState, action) {
     case "GET_ALL_CLASSES_TEACHER":
       return {
         ...state,
-        allClassTeacher: action.data[0].classes
+        allClassTeacher: action.data[0]?.classes
       };
 
     case "GET_FAVORITES":
       return {
         ...state,
-        favorites: action.data,
+        favorites: action.data[0].classes
       };
 
     case "MODIFY_CLASS":

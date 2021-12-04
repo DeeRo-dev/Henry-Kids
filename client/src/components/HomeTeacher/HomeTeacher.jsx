@@ -52,7 +52,7 @@ export default function HomeTeacher() {
         <NavTeacher />
       </div>
       <div className={styles.cards}>
-        {currentPage.map((e) => {
+        {currentPage && currentPage.map((e) => {
           return (
             <div key={e.id}>
               <CardTeacher
@@ -70,7 +70,7 @@ export default function HomeTeacher() {
       </div>
 
       <div>
-        <Pagination cardsInPage={cardsInPage} totalElements={allClassTeacher.length}
+        <Pagination cardsInPage={cardsInPage} totalElements={allClassTeacher?.length}
           paginate={Paginate} />
       </div>
 
