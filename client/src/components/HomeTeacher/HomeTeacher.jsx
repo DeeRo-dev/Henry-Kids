@@ -33,6 +33,9 @@ const navigate = useNavigate();
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
+
+
+
   if (allClassTeacher.length > 8){
     currentPage = allClassTeacher.slice(indexFirstPage, indexLastPage)
   } else currentPage = allClassTeacher;
@@ -51,7 +54,10 @@ const navigate = useNavigate();
   }, [idUser, dispatch ]);
 
   return (
+   
+
     <div className={styles.home}>
+  
       <div className={styles.nav}>
       <NavTeacher />
       </div>
@@ -76,8 +82,9 @@ const navigate = useNavigate();
            <Pagination cardsInPage={cardsInPage} totalElements={allClassTeacher.length}
           paginate={Paginate} /> 
       </div>
-      
-
+  
     </div>
+     
+
   );
 }

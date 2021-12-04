@@ -11,6 +11,7 @@ import ProfileStudent from "./components/ProfileStudent/ProfileStudent";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/registerTeacher/registerTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
+import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
 
 
 const studentRoutes = [
@@ -20,6 +21,7 @@ const studentRoutes = [
   { path: "/home/student/profile", element: <ProfileStudent />},
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
+  { path: "/home/admin", element: <HomeAdmin /> },
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
