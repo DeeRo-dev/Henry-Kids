@@ -10,12 +10,12 @@ import Pagination from "../Pagination/Pagination.jsx";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
  
-  let cardsInPage = 8;
   let [page, setPage] = useState(1);
-
+  let cardsInPage = 8;
 
   let currentPage;
   let indexLastPage = page * cardsInPage;
@@ -54,7 +54,7 @@ export default function Home() {
       </div>
 
       <div className={styles.cards}>
-        {currentPage.map((e) => {
+        {currentPage?.map((e) => {
           return (
             <div key={e.id}>
               <Link to={"/home/student/" + e.id}>
