@@ -14,6 +14,7 @@ export default function HomeAdmin(){
       <nav>Panel de Admin</nav>
       <div>
         <p>Clases</p>
+        <p>Prueba</p>
         <p>Profesores</p>
         <p>Usuarios</p>
        
