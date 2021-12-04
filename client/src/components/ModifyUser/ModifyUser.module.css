@@ -12,7 +12,7 @@
   width: 2000px;
 }
 
-.form {
+/* .form {
   font: 1em Helvetica;
   position: absolute;
   top: 40%;
@@ -28,7 +28,7 @@
   border-radius: 20px;
   transition: all 400ms ease;
 }
-
+ */
 .containerBtns {
   margin-top: 150px;
   width: 100%;
@@ -58,6 +58,7 @@
   transform:scale(1.2);
   } */
 
+  
 .modal,
 .overlay {
   width: 100vw;
@@ -71,29 +72,6 @@
 
 .overlay {
   background: rgba(49, 49, 49, 0.8);
-}
-
-.modal_content_Ingresar {
-  background-color: white;
-  font: 1em Helvetica;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-  line-height: 1.4;
-  padding: 30px 28px;
-  border-radius: 3px;
-  float: left;
-  width: 430px;
-  height: 230px;
-  text-align: center;
-  border-radius: 20px;
-  transition: all 400ms ease;
-}
-
-.modal_content_Ingresar:hover {
-  box-shadow: 0px 0px 25px rgb(255, 237, 179);
-  transform: translate(-50%, -41%);
 }
 .close_modal {
   position: absolute;
@@ -156,4 +134,39 @@
   border-radius: 5px;
   font-size: 25px;
   transform: scale(1, 1);
+}
+
+
+
+
+
+.modal_content_Cambiar_Foto,
+.modal_content_Cambiar_Nombre_De_Usuario
+ {
+  background-color: white;
+  font: 1em Helvetica;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  line-height: 1.4;
+  padding: 30px 28px;
+  border-radius: 3px;
+  float: left;
+  width: 430px;
+  height: 230px;
+  text-align: center;
+  border-radius: 20px;
+  transition: all 400ms ease;
+}
+
+.modal_content_Cambiar_Foto:hover {
+  box-shadow: 0px 0px 25px rgb(255, 237, 179);
+  transform: translate(-50%, -41%);
+}
+
+
+.modal_content_Cambiar_Nombre_De_Usuario:hover{
+  box-shadow: 0px 0px 25px rgb(255, 237, 179);
+  transform: translate(-50%, -41%);
 }

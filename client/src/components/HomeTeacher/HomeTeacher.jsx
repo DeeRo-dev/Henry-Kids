@@ -1,7 +1,6 @@
 import React ,{ useState, useEffect }from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavTeacher from "../NavTeacher/NavTeacher.jsx";
-import Pagination from "../Pagination/Pagination.jsx";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
@@ -72,8 +71,7 @@ const navigate = useNavigate();
       </div>
 
       <div>
-           <Pagination cardsInPage={cardsInPage} totalElements={allClassTeacher.length}
-          paginate={Paginate} /> 
+  
       </div>
       
 

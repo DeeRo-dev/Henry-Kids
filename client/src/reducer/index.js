@@ -6,8 +6,6 @@ const initialState = {
   allClassTeacher: [],
   favorites: [],
   category: [],
-  
-  
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -16,34 +14,34 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allClasses: action.data,
-        classes: action.data
+        classes: action.data,
       };
 
     case "POST_USER":
       return {
         ...state,
       };
-      case "EDIT_USER":
-        return{
+    case "EDIT_USER":
+      return {
+        ...state,
+      };
+    case "GET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "SEARCH_CLASS":
+      if (action.dataLength === 1 || !action.payload.length) {
+        return {
           ...state,
+          allClasses: state.classes,
         };
-        case "GET_USER":
-          return{
-            ...state,
-            user: action.payload
-          }
-      case "SEARCH_CLASS":
-        if (action.dataLength === 1 || !action.payload.length) {
-          return {
-            ...state,
-            allClasses: state.classes,
-          };
-        } else {
-          return {
-            ...state,
-            allClasses: action.payload,
-          };
-        }
+      } else {
+        return {
+          ...state,
+          allClasses: action.payload,
+        };
+      }
 
     case "CREATE_CLASS":
       return {
@@ -67,6 +65,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         favorites: action.data,
       };
+    case "FILTER_BY_CATEGORY":
+      return {
+        ...state,
+        allClasses: action.payload,
+      };
+      case "FILTER_BY_DIFFICULTY":
+      return {
+        ...state,
+        allClasses: action.payload,
+      };
 
     case "MODIFY_CLASS":
       return {
@@ -76,25 +84,25 @@ export default function rootReducer(state = initialState, action) {
     case "GET_CATEGORY":
       return {
         ...state,
-        category: action.payload
+        category: action.payload,
       };
 
     case "DIFFICULTY_FILTER":
       return {
         ...state,
-        allClasses: action.data
+        allClasses: action.data,
       };
 
-      case 'DELETE_CLASSES':
-        return{ 
-          ...state,
-        }
+    case "DELETE_CLASSES":
+      return {
+        ...state,
+      };
 
-        case 'SET_FAVORITE':
-        return{ 
-          ...state,
-        }
-      
+    case "SET_FAVORITE":
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }

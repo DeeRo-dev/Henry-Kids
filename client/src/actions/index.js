@@ -1,59 +1,78 @@
-import { async } from '@firebase/util';
+import { async } from "@firebase/util";
 
-const axios = require('axios')
+const axios = require("axios");
 
-
-export function getAllclasses() {
+export function getAllClasses() {
   return async function (dispatch) {
-    let response = await axios.get("/class")
+    let response = await axios.get("/class");
     dispatch({ type: "GET_ALL_CLASSES", data: response.data });
-  }
-
+  };
 }
-export function searchClass(name) {
-  return async function (dispatch) {
-    return dispatch({
-      type: "SEARCH_CLASS",
-      payload: name,
-    });
-  }
+export function searchClass(payload) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.get(`/class?title=${payload}`);
+      return dispatch({
+        type: "SEARCH_CLASS",
+        payload: json.data,
+        dataLength: payload.length,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function filterCategory(id) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.get(`/class?filter=category&category_id=${id}`);
+      return dispatch({
+        type: "FILTER_BY_CATEGORY",
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 export function getAllClassTeacher(idUser) {
   return async function (dispatch) {
-    let response = await axios.get(`/cursos/${idUser}`)
+    let response = await axios.get(`/cursos/${idUser}`);
     dispatch({
       type: "GET_ALL_CLASSES_TEACHER",
-      data: response.data
+      data: response.data,
     });
-  }
+  };
 }
 export function editUser(id, user) {
   return async function (dispatch) {
     let userUpdate = await axios.put(`/user/${id}`, user);
-      dispatch({
+    dispatch({
       type: "EDIT_USER",
-      currentUser: userUpdate
+      currentUser: userUpdate,
     });
   };
 }
 
-
 export function getUser(input) {
   return async (dispatch) => {
-    const json = await axios.get(`/user/${input}`);
-      dispatch({
+    const json =
+      input === "All"
+        ? await axios.get("/user")
+        : await axios.get(`/user/${input}`);
+    dispatch({
       type: "GET_USER",
       payload: json.data,
     });
   };
 }
 
-
 export function postUser(input) {
   return async (dispatch) => {
     const json = await axios.post("/user", input);
-      dispatch({
+    dispatch({
       type: "POST_USER",
       payload: json.data,
     });
@@ -90,33 +109,39 @@ export function ModifyClasses(id, input) {
 
 export function DeleteClass(id) {
   return async function (dispatch) {
-    let response = await axios.delete(`/class/${id}`)
-    dispatch({ type: 'DELETE_CLASSES', data: response.data })
-  }
+    let response = await axios.delete(`/class/${id}`);
+    dispatch({ type: "DELETE_CLASSES", data: response.data });
+  };
 }
-export function getCategory(){
-  return async function(dispatch){
-    var info = await axios.get("/category/name")
-    console.log(info)
+export function getCategory() {
+  return async function (dispatch) {
+    var info = await axios.get("/category/name");
     return dispatch({
       type: "GET_CATEGORY",
-      payload: info.data
-    })
-  }
+      payload: info.data,
+    });
+  };
 }
 
-export function difficultyFilter(input) {
-  return async function (dispatch) {
-    let response = await axios.get('/class?filter=difficulty&difficulty=' + input);
-    dispatch({ type: 'DIFFICULTY_FILTER', data: response.data })
-  }
+export function filterDifficulty(input) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `/class?filter=difficulty&difficulty=${input}`
+      );
+      return dispatch({
+        type: "FILTER_BY_DIFFICULTY",
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 export function setFavorite(idUser, id) {
   return async function (dispatch) {
-    let response = await axios.post(`/fav/${idUser}/${id}`); 
-    dispatch({ type: 'SET_FAVORITE', response })
-  }
+    let response = await axios.post(`/fav/${idUser}/${id}`);
+    dispatch({ type: "SET_FAVORITE", response });
+  };
 }
-  
-

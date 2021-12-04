@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
 import { useNavigate } from "react-router-dom";
-import { postUser } from "../../actions/index.js";
+import { getUser, postUser } from "../../actions/index.js";
 import {
   auth,
   createUserWithEmailAndPassword,
+  provider,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "../../firebase/firebaseConfig";
 import {
   Button,
@@ -28,13 +31,14 @@ import {
 export default function LandingPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const allUsers = useSelector((state) => state.user);
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
   const [user, setUser] = useState({
     id: "provi",
-    firstName: "",
-    lastName: "",
+    firstName: "Registrado con Google",
+    lastName: "Registrado con Google",
     userName: "",
     type: "",
   });
@@ -86,7 +90,27 @@ export default function LandingPage() {
     },
   })(Button);
 
-  /*   const StyleButtonIngresarConGoogle = withStyles({
+  const StyleButtonRegistrarseConGoogle = withStyles({
+    root: {
+      marginTop: "15px",
+      width: "60%",
+      border: "0",
+      backgroundColor: "#ff8d00",
+      borderRadius: "5px",
+      height: "50px",
+      color: "white",
+      fontWeight: "400",
+      fontSize: "1em",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
+    label: {
+      color: "white",
+    },
+  })(Button);
+
+  const StyleButtonIngresarConGoogle = withStyles({
     root: {
       marginTop: "15px",
       width: "70%",
@@ -104,7 +128,7 @@ export default function LandingPage() {
     label: {
       color: "white",
     },
-  })(Button); */
+  })(Button);
 
   const StyleButtonCrearCuenta = withStyles({
     root: {
@@ -185,19 +209,23 @@ export default function LandingPage() {
           localStorage.setItem("sessionUser", userCredential.uid);
           if (user.type === "student") {
             //  console.log(userCredential.user);
-            dispatch(postUser(user)).then(() => {
-              navigate("/home/student");
-              window.location.reload();
-            }).catch((e) => {
-              console.log(e + "este")
-            })
+            dispatch(postUser(user))
+              .then(() => {
+                navigate("/home/student");
+                window.location.reload();
+              })
+              .catch((e) => {
+                console.log(e + "este");
+              });
           } else {
-            dispatch(postUser(user)).then(() => {
-              navigate("/home/teacher");
-            window.location.reload();
-            }).catch((e) => {
-              console.log(e)
-            })
+            dispatch(postUser(user))
+              .then(() => {
+                navigate("/home/teacher");
+                window.location.reload();
+              })
+              .catch((e) => {
+                console.log(e);
+              });
           }
         });
       })
@@ -211,8 +239,8 @@ export default function LandingPage() {
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
         localStorage.setItem("type", user.type);
-        auth.onAuthStateChanged((user) => {
-          localStorage.setItem("sessionUser", user.uid);
+        auth.onAuthStateChanged((userFirebase) => {
+          localStorage.setItem("sessionUser", userFirebase.uid);
         });
         if (user.type === "student") {
           navigate("/home/student");
@@ -227,27 +255,70 @@ export default function LandingPage() {
       });
   };
 
-  /* const ingresarUsuarioConGoogle = (e) => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log(credential.accessToken);
-        // The signed-in user info.
-        console.log(result.user);
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+  const setData = (e) =>{
+    e.preventDefault()
+    auth.onAuthStateChanged((userFirebase) =>{
+      setUser({
+        ...user,
+        userName: userFirebase.displayName,
       });
-  }; */
+    })
+  }
+  const ingresarUsuarioConGoogle = (e) => {
+    e.preventDefault();
+    if (user.type === "") {
+      alert("Please, select a type of user");
+    } else {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          setData(e)
+          console.log(user);
+          localStorage.setItem("type", user.type);
+          auth.onAuthStateChanged((userFirebase) => {
+            dispatch(getUser("All")).then(() => {
+              const userGoogle = allUsers?.filter(
+                (e) => e.id === userFirebase.uid
+              );
+              if (!userGoogle.length) {
+                localStorage.setItem("sessionUser", userFirebase.uid);
+                if (user.type === "student") {
+                  console.log(userFirebase.displayName)
+                  console.log(user);
+                  dispatch(postUser(user)).then(() => {
+                    navigate("/home/student");
+                    window.location.reload();
+                  });
+                }
+                if (user.type === "teacher") {
+                  console.log(user);
+                  dispatch(postUser(user)).then(() => {
+                    navigate("/home/teacher");
+                    window.location.reload();
+                  });
+                }
+              } else {
+                if (user.type === "student") {
+                  navigate("/home/student");
+                  window.location.reload();
+                }
+                if (user.type === "teacher") {
+                  navigate("/home/teacher");
+                  window.location.reload();
+                }
+              }
+            });
+          });
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          // The signed-in user info.
+          // ...
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          alert(error.message);
+          // ...
+        });
+    }
+  };
 
   return (
     <div className={styles.containerBackground}>
@@ -336,7 +407,7 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                    {/*  <StyleButtonIngresarConGoogle
+                    <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
@@ -344,7 +415,7 @@ export default function LandingPage() {
                       color="primary"
                     >
                       Ingresar con google
-                    </StyleButtonIngresarConGoogle> */}
+                    </StyleButtonIngresarConGoogle>
                   </form>
                 </div>
               </div>
@@ -430,6 +501,15 @@ export default function LandingPage() {
                     >
                       Crear cuenta
                     </StyleButtonCrearCuenta>
+                    <StyleButtonRegistrarseConGoogle
+                      onClick={(e) => ingresarUsuarioConGoogle(e)}
+                      type="button"
+                      className={styles.btnCrearCuenta}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Crear cuenta con google
+                    </StyleButtonRegistrarseConGoogle>
                     {/* </Link> */}
                   </form>
                 </div>

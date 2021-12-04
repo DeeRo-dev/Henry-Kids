@@ -9,7 +9,7 @@ import ClassDetail from "./components/ClassDetail/ClassDetail";
 // import { auth } from "../src/firebase/firebaseConfig";
 import ProfileStudent from "./components/ProfileStudent/ProfileStudent";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
-import RegisterTeacher from "./components/registerTeacher/registerTeacher";
+import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 
 const studentRoutes = [
   { path: "/home/student", element: <Home /> },
