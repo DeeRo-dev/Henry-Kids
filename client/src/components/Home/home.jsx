@@ -10,23 +10,28 @@ import Pagination from "../Pagination/Pagination.jsx";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  
   const dispatch = useDispatch();
   const allClasses = useSelector((state) => state.allClasses);
+ 
   let [page, setPage] = useState(1);
   let cardsInPage = 8;
-
 
   let currentPage;
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
-
+/* 
   currentPage && currentPage.length > 9
     ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
     : (currentPage = allClasses);
+ */
+    if (allClasses.length > 8) {
+      currentPage = allClasses.slice(indexFirstPage, indexLastPage);
+  } else currentPage = allClasses
 
-    // useEffect(() => {
-    //   setPage(1);
-    // }, []); 
+    useEffect(() => {
+      setPage(1);
+    }, []); 
   
   
   useEffect(() => {

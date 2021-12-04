@@ -92,7 +92,8 @@ export function ModifyClasses(id, input) {
 export function DeleteClass(id) {
   return async function (dispatch) {
     let response = await axios.delete(`/class/${id}`)
-    dispatch({ type: 'DELETE_CLASSES', data: response.data })
+    dispatch({ type: 'DELETE_CLASSES', data: id })
+    
   }
 }
 export function getCategory(){

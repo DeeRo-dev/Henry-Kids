@@ -94,6 +94,7 @@ export default function rootReducer(state = initialState, action) {
       case 'DELETE_CLASSES':
         return{ 
           ...state,
+          allClassTeacher: state.allClassTeacher.filter(c =>  c.id !== action.data )
         }
 
         case 'SET_FAVORITE':
