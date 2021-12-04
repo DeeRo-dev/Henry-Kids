@@ -1,5 +1,6 @@
-import React from "react"
-
+import React  from "react"
+import style from "./HomeAdmin.module.css"
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -10,15 +11,18 @@ import React from "react"
 export default function HomeAdmin(){
 
   return(
-    <div>
-      <nav>Panel de Admin</nav>
-      <div>
-        <p>Clases</p>
-        <p>Prueba</p>
-        <p>Profesores</p>
-        <p>Usuarios</p>
-       dasdawsd
+    <div className={style.content}>
+        <nav className={style.nav}>Panel de Admin</nav>
+      <div className={style.contentFiltros}>
+        <input type="button" value="Clases" className={style.boton}/>
+        <input type="button" value="Profesores" className={style.boton}/>
+        <input type="button" value="Usuarios" className={style.boton}/>
+        
         </div>
+
+      <div className={style.contentcards}>
+        
+      </div>
     </div>
   )
 }
