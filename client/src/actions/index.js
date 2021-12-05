@@ -29,11 +29,21 @@ export function filterCategory(id) {
       const json = await axios.get(`/class?filter=category&category_id=${id}`);
       return dispatch({
         type: "FILTER_BY_CATEGORY",
-        payload: json.data,
+        payload: id === "all" ? "all" : json.data,
       });
     } catch (e) {
       console.log(e);
     }
+  };
+}
+
+export function filterCategoryTeacher(id) {
+  return async (dispatch) => {
+      return dispatch({
+        type: "FILTER_BY_CATEGORY_TEACHER",
+        payload: id,
+      });
+    
   };
 }
 

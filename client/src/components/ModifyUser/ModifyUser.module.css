@@ -141,7 +141,8 @@
 
 
 .modal_content_Cambiar_Foto,
-.modal_content_Cambiar_Nombre_De_Usuario
+.modal_content_Cambiar_Nombre_De_Usuario,
+.modal_content_Cambiar_Contraseña
  {
   background-color: white;
   font: 1em Helvetica;
@@ -167,6 +168,12 @@
 
 
 .modal_content_Cambiar_Nombre_De_Usuario:hover{
+  box-shadow: 0px 0px 25px rgb(255, 237, 179);
+  transform: translate(-50%, -41%);
+}
+
+
+.modal_content_Cambiar_Contraseña:hover{
   box-shadow: 0px 0px 25px rgb(255, 237, 179);
   transform: translate(-50%, -41%);
 }

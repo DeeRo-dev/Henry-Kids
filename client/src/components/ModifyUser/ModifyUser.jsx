@@ -5,11 +5,14 @@ import styles from "./ModifyUser.module.css";
 import SaveIcon from "@material-ui/icons/Save";
 import { Button, withStyles, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { updatePassword, auth } from "../../firebase/firebaseConfig";
 
 export default function ModifyUser() {
   const [modalCambiarFoto, setModalCambiarFoto] = useState(false);
-  const [modalCambiarNombreDeUsuario, setModalCambiarNombreDeUsuario] = useState(false);
-  const [error, setError] = useState(false)
+  const [modalCambiarNombreDeUsuario, setModalCambiarNombreDeUsuario] =
+    useState(false);
+  const [modalCambiarContraseña, setModalCambiarContraseña] = useState(false);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({
@@ -47,13 +50,36 @@ export default function ModifyUser() {
   }
   function handleOnSubmitCambiarNombreDeUsuario(e) {
     e.preventDefault();
-    dispatch(editUser(user.id, { nameUser: user.userName }));
+    dispatch(editUser(user.id, { userName: user.userName }));
     toggleModalCambiarNombreDeUsuario(e);
   }
 
   const toggleModalCambiarNombreDeUsuario = (e) => {
     e.preventDefault();
     setModalCambiarNombreDeUsuario(!modalCambiarNombreDeUsuario);
+  };
+
+  function handleOnChangeCambiarContraseña(e) {
+    e.preventDefault();
+    setUser({
+      id: window.localStorage.sessionUser,
+      password: e.target.value,
+    });
+  }
+
+  function handleOnSubmitCambiarContraseña(e) {
+    e.preventDefault();
+    updatePassword(auth.currentUser, user.password).then(() => {
+      alert("contraseña se cambió exitosamente")
+    }).catch((error) => {
+      alert(error)
+    });
+    toggleModalCambiarContraseña(e);
+  }
+
+  const toggleModalCambiarContraseña = (e) => {
+    e.preventDefault();
+    setModalCambiarContraseña(!modalCambiarContraseña);
   };
 
   /*MATERIAL UI STYLES*/
@@ -91,8 +117,8 @@ export default function ModifyUser() {
       backgroundColor: "green",
       marginTop: "40px",
       "&:hover": {
-        backgroundColor: "green"
-      }
+        backgroundColor: "green",
+      },
     },
     label: {
       color: "white",
@@ -112,7 +138,10 @@ export default function ModifyUser() {
               {" "}
               Cambiar nombre de usuario
             </StyleButtonIngresar>
-            <StyleButtonIngresar className={styles.btnIngresar}>
+            <StyleButtonIngresar
+              onClick={(e) => toggleModalCambiarContraseña(e)}
+              className={styles.btnIngresar}
+            >
               {" "}
               Cambiar contraseña
             </StyleButtonIngresar>
@@ -125,6 +154,54 @@ export default function ModifyUser() {
             </StyleButtonIngresar>
           </div>
         </div>
+
+        {/*CAMBIAR CONTRASEÑA*/}
+
+        {modalCambiarContraseña && (
+          <div className={styles.modal}>
+            <div
+              onClick={toggleModalCambiarContraseña}
+              className={styles.overlay}
+            ></div>
+            <div className={styles.modal_content_Cambiar_Contraseña}>
+              <button
+                className={styles.close_modal}
+                onClick={toggleModalCambiarContraseña}
+              >
+                x
+              </button>
+
+              <form className={classes.root} noValidate autoComplete="off">
+                <div>
+                  <TextField
+                    error={false}
+                    id="standard-error"
+                    type="password"
+                    placeholder="Nueva contraseña"
+                    helperText={false}
+                    onChange={(e) => handleOnChangeCambiarContraseña(e)}
+                  />
+                  <TextField
+                    error={false}
+                    type="password"
+                    id="standard-error-helper-text"
+                    placeholder="Contraseña actual"
+                    helperText={false}
+                  />
+
+                  <ButtonSave
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={(e) => handleOnSubmitCambiarContraseña(e)}
+                  >
+                    Cambiar contraseña
+                  </ButtonSave>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/*CAMBIAR NOMBRE DE USUARIO*/}
 
@@ -144,7 +221,6 @@ export default function ModifyUser() {
 
               <form className={classes.root} noValidate autoComplete="off">
                 <div>
-                
                   <TextField
                     error={false}
                     id="standard-error"
@@ -155,6 +231,7 @@ export default function ModifyUser() {
                   <TextField
                     error={false}
                     id="standard-error-helper-text"
+                    type="password"
                     placeholder="Escribe tu contraseña"
                     helperText={false}
                   />
@@ -164,7 +241,8 @@ export default function ModifyUser() {
                     color="primary"
                     size="large"
                     onClick={(e) => handleOnSubmitCambiarNombreDeUsuario(e)}
-                  >Cambiar nombre de usuario
+                  >
+                    Cambiar nombre de usuario
                   </ButtonSave>
                 </div>
               </form>

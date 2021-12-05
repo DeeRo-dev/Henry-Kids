@@ -54,7 +54,6 @@ export default function Nav() {
 }, [dispatch])
   // console.log(category)
 
-
   function handleCategory(e){
     e.preventDefault();
     dispatch(filterCategory(e.target.value))
@@ -91,6 +90,7 @@ export default function Nav() {
               {" "}
               Tecnología{" "}
             </option>
+          <option value="all"> all</option>  
           <option value="1"> JavaScript</option>
           <option value="2"> React</option>
           <option value="3"> HTML</option>
@@ -149,7 +149,7 @@ export default function Nav() {
           </select> */}
          <div>
            <Link to={"/home/student/register-teacher"}>  
-           <input type="submit" value="Te gustaria enseñar ?" className={styles.butonLoginTeach} />
+           <button className={styles.blue}> ¿Te gustaria enseñar?</button>
          </Link>
          </div>
        {/* <Link to="/create-clase">
