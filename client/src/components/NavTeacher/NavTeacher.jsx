@@ -44,7 +44,7 @@ export default function NavTeacher() {
   // }
   
   const allCategory = useSelector((state) => state.category)
- console.log(allCategory)
+
 
  useEffect(()=> {
   dispatch(getCategory())

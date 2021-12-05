@@ -20,18 +20,21 @@ export function searchClass(name) {
 }
 
 export function getAllClassTeacher(idUser) {
-  return async function (dispatch) {
+  return async function (dispatch) {console.log(idUser)
     let response = await axios.get(`/cursos/${idUser}`)
+   /*  let data = response.data[0] ? response.data[0].classes
+                                : response.data*/                              
     dispatch({
       type: "GET_ALL_CLASSES_TEACHER",
       data: response.data
     });
   }
 }
+
 export function editUser(id, user) {
   return async function (dispatch) {
     let userUpdate = await axios.put(`/user/${id}`, user);
-      dispatch({
+    dispatch({
       type: "EDIT_USER",
       currentUser: userUpdate
     });
@@ -42,7 +45,7 @@ export function editUser(id, user) {
 export function getUser(input) {
   return async (dispatch) => {
     const json = await axios.get(`/user/${input}`);
-      dispatch({
+    dispatch({
       type: "GET_USER",
       payload: json.data,
     });
@@ -53,7 +56,7 @@ export function getUser(input) {
 export function postUser(input) {
   return async (dispatch) => {
     const json = await axios.post("/user", input);
-      dispatch({
+    dispatch({
       type: "POST_USER",
       payload: json.data,
     });
@@ -76,13 +79,15 @@ export function getClassById(id) {
 
 export function getFavorites(idUs) {
   return async function (dispatch) {
-    let response = await axios.get(`/fav/${idUs}`);
+    let response = await axios.get(`/fav/${idUs}`); console.log(response.data, idUs)
     dispatch({ type: "GET_FAVORITES", data: response.data });
   };
 }
 
 export function ModifyClasses(id, input) {
+
   return async function (dispatch) {
+    console.log(id)
     let response = await axios.put(`/class/${id}`, input);
     dispatch({ type: "MODIFY_CLASSES", data: response.data });
   };
@@ -90,16 +95,27 @@ export function ModifyClasses(id, input) {
 
 export function DeleteClass(id) {
   return async function (dispatch) {
-    let response = await axios.delete(`/class/${id}`)
-    dispatch({ type: 'DELETE_CLASSES', data: response.data })
+    await axios.delete(`/class/${id}`)
+    dispatch({ type: 'DELETE_CLASSES', data: id })
+
   }
 }
-export function getCategory(){
-  return async function(dispatch){
+export function getCategory() {
+  return async function (dispatch) {
     var info = await axios.get("/category/name")
-    console.log(info)
     return dispatch({
       type: "GET_CATEGORY",
+      payload: info.data
+    })
+  }
+}
+
+export function getCategoryAll() {
+  return async function (dispatch) {
+    var info = await axios.get("/category")
+    console.log(info)
+    return dispatch({
+      type: "GET_CATEGORY_ALL",
       payload: info.data
     })
   }
@@ -114,9 +130,10 @@ export function difficultyFilter(input) {
 
 export function setFavorite(idUser, id) {
   return async function (dispatch) {
-    let response = await axios.post(`/fav/${idUser}/${id}`); 
+    console.log(idUser, id)
+    let response = await axios.post(`/fav/${idUser}/${id}`);
     dispatch({ type: 'SET_FAVORITE', response })
   }
 }
-  
+
 
