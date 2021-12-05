@@ -8,8 +8,9 @@ import ClassDetail from "./components/ClassDetail/ClassDetail";
 // import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
 // import { auth } from "../src/firebase/firebaseConfig";
 import ProfileStudent from "./components/ProfileStudent/ProfileStudent";
+import ProfileTeacher from "./components/ProfileTeacher/ProfileTeacher";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
-import RegisterTeacher from "./components/registerTeacher/registerTeacher";
+import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
 
 
@@ -24,6 +25,7 @@ const studentRoutes = [
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
   { path: "home/create-clase", element: <FormularioClase /> },
+  { path: "/home/teacher/profile", element: <ProfileTeacher />},
   { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> }
 ];

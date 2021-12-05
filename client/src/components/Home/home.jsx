@@ -1,14 +1,12 @@
-import React, {  useState,  useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Nav/Nav.jsx";
-// import {styled} from '@material-ui/core';
+import { Link } from "react-router-dom";
+import { styled } from "@material-ui/core";
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
-import { editUser, getAllclasses,/* ,getUser   */
-getFavorites} from "../../actions/index.js";
-import Pagination from "../Pagination/Pagination.jsx";
-// // import { auth } from "../../firebase/firebaseConfig.js";
-import { Link } from "react-router-dom";
+import { editUser, getAllClasses, getFavorites } from "../../actions/index.js";
+import Paged from "../Paged/Paged.jsx";
 
 
 export default function Home() {
@@ -37,7 +35,7 @@ export default function Home() {
   
   
   useEffect(() => {
-    dispatch(getAllclasses());
+    dispatch(getAllClasses());
     dispatch(getFavorites())
     dispatch(
       editUser("provi", {
@@ -47,7 +45,9 @@ export default function Home() {
   }, [dispatch]);
 
 
-  
+  allClasses.length > 9
+    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
+    : (currentPage = allClasses);
 
   function Paginate(e, num) {
     e.preventDefault();
@@ -64,27 +64,23 @@ export default function Home() {
         {currentPage?.map((e) => {
           return (
             <div key={e.id}>
-              <Link to={"/home/student/" + e.id}>
                 <Card
                   id={e.id}
                   title={e.title}
-                  category={e.category}
+                  category={e.categories[0].name}
                   description={e.description}
                   video_link={e.video_link}
                   difficulty={e.difficulty}
                   game_link={e.game_link}
-                  valoration={e.valoration}
+                  valoration={e.Evaluations[0].Evaluation}
                 />{" "}
-              </Link>
             </div>
           );
-        })
-        
-        }
+        })}
       </div>
-      
+
       <div>
-        <Pagination
+        <Paged
           cardsInPage={cardsInPage}
           totalElements={allClasses.length}
           paginate={Paginate}

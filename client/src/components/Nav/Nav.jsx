@@ -7,7 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Icon } from "@material-ui/core"
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategory, getUser } from "../../actions";
+import { getCategory, getUser, filterCategory,filterDifficulty} from "../../actions";
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -48,16 +48,22 @@ export default function Nav() {
   // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
   // }
   const allCategory = useSelector((state) => state.category)
- console.log(allCategory)
 
  useEffect(()=> {
   dispatch(getCategory())
 }, [dispatch])
   // console.log(category)
+
   function handleCategory(e){
     e.preventDefault();
-    // console.log(category)
+    dispatch(filterCategory(e.target.value))
   }
+
+  function handleDifficulty(e){
+    e.preventDefault();
+    dispatch(filterDifficulty(e.target.value))
+  }
+
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
@@ -74,16 +80,47 @@ export default function Nav() {
        <SearchBar/>
         <div className={styles.contenCat}>
           <select name="" id="" className={styles.select} onChange={(e) => handleCategory(e)}>
-          {
+          <option
+              value=""
+              selected
+              disabled
+              hidden
+              className={styles.selects}
+            >
+              {" "}
+              Tecnología{" "}
+            </option>
+          <option value="all"> all</option>  
+          <option value="1"> JavaScript</option>
+          <option value="2"> React</option>
+          <option value="3"> HTML</option>
+         {/*  {
              allCategory.map((e) => (
               <option value={e} key={e}>{e}</option>
                
             ))
-          }
+          } */}
+          </select>
+        </div>
+        <div>
+        <select name="" id="" className={styles.select} onChange={(e) => handleDifficulty(e)}>
+        <option
+              value=""
+              selected
+              disabled
+              hidden
+              className={styles.selects}
+            >
+              {" "}
+              Dificultad{" "}
+            </option>
+          <option value="Basica"> Básica </option>
+          <option value="Intermedia"> Intermedia </option>
+          <option value="Alta"> Alta </option>
           </select>
         </div>
         <div className={styles.contenValorado}>
-          <select name="" id="" className={styles.select}>
+          {/* <select name="" id="" className={styles.select}>
             <option
               value=""
               selected
@@ -109,12 +146,10 @@ export default function Nav() {
             <option value="" className={styles.selects}>
               ⭐
             </option>
-          </select>
-         
+          </select> */}
          <div>
-           <Link to={"/home/student/register-teacher"}>
-           
-           <input type="submit" value="Te gustaria enseñar ?" className={styles.butonLoginTeach} />
+           <Link to={"/home/student/register-teacher"}>  
+           <button className={styles.blue}> ¿Te gustaria enseñar?</button>
          </Link>
          </div>
        {/* <Link to="/create-clase">

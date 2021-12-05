@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FavsContainer.module.css';
 import { getFavorites } from '../../actions/index.js';
-import Pagination from '../Pagination/Pagination.jsx';
+import Paged from '../Paged/Paged.jsx';
 import Card from '../Card/Card'
 import Nav from '../Nav/Nav';
 
@@ -67,7 +67,7 @@ export default function FavsContainer() {
             </div>
 
             <div>
-                <Pagination
+                <Paged
                     cardsInPage={cardsInPage}
                     totalElements={favorites?.length}
                     paginate={Paginate}

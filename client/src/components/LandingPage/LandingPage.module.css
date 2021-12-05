@@ -66,7 +66,7 @@ body.active_modal {
   border-radius: 3px;
   float: left;
   width: 300px;
-  height: 490px;
+  height: 560px;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;
@@ -90,7 +90,7 @@ body.active_modal {
   border-radius: 3px;
   float: left;
   width: 200px;
-  height: 260px;
+  height: 330px;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;

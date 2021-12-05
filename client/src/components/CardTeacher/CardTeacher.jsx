@@ -23,13 +23,14 @@ export default function CardTeacher({
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-        <LongMenu id={id}/>
-
-        <div>
+        <div className={styles.threeBtns}/>
+        <div className={styles.botoncitos}>
+        <LongMenu id={id} />
+        </div>
+        <div className={styles.preview}>
           <img src={url} alt='Contenido sin imagen disponible' />
         </div>
-
-        <p className={styles.category}>JavaScript{category}</p>
+        <p className={styles.category}>{category}</p>
         <div className={styles.title}>
           {title}
         </div>
