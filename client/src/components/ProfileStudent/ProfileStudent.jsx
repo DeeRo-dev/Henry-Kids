@@ -80,16 +80,16 @@ export default function ProfileStudent() {
            <Link to="/home/student">
       <ArrowBackIosIcon/>
       </Link>
-          <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(0)} />
+          <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
           <Tab
             label="Editar Perfil"
             icon={<PersonPinIcon />}
-            {...a11yProps(1)}
+            {...a11yProps(2)}
           />
           {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={2}>
        <ModifyUser/>
       </TabPanel>
       <TabPanel value={value} index={1}> <FavsContainer/> </TabPanel>

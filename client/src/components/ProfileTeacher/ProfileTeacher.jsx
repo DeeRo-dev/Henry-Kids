@@ -99,7 +99,7 @@ export default function ProfileStudent() {
           <Link to="/home/teacher">
             <ArrowBackIosIcon />
           </Link>
-          <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(0)} />
+          {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(0)} /> */}
           <Tab
             label="Editar Perfil"
             icon={<PersonPinIcon />}
@@ -108,7 +108,7 @@ export default function ProfileStudent() {
           <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}></TabPanel>
+      {/* <TabPanel value={value} index={0}></TabPanel> */}
       <TabPanel value={value} index={1}>
         {" "}
         <ModifyUser />
