@@ -34,10 +34,9 @@ export default function CardTeacher({
         <div className={styles.title}>
           {title}
         </div>
-        <div className={styles.description}>
+        {/* <div className={styles.description}>
           {description}
-        </div>
-
+        </div> */}
         <div
           className={styles.instructor}>Dificultad: {difficulty}
         </div>

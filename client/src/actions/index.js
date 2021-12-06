@@ -112,7 +112,6 @@ export function getFavorites(idUs) {
 }
 
 export function ModifyClasses(id, input) {
-
   return async function (dispatch) {
     console.log(id)
     let response = await axios.put(`/class/${id}`, input);
@@ -170,3 +169,10 @@ export function filterDifficulty(input) {
       console.log(e);
     }
   }}
+
+  export function removeFavorite(idUser, id){
+      return async function (dispatch){
+        const response = await axios.delete(`/fav/${idUser}/${id}`);
+        dispatch({type: "REMOVE_FAVORITE", data:id})
+      }
+  }
