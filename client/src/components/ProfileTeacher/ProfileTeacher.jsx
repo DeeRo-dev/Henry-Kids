@@ -10,11 +10,31 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Home from "../Home/home.jsx"
 // import FavsContainer from "../FavsContainer/FavsContainer.jsx";
 // import styles from "./ProfileStudent.module.css";
 import ModifyUser from "../ModifyUser/ModifyUser";
 
 function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function TabPanel2(props) {
   const { children, value, index, ...other } = props;
   return (
     <div
@@ -74,20 +94,18 @@ export default function ProfileStudent() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
           <Tab
-            label="Editar Perfil"
-            icon={<PersonPinIcon />}
-            {...a11yProps(2)}
+            label="Ayuda"
+            icon={<HelpIcon />} 
+            {...a11yProps(3)}
           />
-          <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} />
+            <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={1}>
-       <ModifyUser/>
-      </TabPanel>
-      <TabPanel value={value} index={2}></TabPanel>
-      <TabPanel value={value} index={3}></TabPanel>
+      <TabPanel2 value={value} index={3} children={<p>Hola</p>}>
+      </TabPanel2>
+      <TabPanel value={value} index={1} children={<ModifyUser/>}> </TabPanel>
+      {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
   );
 }

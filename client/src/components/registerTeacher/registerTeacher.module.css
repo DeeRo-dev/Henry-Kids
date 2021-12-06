@@ -19,12 +19,12 @@
   background: rgba(49,49,49,0.8);
 }
 
-
 /* .container{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 } */
+
 .modal_content {
   display: flex;
   background-color: white;

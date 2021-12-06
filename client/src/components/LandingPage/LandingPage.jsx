@@ -18,6 +18,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  TextField,
 } from "@material-ui/core";
 // import { confirmPasswordReset } from "@firebase/auth";
 
@@ -41,6 +42,8 @@ export default function LandingPage() {
     lastName: "Registrado con Google",
     userName: "",
     type: "",
+    password: "",
+    passwordConfirm: "",
   });
 
   const toggleModal = (e) => {
@@ -202,36 +205,40 @@ export default function LandingPage() {
 
   const registrarUsuario = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then((userCredential) => {
-        localStorage.setItem("type", user.type);
-        auth.onAuthStateChanged((userCredential) => {
-          localStorage.setItem("sessionUser", userCredential.uid);
-          if (user.type === "student") {
-            //  console.log(userCredential.user);
-            dispatch(postUser(user))
-              .then(() => {
-                navigate("/home/student");
-                window.location.reload();
-              })
-              .catch((e) => {
-                console.log(e + "este");
-              });
-          } else {
-            dispatch(postUser(user))
-              .then(() => {
-                navigate("/home/teacher");
-                window.location.reload();
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          }
+    if (user.password !== user.passwordConfirm) {
+      alert("contraseñas diferentes");
+    } else {
+      createUserWithEmailAndPassword(auth, user.email, user.password)
+        .then((userCredential) => {
+          localStorage.setItem("type", user.type);
+          auth.onAuthStateChanged((userCredential) => {
+            localStorage.setItem("sessionUser", userCredential.uid);
+            if (user.type === "student") {
+              //  console.log(userCredential.user);
+              dispatch(postUser(user))
+                .then(() => {
+                  navigate("/home/student");
+                  window.location.reload();
+                })
+                .catch((e) => {
+                  console.log(e + "este");
+                });
+            } else {
+              dispatch(postUser(user))
+                .then(() => {
+                  navigate("/home/teacher");
+                  window.location.reload();
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }
+          });
+        })
+        .catch((error) => {
+          alert(error.code);
         });
-      })
-      .catch((error) => {
-        alert(error.code);
-      });
+    }
   };
 
   const ingresarUsuario = (e) => {
@@ -255,15 +262,6 @@ export default function LandingPage() {
       });
   };
 
-  const setData = (e) =>{
-    e.preventDefault()
-    auth.onAuthStateChanged((userFirebase) =>{
-      setUser({
-        ...user,
-        userName: userFirebase.displayName,
-      });
-    })
-  }
   const ingresarUsuarioConGoogle = (e) => {
     e.preventDefault();
     if (user.type === "") {
@@ -271,10 +269,13 @@ export default function LandingPage() {
     } else {
       signInWithPopup(auth, provider)
         .then((result) => {
-          setData(e)
           console.log(user);
           localStorage.setItem("type", user.type);
           auth.onAuthStateChanged((userFirebase) => {
+            setUser({
+              ...user,
+              userName: userFirebase.displayName,
+            });
             dispatch(getUser("All")).then(() => {
               const userGoogle = allUsers?.filter(
                 (e) => e.id === userFirebase.uid
@@ -282,7 +283,7 @@ export default function LandingPage() {
               if (!userGoogle.length) {
                 localStorage.setItem("sessionUser", userFirebase.uid);
                 if (user.type === "student") {
-                  console.log(userFirebase.displayName)
+                  console.log(userFirebase.displayName);
                   console.log(user);
                   dispatch(postUser(user)).then(() => {
                     navigate("/home/student");
@@ -328,7 +329,6 @@ export default function LandingPage() {
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         />
-
         <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
@@ -365,7 +365,7 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <form>
+                  <form action="" name="f1">
                     <input
                       onChange={(e) => onInputChange(e)}
                       name="email"
@@ -433,42 +433,77 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <form>
-                    <input
+                  <form autoComplete="off">
+                    <TextField
+                      fullWidth
+                      placeholder="Nombre:"
+                      margin="normal"
+                      color="primary"
+                      id="standard-error"
                       name="firstName"
                       type="text"
-                      placeholder="Nombre:"
+                      helperText={true}
                       onChange={(e) => onInputChange(e)}
                     />
-                    <input
+                    <TextField
+                      fullWidth
+                      placeholder="Apellido:"
+                      margin="normal"
+                      color="primary"
+                      id="standard-error"
                       name="lastName"
                       type="text"
-                      placeholder="Apellido:"
+                      helperText={true}
                       onChange={(e) => onInputChange(e)}
                     />
-                    <input
-                      name="userName"
-                      type="text"
+                    <TextField
+                      fullWidth
                       placeholder="Nombre de usuario:"
-                      onChange={(e) => onInputChange(e)}
-                    />
-                    <input
-                      name="email"
+                      margin="normal"
+                      color="primary"
+                      /* error={true} */
+                      id="standard-error"
                       type="text"
-                      placeholder="Email:"
+                      /* helperText={true} */
                       onChange={(e) => onInputChange(e)}
                     />
-                    <input
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      /* error={true} */
+                      type="text"
+                      id="standard-error"
+                      placeholder="Email:"
+                      helperText={false}
+                      label=""
+                      onChange={(e) => onInputChange(e)}
+                    />
+
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      error={false}
+                      /* name="password" */
                       name="password"
                       type="password"
                       placeholder="Contraseña:"
                       onChange={(e) => onInputChange(e)}
                     />
-                    <input
+
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      // error={true}
+                      name="passwordConfirm"
                       type="password"
+                      helperText={true}
                       placeholder="Confirmar contraseña:"
+                      onChange={(e) => onInputChange(e)}
                     />
-                    <div>
+                    {/* <div>
                       <FormControl component="fieldset">
                         <RadioGroup
                           aria-label="gender"
@@ -489,7 +524,7 @@ export default function LandingPage() {
                           />
                         </RadioGroup>
                       </FormControl>
-                    </div>
+                    </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
 
                     <StyleButtonCrearCuenta
