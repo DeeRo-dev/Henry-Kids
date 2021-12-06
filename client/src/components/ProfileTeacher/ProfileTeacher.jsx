@@ -97,14 +97,14 @@ export default function ProfileStudent() {
           <Tab
             label="Ayuda"
             icon={<HelpIcon />} 
-            {...a11yProps(3)}
+            {...a11yProps(0)}
           />
-            <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(2)} />
+            <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel2 value={value} index={3} children={<p>Hola</p>}>
-      </TabPanel2>
-      <TabPanel value={value} index={1} children={<ModifyUser/>}> </TabPanel>
+      <TabPanel value={value} index={0}>
+      </TabPanel>
+      <TabPanel value={value} index={1}> <ModifyUser/></TabPanel>
       {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
   );
