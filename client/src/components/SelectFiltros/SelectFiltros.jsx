@@ -6,9 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import style from "./SelectFiltros.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { getAllclasses} from "../../actions";
+import { getAllClasses, getUser} from "../../actions";
 import CardClasseAdmin from "../CardClasseAdmin/CardClasseAdmin.jsx";
-import Pagination from '../Pagination/Pagination.jsx';
+import Pagination from '../Paged/Paged.jsx';
 // const GreenCheckbox = withStyles({
 //   root: {
 //     color: green[400],
@@ -26,8 +26,15 @@ export default function CheckboxLabels() {
 
   //tRAER TODAS LAS CLASES
   const allClasses = useSelector((state) => state.allClasses);
+  
   useEffect(() => {
-    dispatch(getAllclasses())
+    dispatch(getAllClasses())
+  },[dispatch])
+
+  //TRAER TODOS LOS USUARIOS
+  const allUser = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(getUser("All"))
   },[dispatch])
 
 //PAGINADO
@@ -124,8 +131,8 @@ export default function CheckboxLabels() {
     </FormGroup>
     </div>
   
-  
-        {
+        <div>
+           {
           state.Clases ? (
 
               <div className={style.contentCards} id="cards" >
@@ -156,7 +163,31 @@ export default function CheckboxLabels() {
           ) : null
            
         }
+        </div>
+        <div>
+        {
+          state.Alumnos ? (
+
+              <div >
+        
+             {
+            allUser.map((e) => { 
+               return (
+                  <div key= {e.id}> 
+                   <p>{e.firstName}{e.lastName}{e.userName}{e.email}</p>
+                      
+                   </div>)
+
+             } 
+             )} 
+           
+            </div>
+          ) : null
+           
+        }
   
+        </div>
+        
   </div>
 
  );  
