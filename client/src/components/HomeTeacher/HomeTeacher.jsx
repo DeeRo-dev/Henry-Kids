@@ -1,7 +1,7 @@
 import React ,{ useState, useEffect }from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavTeacher from "../NavTeacher/NavTeacher.jsx";
-import Pagination from "../Pagination/Pagination.jsx";
+import Paged from "../Paged/Paged.jsx";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
@@ -33,6 +33,9 @@ const navigate = useNavigate();
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
+  allClassTeacher?.length > 8
+    ? currentPage = allClassTeacher.slice(indexFirstPage, indexLastPage)
+    : currentPage = allClassTeacher;
 
 
 
@@ -62,25 +65,26 @@ const navigate = useNavigate();
       <NavTeacher />
       </div>
       <div className={styles.cards}>
-      {currentPage.map((e) => { 
-        return (
-        <div key= {e.id}> 
-         <CardTeacher 
-        id={e.id}
-        title={e.title}
-        category={e.category}
-        description={e.description}
-        video_link={e.video_link}
-        difficulty={e.difficulty}
-        game_link={e.game_link}
-        valoration={e.valoration}
-        /> </div>)}
-      )} 
+        {currentPage && currentPage.map((e) => {
+          return (
+            <div key={e.id}>
+              <CardTeacher
+                id={e.id}
+                title={e.title}
+                category={e.categories[0].name}
+                description={e.description}
+                video_link={e.video_link}
+                difficulty={e.difficulty}
+                game_link={e.game_link}
+                /* valoration={e.Evaluations[0].Evaluation} */
+              /> </div>)
+        }
+        )}
       </div>
 
       <div>
-           <Pagination cardsInPage={cardsInPage} totalElements={allClassTeacher.length}
-          paginate={Paginate} /> 
+        <Paged cardsInPage={cardsInPage} totalElements={allClassTeacher?.length}
+          paginate={Paginate} />
       </div>
   
     </div>

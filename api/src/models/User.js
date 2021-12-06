@@ -8,38 +8,29 @@ module.exports = (sequelize) => {
     {
       firstName: {
         type: DataTypes.STRING,
-        // allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
+        allowNull: true,
       },
 
       lastName: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
+        allowNull: true,
       },
 
       userName: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
+        allowNull: true,
       },
 
       id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
       },
 
       type: {
         type: DataTypes.ENUM("teacher", "student"),
-        allowNull: false,
+        allowNull: true,
       },
 
       photo: {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FavsContainer.module.css';
 import { getFavorites } from '../../actions/index.js';
-import Pagination from '../Pagination/Pagination.jsx';
+import Paged from '../Paged/Paged.jsx';
 import Card from '../Card/Card'
 import Nav from '../Nav/Nav';
 
@@ -27,7 +27,7 @@ export default function FavsContainer() {
     let indexLastPage = page * cardsInPage;
     let indexFirstPage = indexLastPage - cardsInPage;
 
-    favorites.length > 9
+    favorites?.length > 8
         ? (currentPage = favorites.slice(indexFirstPage, indexLastPage))
         : (currentPage = favorites);
 
@@ -36,17 +36,17 @@ export default function FavsContainer() {
         setPage(num);
     }
 
-    /* function removeFav */
+    
 
     return (
         <div className={styles.home}>
-            <Nav/>
+           
             <div className={styles.cards}>
-                {currentPage.map(e => {
+                {currentPage?.map(e => {
                     return (
                         <div key={e.id}>
                             {' '}
-                            <Link to={`/home/${e.id}`}>
+                            {/* <Link to={"/home/student/" + e.id}> */}
                                 {' '}
                                 <Card
                                     id={e.id}
@@ -57,19 +57,18 @@ export default function FavsContainer() {
                                     difficulty={e.difficulty}
                                     game_link={e.game_link}
                                     valoration={e.valoration}
-
                                 />
                                 {' '}
-                            </Link>
+                           {/*  </Link> */}
                         </div>
                     );
                 })}
             </div>
 
             <div>
-                <Pagination
+                <Paged
                     cardsInPage={cardsInPage}
-                    totalElements={favorites.length}
+                    totalElements={favorites?.length}
                     paginate={Paginate}
                 />
             </div>

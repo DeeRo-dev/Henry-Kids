@@ -4,10 +4,10 @@ const initialState = {
   user: [],
   classById: [],
   allClassTeacher: [],
+  allClassTeacher2: [],
   favorites: [],
   category: [],
-  categoryAll:[]
-  
+  categoryAll: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -16,34 +16,34 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allClasses: action.data,
-        classes: action.data
+        classes: action.data,
       };
 
     case "POST_USER":
       return {
         ...state,
       };
-      case "EDIT_USER":
-        return{
+    case "EDIT_USER":
+      return {
+        ...state,
+      };
+    case "GET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "SEARCH_CLASS":
+      if (action.dataLength === 1 || !action.payload.length) {
+        return {
           ...state,
+          allClasses: state.classes,
         };
-        case "GET_USER":
-          return{
-            ...state,
-            user: action.payload
-          }
-      case "SEARCH_CLASS":
-        if (action.dataLength === 1 || !action.payload.length) {
-          return {
-            ...state,
-            allClasses: state.classes,
-          };
-        } else {
-          return {
-            ...state,
-            allClasses: action.payload,
-          };
-        }
+      } else {
+        return {
+          ...state,
+          allClasses: action.payload,
+        };
+      }
 
     case "CREATE_CLASS":
       return {
@@ -59,14 +59,75 @@ export default function rootReducer(state = initialState, action) {
     case "GET_ALL_CLASSES_TEACHER":
       return {
         ...state,
-        allClassTeacher: action.data[0]?.classes
+        allClassTeacher: action.data[0]?.classes,
+        allClassTeacher2: action.data[0]?.classes,
       };
 
     case "GET_FAVORITES":
       return {
         ...state,
-        favorites: action.data[0].classes
+        favorites: action.data[0]?.classes,
       };
+    case "FILTER_BY_CATEGORY":
+      if (action.payload === "all") {
+        return {
+          ...state,
+          allClasses: state.classes,
+        };
+      } else {
+        return {
+          ...state,
+          allClasses: action.payload,
+        };
+      }
+    case "FILTER_BY_CATEGORY_TEACHER":
+      const allClassesTeacher = state.allClassTeacher2;
+      switch (action.payload) {
+        case "1":
+          const result = allClassesTeacher.filter(
+            (e) => e.categories[0].name === "JavaScript"
+          );
+          return {
+            ...state,
+            allClassTeacher: result,
+          };
+        case "2":
+          const result2 = allClassesTeacher.filter(
+            (e) => e.categories[0].name === "React"
+          );
+          return {
+            ...state,
+            allClassTeacher: result2,
+          };
+        case "3":
+          const result3 = allClassesTeacher.filter(
+            (e) => e.categories[0].name === "HTML"
+          );
+          return {
+            ...state,
+            allClassTeacher: result3,
+          };
+        case "all":
+          return {
+            ...state,
+            allClassTeacher: state.allClassTeacher2,
+          };
+        default:
+          return state;
+      }
+
+    case "FILTER_BY_DIFFICULTY":
+      if (action.payload === "all") {
+        return {
+          ...state,
+          allClasses: state.classes,
+        };
+      } else {
+        return {
+          ...state,
+          allClasses: action.payload,
+        };
+      }
 
     case "MODIFY_CLASS":
       return {
@@ -76,32 +137,41 @@ export default function rootReducer(state = initialState, action) {
     case "GET_CATEGORY":
       return {
         ...state,
-        category: action.payload
+        category: action.payload,
       };
 
-      case "GET_CATEGORY_ALL":
+    case "GET_CATEGORY_ALL":
       return {
         ...state,
-        categoryAll: action.payload
+        categoryAll: action.payload,
       };
 
     case "DIFFICULTY_FILTER":
       return {
         ...state,
-        allClasses: action.data
+        allClasses: action.data,
       };
 
-      case 'DELETE_CLASSES':
-        return{ 
+    case "SET_FAVORITE":
+      return {
+        ...state,
+      };
+    case "DELETE_CLASSES":
+      return {
+        ...state,
+        allClassTeacher: state.allClassTeacher.filter(
+          (c) => c.id !== action.data
+        ),
+      };
+
+      case "REMOVE_FAVORITE":
+        return {
           ...state,
-          allClassTeacher: state.allClassTeacher.filter(c =>  c.id !== action.data )
+          favorites: state.favorites?.filter(
+            (c) => c.id !== action.data
+          )
         }
 
-        case 'SET_FAVORITE':
-        return{ 
-          ...state,
-        }
-      
     default:
       return state;
   }
