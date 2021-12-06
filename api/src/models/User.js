@@ -24,13 +24,13 @@ module.exports = (sequelize) => {
 
       id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
       },
 
       type: {
         type: DataTypes.ENUM("teacher", "student"),
-        allowNull: false,
+        allowNull: true,
       },
 
       photo: {
