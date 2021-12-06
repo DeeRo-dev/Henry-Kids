@@ -117,10 +117,17 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case "FILTER_BY_DIFFICULTY":
-      return {
-        ...state,
-        allClasses: action.payload,
-      };
+      if (action.payload === "all") {
+        return {
+          ...state,
+          allClasses: state.classes,
+        };
+      } else {
+        return {
+          ...state,
+          allClasses: action.payload,
+        };
+      }
 
     case "MODIFY_CLASS":
       return {

@@ -56,10 +56,9 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <div>
+     <div className={styles.nav}>
         <Nav />
       </div>
-
       <div className={styles.cards}>
         {currentPage?.map((e) => {
           return (

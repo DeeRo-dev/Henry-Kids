@@ -10,7 +10,7 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-// import FavsContainer from "../FavsContainer/FavsContainer.jsx";
+import FavsContainer from "../FavsContainer/FavsContainer.jsx";
 // import styles from "./ProfileStudent.module.css";
 
 import ModifyUser from "../ModifyUser/ModifyUser";
@@ -75,20 +75,20 @@ export default function ProfileStudent() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
+          <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(0)} />
           <Tab
             label="Editar Perfil"
             icon={<PersonPinIcon />}
-            {...a11yProps(2)}
+            {...a11yProps(1)}
           />
-          <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} />
+          {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={0}>
        <ModifyUser/>
       </TabPanel>
-      <TabPanel value={value} index={2}></TabPanel>
-      <TabPanel value={value} index={3}></TabPanel>
+      <TabPanel value={value} index={1}> <FavsContainer/> </TabPanel>
+      {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
   );
 }

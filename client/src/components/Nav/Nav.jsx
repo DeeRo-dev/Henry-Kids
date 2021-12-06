@@ -127,6 +127,7 @@ export default function Nav() {
                 {" "}
                 Dificultad{" "}
               </option>
+              <option value="all"> Todos </option>
               <option value="Basica"> Básica </option>
               <option value="Intermedia"> Intermedia </option>
               <option value="Alta"> Alta </option>
@@ -176,7 +177,7 @@ export default function Nav() {
           <div className={styles.imagen}>
             <img
               src={
-                currentUser.photo
+                currentUser
                   ? currentUser.photo
                   : "https://f5c4537feeb2b644adaf-b9c0667778661278083bed3d7c96b2f8.ssl.cf1.rackcdn.com/artistas/perfil-usuario.png"
               }
