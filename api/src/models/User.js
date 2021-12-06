@@ -1,44 +1,59 @@
 const { Sequelize, DataTypes } = require("sequelize");
-// const useBcrypt = require('sequelize-bcrypt');
-// require('sequelize-isunique-validator')(Sequelize);
 
 module.exports = (sequelize) => {
-  sequelize.define(
-    "user",
-    {
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+  sequelize.define("user", {
 
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-
-      userName: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: true,
-      },
-
-      id: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        primaryKey: true,
-      },
-
-      type: {
-        type: DataTypes.ENUM("teacher", "student"),
-        allowNull: true,
-      },
-
-      photo: {
-        type: DataTypes.STRING,
-        validate: {
-          isUrl: true,
-        },
-      }
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
     },
-  );
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+
+    userName: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+
+  
+
+    type: {
+      type: DataTypes.ENUM("teacher", "student","admin"),
+      defaultValue:"student",
+      // allowNull: false,
+    },
+    photo: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true,
+      },
+    },
+
+    solictud:{
+      type:DataTypes.BOOLEAN(),
+      defaultValue:false,
+    }
+  },{
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
+  });
 };
