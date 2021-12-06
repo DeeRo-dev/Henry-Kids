@@ -16,39 +16,16 @@
  
 }
 .tituloNav{
-  margin: auto;
+ 
   font-family: 'Pacifico', cursive;
 }
-.container{
-  display: grid;
-  grid-template-columns: 25% 75% ;
 
-  height: 100%;
-}
 
-.tituloFiltro{
-  font-size: 20px;
-}
 .contentFiltros{
-  background:rgba(227, 243, 3, 0.651) ;
-  box-shadow: 0 1px 10px -0px var(--amarillo); 
-  height: 100%;
-}
-
-.boton{
-font-size: 25px;
-display: block;
- margin: auto;
- margin-left: 150px;
- background: none;
- border:none; 
- margin-top: 30px;
- border-radius: 3px;
-}
-
-.boton:hover{
-  cursor: pointer;
-  border-left: 1px solid #000;
+  height: 100px;
+  display: flex;
  
-  background:rgba(218, 180, 10, 0.377) ;
+}
+.selectores{
+ margin: auto;
 }
