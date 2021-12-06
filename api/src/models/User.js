@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
 
       lastName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
       userName: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
@@ -33,13 +33,13 @@ module.exports = (sequelize) => {
 
       id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
       },
 
       type: {
         type: DataTypes.ENUM("teacher", "student"),
-        allowNull: false,
+        allowNull: true,
       },
 
       photo: {
