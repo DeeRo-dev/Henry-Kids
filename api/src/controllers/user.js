@@ -2,7 +2,7 @@ const { User, Class } = require("../db.js");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
-  const { firstName, lastName, userName, type, photo, id } =
+  const { firstName, lastName, userName, type, photo, email, password, id } =
     req.body;
 
   try {
@@ -13,12 +13,14 @@ async function createUser(req, res, next) {
       userName,
       type,
       photo,
+      email,
+      password,
     });
 
     const newUser = await User.findOne({ where: { userName } });
     res.status(200).send(newUser);
-  } catch (err) {
-    next(err);
+  } catch {
+    (err) => err(next);
   }
 }
 
@@ -30,7 +32,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
-      include: [Class],
+      include:[Class]
     });
     res.send(userDetail);
   } catch (error) {
@@ -79,6 +81,8 @@ async function getUser(req, res, next) {
         "userName",
         "type",
         "photo",
+        "email",
+        "password",
       ],
       where: {
         title: {
@@ -101,6 +105,8 @@ async function getUser(req, res, next) {
         "userName",
         "type",
         "photo",
+        "email",
+        "password",
       ],
     }).then((User) => {
       res.send(User);
@@ -108,7 +114,7 @@ async function getUser(req, res, next) {
   }
 }
 
-async function getTipo(req, res, next) {
+async function getType(req,res,next){
   try {
     const { id } = req.params;
     const userDetail = await User.findAll({
@@ -116,7 +122,7 @@ async function getTipo(req, res, next) {
         id: id,
       },
     });
-    const aux = userDetail[0].dataValues.type;
+    const aux = userDetail[0].dataValues.type
     res.send(aux);
   } catch (error) {
     next(error);
@@ -129,5 +135,5 @@ module.exports = {
   getUser,
   editUser,
   deleteUser,
-  getTipo,
+  getType
 };

@@ -100,26 +100,18 @@ async function getCatId(req, res, next) {
 }
 
 async function putCat(req, res, next) {
-  const { name, technology, description, img_link } = req.body;
-  const cat = Category.findByPk(name);
-  if (!cat) {
-    return res
-      .status(400)
-      .json({ mensage: "No existe un usuario con ese nombre" });
-  } else {
-    try {
-      const newCategory = await Category.update({
-        name,
-        technology,
-        description,
-        img_link,
-      });
-      res.status(200).send(newCategory);
-    } catch (error) {
-      next(error);
-    }
+  const changes = req.body;
+  try {
+    const result = await Category.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.send("Category was successfully edited");
+  } catch (err) {
+    next(err);
   }
-}
+};
 
 async function getName(req, res, next) {
   const arr = [];
@@ -131,6 +123,20 @@ async function getName(req, res, next) {
   res.status(200).send(arr);
 }
 
+async function deleteCategory(req, res, next) {
+  try {
+    const deleteCategory = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.send("Was successfully removed");
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   getCat,
   getEjemplo,
@@ -138,4 +144,5 @@ module.exports = {
   getCatId,
   putCat,
   getName,
+  deleteCategory
 };
