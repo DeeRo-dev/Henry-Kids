@@ -20,7 +20,7 @@ router.use("/user", classUser);
 router.use("/",relClassUser);
 router.use("/evaluation", evaluationRoutes)
 
-router.use("/admin", adminRoutes); // Agregar función para controlar tipo de USER.
+router.use("/admin", adminRoutes); // AGREGAR función para controlar tipo de USER !
 
 module.exports = router;
 
