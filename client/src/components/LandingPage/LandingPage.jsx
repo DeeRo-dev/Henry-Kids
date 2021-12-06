@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
@@ -18,6 +18,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  TextField,
 } from "@material-ui/core";
 // import { confirmPasswordReset } from "@firebase/auth";
 
@@ -37,15 +38,24 @@ export default function LandingPage() {
   // const [errors,setErrors] = useState({});
   const [user, setUser] = useState({
     id: "provi",
-    firstName: "Registrado con Google",
-    lastName: "Registrado con Google",
+    firstName: "",
+    lastName: "",
     userName: "",
-    type: "",
+    type: "student",
+  });
+  const [dataFirebase, setDataFirebase] = useState({
+    email: "",
+    password: "",
+    passwordConfirm: "",
   });
 
   const toggleModal = (e) => {
     setModal(!modal);
   };
+
+  useEffect(() => {
+    dispatch(getUser("All"));
+  }, [dispatch]);
 
   const toggleModalIngresar = (e) => {
     setModalIngresar(!modalIngresar);
@@ -186,7 +196,14 @@ export default function LandingPage() {
     },
   })(Button);
 
-  function onInputChange(e) {
+  function onInputChangeFirebase(e) {
+    e.preventDefault();
+    setDataFirebase({
+      ...dataFirebase,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function onInputChangeDB(e) {
     e.preventDefault();
     setUser({
       ...user,
@@ -202,68 +219,57 @@ export default function LandingPage() {
 
   const registrarUsuario = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then((userCredential) => {
+    if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+      alert("contraseñas diferentes");
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        dataFirebase.email,
+        dataFirebase.password
+      ).then((userCredential) => {
         localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userCredential) => {
           localStorage.setItem("sessionUser", userCredential.uid);
-          if (user.type === "student") {
-            //  console.log(userCredential.user);
-            dispatch(postUser(user))
-              .then(() => {
-                navigate("/home/student");
-                window.location.reload();
-              })
-              .catch((e) => {
-                console.log(e + "este");
-              });
-          } else {
-            dispatch(postUser(user))
-              .then(() => {
-                navigate("/home/teacher");
-                window.location.reload();
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          }
+          //  console.log(userCredential.user);
+          dispatch(postUser(user))
+            .then(() => {
+              navigate("/home/student");
+              window.location.reload();
+            })
+            .catch((e) => {
+              console.log(e + "este");
+            });
         });
-      })
-      .catch((error) => {
-        alert(error.code);
       });
+    }
   };
 
   const ingresarUsuario = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, user.email, user.password)
+    signInWithEmailAndPassword(auth, dataFirebase.email, dataFirebase.password)
       .then((userCredential) => {
-        localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userFirebase) => {
           localStorage.setItem("sessionUser", userFirebase.uid);
+          const typeUser = allUsers.find((e)=>{
+            return e.id === userFirebase.uid
+          })
+          console.log(typeUser)
+          if (typeUser.type === "student") {
+            localStorage.setItem("type", "student");
+            navigate("/home/student");
+            window.location.reload();
+          } else if(typeUser.type === "teacher") {
+            localStorage.setItem("type", "teacher");
+            navigate("/home/teacher");
+            window.location.reload();
+          }
         });
-        if (user.type === "student") {
-          navigate("/home/student");
-          window.location.reload();
-        } else {
-          navigate("/home/teacher");
-          window.location.reload();
-        }
       })
       .catch((error) => {
-        alert(error.code);
+        alert("Error de ingreso");
       });
   };
 
-  const setData = (e) =>{
-    e.preventDefault()
-    auth.onAuthStateChanged((userFirebase) =>{
-      setUser({
-        ...user,
-        userName: userFirebase.displayName,
-      });
-    })
-  }
   const ingresarUsuarioConGoogle = (e) => {
     e.preventDefault();
     if (user.type === "") {
@@ -271,8 +277,6 @@ export default function LandingPage() {
     } else {
       signInWithPopup(auth, provider)
         .then((result) => {
-          setData(e)
-          console.log(user);
           localStorage.setItem("type", user.type);
           auth.onAuthStateChanged((userFirebase) => {
             dispatch(getUser("All")).then(() => {
@@ -282,8 +286,10 @@ export default function LandingPage() {
               if (!userGoogle.length) {
                 localStorage.setItem("sessionUser", userFirebase.uid);
                 if (user.type === "student") {
-                  console.log(userFirebase.displayName)
-                  console.log(user);
+                  setUser({
+                    ...user,
+                    userName: result.user.displayName,
+                  });
                   dispatch(postUser(user)).then(() => {
                     navigate("/home/student");
                     window.location.reload();
@@ -328,14 +334,13 @@ export default function LandingPage() {
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         />
-
         <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
               onClick={(e) => toggleModalIngresar(e)}
               className={styles.btnIngresar}
-              /* variant="contained"
-              color="primary" */
+              variant="contained"
+              color="primary"
             >
               Ingresar
             </StyleButtonIngresar>
@@ -363,28 +368,27 @@ export default function LandingPage() {
                 >
                   x
                 </button>
-
                 <div>
-                  <form>
+                  <form action="" name="f1">
                     <input
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => onInputChangeFirebase(e)}
                       name="email"
                       type="text"
                       placeholder="Email:"
                     />
                     <input
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => onInputChangeFirebase(e)}
                       name="password"
                       type="password"
                       placeholder="Contraseña:"
                     />
-                    <FormControl component="fieldset">
+                    {/* <FormControl component="fieldset">
                       <RadioGroup
                         aria-label="gender"
                         defaultValue="female"
                         //  name="radio-buttons-group"
                         name="type"
-                        onChange={(e) => onInputChange(e)}
+                        onChange={(e) => onInputChangeDB(e)}
                       >
                         <FormControlLabel
                           value="student"
@@ -397,7 +401,7 @@ export default function LandingPage() {
                           label="Profesor"
                         />
                       </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
                     <StyleButtonIngresarConCorreo
                       onClick={(e) => ingresarUsuario(e)}
                       type="submit"
@@ -407,7 +411,7 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                    <StyleButtonIngresarConGoogle
+                    {/* <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
@@ -415,7 +419,7 @@ export default function LandingPage() {
                       color="primary"
                     >
                       Ingresar con google
-                    </StyleButtonIngresarConGoogle>
+                    </StyleButtonIngresarConGoogle> */}
                   </form>
                 </div>
               </div>
@@ -433,42 +437,79 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <form>
-                    <input
+                  <form autoComplete="off">
+                    <TextField
+                      fullWidth
+                      placeholder="Nombre:"
+                      margin="normal"
+                      color="primary"
+                      id="standard-error"
                       name="firstName"
                       type="text"
-                      placeholder="Nombre:"
-                      onChange={(e) => onInputChange(e)}
+                      helperText={true}
+                      onChange={(e) => onInputChangeDB(e)}
                     />
-                    <input
+                    <TextField
+                      fullWidth
+                      placeholder="Apellido:"
+                      margin="normal"
+                      color="primary"
+                      id="standard-error"
                       name="lastName"
                       type="text"
-                      placeholder="Apellido:"
-                      onChange={(e) => onInputChange(e)}
+                      helperText={true}
+                      onChange={(e) => onInputChangeDB(e)}
                     />
-                    <input
-                      name="userName"
-                      type="text"
+                    <TextField
+                      fullWidth
                       placeholder="Nombre de usuario:"
-                      onChange={(e) => onInputChange(e)}
-                    />
-                    <input
-                      name="email"
+                      margin="normal"
+                      name="userName"
+                      color="primary"
+                      /* error={true} */
+                      id="standard-error"
                       type="text"
-                      placeholder="Email:"
-                      onChange={(e) => onInputChange(e)}
+                      /* helperText={true} */
+                      onChange={(e) => onInputChangeDB(e)}
                     />
-                    <input
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      /* error={true} */
+                      type="text"
+                      id="standard-error"
+                      placeholder="Email:"
+                      name="email"
+                      helperText={false}
+                      label=""
+                      onChange={(e) => onInputChangeFirebase(e)}
+                    />
+
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      error={false}
+                      /* name="password" */
                       name="password"
                       type="password"
                       placeholder="Contraseña:"
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => onInputChangeFirebase(e)}
                     />
-                    <input
+
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      // error={true}
+                      name="passwordConfirm"
                       type="password"
+                      helperText={true}
                       placeholder="Confirmar contraseña:"
+                      onChange={(e) => onInputChangeFirebase(e)}
                     />
-                    <div>
+                    {/* <div>
                       <FormControl component="fieldset">
                         <RadioGroup
                           aria-label="gender"
@@ -489,7 +530,7 @@ export default function LandingPage() {
                           />
                         </RadioGroup>
                       </FormControl>
-                    </div>
+                    </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
 
                     <StyleButtonCrearCuenta
@@ -501,7 +542,7 @@ export default function LandingPage() {
                     >
                       Crear cuenta
                     </StyleButtonCrearCuenta>
-                    <StyleButtonRegistrarseConGoogle
+                    {/*  <StyleButtonRegistrarseConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
@@ -509,7 +550,7 @@ export default function LandingPage() {
                       color="primary"
                     >
                       Crear cuenta con google
-                    </StyleButtonRegistrarseConGoogle>
+                    </StyleButtonRegistrarseConGoogle> */}
                     {/* </Link> */}
                   </form>
                 </div>

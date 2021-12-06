@@ -19,12 +19,12 @@
   background: rgba(49,49,49,0.8);
 }
 
-
 /* .container{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 } */
+
 .modal_content {
   display: flex;
   background-color: white;
@@ -65,6 +65,12 @@ input[type="file"]{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+#pDNI{
+width: 100px;
+margin-left: 10px;
+margin-top: 0px;
 }
 
 .modal_content:hover {

@@ -163,7 +163,7 @@ export function filterDifficulty(input) {
       );
       return dispatch({
         type: "FILTER_BY_DIFFICULTY",
-        payload: response.data,
+        payload: input === "all" ? "all" : response.data,
       });
     } catch (e) {
       console.log(e);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavTeacher from "../NavTeacher/NavTeacher.jsx";
+import Paged from "../Paged/Paged.jsx";
 import styles from "./HomeTeacher.module.css";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
 import CardTeacher from "../CardTeacher/CardTeacher.jsx";
 import { getAllClassTeacher, editUser } from "../../actions/index.js";
-import Paged from "../Paged/Paged"
 
 
 export default function HomeTeacher() {
@@ -58,12 +58,12 @@ export default function HomeTeacher() {
               <CardTeacher
                 id={e.id}
                 title={e.title}
-                category={e.categories[0].name}
+                category={e.category}
                 description={e.description}
                 video_link={e.video_link}
                 difficulty={e.difficulty}
                 game_link={e.game_link}
-                /* valoration={e.Evaluations[0].Evaluation} */
+                valoration={e.valoration}
               /> </div>)
         }
         )}

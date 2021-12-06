@@ -111,7 +111,7 @@ export default function NavTeacher() {
               {" "}
               Tecnología{" "}
             </option>
-          <option value="all"> all</option>  
+          <option value="all"> Todos</option>  
           <option value="1"> JavaScript</option>
           <option value="2"> React</option>
           <option value="3"> HTML</option>
