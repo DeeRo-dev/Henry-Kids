@@ -4,6 +4,7 @@ const classRoutes = require("./Clases");
 const classUser = require("./user");
 const relClassUser=require("./relClassUser");
 const evaluationRoutes=require("./evaluation");
+const commentRouter=require("./comment")
 
 const adminRoutes = require("./admin");
 

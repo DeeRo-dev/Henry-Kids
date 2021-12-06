@@ -18,6 +18,6 @@ router.post("/", createUser);
 router.get("/:id", getUserId);
 router.delete("/:id", deleteUser);
 router.put("/:id", editUser);
-router.get("/typo/:id",getType)
+router.get("/typo/:id", getType)
 
 module.exports = router;
