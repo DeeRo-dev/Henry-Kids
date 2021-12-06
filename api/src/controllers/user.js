@@ -1,9 +1,8 @@
-const { User,Class } = require("../db.js");
-
+const { User, Class } = require("../db.js");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
-  const { id, firstName, lastName, userName, type, photo, email, password } =
+  const { firstName, lastName, userName, type, photo, id } =
     req.body;
 
   try {
@@ -14,14 +13,12 @@ async function createUser(req, res, next) {
       userName,
       type,
       photo,
-      email,
-      password,
     });
 
     const newUser = await User.findOne({ where: { userName } });
     res.status(200).send(newUser);
-  } catch {
-    (err) => err(next);
+  } catch (err) {
+    next(err);
   }
 }
 
@@ -33,6 +30,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
+      include: [Class],
     });
     res.send(userDetail);
   } catch (error) {
@@ -50,7 +48,6 @@ async function deleteUser(req, res, next) {
     });
 
     res.send("Was successfully removed");
-
   } catch (err) {
     next(err);
   }
@@ -63,25 +60,31 @@ async function editUser(req, res, next) {
     const result = await User.update(changes, {
       where: {
         id: req.params.id,
-      }
+      },
     });
 
     res.send("Was successfully edited");
-
   } catch (err) {
     next(err);
   }
 }
 
-async function getUser(req,res,next){
+async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
-      attributes: ["id", "firstName", "lastName", "userName","type","photo","email","password"],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "userName",
+        "type",
+        "photo",
+      ],
       where: {
         title: {
           [Op.iLike]: `%${req.query.title}%`,
         },
-        include: { model:  Class },
+        include: { model: Class },
       },
     }).then((User) => {
       if (User.length === 0) {
@@ -91,18 +94,40 @@ async function getUser(req,res,next){
     });
   } else {
     return User.findAll({
-      attributes: ["id", "firstName", "lastName", "userName","type","photo","email","password"],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "userName",
+        "type",
+        "photo",
+      ],
     }).then((User) => {
       res.send(User);
     });
   }
 }
+
+async function getTipo(req, res, next) {
+  try {
+    const { id } = req.params;
+    const userDetail = await User.findAll({
+      where: {
+        id: id,
+      },
+    });
+    const aux = userDetail[0].dataValues.type;
+    res.send(aux);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createUser,
   getUserId,
   getUser,
   editUser,
-  deleteUser
-
-   
+  deleteUser,
+  getTipo,
 };

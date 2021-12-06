@@ -27,7 +27,7 @@ async function getAlu(req, res, next) {
       id: req.params.idUs,
       type: "student",
     },
-    include: Class,
+    include: [{ model: Class, include: Category }],
   });
   res.status(200).send(favoritos);
 }
@@ -38,7 +38,7 @@ async function getProf(req, res, next) {
       id: req.params.idUs,
       type: "teacher",
     },
-    include: Class,
+    include: [{ model: Class, include: Category }],
   });
   res.status(200).send(cursos);
 }

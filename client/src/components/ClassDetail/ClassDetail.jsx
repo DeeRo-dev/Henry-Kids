@@ -18,8 +18,7 @@ export default function ClassDetail() {
 
   useEffect(() => {
     dispatch(getClassById(id));
-    if(!detail) navigate("/home/student");
-  }, [id, dispatch, detail, navigate]);
+  }, [id, dispatch]);
 
 
   

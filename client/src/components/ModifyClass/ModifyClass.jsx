@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./ModifyClass.module.css";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import { withStyles } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 import { ModifyClasses } from "../../actions";
-
+import { useParams } from 'react-router-dom'
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -35,16 +35,10 @@ const StyleAlert = withStyles({
 export default function ModifyClass() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
+
   const [modal, setModal] = useState(true);
-  const [input, setInput] = useState({
-    title: "",
-    description: "",
-    studio_material: "",
-    video_link: "",
-    game_link: "",
-    difficulty: "",
-    date: "",
-  });
+  const [input, setInput] = useState({});
 
   function handleChange(e) {
     setInput({
@@ -54,8 +48,10 @@ export default function ModifyClass() {
   }
 
   function handleOnSubmit(e) {
+    console.log(input)
     e.preventDefault();
-    dispatch(ModifyClasses(input));
+    dispatch(ModifyClasses(id, input));
+    
     setInput({
       title: "",
       description: "",
@@ -65,6 +61,8 @@ export default function ModifyClass() {
       difficulty: "",
       date: "",
     });
+
+     
 
     setOpen(true);
     setTimeout(() => {

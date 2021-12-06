@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
 import { useNavigate } from "react-router-dom";
-import { postUser } from "../../actions/index.js";
+import { getUser, postUser } from "../../actions/index.js";
 import {
   auth,
   createUserWithEmailAndPassword,
+  provider,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "../../firebase/firebaseConfig";
 import {
   Button,
@@ -15,7 +18,9 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  TextField,
 } from "@material-ui/core";
+// import { confirmPasswordReset } from "@firebase/auth";
 
 // function validate(pokemon){
 //   let errors = {};
@@ -27,21 +32,30 @@ import {
 export default function LandingPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const allUsers = useSelector((state) => state.user);
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
   const [user, setUser] = useState({
+    id: "provi",
     firstName: "",
     lastName: "",
     userName: "",
-    type: "",
+    type: "student",
+  });
+  const [dataFirebase, setDataFirebase] = useState({
     email: "",
     password: "",
+    passwordConfirm: "",
   });
 
   const toggleModal = (e) => {
     setModal(!modal);
   };
+
+  useEffect(() => {
+    dispatch(getUser("All"));
+  }, [dispatch]);
 
   const toggleModalIngresar = (e) => {
     setModalIngresar(!modalIngresar);
@@ -86,7 +100,27 @@ export default function LandingPage() {
     },
   })(Button);
 
-/*   const StyleButtonIngresarConGoogle = withStyles({
+  const StyleButtonRegistrarseConGoogle = withStyles({
+    root: {
+      marginTop: "15px",
+      width: "60%",
+      border: "0",
+      backgroundColor: "#ff8d00",
+      borderRadius: "5px",
+      height: "50px",
+      color: "white",
+      fontWeight: "400",
+      fontSize: "1em",
+      "&:hover": {
+        backgroundColor: "var(--verde)",
+      },
+    },
+    label: {
+      color: "white",
+    },
+  })(Button);
+
+  const StyleButtonIngresarConGoogle = withStyles({
     root: {
       marginTop: "15px",
       width: "70%",
@@ -104,7 +138,7 @@ export default function LandingPage() {
     label: {
       color: "white",
     },
-  })(Button); */
+  })(Button);
 
   const StyleButtonCrearCuenta = withStyles({
     root: {
@@ -162,7 +196,14 @@ export default function LandingPage() {
     },
   })(Button);
 
-  function onInputChange(e) {
+  function onInputChangeFirebase(e) {
+    e.preventDefault();
+    setDataFirebase({
+      ...dataFirebase,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function onInputChangeDB(e) {
     e.preventDefault();
     setUser({
       ...user,
@@ -178,88 +219,128 @@ export default function LandingPage() {
 
   const registrarUsuario = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then((userCredential) => {
+    if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+      alert("contraseñas diferentes");
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        dataFirebase.email,
+        dataFirebase.password
+      ).then((userCredential) => {
         localStorage.setItem("type", user.type);
-        auth.onAuthStateChanged((user) => {
-          localStorage.setItem("sessionUser", user.uid);
-        });
-        dispatch(postUser(user))
-        if (user.type === "student") {
+        auth.onAuthStateChanged((userCredential) => {
+          localStorage.setItem("sessionUser", userCredential.uid);
           //  console.log(userCredential.user);
-          navigate("/home/student");
-          window.location.reload()
-        } else {
-          navigate("/home/teacher");
-          window.location.reload()
-        }
-      })
-      /*    }) */
-      .catch((error) => {
-        console.log(error.code);
+          dispatch(postUser(user))
+            .then(() => {
+              navigate("/home/student");
+              window.location.reload();
+            })
+            .catch((e) => {
+              console.log(e + "este");
+            });
+        });
       });
+    }
   };
 
   const ingresarUsuario = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, user.email, user.password)
+    signInWithEmailAndPassword(auth, dataFirebase.email, dataFirebase.password)
       .then((userCredential) => {
-        localStorage.setItem("type", user.type);
-        auth.onAuthStateChanged((user) => {
-          localStorage.setItem("sessionUser", user.uid);
+        auth.onAuthStateChanged((userFirebase) => {
+          localStorage.setItem("sessionUser", userFirebase.uid);
+          const typeUser = allUsers.find((e)=>{
+            return e.id === userFirebase.uid
+          })
+          console.log(typeUser)
+          if (typeUser.type === "student") {
+            localStorage.setItem("type", "student");
+            navigate("/home/student");
+            window.location.reload();
+          } else if(typeUser.type === "teacher") {
+            localStorage.setItem("type", "teacher");
+            navigate("/home/teacher");
+            window.location.reload();
+          }
         });
-        if(user.type === "student"){
-        navigate("/home/student");
-        window.location.reload()
-      }else{
-        navigate("/home/teacher");
-        window.location.reload()
-      }
       })
       .catch((error) => {
-        alert(error.code);
+        alert("Error de ingreso");
       });
   };
 
-  /* const ingresarUsuarioConGoogle = (e) => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log(credential.accessToken);
-        // The signed-in user info.
-        console.log(result.user);
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  }; */
+  const ingresarUsuarioConGoogle = (e) => {
+    e.preventDefault();
+    if (user.type === "") {
+      alert("Please, select a type of user");
+    } else {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          localStorage.setItem("type", user.type);
+          auth.onAuthStateChanged((userFirebase) => {
+            dispatch(getUser("All")).then(() => {
+              const userGoogle = allUsers?.filter(
+                (e) => e.id === userFirebase.uid
+              );
+              if (!userGoogle.length) {
+                localStorage.setItem("sessionUser", userFirebase.uid);
+                if (user.type === "student") {
+                  setUser({
+                    ...user,
+                    userName: result.user.displayName,
+                  });
+                  dispatch(postUser(user)).then(() => {
+                    navigate("/home/student");
+                    window.location.reload();
+                  });
+                }
+                if (user.type === "teacher") {
+                  console.log(user);
+                  dispatch(postUser(user)).then(() => {
+                    navigate("/home/teacher");
+                    window.location.reload();
+                  });
+                }
+              } else {
+                if (user.type === "student") {
+                  navigate("/home/student");
+                  window.location.reload();
+                }
+                if (user.type === "teacher") {
+                  navigate("/home/teacher");
+                  window.location.reload();
+                }
+              }
+            });
+          });
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          // The signed-in user info.
+          // ...
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          alert(error.message);
+          // ...
+        });
+    }
+  };
 
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
-          <img
-            className={styles.logo}
-            src="https://i.imgur.com/AWEe2XR.png"
-            alt="img"
-          />
-   
-
+        <img
+          className={styles.logo}
+          src="https://i.imgur.com/AWEe2XR.png"
+          alt="img"
+        />
         <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
               onClick={(e) => toggleModalIngresar(e)}
               className={styles.btnIngresar}
-              /* variant="contained"
-              color="primary" */
+              variant="contained"
+              color="primary"
             >
               Ingresar
             </StyleButtonIngresar>
@@ -287,28 +368,27 @@ export default function LandingPage() {
                 >
                   x
                 </button>
-
                 <div>
-                  <form>
+                  <form action="" name="f1">
                     <input
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => onInputChangeFirebase(e)}
                       name="email"
                       type="text"
                       placeholder="Email:"
                     />
                     <input
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => onInputChangeFirebase(e)}
                       name="password"
                       type="password"
                       placeholder="Contraseña:"
                     />
-                    <FormControl component="fieldset">
+                    {/* <FormControl component="fieldset">
                       <RadioGroup
                         aria-label="gender"
                         defaultValue="female"
                         //  name="radio-buttons-group"
                         name="type"
-                        onChange={(e) => onInputChange(e)}
+                        onChange={(e) => onInputChangeDB(e)}
                       >
                         <FormControlLabel
                           value="student"
@@ -321,7 +401,7 @@ export default function LandingPage() {
                           label="Profesor"
                         />
                       </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
                     <StyleButtonIngresarConCorreo
                       onClick={(e) => ingresarUsuario(e)}
                       type="submit"
@@ -331,7 +411,7 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                    {/*  <StyleButtonIngresarConGoogle
+                    {/* <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
@@ -357,42 +437,79 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <form>
-                    <input
+                  <form autoComplete="off">
+                    <TextField
+                      fullWidth
+                      placeholder="Nombre:"
+                      margin="normal"
+                      color="primary"
+                      id="standard-error"
                       name="firstName"
                       type="text"
-                      placeholder="Nombre:"
-                      onChange={(e) => onInputChange(e)}
+                      helperText={true}
+                      onChange={(e) => onInputChangeDB(e)}
                     />
-                    <input
+                    <TextField
+                      fullWidth
+                      placeholder="Apellido:"
+                      margin="normal"
+                      color="primary"
+                      id="standard-error"
                       name="lastName"
                       type="text"
-                      placeholder="Apellido:"
-                      onChange={(e) => onInputChange(e)}
+                      helperText={true}
+                      onChange={(e) => onInputChangeDB(e)}
                     />
-                    <input
-                      name="userName"
-                      type="text"
+                    <TextField
+                      fullWidth
                       placeholder="Nombre de usuario:"
-                      onChange={(e) => onInputChange(e)}
-                    />
-                    <input
-                      name="email"
+                      margin="normal"
+                      name="userName"
+                      color="primary"
+                      /* error={true} */
+                      id="standard-error"
                       type="text"
-                      placeholder="Email:"
-                      onChange={(e) => onInputChange(e)}
+                      /* helperText={true} */
+                      onChange={(e) => onInputChangeDB(e)}
                     />
-                    <input
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      /* error={true} */
+                      type="text"
+                      id="standard-error"
+                      placeholder="Email:"
+                      name="email"
+                      helperText={false}
+                      label=""
+                      onChange={(e) => onInputChangeFirebase(e)}
+                    />
+
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      error={false}
+                      /* name="password" */
                       name="password"
                       type="password"
                       placeholder="Contraseña:"
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => onInputChangeFirebase(e)}
                     />
-                    <input
+
+                    <TextField
+                      fullWidth
+                      margin="normal"
+                      color="primary"
+                      // error={true}
+                      name="passwordConfirm"
                       type="password"
+                      helperText={true}
                       placeholder="Confirmar contraseña:"
+                      onChange={(e) => onInputChangeFirebase(e)}
                     />
-                    <div>
+                    {/* <div>
                       <FormControl component="fieldset">
                         <RadioGroup
                           aria-label="gender"
@@ -413,7 +530,7 @@ export default function LandingPage() {
                           />
                         </RadioGroup>
                       </FormControl>
-                    </div>
+                    </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
 
                     <StyleButtonCrearCuenta
@@ -425,6 +542,15 @@ export default function LandingPage() {
                     >
                       Crear cuenta
                     </StyleButtonCrearCuenta>
+                    {/*  <StyleButtonRegistrarseConGoogle
+                      onClick={(e) => ingresarUsuarioConGoogle(e)}
+                      type="button"
+                      className={styles.btnCrearCuenta}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Crear cuenta con google
+                    </StyleButtonRegistrarseConGoogle> */}
                     {/* </Link> */}
                   </form>
                 </div>
