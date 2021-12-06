@@ -3,7 +3,7 @@ const { Association } = require("sequelize/dist");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
-  const { firstName, lastName, userName, type, photo, email, password, id } =
+  const { firstName, lastName, userName, type, photo,  id } =
     req.body;
 
   try {
@@ -14,8 +14,8 @@ async function createUser(req, res, next) {
       userName,
       type,
       photo,
-      email,
-      password,
+
+    
     });
 
     const newUser = await User.findOne({ where: { userName } });
@@ -82,8 +82,6 @@ async function getUser(req, res, next) {
         "userName",
         "type",
         "photo",
-        "email",
-        "password",
       ],
       where: {
         title: {
@@ -106,8 +104,6 @@ async function getUser(req, res, next) {
         "userName",
         "type",
         "photo",
-        "email",
-        "password",
       ],
     }).then((User) => {
       res.send(User);
