@@ -36,17 +36,17 @@ export default function FavsContainer() {
         setPage(num);
     }
 
-    /* function removeFav */
+    
 
     return (
         <div className={styles.home}>
-            <Nav/>
+           
             <div className={styles.cards}>
                 {currentPage?.map(e => {
                     return (
                         <div key={e.id}>
                             {' '}
-                            <Link to={"/home/student/" + e.id}>
+                            {/* <Link to={"/home/student/" + e.id}> */}
                                 {' '}
                                 <Card
                                     id={e.id}
@@ -57,10 +57,9 @@ export default function FavsContainer() {
                                     difficulty={e.difficulty}
                                     game_link={e.game_link}
                                     valoration={e.valoration}
-
                                 />
                                 {' '}
-                            </Link>
+                           {/*  </Link> */}
                         </div>
                     );
                 })}

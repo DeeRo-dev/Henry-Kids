@@ -157,6 +157,14 @@ export default function rootReducer(state = initialState, action) {
         ),
       };
 
+      case "REMOVE_FAVORITE":
+        return {
+          ...state,
+          favorites: state.favorites?.filter(
+            (c) => c.id !== action.data
+          )
+        }
+
     default:
       return state;
   }
