@@ -12,7 +12,6 @@ export default function CardTeacher({
   difficulty,
   game_link,
   valoration,
-
 }) {
 
   let firstIndex = video_link && video_link.indexOf("=") + 1;

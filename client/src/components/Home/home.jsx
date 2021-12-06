@@ -82,7 +82,7 @@ export default function Home() {
                 video_link={e.video_link}
                 difficulty={e.difficulty}
                 game_link={e.game_link}
-                valoration={e.Evaluations[0].Evaluation}
+                /* valoration={e.Evaluations[0].Evaluation} */
               />{" "}
             </div>
           );

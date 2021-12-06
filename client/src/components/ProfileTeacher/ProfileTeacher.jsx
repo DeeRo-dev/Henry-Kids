@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -10,7 +11,8 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Home from "../Home/home.jsx"
+import Home from "../Home/home.jsx";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 // import FavsContainer from "../FavsContainer/FavsContainer.jsx";
 // import styles from "./ProfileStudent.module.css";
 import ModifyUser from "../ModifyUser/ModifyUser";
@@ -81,7 +83,7 @@ export default function ProfileStudent() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-   
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -94,17 +96,23 @@ export default function ProfileStudent() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
+          <Link to="/home/teacher">
+            <ArrowBackIosIcon />
+          </Link>
+          <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(0)} />
           <Tab
-            label="Ayuda"
-            icon={<HelpIcon />} 
-            {...a11yProps(0)}
+            label="Editar Perfil"
+            icon={<PersonPinIcon />}
+            {...a11yProps(1)}
           />
-            <Tab label="Editar Perfil" icon={<PersonPinIcon />} {...a11yProps(1)} />
+          <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0}></TabPanel>
+      <TabPanel value={value} index={1}>
+        {" "}
+        <ModifyUser />
       </TabPanel>
-      <TabPanel value={value} index={1}> <ModifyUser/></TabPanel>
       {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
   );
