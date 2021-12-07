@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from "@material-ui/core/Avatar"
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch} from "react-redux";
-import { getCategory, filterCategoryTeacher } from "../../actions";
+import { getCategory, filterCategoryTeacher, getUser } from "../../actions";
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -17,9 +17,14 @@ export default function NavTeacher() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const open = Boolean(anchorEl);
   const dispatch = useDispatch()
+  const currentUser = useSelector((state) => state.user[0]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  useEffect(() => {
+    dispatch(getUser(window.localStorage.sessionUser));
+  }, [dispatch]);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -165,7 +170,11 @@ export default function NavTeacher() {
             className={styles.img}
      onClick={handleClick}/>*/ }</div> 
       <Avatar 
-      src="https://englishboutique.com.ar/wp-content/uploads/2020/09/profesora.png"
+      src={
+        currentUser
+          ? currentUser.photo
+          : ""
+      }
       onClick={handleClick}
       className={classes.large}
       />

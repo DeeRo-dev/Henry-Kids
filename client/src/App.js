@@ -12,6 +12,7 @@ import ProfileTeacher from "./components/ProfileTeacher/ProfileTeacher";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
+import CropImage from "./components/CropImage/CropImage"
 
 
 const studentRoutes = [
@@ -27,7 +28,10 @@ const teacherRoutes = [
   { path: "home/create-clase", element: <FormularioClase /> },
   { path: "/home/teacher/profile", element: <ProfileTeacher />},
   { path: "home/modify/:id", element: <ModifyClass /> },
-  { path: "/*", element: <HomeTeacher /> }
+  { path: "/*", element: <HomeTeacher /> },
+  { path: "/cropImage", element: <CropImage /> },
+
+
 ];
 
 const { type } = localStorage;

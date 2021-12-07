@@ -12,6 +12,7 @@ import {
   getUser,
   filterCategory,
   filterDifficulty,
+  editUser,
 } from "../../actions";
 
 export default function Nav() {
@@ -68,6 +69,8 @@ export default function Nav() {
     e.preventDefault();
     dispatch(filterDifficulty(e.target.value));
   }
+
+
 
   return (
     <div className={styles.containerBackground}>
@@ -163,7 +166,7 @@ export default function Nav() {
           </select> */}
             <div>
               <Link to={"/home/student/register-teacher"}>
-                <button className={styles.blue}> ¿Te gustaria enseñar?</button>
+                <button  className={styles.blue}> ¿Te gustaria enseñar?</button>
               </Link>
             </div>
             {/* <Link to="/create-clase">
