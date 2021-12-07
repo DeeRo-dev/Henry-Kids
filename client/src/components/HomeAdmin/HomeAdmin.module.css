@@ -13,10 +13,9 @@
   padding-left: 10px;
   box-shadow: 0 1px 10px -0px var(--amarillo);
   background: #fff;
- 
+  
 }
 .tituloNav{
- 
   font-family: 'Pacifico', cursive;
 }
 
@@ -28,4 +27,24 @@
 }
 .selectores{
  margin: auto;
+}
+
+.contentNotificaciones{
+  margin-left: 650px;
+   border:1px solid #ffd200;
+  border-radius: 5px;
+  padding:5px;
+}
+.contentNotificaciones:hover{
+  transition: 2s;
+  background:  #ffd00088;
+  
+}
+.botonSoli{
+  font-size: 20px;
+  background: transparent;
+  border: none;
+}
+.botonSoli:hover{
+  cursor: pointer;
 }
