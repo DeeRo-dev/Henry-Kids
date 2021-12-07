@@ -42,9 +42,6 @@ module.exports = (sequelize) => {
     },
     photo: {
       type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
-      },
     },
 
     solictud:{
