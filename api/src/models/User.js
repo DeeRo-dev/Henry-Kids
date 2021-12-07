@@ -4,13 +4,13 @@ module.exports = (sequelize) => {
   sequelize.define("user", {
 
     id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
       primaryKey: true,
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
       },
@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
 
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
       },
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
     userName: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
       },
