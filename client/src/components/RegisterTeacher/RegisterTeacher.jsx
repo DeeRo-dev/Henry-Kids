@@ -28,6 +28,61 @@ export default function RegisterTeacher() {
   const toggleModal = (e) => {
     setModal(!modal);
   };
+// //{
+//   "dni":37742279,
+//   "linkedin":"https://www.linkedin.com/in/felipesanchezfullstack/",
+//   "cuentaBancaria":"31651615",
+//   "dniImag":"1611984",
+//   "pais":"Argentina",
+//   "region":"sanchez",
+//   "fecha":"06/09/93"
+// }
+
+const [data, setData] = useState({
+  dni:"",
+  linkedin:"",
+  cuentaBancaria:"",
+  dniImag:"",
+  pais:"",
+  region:"",
+  fecha:""
+});
+function onInputChange(e) {
+  if (e.target.name === 'dniImag') {
+    
+  }
+  e.preventDefault();
+   console.log(e.target.value)
+  setData({
+    ...data,
+    [e.target.name]: e.target.value,
+  });
+}
+
+
+const convertiraBase64=(archivos)=>{
+  Array.from(archivos).forEach(archivo=>{
+    var  reader= new FileReader();
+    reader.readAsDataURL(archivo);
+    reader.onload=function(){
+     var aux=[];
+      var base64= reader.result;
+      aux=base64.split(',');
+      console.log(aux[1])
+     
+    
+    }
+  })
+
+}
+
+
+
+  //  console.log(e.target.value)
+  // setData({
+  //   ...data,
+  //   [e.target.name]: e.target.value,
+  // });
 
   return (
     <div className={styles.modal}>
@@ -39,17 +94,19 @@ export default function RegisterTeacher() {
 
         <div className={styles.container}>
           <form className={styles.inputs}>
-            <input name="firstName" type="text" placeholder="País:" />
-            <input name="firstName" type="text" placeholder="Región:" />
-
+            <input name="pais" type="text" placeholder="País:" onChange={(e)=> onInputChange(e)}/>
+            <input name=" region" type="text" placeholder="Región:" onChange={(e)=> onInputChange(e)}/>
+            <input name="dni" type="text" placeholder="Número de DNI:" onChange={(e)=> onInputChange(e)}/>
+            <input name="cuentaBancaria" type="text" placeholder="CBU-Alias:"onChange={(e)=> onInputChange(e)}/>
+            <input name="linkedin" type="url" placeholder="URL-Linkedin:" onChange={(e)=> onInputChange(e)}/>
             <p id={styles.p}>Fecha de nacimiento:</p>
             <input
-              name="firstName"
+              name="fecha"
               type="date"
               placeholder="Fecha de naciemiento:"
-            />
+            onChange={(e)=> onInputChange(e)}/>
             <p id={styles.pDNI}>Foto DNI:</p>
-            <input name="firstName" type="file" placeholder="Foto DNI:" />
+            <input name="dniImag" type="file" placeholder="Foto DNI:" onChange={(e)=>convertiraBase64(e.target.files)}/>
             {/* <Link className={styles.btnCrear} to="/home"> */}
             <div className={styles.containerBtn}>
               <StyleButtonCrearCuenta

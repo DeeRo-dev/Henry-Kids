@@ -1,4 +1,5 @@
 import { async } from "@firebase/util";
+import { responsiveFontSizes } from "@material-ui/core";
 
 const axios = require("axios");
 
@@ -185,4 +186,14 @@ export function filterDifficulty(input) {
         data: response.data
       })
     }
+  }
+
+  export function enviarSoliProfe(id){
+      return async function(dispatch){
+        let response = await axios.post(`/user/solicitud/${id}`);
+        dispatch({
+          type: "SET_SOLICITUD",
+          date : response.data
+        })
+      }
   }

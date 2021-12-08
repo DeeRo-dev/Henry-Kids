@@ -175,13 +175,17 @@ export default function CheckboxLabels() {
               <div >
         
              {
+               
             allUser.map((e) => { 
-               return (
+              if (e.type === 'student') {
+                  return (
                   <div key= {e.id}> 
-                   <p>{e.firstName}{e.lastName}{e.userName}{e.email}</p>
-                      
+                   <h1>{e.firstName}</h1>
+                   <h2> {e.lastName}</h2>
+                   <h3> {e.userName}</h3>
                    </div>)
-
+              }
+             
              } 
              )} 
            
@@ -190,6 +194,30 @@ export default function CheckboxLabels() {
            
         }
   
+        {
+          state.Profesores ? (
+
+              <div >
+        
+             {
+               
+            allUser.map((e) => { 
+              if (e.type === 'teacher') {
+                  return (
+                  <div key= {e.id}> 
+                   <h1>{e.firstName}</h1>
+                   <h2> {e.lastName}</h2>
+                   <h3> {e.userName}</h3>
+                   </div>)
+              }
+             
+             } 
+             )} 
+           
+            </div>
+          ) : null
+           
+        }
         </div>
         
   </div>

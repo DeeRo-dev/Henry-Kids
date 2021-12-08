@@ -165,20 +165,24 @@ export default function rootReducer(state = initialState, action) {
         ),
       };
 
-      case "REMOVE_FAVORITE":
-        return {
-          ...state,
-          favorites: state.favorites?.filter(
-            (c) => c.id !== action.data
-          )
-        };
-      case "GET_SOLICITUDES":
-        return{
-          ...state,
-          solicitudes:action.data
-        }
+    case "REMOVE_FAVORITE":
+       return {
+        ...state,
+         favorites: state.favorites?.filter(
+          (c) => c.id !== action.data
+         )
+       };
+   case "GET_SOLICITUDES":
+      return{
+       ...state,
+       solicitudes:action.data
+       };
+       case "SET_SOLICITUD":
+      return{
+       ...state
+       }
 
-    default:
+   default:
       return state;
   }
 }
