@@ -9,6 +9,8 @@ const {
   solTeacher,
   solAceptadaTeacher,
   getSolicitudTecher,
+  getTeacherType,
+  getStudentType
 } = require("../controllers/user");
 
 const router = Router();
@@ -22,4 +24,7 @@ router.get("/typo/:id", getType);
 router.put("/solicitud/:id", solTeacher);
 router.put("/solicitud/aceptada/:id", solAceptadaTeacher);
 router.get("/solicitud/lista", getSolicitudTecher);
+router.get("/type/teacher", getTeacherType); // Ruta para traer usuarios tipo Teacher
+router.get("/type/student", getStudentType); // Ruta para traer usuarios tipo Student
+
 module.exports = router;
