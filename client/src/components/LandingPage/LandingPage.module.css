@@ -2,19 +2,23 @@
   --amarillo: #ffd200;
   --naranja: #ff8d00;
   --verde: #a1d1af;
+  overflow-y: hidden;
+  height:100%;
+  width:101%;
+  margin: 0px;
+  padding: 0px;
 }
-
 .containerBackground {
   display: flex;
-  
 }
 .background {
-  background: url("./img/landing.png");
-  background-repeat: no-repeat;
-  background-position: center;
+  background-image: url("./img/landing.png");
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-attachment: fixed; */
+  width: 100%;
   height: 100vh;
-  width: 100vw;
 }
 
 .logo {
@@ -25,10 +29,10 @@
 }
 
 
-.btnCrear {
-  text-decoration:none
-}
 
+.btnCrear {
+  text-decoration: none;
+}
 
 body.active_modal {
   overflow-y: hidden;
@@ -41,7 +45,8 @@ body.active_modal {
   font-size: 18px;
 }
 
-.modal, .overlay {
+.modal,
+.overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -52,7 +57,7 @@ body.active_modal {
 }
 
 .overlay {
-  background: rgba(49,49,49,0.8);
+  background: rgba(49, 49, 49, 0.8);
 }
 .modal_content {
   background-color: white;
@@ -62,15 +67,14 @@ body.active_modal {
   left: 50%;
   transform: translate(-50%, -40%);
   line-height: 1.4;
-  padding: 30px 28px;
+  padding: 50px;
   border-radius: 3px;
   float: left;
   width: 300px;
-  height: 490px;
+  height: 400px;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;
-
 }
 
 .modal_content:hover {
@@ -90,11 +94,10 @@ body.active_modal {
   border-radius: 3px;
   float: left;
   width: 200px;
-  height: 260px;
+  height: 190px;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;
-
 }
 
 .modal_content_Ingresar:hover {
@@ -102,16 +105,15 @@ body.active_modal {
   transform: translate(-50%, -41%);
 }
 
-
-.containerSelect{
+.containerSelect {
   display: flex;
   flex-direction: row;
   align-content: center;
   width: 1000px;
 }
-input:focus{
-  outline:none;
-} 
+input:focus {
+  outline: none;
+}
 .close_modal {
   position: absolute;
   top: 10px;
@@ -122,9 +124,8 @@ input:focus{
   border: none;
   border-radius: 5px;
   font-size: 25px;
-  cursor:pointer;
+  cursor: pointer;
 }
-
 
 .close_modal:hover {
   position: absolute;
@@ -136,7 +137,7 @@ input:focus{
   border: none;
   border-radius: 5px;
   font-size: 25px;
-  transform: scale(1.2, 1.2)
+  transform: scale(1.2, 1.2);
 }
 
 .close_modal:active {
@@ -149,30 +150,25 @@ input:focus{
   border: none;
   border-radius: 5px;
   font-size: 25px;
-  transform: scale(1, 1)
+  transform: scale(1, 1);
 }
 
-.containerBtns{
-display: flex;
-margin-top: 370px;
-margin-left: 160px;
-flex-direction: column;
-align-content: center;
-align-items: center;
-justify-content: center;
-width: 300px;
-height: 170px;
-
+.containerBtns {
+  display: flex;
+  margin-top: 370px;
+  margin-left: 160px;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 170px;
 }
-
-
-
 
 #container {
   width: 840px;
   margin: 25px auto;
 }
-
 
 /* .signup {
   float: left;
@@ -184,28 +180,28 @@ height: 170px;
   
 } */
 
-[type=text] {
+[type="text"] {
   display: block;
   margin: 0 auto;
   width: 80%;
   border: 0;
-  border-bottom: 1px solid rgba(0,0,0,.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 45px;
-  line-height: 45px;  
+  line-height: 45px;
   margin-bottom: 10px;
   font-size: 1em;
-  color: rgba(0,0,0,.4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
-[type=password]{
+[type="password"] {
   display: block;
   margin: 0 auto;
   width: 80%;
   border: 0;
-  border-bottom: 1px solid rgba(0,0,0,.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 45px;
-  line-height: 45px;  
+  line-height: 45px;
   margin-bottom: 10px;
   font-size: 1em;
-  color: rgba(0,0,0,.4);
+  color: rgba(0, 0, 0, 0.4);
 }

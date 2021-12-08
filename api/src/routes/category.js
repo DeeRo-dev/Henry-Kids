@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getCat , getEjemplo, addCate , getCatId , putCat,getName} = require('../controllers/category');
+const { getCat , getEjemplo, addCate , getCatId , putCat, getName, deleteCategory} = require('../controllers/category');
 
 
 
@@ -16,11 +16,9 @@ router.post("/",addCate)
 
 router.get("/:id", getCatId)
 
-router.put("/", putCat)
+router.put("/:id", putCat)
 
-router.delete("/", (req, res, next) => {
-  res.send("soy un delet");
-});
+router.delete("/:id", deleteCategory)
 
 module.exports = router;
 

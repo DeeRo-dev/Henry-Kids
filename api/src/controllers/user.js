@@ -2,14 +2,11 @@ const { User, Class } = require("../db.js");
 const { sendMail } = require('../mails/mails')
 const fs = require('fs')
 // fs es una libreria, sistema de archivo, para interactuar con los archivos y directorios. (en este caso usamos ---> readFileSync())
+const { Association } = require("sequelize/dist");
 
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
-
-  const { firstName, lastName, userName, type, photo, email, password, id } =
-    req.body;
-    
-
+  const { firstName, lastName, userName, type, id, email } = req.body;
   try {
    
     const user = await User.create({
@@ -18,11 +15,8 @@ async function createUser(req, res, next) {
       lastName,
       userName,
       type,
-      photo,
       email,
-      password
     });
-    
     const newUser = await User.findOne({ where: { userName } });
     // aca le ponemos mayuscula a la primer letra del nombre.
     let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
@@ -49,6 +43,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
+      include: [Class],
     });
     res.send(userDetail);
   } catch (error) {
@@ -91,16 +86,7 @@ async function editUser(req, res, next) {
 async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
-      attributes: [
-        "id",
-        "firstName",
-        "lastName",
-        "userName",
-        "type",
-        "photo",
-        "email",
-        "password",
-      ],
+      attributes: ["id", "firstName", "lastName", "userName", "type"],
       where: {
         title: {
           [Op.iLike]: `%${req.query.title}%`,
@@ -115,24 +101,28 @@ async function getUser(req, res, next) {
     });
   } else {
     return User.findAll({
-      attributes: [
-        "id",
-        "firstName",
-        "lastName",
-        "userName",
-        "type",
-        "photo",
-        "email",
-        "password",
-      ],
+      attributes: ["id", "firstName", "lastName", "userName", "type"],
     }).then((User) => {
       res.send(User);
     });
   }
 }
 
+<<<<<<< HEAD
 // funcion para traernos un user por tipo de id.
 async function getTipo(req,res,next){
+=======
+async function getAllTeacher(req, res, next) {
+  try {
+    const userDetail = await User.findAll();
+    res.send(userDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getType(req, res, next) {
+>>>>>>> 83284f666d9eeaf9af4c46696ed93d35d69cf7f4
   try {
     const { id } = req.params;
     const userDetail = await User.findAll({
@@ -140,9 +130,103 @@ async function getTipo(req,res,next){
         id: id,
       },
     });
-    const aux=userDetail[0].dataValues.type
+    const aux = userDetail[0].dataValues.type;
     res.send(aux);
   } catch (error) {
+    next(error);
+  }
+}
+
+async function solTeacher(req, res, next) {
+  const { dni, linkedin, cuentaBancaria, dniImag, pais, region, fecha } =
+    req.body;
+  const changes = {
+    solictud: true,
+    dni: dni,
+    linkedin: linkedin,
+    cuentaBancaria: cuentaBancaria,
+    dniImag: dniImag,
+    pais: pais,
+    region: region,
+    fecha: fecha,
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    console.log(result);
+    res.send("el Usario esta en la lista de espera de Profesores  ");
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function solAceptadaTeacher(req, res, next) {
+  const changes = {
+    type: "teacher",
+    solictud: null,
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(result);
+    res.send("el Usario esta en la lista Profesores");
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function solRechazadaTeacher(req, res, next) {
+  const changes = {
+    type: "student",
+    solictud: null,
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(result);
+    res.send("el Usario esta en la lista student");
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getSolicitudTecher(req, res, next) {
+  try {
+    const userDetail = await User.findAll({
+      where: {
+        solictud: true,
+      },
+    });
+    res.send(userDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getUserType(req, res, next) {
+  try {
+    const type = req.params.type;
+    let userType;
+    if (type) {
+      userType = await User.findAll({
+        where: {
+          type: type,
+        },
+      });
+    }
+    res.status(200).send(userType);
+  } catch (error) {
+    res.status(404);
     next(error);
   }
 }
@@ -153,5 +237,11 @@ module.exports = {
   getUser,
   editUser,
   deleteUser,
-  getTipo
+  getType,
+  solTeacher,
+  solAceptadaTeacher,
+  getSolicitudTecher,
+  getUserType,
+  solRechazadaTeacher,
+  getAllTeacher
 };

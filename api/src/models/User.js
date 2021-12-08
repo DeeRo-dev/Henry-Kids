@@ -1,74 +1,89 @@
 const { Sequelize, DataTypes } = require("sequelize");
-// const useBcrypt = require('sequelize-bcrypt');
-// require('sequelize-isunique-validator')(Sequelize);
 
 module.exports = (sequelize) => {
-  sequelize.define("user", {
-    
-    firstName: {
-      type: DataTypes.STRING,
-      // allowNull: false,
-      validate: {
-        notEmpty: true,
+  sequelize.define(
+    "user",
+    {
+      id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        primaryKey: true,
       },
-    },
-
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-
-    userName: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-
-    id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      primaryKey: true,
-    },
-
-    type: {
-      type: DataTypes.ENUM("teacher", "student"),
-      allowNull: false,
-    },
-
-    photo: {
-      type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
-      },
-    },
-
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isEmail: {
-          msg: "No es una dirección de correo electrónico.",
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          notEmpty: true,
         },
-        // isUnique: sequelize.validateIsUnique('email',
-        // 'Esta dirección de correo electrónico ya existe.')
+      },
+
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          notEmpty: true,
+        },
+      },
+
+      userName: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      dni: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+      },
+      cuentaBancaria: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+      },
+      linkedin: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+      },
+      dniImag: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      pais: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      region: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      fecha: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      type: {
+        type: DataTypes.ENUM("teacher", "student", "admin", "confirmacion"),
+        defaultValue: "student",
+        // allowNull: false,
+      },
+
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
+
+      solictud: {
+        type: DataTypes.BOOLEAN(),
+        defaultValue: false,
       },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: /^[a-zA-Z0-9]+$/i,
-      },
-    },
-  },{
-    timestamps: false,
-    createdAt: false,
-    updatedAt: false,
-  });
+    {
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false,
+    }
+  );
 };

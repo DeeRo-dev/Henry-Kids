@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -11,12 +11,32 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import FavsContainer from "../FavsContainer/FavsContainer.jsx";
+import Home from "../Home/home.jsx";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+// import FavsContainer from "../FavsContainer/FavsContainer.jsx";
 // import styles from "./ProfileStudent.module.css";
 import ModifyUser from "../ModifyUser/ModifyUser";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function TabPanel2(props) {
   const { children, value, index, ...other } = props;
   return (
     <div
@@ -56,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function ProfileStudent() {
   const classes = useStyles();
   // const dispatch = useDispatch();
@@ -64,7 +83,7 @@ export default function ProfileStudent() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-   
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -77,22 +96,23 @@ export default function ProfileStudent() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-           <Link to="/home/student">
-      <ArrowBackIosIcon/>
-      </Link>
-          <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
+          <Link to="/home/teacher">
+            <ArrowBackIosIcon />
+          </Link>
+          {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(0)} /> */}
           <Tab
             label="Editar Perfil"
             icon={<PersonPinIcon />}
-            {...a11yProps(2)}
+            {...a11yProps(1)}
           />
-          {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} /> */}
+          <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={2}>
-       <ModifyUser/>
+      {/* <TabPanel value={value} index={0}></TabPanel> */}
+      <TabPanel value={value} index={1}>
+        {" "}
+        <ModifyUser />
       </TabPanel>
-      <TabPanel value={value} index={1}> <FavsContainer/> </TabPanel>
       {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
   );

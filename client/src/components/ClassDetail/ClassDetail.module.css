@@ -1,10 +1,28 @@
+
 .contentDetail {
   display: flex;
   justify-content: center;
+
+  background: url('https://i.imgur.com/7Dl1ISR.png');
+  background-position: center;
+  background-size: cover;
+  overflow-x:hidden;
+  overflow-y:hidden;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+}
+.back{
+  margin-top: 20px;
+  margin-left: 30px;
+  font-family: Roboto;
+  font-weight: bolder;
 }
 
 .contentTitle {
-  margin-top: 50px;
+   margin-left: 340px; 
+  
   font-family: "Merienda One", cursive;
   font-size: 20px;
   color: var(--naranja);
@@ -12,17 +30,47 @@
 }
 
 .contentVideo {
-  display: flex;
+  display: grid;
+  grid-template-columns: 55% 45%;
   justify-content: center;
   align-content: center;
   align-items: center;
+  font-family: Roboto;
+  margin-top: 15px;
+  height: 500px;
+}
+.boxLeft{
+  margin-top: 15px;
+}
+
+.boxRight{ 
+  margin-top: 15px;
+  height: 400px
 }
 
 .contentDescription {
-  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
   margin-bottom: 15px;
   font-family: Roboto;
   font-size: 20px;
+
+}
+
+.contentDifficult{
+  
+  font-size: 20px;
+}
+
+.contentGame{
+  
+  font-size: 20px;
+}
+
+.imgValoration{
+max-width: 15%;
+max-height: 15%;
 }
 
 

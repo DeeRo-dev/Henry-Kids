@@ -3,7 +3,10 @@ const categoryRutes = require("./category");
 const classRoutes = require("./Clases");
 const classUser = require("./user");
 const relClassUser=require("./relClassUser");
-const evaluationRoutes=require("./evaluation")
+const evaluationRoutes=require("./evaluation");
+const commentRouter=require("./comment")
+
+const adminRoutes = require("./admin");
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -17,7 +20,8 @@ router.use("/class", classRoutes);
 router.use("/user", classUser);
 router.use("/",relClassUser);
 router.use("/evaluation", evaluationRoutes)
-// Esto hay que moverlo a Clases.js
+
+router.use("/admin", adminRoutes); // AGREGAR función para controlar tipo de USER !
 
 module.exports = router;
 
