@@ -108,10 +108,6 @@ async function getUser(req, res, next) {
   }
 }
 
-<<<<<<< HEAD
-// funcion para traernos un user por tipo de id.
-async function getTipo(req,res,next){
-=======
 async function getAllTeacher(req, res, next) {
   try {
     const userDetail = await User.findAll();
@@ -122,7 +118,6 @@ async function getAllTeacher(req, res, next) {
 }
 
 async function getType(req, res, next) {
->>>>>>> 83284f666d9eeaf9af4c46696ed93d35d69cf7f4
   try {
     const { id } = req.params;
     const userDetail = await User.findAll({

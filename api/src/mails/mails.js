@@ -1,44 +1,47 @@
-const sgMail = require ('@sendgrid/mail');
+const sgMail = require("@sendgrid/mail");
 //esta es la api-key de sendgrid.
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// SENDGRID_API_KEY =
+//   SG.Zn1v4omETJCvbXstujGM8g.L2wIBSy2Yq0V - X7CghlhYT3xQThCjFolBq43DBagitE;
+// sgMail.setApiKey(SENDGRID_API_KEY);
 
+async function sendMail(to, subject, content, type) {
+  let mailType = "text/html";
 
-async function  sendMail(to, subject, content, type){
+  if (type === "text") {
+    mailType = "text/plain";
+  }
 
-    let mailType = "text/html"
+  const msg = {
+    personalizations: [
+      {
+        to: [
+          {
+            email: to,
+          },
+        ],
+      },
+    ],
+    from: {
+      email: "henrykids.pg08@gmail.com",
+    },
+    subject: subject,
+    content: [
+      {
+        type: mailType,
+        value: content,
+      },
+    ],
+  };
 
-    if (type === 'text') {
-        mailType = "text/plain"
-    }
+  try {
+    await sgMail.send(msg);
+  } catch (err) {
+    return { error: err.message };
+  }
 
-    const msg = {
-        "personalizations": [{
-            "to": [{
-                "email": to
-            }]
-        }],
-        "from": {
-            "email": "henrykids.pg08@gmail.com"
-        },
-        "subject": subject,
-        "content": [{
-            "type": mailType,
-            "value": content
-        }]
-    }
-
-    try{
-        await sgMail.send(msg);
-    }
-    catch(err){
-        return { error: err.message }
-    }
-
-    return { success: true }
-};
-
-module.exports = {
-    sendMail
+  return { success: true };
 }
 
-
+module.exports = {
+  sendMail,
+};
