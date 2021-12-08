@@ -22,15 +22,18 @@
 
 .contentFiltros{
   height: 100px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 80px auto;
  
 }
 .selectores{
  margin: auto;
+ grid-column: 2/3;
 }
 
 .contentNotificaciones{
-  margin-left: 650px;
+  /* margin-left: 650px; */
    border:1px solid #ffd200;
   border-radius: 5px;
   padding:5px;

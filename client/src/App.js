@@ -13,6 +13,7 @@ import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
+import Solicittudes from "./components/Solicitudes/Solicitudes";
 
 
 const studentRoutes = [
@@ -23,6 +24,7 @@ const studentRoutes = [
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
   { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/user/solicitud/lista", element: <Solicittudes /> },
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },

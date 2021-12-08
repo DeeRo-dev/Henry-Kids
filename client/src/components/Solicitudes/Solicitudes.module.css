@@ -1,0 +1,15 @@
+.naav{
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: chocolate;
+  font-size: 30px;
+  align-items: center;
+  padding-left: 10px;
+  box-shadow: 0 1px 10px -0px var(--amarillo);
+  background: #fff;
+  
+}
+.tituloNav{
+  font-family: 'Pacifico', cursive;
+}

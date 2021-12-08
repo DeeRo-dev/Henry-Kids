@@ -8,6 +8,7 @@ const initialState = {
   favorites: [],
   category: [],
   categoryAll: [],
+  solicitudes:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -170,6 +171,11 @@ export default function rootReducer(state = initialState, action) {
           favorites: state.favorites?.filter(
             (c) => c.id !== action.data
           )
+        };
+      case "GET_SOLICITUDES":
+        return{
+          ...state,
+          solicitudes:action.data
         }
 
     default:

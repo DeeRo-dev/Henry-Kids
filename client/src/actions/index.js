@@ -176,3 +176,13 @@ export function filterDifficulty(input) {
         dispatch({type: "REMOVE_FAVORITE", data:id})
       }
   }
+
+  export function getSolicitudes(){
+    return async function(dispatch){
+      let response = await axios.get('/user/solicitud/lista');
+      dispatch({
+        type: "GET_SOLICITUDES",
+        data: response.data
+      })
+    }
+  }

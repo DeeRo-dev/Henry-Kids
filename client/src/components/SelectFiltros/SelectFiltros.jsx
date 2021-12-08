@@ -60,9 +60,9 @@ export default function CheckboxLabels() {
 
  
   const [state, setState] = React.useState({
-    Clases: true,
-    Profesores:true,
-    Alumnos: true,
+    Clases: false,
+    Profesores:false,
+    Alumnos: false,
     
   });
 
@@ -81,9 +81,9 @@ export default function CheckboxLabels() {
 
 
   return (
-  <div>
+  <div className={style.content}>
 
- <div>
+ <div className={style.contentFiltros}>
     <FormGroup row>
     
       <FormControlLabel
@@ -134,13 +134,13 @@ export default function CheckboxLabels() {
         <div>
            {
           state.Clases ? (
-
+              <div>
               <div className={style.contentCards} id="cards" >
         
              {
             currentPage.map((e) => { 
                return (
-                  <div key= {e.id}> 
+                  <div key= {e.id} className={style.card}> 
                     <CardClasseAdmin
                       id={e.id}
                       title={e.title}
@@ -154,11 +154,15 @@ export default function CheckboxLabels() {
                    </div>)
              } 
              )} 
-           <Pagination
+           
+            </div>
+                    <Pagination
                     cardsInPage={cardsInPage}
                     totalElements={allClasses.length}
                     paginate={Paginate}
-                />
+                    className={style.pagination}
+                   />
+
             </div>
           ) : null
            
