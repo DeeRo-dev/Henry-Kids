@@ -182,7 +182,7 @@ async function getTeacherType(req, res, next) {
     if (type) {
       teacher = await User.findAll({
         where: {
-          type: type.teacher,
+          type: "teacher",
         },
       });
     }
@@ -200,7 +200,7 @@ async function getStudentType(req, res, next) {
     if (type) {
       student = await User.findAll({
         where: {
-          type: type.student,
+          type: "student",
         },
       });
     }
