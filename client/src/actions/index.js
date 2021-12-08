@@ -1,34 +1,60 @@
-import { async } from '@firebase/util';
+import { async } from "@firebase/util";
 
-const axios = require('axios')
+const axios = require("axios");
 
-
-export function getAllclasses() {
+export function getAllClasses() {
   return async function (dispatch) {
-    let response = await axios.get("/class")
+    let response = await axios.get("/class");
     dispatch({ type: "GET_ALL_CLASSES", data: response.data });
-  }
-
+  };
 }
-export function searchClass(name) {
-  return async function (dispatch) {
-    return dispatch({
-      type: "SEARCH_CLASS",
-      payload: name,
-    });
-  }
+export function searchClass(payload) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.get(`/class?title=${payload}`);
+      return dispatch({
+        type: "SEARCH_CLASS",
+        payload: json.data,
+        dataLength: payload.length,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function filterCategory(id) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.get(`/class?filter=category&category_id=${id}`);
+      return dispatch({
+        type: "FILTER_BY_CATEGORY",
+        payload: id === "all" ? "all" : json.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function filterCategoryTeacher(id) {
+  return async (dispatch) => {
+      return dispatch({
+        type: "FILTER_BY_CATEGORY_TEACHER",
+        payload: id,
+      });
+    
+  };
 }
 
 export function getAllClassTeacher(idUser) {
-  return async function (dispatch) {console.log(idUser)
-    let response = await axios.get(`/cursos/${idUser}`)
-   /*  let data = response.data[0] ? response.data[0].classes
-                                : response.data*/                              
+  return async function (dispatch) {
+    let response = await axios.get(`/cursos/${idUser}`);
     dispatch({
       type: "GET_ALL_CLASSES_TEACHER",
-      data: response.data
+      data: response.data,
     });
-  }
+  };
 }
 
 export function editUser(id, user) {
@@ -36,22 +62,23 @@ export function editUser(id, user) {
     let userUpdate = await axios.put(`/user/${id}`, user);
     dispatch({
       type: "EDIT_USER",
-      currentUser: userUpdate
+      currentUser: userUpdate,
     });
   };
 }
 
-
 export function getUser(input) {
   return async (dispatch) => {
-    const json = await axios.get(`/user/${input}`);
+    const json =
+      input === "All"
+        ? await axios.get("/user")
+        : await axios.get(`/user/${input}`);
     dispatch({
       type: "GET_USER",
       payload: json.data,
     });
   };
 }
-
 
 export function postUser(input) {
   return async (dispatch) => {
@@ -85,7 +112,6 @@ export function getFavorites(idUs) {
 }
 
 export function ModifyClasses(id, input) {
-
   return async function (dispatch) {
     console.log(id)
     let response = await axios.put(`/class/${id}`, input);
@@ -105,9 +131,9 @@ export function getCategory() {
     var info = await axios.get("/category/name")
     return dispatch({
       type: "GET_CATEGORY",
-      payload: info.data
-    })
-  }
+      payload: info.data,
+    });
+  };
 }
 
 export function getCategoryAll() {
@@ -121,19 +147,32 @@ export function getCategoryAll() {
   }
 }
 
-export function difficultyFilter(input) {
-  return async function (dispatch) {
-    let response = await axios.get('/class?filter=difficulty&difficulty=' + input);
-    dispatch({ type: 'DIFFICULTY_FILTER', data: response.data })
-  }
-}
 
 export function setFavorite(idUser, id) {
   return async function (dispatch) {
-    console.log(idUser, id)
     let response = await axios.post(`/fav/${idUser}/${id}`);
-    dispatch({ type: 'SET_FAVORITE', response })
-  }
+    dispatch({ type: "SET_FAVORITE", response });
+  };
 }
 
+export function filterDifficulty(input) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `/class?filter=difficulty&difficulty=${input}`
+      );
+      return dispatch({
+        type: "FILTER_BY_DIFFICULTY",
+        payload: input === "all" ? "all" : response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }}
 
+  export function removeFavorite(idUser, id){
+      return async function (dispatch){
+        const response = await axios.delete(`/fav/${idUser}/${id}`);
+        dispatch({type: "REMOVE_FAVORITE", data:id})
+      }
+  }

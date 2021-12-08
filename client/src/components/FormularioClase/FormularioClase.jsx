@@ -185,8 +185,10 @@ export default function FormularioClase() {
                   </select>
                 </div>
                 <div className={styles.containerOptions}>
-
                   <select name="category" className={styles.select} onChange={handleChange}>
+                  <option value="" selected disabled hidden>
+                      Tecnología
+                    </option>
                     {
                       category.map((e) => (
                         <option value={e.name} key={e.id}>{e.name}</option>

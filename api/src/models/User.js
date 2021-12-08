@@ -1,14 +1,17 @@
 const { Sequelize, DataTypes } = require("sequelize");
-// const useBcrypt = require('sequelize-bcrypt');
-// require('sequelize-isunique-validator')(Sequelize);
 
 module.exports = (sequelize) => {
   sequelize.define(
     "user",
     {
+      id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        primaryKey: true,
+      },
       firstName: {
         type: DataTypes.STRING,
-        // allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
@@ -16,7 +19,7 @@ module.exports = (sequelize) => {
 
       lastName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
@@ -25,29 +28,62 @@ module.exports = (sequelize) => {
       userName: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
       },
-
-      id: {
+      dni: {
         type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
+        unique: true,
+        allowNull: true,
       },
-
+      cuentaBancaria: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+      },
+      linkedin: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+      },
+      dniImag: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      pais: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      region: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      fecha: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       type: {
-        type: DataTypes.ENUM("teacher", "student"),
-        allowNull: false,
+        type: DataTypes.ENUM("teacher", "student", "admin", "confirmacion"),
+        defaultValue: "student",
+        // allowNull: false,
       },
 
-      photo: {
+      email: {
         type: DataTypes.STRING,
-        validate: {
-          isUrl: true,
-        },
-      }
+        unique: true,
+      },
+
+      solictud: {
+        type: DataTypes.BOOLEAN(),
+        defaultValue: false,
+      },
     },
+    {
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false,
+    }
   );
 };
