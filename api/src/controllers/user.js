@@ -1,4 +1,4 @@
-const { User, Class } = require("../db.js");
+const { User, Class, Status} = require("../db.js");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
@@ -30,7 +30,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
-      include: [Class],
+      include: [{model: Class}],
     });
     res.send(userDetail);
   } catch (error) {
@@ -47,7 +47,7 @@ async function deleteUser(req, res, next) {
       },
     });
 
-    res.send("Was successfully removed");
+    res.send("It was successfully removed");
   } catch (err) {
     next(err);
   }
@@ -63,7 +63,7 @@ async function editUser(req, res, next) {
       },
     });
 
-    res.send("Was successfully edited");
+    res.send("It was successfully edited");
   } catch (err) {
     next(err);
   }
