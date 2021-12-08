@@ -1,11 +1,17 @@
 const { User, Class } = require("../db.js");
+const { sendMail } = require('../mails/mails')
+const fs = require('fs')
+// fs es una libreria, sistema de archivo, para interactuar con los archivos y directorios. (en este caso usamos ---> readFileSync())
 
-// funcion para crear Usuario.
+// funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
+
   const { firstName, lastName, userName, type, photo, email, password, id } =
     req.body;
+    
 
   try {
+   
     const user = await User.create({
       id,
       firstName,
@@ -14,11 +20,22 @@ async function createUser(req, res, next) {
       type,
       photo,
       email,
-      password,
+      password
     });
-
+    
     const newUser = await User.findOne({ where: { userName } });
+    // aca le ponemos mayuscula a la primer letra del nombre.
+    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+
+    // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
+    let html_template = fs.readFileSync('./src/mails/templates/welcome.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+
+    //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
+    sendMail(email, "Welcome to Henry Kids", html_template, "html");
+
     res.status(200).send(newUser);
+
   } catch {
     (err) => err(next);
   }
@@ -70,6 +87,7 @@ async function editUser(req, res, next) {
   }
 }
 
+// funcion para traernos todos los users.
 async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
@@ -113,6 +131,7 @@ async function getUser(req, res, next) {
   }
 }
 
+// funcion para traernos un user por tipo de id.
 async function getTipo(req,res,next){
   try {
     const { id } = req.params;
