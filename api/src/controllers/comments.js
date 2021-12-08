@@ -38,6 +38,21 @@ async function getComments(req, res, next){
 
 }
 
+async function deleteComments(req, res, next){
+  
+  try{
+    const {id} = req.body;
+    const electedClass = await Comment.findByPk(id);
+    await electedClass.destroy();  
+    
+    res.send("Comment was deleted.");
+    
+  } catch {
+    (err) => next(err);
+  }
+
+}
+
 module.exports ={
   createComment,
   getComments  
