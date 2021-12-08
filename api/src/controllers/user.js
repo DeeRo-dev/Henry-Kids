@@ -175,6 +175,25 @@ async function getSolicitudTecher (req,res,next){
   }
 }
 
+async function getUserType(req, res, next) {
+  try {
+    const type = req.params.type;
+    let userType;
+    if (type) {
+      userType = await User.findAll({
+        where: {
+          type: type,
+        },
+      });
+    }
+    res.status(200).send(userType);
+  } catch (error) {
+    res.status(404);
+    next(error);
+  }
+}
+
+
 module.exports = {
   createUser,
   getUserId,
@@ -184,5 +203,6 @@ module.exports = {
   getType,
   solTeacher,
   solAceptadaTeacher,
-  getSolicitudTecher
+  getSolicitudTecher,
+  getUserType,
 };
