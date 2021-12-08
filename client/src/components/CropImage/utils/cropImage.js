@@ -57,13 +57,13 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
  );
 
  // As Base64 string
- // return canvas.toDataURL("image/jpeg");
+  /* return canvas.toDataURL("image/jpeg", 1.0); */
  /* return canvas; */
- return new Promise((resolve, reject) => {
+/*  return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
       resolve(URL.createObjectURL(file))
     }, 'image/jpeg')
-  })
+  }) */
 }
 
 export const generateDownload = async (imageSrc, crop) => {

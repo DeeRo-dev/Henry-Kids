@@ -52,6 +52,7 @@ img: imgConverted
   const toggleModalCambiarFoto = (e) => {
     e.preventDefault();
     setModalCambiarFoto(!modalCambiarFoto);
+    console.log("entró")
   };
 
   function handleOnChangeCambiarNombreDeUsuario(e) {
@@ -288,7 +289,9 @@ img: imgConverted
               >
                 x
               </button>
-              <CropImage></CropImage>
+              <CropImage 
+              toggleModalCambiarFoto={e=> toggleModalCambiarFoto(e)} 
+              ></CropImage>
               {/* <div className={styles.containerImgPerfil}> */}
       {/* <img src={previewImg.img} className={styles.preview} alt="Error"/>
       <label className={styles.custom_file_upload}>UPLOAD

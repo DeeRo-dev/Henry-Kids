@@ -8,7 +8,7 @@ import getCroppedImg from "./utils/cropImage";
 import { editUser } from "../../actions";
 import { useDispatch } from "react-redux";
 
-export default function CropImage() {
+export default function CropImage({ toggleModalCambiarFoto }) {
   const dispatch = useDispatch();
   const inputRef = React.useRef();
 
@@ -21,26 +21,41 @@ export default function CropImage() {
 
   async function handleOnSubmitCambiarFoto(e) {
     e.preventDefault();
-
+    console.log("entró");
     const imgCropp = await getCroppedImg(image, croppedArea);
+
     /* setImgCropped(imgCrop) */
-    console.log(imgCropp);/*  */
+    console.log(imgCropp); /*  */
     /* setImageCrop(imgCropp) */
-    dispatch(editUser(window.localStorage.sessionUser, { photo: imgCropp }));
+    /* dispatch(editUser(window.localStorage.sessionUser, { photo: imgCropp })); */
+    /*  await toggleModalCambiarFoto(e)
+      .then(() => {
+        console.log("bien");
+      })
+      .catch((e) => {
+        console.log(e);
+      }); */
   }
 
   const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
     setCroppedArea(croppedAreaPixels);
   };
-
   const onSelectFile = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.addEventListener("load", () => {
         setImage(reader.result);
+        console.log(reader.result);
+        window.localStorage.setItem("img", reader.result);
+       /*  dispatch(editUser(window.localStorage.sessionUser, {photo: reader.result})) */
       });
     }
+
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    /* console.log(formData) */
+    /* console.log(typeof(event.target.files[0])) */
   };
 
   const onDownload = () => {
@@ -64,7 +79,7 @@ export default function CropImage() {
                 onZoomChange={setZoom}
                 onCropComplete={onCropComplete}
               />
-             {imageCrop && <img src={imageCrop} alt="404"/>}
+              {imageCrop && <img src={imageCrop} alt="404" />}
             </div>
 
             <div className={styles.slider}>
@@ -99,7 +114,7 @@ export default function CropImage() {
         <Button
           className={styles.btnGuardar}
           onClick={(e) => handleOnSubmitCambiarFoto(e)}
-          type="file"
+          type="button"
           variant="contained"
           color="primary"
           component="span"

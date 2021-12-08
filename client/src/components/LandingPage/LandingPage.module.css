@@ -2,9 +2,14 @@
   --amarillo: #ffd200;
   --naranja: #ff8d00;
   --verde: #a1d1af;
+  width: 100%;
+  height: -10%;
 }
+/* ::-webkit-scrollbar {
+  display: none;
+} */
 .containerBackground {
-  display: flex;
+  display: none;
 }
 .background {
   background-image: url("./img/landing.png");
@@ -14,6 +19,7 @@
   /* background-attachment: fixed; */
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 
 .logo {
