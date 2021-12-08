@@ -3,9 +3,7 @@ const { Association } = require("sequelize/dist");
 
 // funcion para crear Usuario.
 async function createUser(req, res, next) {
-  const { firstName, lastName, userName, type, photo,  id } =
-    req.body;
-
+  const { firstName, lastName, userName, type, id, email } = req.body;
   try {
     const user = await User.create({
       id,
@@ -13,11 +11,9 @@ async function createUser(req, res, next) {
       lastName,
       userName,
       type,
-      photo,
 
-    
+      email,
     });
-
     const newUser = await User.findOne({ where: { userName } });
     res.status(200).send(newUser);
   } catch {
@@ -33,7 +29,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
-      include:[Class]
+      include: [Class],
     });
     res.send(userDetail);
   } catch (error) {
@@ -75,14 +71,7 @@ async function editUser(req, res, next) {
 async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
-      attributes: [
-        "id",
-        "firstName",
-        "lastName",
-        "userName",
-        "type",
-        "photo",
-      ],
+      attributes: ["id", "firstName", "lastName", "userName", "type"],
       where: {
         title: {
           [Op.iLike]: `%${req.query.title}%`,
@@ -97,21 +86,23 @@ async function getUser(req, res, next) {
     });
   } else {
     return User.findAll({
-      attributes: [
-        "id",
-        "firstName",
-        "lastName",
-        "userName",
-        "type",
-        "photo",
-      ],
+      attributes: ["id", "firstName", "lastName", "userName", "type"],
     }).then((User) => {
       res.send(User);
     });
   }
 }
 
-async function getType(req,res,next){
+async function getAllTeacher(req, res, next) {
+  try {
+    const userDetail = await User.findAll();
+    res.send(userDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getType(req, res, next) {
   try {
     const { id } = req.params;
     const userDetail = await User.findAll({
@@ -119,7 +110,7 @@ async function getType(req,res,next){
         id: id,
       },
     });
-    const aux = userDetail[0].dataValues.type
+    const aux = userDetail[0].dataValues.type;
     res.send(aux);
   } catch (error) {
     next(error);
@@ -127,8 +118,17 @@ async function getType(req,res,next){
 }
 
 async function solTeacher(req, res, next) {
+  const { dni, linkedin, cuentaBancaria, dniImag, pais, region, fecha } =
+    req.body;
   const changes = {
     solictud: true,
+    dni: dni,
+    linkedin: linkedin,
+    cuentaBancaria: cuentaBancaria,
+    dniImag: dniImag,
+    pais: pais,
+    region: region,
+    fecha: fecha,
   };
   try {
     const result = await User.update(changes, {
@@ -144,10 +144,10 @@ async function solTeacher(req, res, next) {
   }
 }
 
-async function solAceptadaTeacher(req,res,next){
+async function solAceptadaTeacher(req, res, next) {
   const changes = {
     type: "teacher",
-    solictud:null,
+    solictud: null,
   };
   try {
     const result = await User.update(changes, {
@@ -162,11 +162,29 @@ async function solAceptadaTeacher(req,res,next){
   }
 }
 
-async function getSolicitudTecher (req,res,next){
+async function solRechazadaTeacher(req, res, next) {
+  const changes = {
+    type: "student",
+    solictud: null,
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(result);
+    res.send("el Usario esta en la lista student");
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getSolicitudTecher(req, res, next) {
   try {
     const userDetail = await User.findAll({
       where: {
-        solictud:true
+        solictud: true,
       },
     });
     res.send(userDetail);
@@ -193,7 +211,6 @@ async function getUserType(req, res, next) {
   }
 }
 
-
 module.exports = {
   createUser,
   getUserId,
@@ -205,4 +222,6 @@ module.exports = {
   solAceptadaTeacher,
   getSolicitudTecher,
   getUserType,
+  solRechazadaTeacher,
+  getAllTeacher
 };
