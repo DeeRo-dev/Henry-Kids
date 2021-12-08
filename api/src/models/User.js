@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
       // allowNull: false,
     },
     photo: {
-      type: DataTypes.STRING(10000000),
+      type: DataTypes.STRING,
     },
 
     solictud:{
