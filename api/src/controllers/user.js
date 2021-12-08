@@ -175,41 +175,24 @@ async function getSolicitudTecher (req,res,next){
   }
 }
 
-async function getTeacherType(req, res, next) {
+async function getUserType(req, res, next) {
   try {
     const type = req.params.type;
-    let teacher;
+    let userType;
     if (type) {
-      teacher = await User.findAll({
+      userType = await User.findAll({
         where: {
-          type: "teacher",
+          type: type,
         },
       });
     }
-    res.status(200).send(teacher);
+    res.status(200).send(userType);
   } catch (error) {
     res.status(404);
     next(error);
   }
 }
 
-async function getStudentType(req, res, next) {
-  try {
-    const type = req.params.type;
-    let student;
-    if (type) {
-      student = await User.findAll({
-        where: {
-          type: "student",
-        },
-      });
-    }
-    res.status(200).send(student);
-  } catch (error) {
-    res.status(404);
-    next(error);
-  }
-}
 
 module.exports = {
   createUser,
@@ -221,6 +204,5 @@ module.exports = {
   solTeacher,
   solAceptadaTeacher,
   getSolicitudTecher,
-  getTeacherType,
-  getStudentType
+  getUserType,
 };
