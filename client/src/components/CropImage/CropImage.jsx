@@ -44,16 +44,20 @@ export default function CropImage({ toggleModalCambiarFoto }) {
     if (event.target.files && event.target.files.length > 0) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
+      /* reader.readAsBinaryString(event.target.files[0]); */
       reader.addEventListener("load", () => {
         setImage(reader.result);
-        console.log(reader.result);
+        /* console.log(typeof(reader.result)); */
         window.localStorage.setItem("img", reader.result);
-       /*  dispatch(editUser(window.localStorage.sessionUser, {photo: reader.result})) */
+        const formData = new FormData();
+        formData.append("file", reader.result /* event.target.files[0] */);
+        dispatch(
+          editUser(window.localStorage.sessionUser, { photo: formData })
+        );
+        /* dispatch(editUser(window.localStorage.sessionUser, {photo: reader.result})) */
       });
     }
 
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
     /* console.log(formData) */
     /* console.log(typeof(event.target.files[0])) */
   };
