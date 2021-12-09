@@ -210,7 +210,7 @@ async function solRechazadaTeacher(req, res, next) {
     const foundUser = await User.findByPk(req.params.id);
     const user = foundUser.toJSON();
 
-    // aca le ponemos mayuscula a la primer letra del nombre.
+    // Acá le ponemos mayuscula a la primer letra del nombre.
     let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
 
     // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
