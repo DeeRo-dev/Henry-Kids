@@ -192,7 +192,7 @@ export function filterDifficulty(input) {
 
   export function enviarSoliProfe(data, id){
       return async function(dispatch){
-        let response = await axios.post(`/user/solicitud/${id}`, data);
+        let response = await axios.put(`/user/solicitud/${id}`, data);
         dispatch({
           type: "SET_SOLICITUD",
           date : response.data
