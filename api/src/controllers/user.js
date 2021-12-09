@@ -20,14 +20,14 @@ async function createUser(req, res, next) {
       photo,
     });
     const newUser = await User.findOne({ where: { userName } });
-    // aca le ponemos mayuscula a la primer letra del nombre.
+    // Acá le ponemos mayúscula a la primer letra del nombre.
     let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
 
-    // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
+    // Acá leemos el archivo html y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
     let html_template = fs.readFileSync('./src/mails/templates/welcome.html', {encoding:'utf8', flag:'r'})
     html_template = html_template.replace('FIRST_NAME', newFirstName)
 
-    //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
+    //Acá le pasamos a la función, el email del usuario, el asunto, el template, y si es html o text.
     sendMail(email, "Welcome to Henry Kids", html_template, "html");
 
     res.status(200).send(newUser);
@@ -68,7 +68,7 @@ async function deleteUser(req, res, next) {
   }
 }
 
-// funcion para editar un Usuario mediante el id.
+// Función para editar un Usuario mediante el id.
 async function editUser(req, res, next) {
   const changes = req.body;
   try {
@@ -84,7 +84,7 @@ async function editUser(req, res, next) {
   }
 }
 
-// funcion para traernos todos los users.
+// Función para traernos todos los users.
 async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
@@ -155,7 +155,9 @@ async function solTeacher(req, res, next) {
     });
 
     console.log(result);
+
     res.send("el Usario esta en la lista de espera de Profesores  ");
+
   } catch (err) {
     next(err);
   }
@@ -173,6 +175,20 @@ async function solAceptadaTeacher(req, res, next) {
       },
     });
     console.log(result);
+
+    const foundUser = await User.findByPk(req.params.id);
+    const user = foundUser.toJSON();
+
+    // aca le ponemos mayuscula a la primer letra del nombre.
+    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+
+    // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
+    let html_template = fs.readFileSync('./src/mails/templates/approvedRequest.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+
+    //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
+    sendMail(email, "Su solicitud ha sido aprobada", html_template, "html");
+
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
     next(err);
@@ -191,7 +207,23 @@ async function solRechazadaTeacher(req, res, next) {
       },
     });
     console.log(result);
+
+    const foundUser = await User.findByPk(req.params.id);
+    const user = foundUser.toJSON();
+
+    // Acá le ponemos mayuscula a la primer letra del nombre.
+    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+
+    // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
+    let html_template = fs.readFileSync('./src/mails/templates/rejectedRequest.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+
+    //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
+    sendMail(email, "Muchas gracias por tu interés", html_template, "html");
+
+
     res.send("el Usario esta en la lista student");
+
   } catch (err) {
     next(err);
   }
@@ -242,3 +274,4 @@ module.exports = {
   solRechazadaTeacher,
   getAllTeacher
 };
+
