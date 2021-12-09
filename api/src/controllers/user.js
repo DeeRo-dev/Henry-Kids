@@ -7,7 +7,7 @@ const { Association } = require("sequelize/dist");
 
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
-  const { firstName, lastName, userName, type, id, email } = req.body;
+  const { firstName, lastName, userName, type, id, email, photo } = req.body;
   try {
    
     const user = await User.create({
@@ -88,7 +88,7 @@ async function editUser(req, res, next) {
 async function getUser(req, res, next) {
   if (req.query.title) {
     return User.findAll({
-      attributes: ["id", "firstName", "lastName", "userName", "type"],
+      attributes: ["id", "firstName", "lastName", "userName", "type", "photo"],
       where: {
         title: {
           [Op.iLike]: `%${req.query.title}%`,
@@ -103,7 +103,7 @@ async function getUser(req, res, next) {
     });
   } else {
     return User.findAll({
-      attributes: ["id", "firstName", "lastName", "userName", "type"],
+      attributes: ["id", "firstName", "lastName", "userName", "type", "photo"],
     }).then((User) => {
       res.send(User);
     });
