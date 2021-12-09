@@ -13,12 +13,8 @@ const server = express();
 
 server.name = "API";
 
-const corsOptions ={
-  origin:'*', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
-}
-server.use(cors(corsOptions));
+
+server.use(cors());
 server.use(express.urlencoded({ extended: true, limit: "50mb" }));
 server.use(express.json({ limit: "50mb" }));
 server.use(cookieParser());
