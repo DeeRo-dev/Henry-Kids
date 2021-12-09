@@ -2,8 +2,14 @@ import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import styles from "./RegisterTeacher.module.css";
 import { Button, withStyles } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { enviarSoliProfe } from "../../actions";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterTeacher() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const [modal, setModal] = useState(false);
   const StyleButtonCrearCuenta = withStyles({
     root: {
@@ -84,6 +90,26 @@ const convertiraBase64=(archivos)=>{
   //   [e.target.name]: e.target.value,
   // });
 
+
+function onSubmit(e){
+  e.preventDefault();
+  const id = window.localStorage.sessionUser;
+  console.log(id)
+  dispatch(enviarSoliProfe(data,id))
+  alert('form enviad?')
+  setData({
+    dni:"",
+    linkedin:"",
+    cuentaBancaria:"",
+    dniImag:"",
+    pais:"",
+    region:"",
+    fecha:""
+  })
+  navigate('/home')
+}
+
+
   return (
     <div className={styles.modal}>
       <div onClick={toggleModal} className={styles.overlay}></div>
@@ -108,12 +134,13 @@ const convertiraBase64=(archivos)=>{
             <p id={styles.pDNI}>Foto DNI:</p>
             <input name="dniImag" type="file" placeholder="Foto DNI:" onChange={(e)=>convertiraBase64(e.target.files)}/>
             {/* <Link className={styles.btnCrear} to="/home"> */}
-            <div className={styles.containerBtn}>
+            <div className={styles.containerBtn} >
               <StyleButtonCrearCuenta
                 type="button"
                 className={styles.btnCrearCuenta}
                 variant="contained"
                 color="primary"
+                onClick={(e) => onSubmit(e)}
               >
                 Enviar
               </StyleButtonCrearCuenta>
