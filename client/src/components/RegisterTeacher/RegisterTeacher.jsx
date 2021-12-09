@@ -48,15 +48,15 @@ const [data, setData] = useState({
   dni:"",
   linkedin:"",
   cuentaBancaria:"",
-  dniImag:"",
+  dniImag:[],
   pais:"",
   region:"",
   fecha:""
 });
 function onInputChange(e) {
-  if (e.target.name === 'dniImag') {
+  // if (e.target.name === 'dniImag') {
     
-  }
+  // }
   e.preventDefault();
    console.log(e.target.value)
   setData({
@@ -74,8 +74,8 @@ const convertiraBase64=(archivos)=>{
      var aux=[];
       var base64= reader.result;
       aux=base64.split(',');
-      console.log(aux[1])
-     
+      // console.log(aux[1])
+      data.dniImag.push(aux[1])
     
     }
   })
@@ -83,6 +83,7 @@ const convertiraBase64=(archivos)=>{
 }
 
 
+// console.log(data.dniImag[0].length)
 
   //  console.log(e.target.value)
   // setData({
@@ -93,20 +94,29 @@ const convertiraBase64=(archivos)=>{
 
 function onSubmit(e){
   e.preventDefault();
-  const id = window.localStorage.sessionUser;
-  console.log(id)
-  dispatch(enviarSoliProfe(data,id))
-  alert('form enviad?')
-  setData({
+
+  // console.log(id)
+  if ( data.dni&&
+    data.linkedin &&
+    data.cuentaBancaria &&
+    data.pais&&
+    data.region&&
+    data.fecha) {
+      const id = window.localStorage.sessionUser;
+    dispatch(enviarSoliProfe(data,id))
+    alert('form enviad?')
+    setData({
     dni:"",
     linkedin:"",
     cuentaBancaria:"",
-    dniImag:"",
+    dniImag:[],
     pais:"",
     region:"",
     fecha:""
   })
   navigate('/home')
+   }
+   else(alert('error'))
 }
 
 
@@ -121,8 +131,10 @@ function onSubmit(e){
         <div className={styles.container}>
           <form className={styles.inputs}>
             <input name="pais" type="text" placeholder="País:" onChange={(e)=> onInputChange(e)}/>
-            <input name=" region" type="text" placeholder="Región:" onChange={(e)=> onInputChange(e)}/>
+            <input name="region" type="text" placeholder="Región:" onChange={(e)=> onInputChange(e)}/>
             <input name="dni" type="text" placeholder="Número de DNI:" onChange={(e)=> onInputChange(e)}/>
+          
+
             <input name="cuentaBancaria" type="text" placeholder="CBU-Alias:"onChange={(e)=> onInputChange(e)}/>
             <input name="linkedin" type="url" placeholder="URL-Linkedin:" onChange={(e)=> onInputChange(e)}/>
             <p id={styles.p}>Fecha de nacimiento:</p>
@@ -133,7 +145,7 @@ function onSubmit(e){
             onChange={(e)=> onInputChange(e)}/>
             <p id={styles.pDNI}>Foto DNI:</p>
             <input name="dniImag" type="file" placeholder="Foto DNI:" onChange={(e)=>convertiraBase64(e.target.files)}/>
-            {/* <Link className={styles.btnCrear} to="/home"> */}
+          
             <div className={styles.containerBtn} >
               <StyleButtonCrearCuenta
                 type="button"
@@ -145,7 +157,7 @@ function onSubmit(e){
                 Enviar
               </StyleButtonCrearCuenta>
             </div>
-            {/* </Link> */}
+    
           </form>
         </div>
       </div>

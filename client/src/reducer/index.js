@@ -9,6 +9,7 @@ const initialState = {
   category: [],
   categoryAll: [],
   solicitudes:[],
+  usuarios:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -180,7 +181,12 @@ export default function rootReducer(state = initialState, action) {
        case "SET_SOLICITUD":
       return{
        ...state
-       }
+       };
+       case "GET_USUARIOS":
+      return {
+        ...state,
+        usuarios: action.payload,
+      };
 
    default:
       return state;

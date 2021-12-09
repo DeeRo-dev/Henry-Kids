@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./CardClasseAdmin.module.css"
+import LongMenu from "../MenuCardsAdmin/MenuCardsAdmin.jsx";
 
 
-
-export default function CardTeacher({
+export default function CardClasseAdmin({
   id,
   title,
   category,
@@ -12,7 +12,6 @@ export default function CardTeacher({
   difficulty,
   game_link,
   valoration,
-
 }) {
 
   let firstIndex = video_link && video_link.indexOf("=") + 1;
@@ -23,20 +22,20 @@ export default function CardTeacher({
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-        
-
-        <div>
+        <div className={styles.threeBtns}/>
+        <div className={styles.botoncitos}>
+        <LongMenu id={id} />
+        </div>
+        <div className={styles.preview}>
           <img src={url} alt='Contenido sin imagen disponible' />
         </div>
-
-        <p className={styles.category}>JavaScript{category}</p>
+        <p className={styles.category}>{category}</p>
         <div className={styles.title}>
           {title}
         </div>
-        <div className={styles.description}>
+        {/* <div className={styles.description}>
           {description}
-        </div>
-
+        </div> */}
         <div
           className={styles.instructor}>Dificultad: {difficulty}
         </div>

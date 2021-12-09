@@ -195,7 +195,17 @@ export function filterDifficulty(input) {
         let response = await axios.put(`/user/solicitud/${id}`, data);
         dispatch({
           type: "SET_SOLICITUD",
-          date : response.data
+          data : response.data
         })
       }
   }
+
+  export function getUsuarios(type){
+    return async function(dispatch){
+      let data = await axios.get(`/user/type/${type}`)
+      dispatch({
+        type: "GET_USUARIOS",
+        data: data.data
+      })
+  }
+}

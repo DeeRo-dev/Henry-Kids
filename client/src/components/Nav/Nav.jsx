@@ -65,10 +65,11 @@ export default function Nav() {
     dispatch(filterDifficulty(e.target.value));
   }
 
-function typeUser(e){
-  e.preventDefault();
-  dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
-}
+// function typeUser(e){
+//   console.log('click')
+//   e.preventDefault();
+//   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
+// }
 
   return (
     <div className={styles.containerBackground}>
@@ -163,9 +164,9 @@ function typeUser(e){
             </option>
           </select> */}
             <div>
-              {/* <Link to={"/home/student/register-teacher"}> */}
-                <button  onClick={(e) => typeUser(e)} className={styles.blue}> ¿Te gustaria enseñar?</button>
-              {/* </Link> */}
+              <Link to={"/home/student/register-teacher"}>
+                <button  className={styles.blue}> ¿Te gustaria enseñar?</button>
+              </Link>
             </div>
             {/* <Link to="/create-clase">
          <button className={styles.blue}>
