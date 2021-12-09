@@ -20,6 +20,7 @@ server.use(
     allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
     optionsSuccessStatus: 200,
     credentials: true,
+    preflightContinue: false, 
   })
 );
 
