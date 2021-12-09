@@ -42,6 +42,8 @@ export default function ModifyUser() {
   };
 
   function handleOnChangeCambiarNombreDeUsuario(e) {
+    
+    
     e.preventDefault();
     setUser({
       id: window.localStorage.sessionUser,
@@ -59,8 +61,20 @@ export default function ModifyUser() {
     setModalCambiarNombreDeUsuario(!modalCambiarNombreDeUsuario);
   };
 
+  const [errorPass, setErrorPass] = useState(false)
+  const [msjPas, setMsjPass] = useState("")
+  
   function handleOnChangeCambiarContraseña(e) {
     e.preventDefault();
+    if( (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(e.target.value)))){
+      setErrorPass(true)
+      setMsjPass("La nueva contraseña debe contener 8 digitos y 1 numero")
+     } else{
+        setErrorPass(false);
+        setMsjPass("")
+      }
+    
+    
     setUser({
       id: window.localStorage.sessionUser,
       password: e.target.value,
@@ -174,11 +188,12 @@ export default function ModifyUser() {
               <form className={classes.root} noValidate autoComplete="off">
                 <div>
                   <TextField
-                    error={false}
+                    error={errorPass}
                     id="standard-error"
                     type="password"
                     placeholder="Nueva contraseña"
-                    helperText={false}
+                    
+                    helperText={msjPas}
                     onChange={(e) => handleOnChangeCambiarContraseña(e)}
                   />
                   <TextField
@@ -188,7 +203,7 @@ export default function ModifyUser() {
                     placeholder="Contraseña actual"
                     helperText={false}
                   />
-
+             
                   <ButtonSave
                     variant="contained"
                     color="primary"

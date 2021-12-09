@@ -195,6 +195,53 @@ export default function LandingPage() {
       color: "white",
     },
   })(Button);
+  const [errorFirst, setErrorFirst] = useState(false)
+  const [msjFirst, setMsjFirst] = useState("")
+  const [errorLast, setErrorLast] = useState(false)
+  const [msjLast, setMsjLast] = useState("")
+  const [errorUser, setErrorUser] = useState(false)
+  const [msjUser, setMsjUser] = useState("")
+  const [errorEmail, setErrorEmail] = useState(false)
+  const [msjEmail, setMsjEmail] = useState("")
+  const [errorpass, setErrorPass] = useState(false)
+  const [msjPas, setMsjPass] = useState("")
+  const [errorPassConf, setErrorPassConf] = useState(false)
+  const [msjPassConf, setPassConf] = useState("")
+
+
+  function onInputChangeDB(e) {
+    e.preventDefault();
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+
+    if (user.firstName.length < 2) {
+      setErrorFirst(true)
+      setMsjFirst("El nombre es requerido")
+    } else {
+      setErrorFirst(false)
+      setMsjFirst("")
+    }
+
+    if (user.lastName.length < 2) {
+      setErrorLast(true)
+      setMsjLast("El apellido es requerido")
+    } else {
+      setErrorLast(false)
+      setMsjLast("")
+    }
+
+    if (user.userName.length < 2) {
+      setErrorUser(true)
+      setMsjUser("El usuario es requerido")
+    } else {
+      setErrorUser(false)
+      setMsjUser("")
+    }
+
+  }
+
 
   function onInputChangeFirebase(e) {
     e.preventDefault();
@@ -202,14 +249,34 @@ export default function LandingPage() {
       ...dataFirebase,
       [e.target.name]: e.target.value,
     });
+
+    if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email))) {
+      setErrorEmail(true)
+      setMsjEmail("Debe ingresar un email valido")
+    } else {
+      setErrorEmail(false)
+      setMsjEmail("")
+    }
+
+
+    if (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password))) {
+      setErrorPass(true)
+      setMsjPass("La contraseña debe contener un minimo de un numero y 8 digitos")
+    }
+    else {
+      setErrorPass(false)
+      setMsjPass("") 
+    }
+
+    if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
+      setErrorPassConf(true)
+      setPassConf("Las contraseñas deben coincidir")
+    } else {
+      setErrorPassConf(false)
+      setPassConf("")
+    }
   }
-  function onInputChangeDB(e) {
-    e.preventDefault();
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-  }
+
   // setErrors(
   //   validate({
   //     ...user,
@@ -217,11 +284,13 @@ export default function LandingPage() {
   //   })
   // );
 
+  //------------------------------------------------------------------------------------------
+
   const registrarUsuario = (e) => {
     e.preventDefault();
-    if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+   /*  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
       alert("contraseñas diferentes");
-    } else {
+    } else { */
       createUserWithEmailAndPassword(
         auth,
         dataFirebase.email,
@@ -241,7 +310,7 @@ export default function LandingPage() {
             });
         });
       });
-    }
+    
   };
 
   const ingresarUsuario = (e) => {
@@ -250,7 +319,7 @@ export default function LandingPage() {
       .then((userCredential) => {
         auth.onAuthStateChanged((userFirebase) => {
           localStorage.setItem("sessionUser", userFirebase.uid);
-          const typeUser = allUsers.find((e)=>{
+          const typeUser = allUsers.find((e) => {
             return e.id === userFirebase.uid
           })
           console.log(typeUser)
@@ -258,7 +327,7 @@ export default function LandingPage() {
             localStorage.setItem("type", "student");
             navigate("/home/student");
             window.location.reload();
-          } else if(typeUser.type === "teacher") {
+          } else if (typeUser.type === "teacher") {
             localStorage.setItem("type", "teacher");
             navigate("/home/teacher");
             window.location.reload();
@@ -437,16 +506,18 @@ export default function LandingPage() {
                 </button>
 
                 <div>
+                  <h4> INGRESE SUS DATOS</h4>
                   <form autoComplete="off">
                     <TextField
                       fullWidth
                       placeholder="Nombre:"
                       margin="normal"
                       color="primary"
-                      id="standard-error"
+                      /* id="standard-error" */
                       name="firstName"
                       type="text"
-                      helperText={true}
+                      error={errorFirst}
+                      helperText={msjFirst}
                       onChange={(e) => onInputChangeDB(e)}
                     />
                     <TextField
@@ -454,10 +525,11 @@ export default function LandingPage() {
                       placeholder="Apellido:"
                       margin="normal"
                       color="primary"
-                      id="standard-error"
+                      /* id="standard-error" */
                       name="lastName"
                       type="text"
-                      helperText={true}
+                      error={errorLast}
+                      helperText={msjLast}
                       onChange={(e) => onInputChangeDB(e)}
                     />
                     <TextField
@@ -466,7 +538,8 @@ export default function LandingPage() {
                       margin="normal"
                       name="userName"
                       color="primary"
-                      /* error={true} */
+                      error={errorUser}
+                      helperText={msjUser}
                       id="standard-error"
                       type="text"
                       /* helperText={true} */
@@ -476,12 +549,12 @@ export default function LandingPage() {
                       fullWidth
                       margin="normal"
                       color="primary"
-                      /* error={true} */
+                      error={errorEmail}
+                      helperText={msjEmail}
                       type="text"
                       id="standard-error"
                       placeholder="Email:"
                       name="email"
-                      helperText={false}
                       label=""
                       onChange={(e) => onInputChangeFirebase(e)}
                     />
@@ -490,7 +563,8 @@ export default function LandingPage() {
                       fullWidth
                       margin="normal"
                       color="primary"
-                      error={false}
+                      error={errorpass}
+                      helperText={msjPas}
                       /* name="password" */
                       name="password"
                       type="password"
@@ -502,10 +576,10 @@ export default function LandingPage() {
                       fullWidth
                       margin="normal"
                       color="primary"
-                      // error={true}
+                      error={errorPassConf}
                       name="passwordConfirm"
                       type="password"
-                      helperText={true}
+                      helperText={msjPassConf}
                       placeholder="Confirmar contraseña:"
                       onChange={(e) => onInputChangeFirebase(e)}
                     />
@@ -532,16 +606,19 @@ export default function LandingPage() {
                       </FormControl>
                     </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
-
-                    <StyleButtonCrearCuenta
-                      onClick={(e) => registrarUsuario(e)}
-                      type="button"
-                      className={styles.btnCrearCuenta}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Crear cuenta
-                    </StyleButtonCrearCuenta>
+                    {!errorFirst && !errorLast && !errorUser
+                      && !errorEmail && !errorpass && !errorPassConf &&
+                       dataFirebase.passwordConfirm.length > 7?
+                      <StyleButtonCrearCuenta
+                        onClick={(e) => registrarUsuario(e)}
+                        type="button"
+                        className={styles.btnCrearCuenta}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Crear cuenta
+                      </StyleButtonCrearCuenta>
+                      : null}
                     {/*  <StyleButtonRegistrarseConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
