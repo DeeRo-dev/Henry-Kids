@@ -7,6 +7,12 @@ import generateDownload from "./utils/cropImage";
 import getCroppedImg from "./utils/cropImage";
 import { editUser } from "../../actions";
 import { useDispatch } from "react-redux";
+import {
+  storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
+} from "../../firebase/firebaseConfig";
 
 export default function CropImage({ toggleModalCambiarFoto }) {
   const dispatch = useDispatch();
@@ -15,19 +21,41 @@ export default function CropImage({ toggleModalCambiarFoto }) {
   const triggerFileSelectPopup = () => inputRef.current.click();
   const [imageCrop, setImageCrop] = React.useState(null);
   const [image, setImage] = React.useState(null);
+  const [imageFile, setImageFile] = React.useState();
   const [croppedArea, setCroppedArea] = React.useState(null);
   const [crop, setCrop] = React.useState({ x: 0, y: 0 });
   const [zoom, setZoom] = React.useState(1);
 
   async function handleOnSubmitCambiarFoto(e) {
     e.preventDefault();
-    console.log("entró");
+    console.log(imageFile);
     const imgCropp = await getCroppedImg(image, croppedArea);
+    console.log(imgCropp)
+    /* const file = new File([imgCropp], imageFile.name, {type: imageFile.type}) */
+    /* console.log(file) */
+    const storageRef = ref(storage, imageFile.name);
+    const metadata = {
+      name: imageFile.name,
+      size: imageFile.size,
+      type: imageFile.type,
+    };
 
-    /* setImgCropped(imgCrop) */
-    console.log(imgCropp); /*  */
+    const uploadTask = uploadBytesResumable(storageRef, imgCropp, metadata)
+    uploadTask.on("state_changed", (snapshot) => {
+      console.log(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
+      // render progress
+    }, (error) => {
+      console.log(error);
+    },  ()=> {
+      getDownloadURL(uploadTask.snapshot.ref).then((URL)=>{
+        dispatch(editUser(window.localStorage.sessionUser, { photo: URL }));
+      })
+      
+      });
+    /*  setImgCropped(imgCrop) */
+    /* console.log(imageFile); */
     /* setImageCrop(imgCropp) */
-    /* dispatch(editUser(window.localStorage.sessionUser, { photo: imgCropp })); */
+
     /*  await toggleModalCambiarFoto(e)
       .then(() => {
         console.log("bien");
@@ -42,18 +70,20 @@ export default function CropImage({ toggleModalCambiarFoto }) {
   };
   const onSelectFile = (event) => {
     if (event.target.files && event.target.files.length > 0) {
+      setImageFile(event.target.files[0]);
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       /* reader.readAsBinaryString(event.target.files[0]); */
       reader.addEventListener("load", () => {
         setImage(reader.result);
+        console.log(reader.result)
         /* console.log(typeof(reader.result)); */
-        window.localStorage.setItem("img", reader.result);
+        /* window.localStorage.setItem("img", reader.result); */
         const formData = new FormData();
         formData.append("file", reader.result /* event.target.files[0] */);
-        dispatch(
+        /* dispatch(
           editUser(window.localStorage.sessionUser, { photo: formData })
-        );
+        ); */
         /* dispatch(editUser(window.localStorage.sessionUser, {photo: reader.result})) */
       });
     }
