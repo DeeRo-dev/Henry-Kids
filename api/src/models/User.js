@@ -36,7 +36,8 @@ module.exports = (sequelize) => {
         photo: {
         type: DataTypes.STRING,
         validate: {
-          isUrl: true,
+          isUrl: true
+        }
         },
       dni: {
         type: DataTypes.STRING,
