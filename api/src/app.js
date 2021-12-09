@@ -15,7 +15,7 @@ server.name = "API";
 const whiteList = ["http://localhost:3000"];
 server.use(
   cors({
-    origin: "whiteList",
+    origin: whiteList,
     methods: "GET, POST, OPTIONS, PUT, DELETE",
     allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
     optionsSuccessStatus: 200,
