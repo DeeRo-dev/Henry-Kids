@@ -1,4 +1,4 @@
-const { Class, Comment } = require("../db");
+const { Class, User, Comment } = require("../db");
 const Sequelize = require("sequelize");
 
 async function createComment(req, res, next) {
@@ -6,6 +6,7 @@ async function createComment(req, res, next) {
   try {
     const comment = await Comment.create({ name });
     await comment.setClass(parseInt(classId));
+    await comment.setUser(userId);
     const verifiedComment = await Comment.findOne({ where: { name } });
 
     res.send(verifiedComment);
