@@ -17,6 +17,7 @@ async function createUser(req, res, next) {
       userName,
       type,
       email,
+      photo,
     });
     const newUser = await User.findOne({ where: { userName } });
     // aca le ponemos mayuscula a la primer letra del nombre.
