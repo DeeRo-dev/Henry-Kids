@@ -37,7 +37,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         validate: {
           isUrl: true,
-        },
+        }
+      },
       dni: {
         type: DataTypes.STRING,
         unique: true,
