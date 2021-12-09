@@ -15,8 +15,11 @@ async function  filterStudentsPerStatus(req, res, next){
       		});
 		const data = result.toJSON();
 
+		
+
 		const dataUsersRegistered = await Promise.all(data.users.map( async function(item) {
-			if(item.type === 'student' &&  item.hasOwnProperty('assUserClass')){
+		
+			if(item.type === 'student' &&  item.assUserClass.statusId){
 
 				const dataStatus = item.assUserClass;
 				const resultStatus = await Status.findByPk(dataStatus.statusId,
@@ -49,7 +52,7 @@ async function  filterStudentsPerStatus(req, res, next){
 				};
 			}else{
 
-				res.send("We couldn't find any classes.")
+				res.send("We couldn't find any users.")
 			}
 
 		} ));

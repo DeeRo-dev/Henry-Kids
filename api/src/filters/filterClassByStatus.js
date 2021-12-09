@@ -14,14 +14,14 @@ async function  filterClassesPerStatus(req, res, next){
 		const result = await User.findByPk(userId, {
      			include: { model: Class },
       		});
-        const data = result.toJSON();        
+        const data = result.toJSON();   
+           
 
-        if(data.type === 'student'){
+        if(data.type === 'student' && data.classes.length){
 	       
 			const dataClassRegistered = await Promise.all(data.classes.map(async function(item) {
-
-			    	if(item.hasOwnProperty('assUserClass')){
-			    		azul = "1234";
+					    	
+			    		
 						const resultStatus = await Status.findByPk(item.assUserClass.statusId, {attributes: ['name', 'id']});
 						const oneStatus = resultStatus.toJSON();
 						subscribedClass = {
@@ -46,7 +46,7 @@ async function  filterClassesPerStatus(req, res, next){
 							default: return subscribedClass;
 
 						}
-		 			}			 
+		 					 
 			    }));
 			 
 			const statuses = {
