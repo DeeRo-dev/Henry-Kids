@@ -160,7 +160,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model: User, Category, Evaluation, Comment },
+      include: [ User, Category, Evaluation, Comment ],
     });
     res.send(classDetail);
   } catch (error) {
