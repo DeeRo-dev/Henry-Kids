@@ -42,6 +42,7 @@ export default function LandingPage() {
     lastName: "",
     userName: "",
     type: "student",
+    email: ""
   });
   const [dataFirebase, setDataFirebase] = useState({
     email: "",
@@ -240,6 +241,8 @@ export default function LandingPage() {
               console.log(e + "este");
             });
         });
+      }).catch((e)=>{
+        alert(e)
       });
     }
   };
@@ -372,6 +375,7 @@ export default function LandingPage() {
                   <form action="" name="f1">
                     <input
                       onChange={(e) => onInputChangeFirebase(e)}
+                      
                       name="email"
                       type="text"
                       placeholder="Email:"
@@ -483,7 +487,9 @@ export default function LandingPage() {
                       name="email"
                       helperText={false}
                       label=""
-                      onChange={(e) => onInputChangeFirebase(e)}
+                      onChange={e=>{
+                        onInputChangeFirebase(e) 
+                        onInputChangeDB(e)}}
                     />
 
                     <TextField

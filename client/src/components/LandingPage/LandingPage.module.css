@@ -1,3 +1,8 @@
+html {
+  box-sizing: border-box;
+}
+
+
 :root {
   --amarillo: #ffd200;
   --naranja: #ff8d00;
@@ -8,8 +13,14 @@
   margin: 0px;
   padding: 0px;
 }
+
 .containerBackground {
   display: flex;
+  
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 .background {
   background-image: url("./img/landing.png");
@@ -17,8 +28,11 @@
   background-repeat: no-repeat;
   background-position: center center;
   /* background-attachment: fixed; */
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  text-align: center;
+  position: relative;
+
 }
 
 .logo {

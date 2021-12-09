@@ -6,16 +6,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+// import FavoriteIcon from "@material-ui/icons/Favorite";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
-import HelpIcon from "@material-ui/icons/Help";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+// import HelpIcon from "@material-ui/icons/Help";
+import {Typography,  Box } from "@material-ui/core"
 import Home from "../Home/home.jsx";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 // import FavsContainer from "../FavsContainer/FavsContainer.jsx";
-// import styles from "./ProfileStudent.module.css";
-import ModifyUser from "../ModifyUser/ModifyUser";
+import styles from "./ProfileTeacher.module.css";
+import ModifyTeacher from "../ModifyTeacher/ModifyTeacher";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -35,26 +34,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-function TabPanel2(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-force-tabpanel-${index}`}
-      aria-labelledby={`scrollable-force-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
@@ -68,15 +47,18 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+
 
 export default function ProfileStudent() {
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      width: "100%",
+      backgroundColor: theme.palette.background.paper,
+    },
+  }));
+  
   const classes = useStyles();
   // const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
@@ -96,8 +78,10 @@ export default function ProfileStudent() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Link to="/home/teacher">
-            <ArrowBackIosIcon />
+           <Link to="/home/teacher">
+            <div className={styles.volver}>
+            <ArrowBackIosIcon/>
+            </div>
           </Link>
           {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(0)} /> */}
           <Tab
@@ -105,13 +89,13 @@ export default function ProfileStudent() {
             icon={<PersonPinIcon />}
             {...a11yProps(1)}
           />
-          <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} />
+         {/*  <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
       {/* <TabPanel value={value} index={0}></TabPanel> */}
       <TabPanel value={value} index={1}>
         {" "}
-        <ModifyUser />
+        <ModifyTeacher />
       </TabPanel>
       {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>

@@ -39,11 +39,10 @@ export function filterCategory(id) {
 
 export function filterCategoryTeacher(id) {
   return async (dispatch) => {
-      return dispatch({
-        type: "FILTER_BY_CATEGORY_TEACHER",
-        payload: id,
-      });
-    
+    return dispatch({
+      type: "FILTER_BY_CATEGORY_TEACHER",
+      payload: id,
+    });
   };
 }
 
@@ -59,7 +58,11 @@ export function getAllClassTeacher(idUser) {
 
 export function editUser(id, user) {
   return async function (dispatch) {
-    let userUpdate = await axios.put(`/user/${id}`, user);
+    let userUpdate = user.photo
+      ? await axios.put(`/user/${id}`, user, {
+          headers: { "content-type": "multipart/form-data" },
+        })
+      : await axios.put(`/user/${id}`, user);
     dispatch({
       type: "EDIT_USER",
       currentUser: userUpdate,
@@ -106,14 +109,15 @@ export function getClassById(id) {
 
 export function getFavorites(idUs) {
   return async function (dispatch) {
-    let response = await axios.get(`/fav/${idUs}`); console.log(response.data, idUs)
+    let response = await axios.get(`/fav/${idUs}`);
+    console.log(response.data, idUs);
     dispatch({ type: "GET_FAVORITES", data: response.data });
   };
 }
 
 export function ModifyClasses(id, input) {
   return async function (dispatch) {
-    console.log(id)
+    console.log(id);
     let response = await axios.put(`/class/${id}`, input);
     dispatch({ type: "MODIFY_CLASSES", data: response.data });
   };
@@ -121,14 +125,13 @@ export function ModifyClasses(id, input) {
 
 export function DeleteClass(id) {
   return async function (dispatch) {
-    await axios.delete(`/class/${id}`)
-    dispatch({ type: 'DELETE_CLASSES', data: id })
-
-  }
+    await axios.delete(`/class/${id}`);
+    dispatch({ type: "DELETE_CLASSES", data: id });
+  };
 }
 export function getCategory() {
   return async function (dispatch) {
-    var info = await axios.get("/category/name")
+    var info = await axios.get("/category/name");
     return dispatch({
       type: "GET_CATEGORY",
       payload: info.data,
@@ -138,15 +141,14 @@ export function getCategory() {
 
 export function getCategoryAll() {
   return async function (dispatch) {
-    var info = await axios.get("/category")
-    console.log(info)
+    var info = await axios.get("/category");
+    console.log(info);
     return dispatch({
       type: "GET_CATEGORY_ALL",
-      payload: info.data
-    })
-  }
+      payload: info.data,
+    });
+  };
 }
-
 
 export function setFavorite(idUser, id) {
   return async function (dispatch) {
@@ -168,11 +170,12 @@ export function filterDifficulty(input) {
     } catch (e) {
       console.log(e);
     }
-  }}
+  };
+}
 
-  export function removeFavorite(idUser, id){
-      return async function (dispatch){
-        const response = await axios.delete(`/fav/${idUser}/${id}`);
-        dispatch({type: "REMOVE_FAVORITE", data:id})
-      }
-  }
+export function removeFavorite(idUser, id) {
+  return async function (dispatch) {
+    const response = await axios.delete(`/fav/${idUser}/${id}`);
+    dispatch({ type: "REMOVE_FAVORITE", data: id });
+  };
+}
