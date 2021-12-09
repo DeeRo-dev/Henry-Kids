@@ -1,6 +1,7 @@
 // configruacion de Expres
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require('cors');
 
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
@@ -9,8 +10,15 @@ require("./db.js");
 
 const server = express();
 
+
 server.name = "API";
 
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+server.use(cors(corsOptions));
 server.use(express.urlencoded({ extended: true, limit: "50mb" }));
 server.use(express.json({ limit: "50mb" }));
 server.use(cookieParser());
