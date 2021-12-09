@@ -12,8 +12,8 @@ const server = express();
 
 server.name = "API";
 
-const whiteList = ["http://localhost:3000"];
-server.use(cors({ origin: whiteList }));
+/* const whiteList = ["http://localhost:3000"]; */
+server.use(cors(/* { origin: whiteList } */));
 
 server.use(express.urlencoded({ extended: true, limit: "50mb" }));
 server.use(express.json({ limit: "50mb" }));
