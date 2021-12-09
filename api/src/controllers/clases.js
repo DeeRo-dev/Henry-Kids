@@ -21,7 +21,7 @@ async function getClass(req, res, next) {
 
   results = await Class.findAll({
     attributes: ["id", "title", "description", "difficulty", "video_link", "game_link", "studio_material"],
-    include: [ Category, Evaluation, User ],
+    include: [ Category, Evaluation, User, Comment],
   })
 
   // Aca manejamos la busqueda por el search (por title).
@@ -113,7 +113,7 @@ async function deleteClass(req, res) {
 
     res.send("Was successfully removed");
   } catch (error) {
-    return res.status(400).send({ error: "something went wrong :(" });
+    return res.status(400).send({ error: "Something went wrong :(" });
   }
 }
 
@@ -124,7 +124,7 @@ async function editClass(req, res, next) {
     const result = await Class.update(changes, {
       where: { id: req.params.id },
     });
-    res.send("Was successfully edited");
+    res.send("It was successfully edited");
   } catch (err) {
     next(err);
   }
@@ -160,7 +160,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model: User, Category, Evaluation },
+      include: { model: User, Category, Evaluation, Comment },
     });
     res.send(classDetail);
   } catch (error) {

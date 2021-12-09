@@ -12,6 +12,7 @@ import {
   getUser,
   filterCategory,
   filterDifficulty,
+  editUser,
 } from "../../actions";
 
 export default function Nav() {
@@ -47,11 +48,6 @@ export default function Nav() {
       });
   };
 
-  // function handdleSubmit(e){
-  //   e.preventDefault();
-  //  console.log( e.target.value);
-  // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
-  // }
   const allCategory = useSelector((state) => state.category);
 
   useEffect(() => {
@@ -68,6 +64,11 @@ export default function Nav() {
     e.preventDefault();
     dispatch(filterDifficulty(e.target.value));
   }
+
+function typeUser(e){
+  e.preventDefault();
+  dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
+}
 
   return (
     <div className={styles.containerBackground}>
@@ -162,9 +163,9 @@ export default function Nav() {
             </option>
           </select> */}
             <div>
-              <Link to={"/home/student/register-teacher"}>
-                <button className={styles.blue}> ¿Te gustaria enseñar?</button>
-              </Link>
+              {/* <Link to={"/home/student/register-teacher"}> */}
+                <button  onClick={(e) => typeUser(e)} className={styles.blue}> ¿Te gustaria enseñar?</button>
+              {/* </Link> */}
             </div>
             {/* <Link to="/create-clase">
          <button className={styles.blue}>

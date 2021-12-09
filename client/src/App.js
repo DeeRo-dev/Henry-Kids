@@ -14,6 +14,7 @@ import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
 import Solicittudes from "./components/Solicitudes/Solicitudes";
+import CropImage from "./components/CropImage/CropImage"
 
 
 const studentRoutes = [
@@ -31,7 +32,10 @@ const teacherRoutes = [
   { path: "home/create-clase", element: <FormularioClase /> },
   { path: "/home/teacher/profile", element: <ProfileTeacher />},
   { path: "home/modify/:id", element: <ModifyClass /> },
-  { path: "/*", element: <HomeTeacher /> }
+  { path: "/*", element: <HomeTeacher /> },
+  { path: "/cropImage", element: <CropImage /> },
+
+
 ];
 
 const { type } = localStorage;
