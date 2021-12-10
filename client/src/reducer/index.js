@@ -11,6 +11,7 @@ const initialState = {
   solicitudes:[],
   userStudent:[],
   userTeacher:[],
+  
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -181,17 +182,28 @@ export default function rootReducer(state = initialState, action) {
        };
        case "SET_SOLICITUD":
       return{
-       ...state
+       ...state,
        };
        case "GET_USER_ALUMNO":
+        
       return {
         ...state,
-        userStudent: action.payload,
+        userStudent: action.data,
       };
       case "GET_USER_TEACHER":
         return {
           ...state,
-          userTeacher: action.payload,
+          userTeacher: action.data,
+        };
+      case "ACCEPT_TEACHER":
+        return{
+          ...state,
+          solicitudes: state.solicitudes.filter(c => c.id !== action.data)
+        };
+        case "RECHAZAR_TEACHER":
+        return{
+          ...state,
+          solicitudes: state.solicitudes.filter(c => c.id !== action.data)
         };
 
    default:

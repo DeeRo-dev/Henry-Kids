@@ -183,6 +183,7 @@ export function filterDifficulty(input) {
   export function getSolicitudes(){
     return async function(dispatch){
       let response = await axios.get('/user/solicitud/lista');
+      console.log('solicitudes:', response.data)
       dispatch({
         type: "GET_SOLICITUDES",
         data: response.data
@@ -191,8 +192,10 @@ export function filterDifficulty(input) {
   }
 
   export function enviarSoliProfe(data, id){
+    console.log(data, id)
       return async function(dispatch){
         let response = await axios.put(`/user/solicitud/${id}`, data);
+       console.log(response.data)
         dispatch({
           type: "SET_SOLICITUD",
           data : response.data
@@ -202,19 +205,40 @@ export function filterDifficulty(input) {
 
   export function getAlumnos(){
     return async function(dispatch){
-      let data = await axios.get("/user/type/student")
+      let response = await axios.get("/user/type/student")
       dispatch({
         type: "GET_USER_ALUMNO",
-        data: data.data
+        data: response.data
       })
   }
 }
 export function getProfesores(){
   return async function(dispatch){
-    let data = await axios.get("/user/type/teacher")
+    let response = await axios.get("/user/type/teacher")
+   
     dispatch({
       type: "GET_USER_TEACHER",
-      data: data.data
+      data: response.data
     })
 }
+}
+export function rechazarTeacher(id){
+  return async function(dispatch){
+    let response = await axios.put(`/user/solicitud/rechazada/${id}`)
+    dispatch({
+      type:"RECHAZAR_TEACHER",
+      data: id
+    })
+  }
+}
+
+
+export function acceptTeacher(id){
+  return async function(dispatch){
+    let response= await axios.put(`/user/solicitud/aceptada/${id}`)
+    dispatch({
+      type: "ACCEPT_TEACHER",
+      data: id
+    })
+  }
 }

@@ -39,7 +39,7 @@ const navigate = useNavigate();
 
 
 
-  if (allClassTeacher.length > 8){
+  if (allClassTeacher?.length > 8){
     currentPage = allClassTeacher.slice(indexFirstPage, indexLastPage)
   } else currentPage = allClassTeacher;
 

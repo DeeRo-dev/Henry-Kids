@@ -13,3 +13,18 @@
 .tituloNav{
   font-family: 'Pacifico', cursive;
 }
+
+.contentTable{
+  margin: auto;
+  
+  width: 95%;
+}
+.btnCheck{
+  color: rgb(45, 161, 22);
+  margin: 3px;
+}
+.btnClose{
+  color:red;
+  margin: 3px;
+
+}

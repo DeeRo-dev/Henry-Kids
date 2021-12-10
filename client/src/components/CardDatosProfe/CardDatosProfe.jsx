@@ -2,7 +2,7 @@ import React from "react";
 import style from "./CardDatosProfe.module.css"
 
 export default function CardDatosProfe( 
-  firstName,
+{  firstName,
   lastName,
   userName,
   id,
@@ -12,9 +12,9 @@ export default function CardDatosProfe(
   linkedin,
   pais,
   region,
-  fecha
+  fecha}
   ){
-    console.log('estes es el email' + email)
+   
   return (
     <div className={style.content}>
       <h3>Nombre: {firstName} {lastName}</h3>

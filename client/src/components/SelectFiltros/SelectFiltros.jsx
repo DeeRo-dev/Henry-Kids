@@ -6,8 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import style from "./SelectFiltros.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { getAllClasses, getAlumnos,getProfesores} from "../../actions";
-import CardAlumnos from "../CardClasseAdmin/CardClasseAdmin.jsx";
+import { getAllClasses, getAlumnos,getProfesores, getUser} from "../../actions";
+import CardClasseAdmin from "../CardClasseAdmin/CardClasseAdmin.jsx";
+import CardAlumnos from '../CardAlumno/CardAlumno';
 import Pagination from '../Paged/Paged.jsx';
 import CardDatosProfe from '../CardDatosProfe/CardDatosProfe.jsx';
 
@@ -24,8 +25,11 @@ import CardDatosProfe from '../CardDatosProfe/CardDatosProfe.jsx';
 
 export default function CheckboxLabels() {
   const dispatch = useDispatch();
-
-
+  // const user = useSelector((state) => state.user);
+  // useEffect(() => {
+  //   dispatch(getUser('all'))
+  // },[dispatch])
+ 
 
   //tRAER TODAS LAS CLASES
  
@@ -42,7 +46,7 @@ export default function CheckboxLabels() {
   },[dispatch])
   const allAlumnos = useSelector((state) => state.userStudent);
  
-  console.log(allAlumnos)
+  // console.log(allAlumnos)
 
 
 
@@ -157,7 +161,7 @@ export default function CheckboxLabels() {
             currentPage.map((e) => { 
                return (
                   <div key= {e.id} className={style.card}> 
-                    <CardAlumnos
+                    <CardClasseAdmin
                       id={e.id}
                       title={e.title}
                       category={e.category}
@@ -195,17 +199,17 @@ export default function CheckboxLabels() {
                allAlumnos?.map((e) => { 
             
                   return (
-                  //   <div key={e.id}>
-                  //     <div>{e.firstName}</div>
-                  // <CardAlumnos key= {e.id}
-                  //   firstName={e.firstName}
-                  //   lastName={e.lastName}
-                  //   userName={e.userName}
-                  //   id={e.id} 
-                  //   email={e.email}
-                  //  />
-                  //  </div>
-                  <div>{e.firstName}</div>
+                    <div key={e.id}>
+                  
+                  <CardAlumnos key= {e.id}
+                    firstName={e.firstName}
+                    lastName={e.lastName}
+                    userName={e.userName}
+                    id={e.id} 
+                    email={e.email}
+                   />
+                   </div>
+                
                    )
              } 
              )} 
@@ -225,28 +229,30 @@ export default function CheckboxLabels() {
                allProfesores?.map((e) => { 
                 return (
                   <div>
-
-                    <div>{e.firstName}</div>
-                  <CardDatosProfe 
-                    key= {e.id}
-                    firstName={e.firstName}
-                    lastName={e.lastName}
-                    userName={e.userName}
-                    id={e.id} 
-                    email={e.email}
-                    dni={e.dni}
-                    cuentaBancaria={e.cuentaBancaria}
-                    linkedin={e.linkedin}
-                    pais={e.pais}
-                    region={e.region}
+                   
+                                
+                 {
+                   <CardDatosProfe 
+                     key= {e.id}
+                     firstName={e.firstName}
+                     lastName={e.lastName}
+                     userName={e.userName}
+                     id={e.id} 
+                     email={e.email}
+                     dni={e.dni}
+                     cuentaBancaria={e.cuentaBancaria}
+                     linkedin={e.linkedin}
+                     pais={e.pais}
+                     region={e.region}
                     fecha={e.fecha}
-                   />
-                     </div>
+                   /> 
+                  }
+                     </div> 
                    )
-             
+           
              } 
              )} 
-           
+            
             </div>
           ) : null
            

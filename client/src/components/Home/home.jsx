@@ -70,13 +70,14 @@ export default function Home() {
       </div>
       <div className={styles.cards}>
         {currentPage?.map((e) => {
+         
           return (
             <div key={e.id}>
               <Card
                 id={e.id}
                 title={e.title}
                 isFav={e.isFav}
-                category={e.categories[0].name}
+                categories={e.categories[0]?.name}
                 description={e.description}
                 video_link={e.video_link}
                 difficulty={e.difficulty}
