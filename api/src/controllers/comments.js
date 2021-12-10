@@ -49,8 +49,21 @@ async function deleteComment(req, res, next) {
   }
 }
 
+async function editComment(req, res, next) {
+  const changes = req.body;
+  try {
+    const result = await Comment.update(changes, {
+      where: { id: req.params.id },
+    });
+    res.send("It was successfully edited");
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   createComment,
   getComments,
   deleteComment,
+  editComment
 };
