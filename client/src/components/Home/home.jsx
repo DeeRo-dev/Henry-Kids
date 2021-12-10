@@ -77,7 +77,7 @@ export default function Home() {
                 id={e.id}
                 title={e.title}
                 isFav={e.isFav}
-                category={e.categories[0].name}
+                category={e.categories[0]?.name}
                 description={e.description}
                 video_link={e.video_link}
                 difficulty={e.difficulty}
@@ -85,7 +85,7 @@ export default function Home() {
                 /* valoration={e.Evaluations[0].Evaluation} */
               />{" "}
             </div>
-          );
+          );  
         })}
       </div>
 
