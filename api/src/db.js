@@ -92,6 +92,9 @@ User.belongsToMany(Class, { through: AssUserClass});
 User.hasOne(Evaluation);
 Evaluation.belongsTo(User);
 
+Comment.belongsTo(User)
+User.hasMany(Comment)
+
 
 
 module.exports = {
