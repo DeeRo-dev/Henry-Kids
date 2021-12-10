@@ -142,7 +142,7 @@ async function solTeacher(req, res, next) {
     dni: dni,
     linkedin: linkedin,
     cuentaBancaria: cuentaBancaria,
-    dniImag: dniImag,
+    dniImag: dniImag[0],
     pais: pais,
     region: region,
     fecha: fecha,
