@@ -15,5 +15,9 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    response: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     });
 };
