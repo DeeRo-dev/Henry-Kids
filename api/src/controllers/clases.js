@@ -17,12 +17,14 @@ const { searchTitle } = require("../search/searchTitle")
 // funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
 async function getClass(req, res, next) {
 
-  let results = []
+  let results = [];
 
   results = await Class.findAll({
     attributes: ["id", "title", "description", "difficulty", "video_link", "game_link", "studio_material"],
-    include: [ Category, Evaluation, User, Comment],
-  })
+    include: [{model: Category} ,{model: Evaluation}, {model: User}, {model: Comment, include:[User]}],
+  });
+
+
 
   // Aca manejamos la busqueda por el search (por title).
   // modelo ruta 
@@ -160,7 +162,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: [ User, Category, Evaluation, Comment ],
+       include: [{model: Category} ,{model: Evaluation}, {model: User}, {model: Comment, include:[User]}]
     });
     res.send(classDetail);
   } catch (error) {
