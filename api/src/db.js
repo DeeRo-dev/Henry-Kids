@@ -89,6 +89,8 @@ User.belongsToMany(Class, { through: "clasUser" });
 User.hasOne(Evaluation);
 Evaluation.belongsTo(User);
 
+Comment.hasOne(User)
+User.hasMany(Comment)
 
 
 module.exports = {
