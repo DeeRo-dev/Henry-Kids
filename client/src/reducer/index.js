@@ -9,7 +9,8 @@ const initialState = {
   category: [],
   categoryAll: [],
   solicitudes:[],
-  usuarios:[],
+  userStudent:[],
+  userTeacher:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -182,11 +183,16 @@ export default function rootReducer(state = initialState, action) {
       return{
        ...state
        };
-       case "GET_USUARIOS":
+       case "GET_USER_ALUMNO":
       return {
         ...state,
-        usuarios: action.payload,
+        userStudent: action.payload,
       };
+      case "GET_USER_TEACHER":
+        return {
+          ...state,
+          userTeacher: action.payload,
+        };
 
    default:
       return state;

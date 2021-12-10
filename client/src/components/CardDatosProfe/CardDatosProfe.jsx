@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./CardDatosProfe.module.css"
 
-export default function cardDatosProfe( 
+export default function CardDatosProfe( 
   firstName,
   lastName,
   userName,
@@ -14,6 +14,7 @@ export default function cardDatosProfe(
   region,
   fecha
   ){
+    console.log('estes es el email' + email)
   return (
     <div className={style.content}>
       <h3>Nombre: {firstName} {lastName}</h3>

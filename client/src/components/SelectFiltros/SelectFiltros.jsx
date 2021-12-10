@@ -6,10 +6,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import style from "./SelectFiltros.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { getAllClasses, getUsuarios} from "../../actions";
+import { getAllClasses, getAlumnos,getProfesores} from "../../actions";
 import CardAlumnos from "../CardClasseAdmin/CardClasseAdmin.jsx";
 import Pagination from '../Paged/Paged.jsx';
-import cardDatosProfe from '../CardDatosProfe/CardDatosProfe.jsx';
+import CardDatosProfe from '../CardDatosProfe/CardDatosProfe.jsx';
+
+
 // const GreenCheckbox = withStyles({
 //   root: {
 //     color: green[400],
@@ -26,22 +28,31 @@ export default function CheckboxLabels() {
 
 
   //tRAER TODAS LAS CLASES
-  const allClasses = useSelector((state) => state.allClasses);
+ 
   
   useEffect(() => {
     dispatch(getAllClasses())
   },[dispatch])
+  const allClasses = useSelector((state) => state.allClasses);
 
   //TRAER  LOS AlUMNOS
-  const allAlumnos = useSelector((state) => state.usuarios);
+ 
   useEffect(() => {
-    dispatch(getUsuarios("student"))
+    dispatch(getAlumnos())
   },[dispatch])
- //TRAER LOS PROFESORES
- const allProfesores = useSelector((state) => state.usuarios);
+  const allAlumnos = useSelector((state) => state.userStudent);
+ 
+  console.log(allAlumnos)
+
+
+
+ //TRAER LOS PROFESOREs
  useEffect(() => {
-   dispatch(getUsuarios("teacher"))
+   dispatch(getProfesores())
  },[dispatch])
+ const allProfesores = useSelector((state) => state.userTeacher);
+
+
 //PAGINADO
   let cardsInPage = 8;
   let [page, setPage] = useState(1);
@@ -184,15 +195,17 @@ export default function CheckboxLabels() {
                allAlumnos?.map((e) => { 
             
                   return (
-                    <div>
-                  <CardAlumnos key= {e.id}
-                    firstName={e.firstName}
-                    lastName={e.lastName}
-                    userName={e.userName}
-                    id={e.id} 
-                    email={e.email}
-                   />
-                   </div>
+                  //   <div key={e.id}>
+                  //     <div>{e.firstName}</div>
+                  // <CardAlumnos key= {e.id}
+                  //   firstName={e.firstName}
+                  //   lastName={e.lastName}
+                  //   userName={e.userName}
+                  //   id={e.id} 
+                  //   email={e.email}
+                  //  />
+                  //  </div>
+                  <div>{e.firstName}</div>
                    )
              } 
              )} 
@@ -213,8 +226,9 @@ export default function CheckboxLabels() {
                 return (
                   <div>
 
-                
-                  <cardDatosProfe key= {e.id}
+                    <div>{e.firstName}</div>
+                  <CardDatosProfe 
+                    key= {e.id}
                     firstName={e.firstName}
                     lastName={e.lastName}
                     userName={e.userName}

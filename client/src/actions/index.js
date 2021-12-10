@@ -200,12 +200,21 @@ export function filterDifficulty(input) {
       }
   }
 
-  export function getUsuarios(type){
+  export function getAlumnos(){
     return async function(dispatch){
-      let data = await axios.get(`/user/type/${type}`)
+      let data = await axios.get("/user/type/student")
       dispatch({
-        type: "GET_USUARIOS",
+        type: "GET_USER_ALUMNO",
         data: data.data
       })
   }
+}
+export function getProfesores(){
+  return async function(dispatch){
+    let data = await axios.get("/user/type/teacher")
+    dispatch({
+      type: "GET_USER_TEACHER",
+      data: data.data
+    })
+}
 }
