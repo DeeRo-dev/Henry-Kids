@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUser, postUser } from "../../actions/index.js";
+import NearMeIcon from '@material-ui/icons/NearMe';
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -337,7 +339,12 @@ export default function LandingPage() {
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         />
-        <div>
+         {/* <div className={styles.about}> */}
+            <Link to ="/about" className={styles.about}>
+            ¿Qué es Henry Kids?<NearMeIcon className={styles.navigation}/> </Link>
+
+          {/* </div> */}
+        <div> 
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
               onClick={(e) => toggleModalIngresar(e)}

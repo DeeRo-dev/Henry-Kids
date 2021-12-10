@@ -12,25 +12,29 @@ import ProfileTeacher from "./components/ProfileTeacher/ProfileTeacher";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
-import CropImage from "./components/CropImage/CropImage"
-
+import CropImage from "./components/CropImage/CropImage";
+import About from "./components/About/About";
 
 const studentRoutes = [
   { path: "/home/student", element: <Home /> },
   { path: "/home/student/:id", element: <ClassDetail /> },
   { path: "/*", element: <Home /> },
-  { path: "/home/student/profile", element: <ProfileStudent />},
+  { path: "/home/student/profile", element: <ProfileStudent /> },
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
   { path: "home/create-clase", element: <FormularioClase /> },
-  { path: "/home/teacher/profile", element: <ProfileTeacher />},
+  { path: "/home/teacher/profile", element: <ProfileTeacher /> },
   { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> },
   { path: "/cropImage", element: <CropImage /> },
+];
 
+const publicRoutes = [
+  { path: "/*", element: <LandingPage /> },
+  { path: "/about", element: <About /> },
 
 ];
 
@@ -41,17 +45,17 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {
-          type === "student"
+          {type === "student"
             ? studentRoutes.map((e) => {
                 return <Route path={e.path} element={e.element} />;
               })
-            : type === "teacher" 
+            : type === "teacher"
             ? teacherRoutes.map((e) => {
                 return <Route path={e.path} element={e.element} />;
               })
-            : <Route path="/*" element={<LandingPage />} />
-              }
+            : publicRoutes.map((e) => {
+               return <Route path={e.path} element={e.element} />;
+              })}
         </Routes>
       </div>
     </BrowserRouter>

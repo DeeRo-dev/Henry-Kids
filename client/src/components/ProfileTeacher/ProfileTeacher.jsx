@@ -69,6 +69,11 @@ export default function ProfileStudent() {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
+      <Link to="/home/teacher">
+            <div className={styles.volver}>
+            <ArrowBackIosIcon color="primary"/>
+            </div>
+          </Link>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -78,22 +83,17 @@ export default function ProfileStudent() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-           <Link to="/home/teacher">
-            <div className={styles.volver}>
-            <ArrowBackIosIcon/>
-            </div>
-          </Link>
           {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(0)} /> */}
           <Tab
             label="Editar Perfil"
             icon={<PersonPinIcon />}
-            {...a11yProps(1)}
+            {...a11yProps(0)}
           />
          {/*  <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
       {/* <TabPanel value={value} index={0}></TabPanel> */}
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={0}>
         {" "}
         <ModifyTeacher />
       </TabPanel>

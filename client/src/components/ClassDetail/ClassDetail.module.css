@@ -1,53 +1,86 @@
-
 .contentDetail {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-
-  background: url('https://i.imgur.com/7Dl1ISR.png');
+  background: url("https://i.imgur.com/7Dl1ISR.png");
   background-position: center;
   background-size: cover;
-  overflow-x:hidden;
-  overflow-y:hidden;
+  overflow: visible;
+  /* overflow-x:hidden;
+  overflow-y:hidden; */
 }
-.header{
+
+/* .comments{
+
+} */
+
+
+
+
+.contentDescription {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  font-family: Roboto;
+  font-size: 20px;
 }
+
+.contentTitle {
+  margin-left: 100px; 
+ font-family: "Merienda One", cursive;
+ font-size: 20px;
+ color: var(--naranja);
+  margin-right: 100px;
+  margin-top: 30px
+
+}
+.contentDifficult{
+font-weight: bold;
+  font-size: 25px;
+  margin-top: 40px;
+  font-family: "Merienda";
+}
+
+.back{
+float: left;
+margin: 20px
+}
+
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+/*
 .back{
   margin-top: 20px;
   margin-left: 30px;
   font-family: Roboto;
   font-weight: bolder;
-}
+} */
 
+/* 
 .contentTitle {
    margin-left: 340px; 
-  
   font-family: "Merienda One", cursive;
   font-size: 20px;
   color: var(--naranja);
-  user-select: none;
 }
-
+*/
 .contentVideo {
-  display: grid;
-  grid-template-columns: 55% 45%;
+  display: flex;
   justify-content: center;
-  align-content: center;
-  align-items: center;
-  font-family: Roboto;
   margin-top: 15px;
-  height: 500px;
 }
-.boxLeft{
+.boxLeft {
   margin-top: 15px;
 }
 
-.boxRight{ 
-  margin-top: 15px;
-  height: 400px
-}
-
+/* 
 .contentDescription {
   display: flex;
   flex-direction: column;
@@ -67,11 +100,4 @@
   
   font-size: 20px;
 }
-
-.imgValoration{
-max-width: 15%;
-max-height: 15%;
-}
-
-
-
+ */

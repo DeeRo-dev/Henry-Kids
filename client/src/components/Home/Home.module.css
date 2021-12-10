@@ -13,9 +13,8 @@ margin:10px;
 margin-top: 80px;
 display: flex;
 justify-content: center;
-background-attachment: fixed;
-flex-direction: row;
-flex-wrap: wrap;
+/* flex-direction: row;
+flex-wrap: wrap; */
 width: 100vw;
 height: 100vh;
 }

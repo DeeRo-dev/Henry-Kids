@@ -7,7 +7,7 @@ html {
   --amarillo: #ffd200;
   --naranja: #ff8d00;
   --verde: #a1d1af;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   height:100%;
   width:101%;
   margin: 0px;
@@ -19,27 +19,44 @@ html {
   
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 .background {
   background-image: url("./img/landing.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  /* background-attachment: fixed; */
   width: 100vw;
   height: 100vh;
   text-align: center;
   position: relative;
+  margin-left: 15px;
+  margin-top: 15px
+}
 
+.about{
+  font-weight: bold;
+  color: #ffd200;
+  font-size: 27px; 
+  text-align: center;
+  font-family: "Sofia";
+}
+
+.about:hover{
+  color: #ff8d00 ;
+}
+
+.navigation{
+  transform: translate(3px, 3px)
 }
 
 .logo {
   float: left;
   width: 60px;
-  transform: translate(30px, 25px);
-  user-select: none;
+  margin-left: 15px;
+  /* transform: translate(30px, 25px); */
+  /* user-select: none; */
 }
 
 

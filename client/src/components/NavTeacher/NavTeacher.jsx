@@ -165,12 +165,13 @@ export default function NavTeacher() {
             className={styles.img}
      onClick={handleClick}/>*/}
       </div>
+      <div className={styles.perfil}>
       <Avatar
         src={currentUser ? currentUser.photo : ""}
         onClick={handleClick}
         className={classes.large}
       />
-
+</div>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -190,6 +191,7 @@ export default function NavTeacher() {
       {/* <p>Usuario</p>
      </div>
     </div> */}
+    
     </nav>
   );
 }

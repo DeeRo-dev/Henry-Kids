@@ -2,6 +2,13 @@ import { async } from "@firebase/util";
 
 const axios = require("axios");
 
+export function sendComment(text) {
+  return async function (dispatch) {
+    let response = await axios.post("/comment", text);
+    dispatch({ type: "SEND_COMMENT", data: response.data });
+  };
+}
+
 export function getAllClasses() {
   return async function (dispatch) {
     let response = await axios.get("/class");
@@ -58,11 +65,7 @@ export function getAllClassTeacher(idUser) {
 
 export function editUser(id, user) {
   return async function (dispatch) {
-    let userUpdate = user.photo
-      ? await axios.put(`/user/${id}`, user, {
-          headers: { "content-type": "multipart/form-data" },
-        })
-      : await axios.put(`/user/${id}`, user);
+    let userUpdate = await axios.put(`/user/${id}`, user);
     dispatch({
       type: "EDIT_USER",
       currentUser: userUpdate,
