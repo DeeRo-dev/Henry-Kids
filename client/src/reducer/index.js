@@ -18,7 +18,10 @@ export default function rootReducer(state = initialState, action) {
         allClasses: action.data,
         classes: action.data,
       };
-
+    case "SEND_COMMENT":
+      return {
+        ...state,
+      };
     case "POST_USER":
       return {
         ...state,
@@ -164,13 +167,11 @@ export default function rootReducer(state = initialState, action) {
         ),
       };
 
-      case "REMOVE_FAVORITE":
-        return {
-          ...state,
-          favorites: state.favorites?.filter(
-            (c) => c.id !== action.data
-          )
-        }
+    case "REMOVE_FAVORITE":
+      return {
+        ...state,
+        favorites: state.favorites?.filter((c) => c.id !== action.data),
+      };
 
     default:
       return state;
