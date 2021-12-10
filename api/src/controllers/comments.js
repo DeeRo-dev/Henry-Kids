@@ -2,7 +2,7 @@ const { Class, User, Comment } = require("../db");
 const Sequelize = require("sequelize");
 
 async function createComment(req, res, next) {
-  const { name, classId } = req.body;
+  const { name, classId, userId } = req.body;
   try {
     const comment = await Comment.create({ name });
     await comment.setClass(parseInt(classId));
