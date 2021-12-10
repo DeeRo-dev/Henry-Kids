@@ -22,6 +22,8 @@ async function getClass(req, res, next) {
   results = await Class.findAll({
     attributes: ["id", "title", "description", "difficulty", "video_link", "game_link", "studio_material"],
     include: [ Category, Evaluation, User, Comment],
+    include: [AssUserClass],
+
   })
 
   // Aca manejamos la busqueda por el search (por title).
