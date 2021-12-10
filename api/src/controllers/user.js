@@ -1,7 +1,6 @@
-
 const { User, Class, Status } = require("../db.js");
-const { sendMail } = require('../mails/mails')
-const fs = require('fs')
+const { sendMail } = require("../mails/mails");
+const fs = require("fs");
 // fs es una libreria, sistema de archivo, para interactuar con los archivos y directorios. (en este caso usamos ---> readFileSync())
 const { Association } = require("sequelize/dist");
 
@@ -9,7 +8,6 @@ const { Association } = require("sequelize/dist");
 async function createUser(req, res, next) {
   const { firstName, lastName, userName, type, id, email, photo } = req.body;
   try {
-   
     const user = await User.create({
       id,
       firstName,
@@ -18,20 +16,28 @@ async function createUser(req, res, next) {
       type,
       email,
       photo,
+      type: "confirmacion",
     });
     const newUser = await User.findOne({ where: { userName } });
     // aca le ponemos mayuscula a la primer letra del nombre.
-    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+    let newFirstName =
+      user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
 
     // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
-    let html_template = fs.readFileSync('./src/mails/templates/welcome.html', {encoding:'utf8', flag:'r'})
-    html_template = html_template.replace('FIRST_NAME', newFirstName)
+    let html_template = fs.readFileSync("./src/mails/templates/confirmacion.html", {
+      encoding: "utf8",
+      flag: "r",
+    });
+    html_template = html_template.replace("FIRST_NAME", newFirstName);
+
+    let ruta= "https://henry-kids.herokuapp.com/user/email/verificado/"+id
+    let rute =<A HREF={ruta}> Link de Verificacion </A>
+    html_template = html_template.replace("RUTA_CONF", rute);
 
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
-    sendMail(email, "Welcome to Henry Kids", html_template, "html");
+    sendMail(email, "Confirma tu dirección de correo electrónico", html_template, "html");
 
     res.status(200).send(newUser);
-
   } catch {
     (err) => err(next);
   }
@@ -45,7 +51,7 @@ async function getUserId(req, res, next) {
       where: {
         id: id,
       },
-      include: [{model: Class}],
+      include: [{ model: Class }],
     });
     res.send(userDetail);
   } catch (error) {
@@ -112,7 +118,11 @@ async function getUser(req, res, next) {
 
 async function getAllTeacher(req, res, next) {
   try {
-    const userDetail = await User.findAll();
+    const userDetail = await User.findAll({
+      where: {
+        type: "teacher",
+      },
+    });
     res.send(userDetail);
   } catch (error) {
     next(error);
@@ -142,7 +152,7 @@ async function solTeacher(req, res, next) {
     dni: dni,
     linkedin: linkedin,
     cuentaBancaria: cuentaBancaria,
-    dniImag: dniImag,
+    dniImag: dniImag[0],
     pais: pais,
     region: region,
     fecha: fecha,
@@ -228,6 +238,46 @@ async function getUserType(req, res, next) {
   }
 }
 
+async function confirmacionEmail(req, res, next) {
+  const changes = {
+    type: "student",
+  };
+  try {
+    const result = await User.update(changes, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    const userDetail = await User.findAll({
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(userDetail.toJSON());
+    let email = userDetail.toJSON().email;
+    let user = userDetail.toJSON();
+
+    let newFirstName =
+      user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+    let html_template = fs.readFileSync("./src/mails/templates/welcome.html", {
+      encoding: "utf8",
+      flag: "r",
+    });
+    html_template = html_template.replace("FIRST_NAME", newFirstName);
+
+    sendMail(
+      email,
+      "Welcome to Henry Kids",
+      html_template,
+      "html"
+    );
+
+    res.send("el Usario ahora es estudiante");
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   createUser,
   getUserId,
@@ -240,5 +290,6 @@ module.exports = {
   getSolicitudTecher,
   getUserType,
   solRechazadaTeacher,
-  getAllTeacher
+  getAllTeacher,
+  confirmacionEmail,
 };
