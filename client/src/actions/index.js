@@ -182,3 +182,28 @@ export function removeFavorite(idUser, id) {
     dispatch({ type: "REMOVE_FAVORITE", data: id });
   };
 }
+
+export function getValoracion(id) {
+  return async function (dispatch) {
+    var info = await axios.get(`/evaluation/${id}`);
+    // console.log(info);
+    return dispatch({
+      type: "GET_VALORACION",
+      payload: info.data,
+    });
+  };
+}
+
+
+export function getClasEvaUs(id) {
+  return async function (dispatch) {
+    var info = await axios.get(`/evaluation/claseEval/${id}`);
+    // console.log(info);
+    return dispatch({
+      type: "GET_CLASEVAL",
+      payload: info.data,
+    });
+  };
+}
+
+

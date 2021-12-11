@@ -86,14 +86,12 @@ Status.hasMany(AssUserClass);
 AssUserClass.belongsTo(Status);
 
 
-User.hasOne(Evaluation);
+User.hasMany(Evaluation);
 Evaluation.belongsTo(User);
 
 Class.belongsToMany(User, { through: AssUserClass});
 User.belongsToMany(Class, { through: AssUserClass});
 
-User.hasOne(Evaluation);
-Evaluation.belongsTo(User);
 
 Comment.belongsTo(User)
 User.hasMany(Comment)

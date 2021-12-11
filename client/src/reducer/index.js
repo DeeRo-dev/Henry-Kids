@@ -8,6 +8,8 @@ const initialState = {
   favorites: [],
   category: [],
   categoryAll: [],
+  valoracion:[],
+  valoracion2:[]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -173,6 +175,17 @@ export default function rootReducer(state = initialState, action) {
         favorites: state.favorites?.filter((c) => c.id !== action.data),
       };
 
+      case "GET_VALORACION":
+      return {
+        ...state,
+        valoracion: action.payload,
+      };
+
+      case "GET_CLASEVAL":
+      return {
+        ...state,
+        valoracion2: action.payload,
+      };
     default:
       return state;
   }
