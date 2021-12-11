@@ -22,9 +22,10 @@
 .btnCheck{
   color: rgb(45, 161, 22);
   margin: 3px;
+  cursor: pointer;
 }
 .btnClose{
   color:red;
   margin: 3px;
-
+  cursor: pointer;
 }

@@ -8,10 +8,10 @@ const initialState = {
   favorites: [],
   category: [],
   categoryAll: [],
-  solicitudes:[],
-  userStudent:[],
-  userTeacher:[],
-  
+  solicitudes: [],
+  userStudent: [],
+  userTeacher: [],
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -169,44 +169,49 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "REMOVE_FAVORITE":
-       return {
+      return {
         ...state,
-         favorites: state.favorites?.filter(
+        favorites: state.favorites?.filter(
           (c) => c.id !== action.data
-         )
-       };
-   case "GET_SOLICITUDES":
-      return{
-       ...state,
-       solicitudes:action.data
-       };
-       case "SET_SOLICITUD":
-      return{
-       ...state,
-       };
-       case "GET_USER_ALUMNO":
-        
+        )
+      };
+    case "GET_SOLICITUDES":
+      return {
+        ...state,
+        solicitudes: action.data
+      };
+    case "SET_SOLICITUD":
+      return {
+        ...state,
+      };
+      
+    case "GET_USER_ALUMNO":
+
       return {
         ...state,
         userStudent: action.data,
       };
-      case "GET_USER_TEACHER":
-        return {
-          ...state,
-          userTeacher: action.data,
-        };
-      case "ACCEPT_TEACHER":
-        return{
-          ...state,
-          solicitudes: state.solicitudes.filter(c => c.id !== action.data)
-        };
-        case "RECHAZAR_TEACHER":
-        return{
-          ...state,
-          solicitudes: state.solicitudes.filter(c => c.id !== action.data)
-        };
-
-   default:
+    case "GET_USER_TEACHER":
+      return {
+        ...state,
+        userTeacher: action.data,
+      };
+    case "ACCEPT_TEACHER":
+      console.log(action.data)
+      return {
+        ...state,
+        solicitudes: state.solicitudes.filter(c => c.id !== action.data)
+      };
+    case "RECHAZAR_TEACHER":
+      return {
+        ...state,
+        solicitudes: state.solicitudes.filter(c => c.id !== action.data)
+      };
+      case "DELETE_USER":
+      return {
+        ...state,
+      };
+    default:
       return state;
   }
 }

@@ -22,14 +22,14 @@ export default function Solicitudes(){
 
 const dispatch = useDispatch();
 const allSolicitudes = useSelector((state) => state.solicitudes)
-console.log(allSolicitudes)
+
 useEffect(()=> {
   dispatch(getSolicitudes())
 },[dispatch]);
 
 const navigate = useNavigate();
 
-  function onSubmit(){
+  function onSubmit(){  
     navigate('/home/admin')
   }
   const useStyles = makeStyles({
@@ -105,22 +105,22 @@ const navigate = useNavigate();
 
 
     function onClickAccept(id){
-     console.log(id)
     dispatch(acceptTeacher(id))
     }
 
     function onClickRechazar(id){
-      console.log(id)
       dispatch(rechazarTeacher(id))
     }
+
   return(
     <div>
     <div> 
       <div>
         <nav className={style.naav}>
-          <h1 className={style.tituloNav}>Panel de Administrador: </h1>
+          <h1 className={style.tituloNav}> Panel de Administrador: </h1>
           <h3>  NombreDeUsuario</h3> 
           <input type="button" value="<-" onClick={onSubmit}/>
+         
         </nav>
          
       </div>

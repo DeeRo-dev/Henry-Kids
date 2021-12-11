@@ -111,7 +111,6 @@ export function getClassById(id) {
 export function getFavorites(idUs) {
   return async function (dispatch) {
     let response = await axios.get(`/fav/${idUs}`);
-    console.log(response.data, idUs);
     dispatch({ type: "GET_FAVORITES", data: response.data });
   };
 }
@@ -238,6 +237,16 @@ export function acceptTeacher(id){
     let response= await axios.put(`/user/solicitud/aceptada/${id}`)
     dispatch({
       type: "ACCEPT_TEACHER",
+      data: id
+    })
+  }
+}
+
+export function deleteUser(id){
+  return async function(dispatch){
+    let response= await axios.delete(`/user/${id}`)
+    dispatch({
+      type: "DELETE_USER",
       data: id
     })
   }

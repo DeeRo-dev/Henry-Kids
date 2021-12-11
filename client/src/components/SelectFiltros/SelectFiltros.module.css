@@ -13,7 +13,15 @@
  
 }
 
-
+.contentTable{
+  margin: auto;
+  width: 95%;
+}
+.btnClose{
+  color:red;
+  margin: 3px;
+  cursor: pointer;
+}
 .contentCards{
     width: 100%;
     height: 800px;
