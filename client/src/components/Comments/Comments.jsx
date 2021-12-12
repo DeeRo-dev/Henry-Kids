@@ -14,7 +14,7 @@ export default function Comments({ detail }) {
         <Avatar src="#" />
         <div className={styles.media_body}>
           <p className={styles.nombre}>
-            Marlon<span>7:51, Hoy</span>
+            Felipe<span>7:51, Hoy</span>
           </p>
           <p className={styles.comentario}>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis

@@ -4,12 +4,13 @@ import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ClassDetail.module.css";
 import { Link, useParams } from "react-router-dom";
-import { getClassById, sendComment } from "../../actions";
+import { getClassById, sendComment,getClasEvaUs } from "../../actions";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button, withStyles } from "@material-ui/core";
 import Comments from "../Comments/Comments"
+import axios from "axios";
 
 export default function ClassDetail() {
   const { id } = useParams();
@@ -66,6 +67,28 @@ export default function ClassDetail() {
     dispatch(getClassById(id));
   }, [id, dispatch]);
 
+
+  const idUser = window.localStorage.sessionUser;
+   
+  useEffect (()=> {dispatch(getClasEvaUs(id))},[dispatch,id])
+  const userss = useSelector((state) => state.valoracion2)
+  console.log(userss) 
+
+  
+ 
+  
+  function  onChangeVal (value){
+  
+    console.log(idUser)
+  console.log(id) 
+    let aux={
+      nota:value,
+      classId:id,    
+      userId:idUser
+  }
+     axios.post("https://henry-kids.herokuapp.com/evaluation/",aux)
+  }
+
   return (
     <div className={styles.contentDetail}>
       {detail && (
@@ -96,6 +119,39 @@ export default function ClassDetail() {
           </div>
 
           <div className={styles.contentDescription}>{detail.description}</div>
+          <div  >
+          
+            {
+              (userss.userId===idUser)?
+              <p className={styles.clasificacion}>
+              <input  checked={userss.Promedio===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
+              <label  for="radio1">★</label>
+              <input  checked={userss.Promedio===4? true: false} id="radio2" type="radio" name="estrellas" value="4"/>
+              <label for="radio2">★</label>
+              <input  checked={userss.Promedio===3? true: false} id="radio3" type="radio" name="estrellas" value="3"/>
+              <label for="radio3">★</label>
+              <input  checked={userss.Promedio===2? true: false} id="radio4" type="radio" name="estrellas" value="2"/>
+              <label for="radio4">★</label>
+              <input  checked={userss.Promedio===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
+              <label for="radio5">★</label>
+                      </p>
+              :
+              <p className={styles.clasificacion2}>
+                <p>Valorar Clase</p>
+              <input  onClick={ ()=> onChangeVal(5) } id="radio1" type="radio"  name="estrellas" value="5"/>
+              <label  for="radio1">★</label>
+              <input  onClick={ ()=> onChangeVal(4) } id="radio2" type="radio" name="estrellas" value="4"/>
+              <label for="radio2">★</label>
+              <input  onClick={ ()=> onChangeVal(3) } id="radio3" type="radio" name="estrellas" value="3"/>
+              <label for="radio3">★</label>
+              <input  onClick={ ()=> onChangeVal(2) } id="radio4" type="radio" name="estrellas" value="2"/>
+              <label for="radio4">★</label>
+              <input  onClick={ ()=> onChangeVal(1) } id="radio5" type="radio" name="estrellas" value="1"/>
+              <label for="radio5">★</label>
+                      </p>
+            }
+   
+          </div>
 
           {/* <iframe width="727" height="409" src="https://www.youtube.com/embed/LO2RPDZkY88" 
                                 title="YouTube video player" 
@@ -116,6 +172,7 @@ export default function ClassDetail() {
               ></iframe>
             </div>
           ) : null} */}
+         
           <div className={styles.comments}>
             <div className={styles.comment}>
               <Comments detail={detail}></Comments>

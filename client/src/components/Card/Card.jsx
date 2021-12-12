@@ -12,7 +12,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFavorite, removeFavorite, getFavorites } from "../../actions";
+import { setFavorite, removeFavorite, getFavorites,getValoracion } from "../../actions";
 
 
 export default function Card({
@@ -37,6 +37,10 @@ export default function Card({
   const idUser = window.localStorage.sessionUser;
   useEffect (()=> {dispatch(getFavorites(idUser))},[dispatch, idUser])
   const favoritesRedux = useSelector(state => state.favorites)
+
+  useEffect (()=> {dispatch(getValoracion(id))},[])
+  const valoracion = useSelector(state => state.valoracion)
+  
   
   
 
@@ -81,12 +85,20 @@ export default function Card({
           {/* <div className={styles.description}>{description}</div> */}
 
           <div className={styles.instructor}>Dificultad: {difficulty} </div>
-          <p className={styles.valoration}> {valoration}
-            <img
-              src="https://dondeestanlasluces.files.wordpress.com/2017/08/stars.png"
-              alt="user"
-            />
+          <form  >
+          <p className={styles.clasificacion}>
+  <input  checked={valoracion.promedio===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
+  <label  for="radio1">★</label>
+  <input  checked={valoracion.promedio===4? true: false} id="radio2" type="radio" name="estrellas" value="4"/>
+  <label for="radio2">★</label>
+  <input  checked={valoracion.promedio===3? true: false} id="radio3" type="radio" name="estrellas" value="3"/>
+  <label for="radio3">★</label>
+  <input  checked={valoracion.promedio===2? true: false} id="radio4" type="radio" name="estrellas" value="2"/>
+  <label for="radio4">★</label>
+  <input  checked={valoracion.promedio===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
+  <label for="radio5">★</label>
           </p>
+          </form>
         </div>
        </Link> 
     </div>
