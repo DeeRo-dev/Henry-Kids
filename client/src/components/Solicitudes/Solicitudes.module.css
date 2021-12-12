@@ -10,6 +10,13 @@
   background: #fff;
   
 }
+.logo {
+  background: #fff;
+  float: left;
+  width: 50px;
+  user-select: none;
+  margin-left: 12px;
+}
 .tituloNav{
   font-family: 'Balsamiq Sans', cursive;
   

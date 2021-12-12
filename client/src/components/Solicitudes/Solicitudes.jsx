@@ -132,6 +132,13 @@ const navigate = useNavigate();
     <div> 
       <div>
         <nav className={style.naav}>
+        <div className={style.logo}>
+            <img
+              className={style.logo}
+              src="https://i.imgur.com/AWEe2XR.png"
+              alt="not found"
+            />
+          </div>
         <p className={style.tituloNav}>Administrador: </p>
      
           <div className={style.name}> {adminDatos[0]?.firstName} {adminDatos[0]?.lastName}</div>

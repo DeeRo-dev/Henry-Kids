@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import style from "./HomeAdmin.module.css";
-import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
-import { useNavigate } from "react-router-dom";
-import CheckboxLabels from "../SelectFiltros/SelectFiltros.jsx";
+
+// import { useNavigate } from "react-router-dom";
+// import CheckboxLabels from "../SelectFiltros/SelectFiltros.jsx";
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -13,9 +13,8 @@ import CardClasseAdmin from "../CardClasseAdmin/CardClasseAdmin.jsx";
 import Pagination from '../Paged/Paged.jsx';
 import TablaDeStudent from "../TablaAdminStudent/TablaAdminStudent.jsx"
 import TablaAdminTeacher from '../TablaAdminTeacher/TablaAdminTeacher';
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-
-
+// import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import NavAdmin from "../NavAdmin/NavAdmin.jsx"
 
 export default function HomeAdmin() {
 
@@ -59,7 +58,7 @@ console.log(adminDatos);
 
 
   const [state, setState] = React.useState({
-    Clases: false,
+    Clases: true,
     Profesores: false,
     Alumnos: false,
   });
@@ -87,35 +86,14 @@ console.log(adminDatos);
     }
   }
 
-  const navigate = useNavigate();
-  function onSubmit(e) {
-    navigate("/user/solicitud/lista");
-  }
-
+  
 
   return (
     <div className={style.content}>
-      {/* --------------TODO LO QUE ESTA EN HOME ADMIN------------------- */}
-      <nav className={style.nav}>
-        <p className={style.tituloNav}>Administrador: </p>{" "}
-        <div className={style.name}> {adminDatos[0]?.firstName}  {adminDatos[0]?.lastName}</div>
-    
-    
-          <button
-            type="button"
-           
-            className={style.botonSoli}
-            onClick={onSubmit}>
-                 Solicitudes 
-                 <NotificationsActiveIcon />
-                
-            </button>
-      
-      </nav>
+     
+  <NavAdmin state={state} adminDatos={adminDatos}/>
 
-  
-
-  {/* -------------Todo lo que esta en selectfiltros------------ */}
+  {/* ------------CHECKBOX------------ */}
 
 
   <div className={style.contentFiltrosYCards}>

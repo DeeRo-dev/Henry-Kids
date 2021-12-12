@@ -251,3 +251,13 @@ export function deleteUser(id){
     })
   }
 }
+
+export function newCategory(){
+  return async function(dispatch){
+    let response= await axios.post('/category')
+    dispatch({
+      type: "NEW_CATEGORY",
+      data:response.data
+    })
+  }
+}

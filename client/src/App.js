@@ -15,7 +15,7 @@ import FavsContainer from "./components/FavsContainer/FavsContainer";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
 import Solicitudes from "./components/Solicitudes/Solicitudes";
 import CropImage from "./components/CropImage/CropImage"
-
+import FormCategory from "./components/FormCategory/FormCategory"
 
 const studentRoutes = [
   { path: "/home/student", element: <Home /> },
@@ -25,6 +25,7 @@ const studentRoutes = [
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
   { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/home/admin/FormCategory", element: <FormCategory /> }, 
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
 ];
 const teacherRoutes = [
@@ -34,8 +35,10 @@ const teacherRoutes = [
   { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> },
   { path: "/cropImage", element: <CropImage /> },
-
-
+  { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/user/solicitud/lista", element: <Solicitudes /> },
+ { path: "/user/solicitud/lista", element: <Solicitudes /> },
+ 
 ];
 
 const { type } = localStorage;
