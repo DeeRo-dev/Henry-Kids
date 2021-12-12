@@ -22,7 +22,10 @@ export default function rootReducer(state = initialState, action) {
         allClasses: action.data,
         classes: action.data,
       };
-
+    case "SEND_COMMENT":
+      return {
+        ...state,
+      };
     case "POST_USER":
       return {
         ...state,

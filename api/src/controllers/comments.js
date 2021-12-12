@@ -1,11 +1,12 @@
-const { Class, Comment } = require("../db");
+const { Class, User, Comment } = require("../db");
 const Sequelize = require("sequelize");
 
 async function createComment(req, res, next) {
-  const { name, classId } = req.body;
+  const { name, classId, userId } = req.body;
   try {
     const comment = await Comment.create({ name });
     await comment.setClass(parseInt(classId));
+    await comment.setUser(userId);
     const verifiedComment = await Comment.findOne({ where: { name } });
 
     res.send(verifiedComment);
@@ -48,8 +49,21 @@ async function deleteComment(req, res, next) {
   }
 }
 
+async function editComment(req, res, next) {
+  const changes = req.body;
+  try {
+    const result = await Comment.update(changes, {
+      where: { id: req.params.id },
+    });
+    res.send("It was successfully edited");
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   createComment,
   getComments,
   deleteComment,
+  editComment
 };

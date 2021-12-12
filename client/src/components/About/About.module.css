@@ -1,0 +1,14 @@
+.about {
+  background-image: url("https://i.imgur.com/jysljBA.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.volver{
+  margin-top: 20px;
+  margin-left: 50px;
+}

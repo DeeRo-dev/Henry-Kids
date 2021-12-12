@@ -85,7 +85,7 @@ export default function Home() {
                 /* valoration={e.Evaluations[0].Evaluation} */
               />{" "}
             </div>
-          );
+          );  
         })}
       </div>
 

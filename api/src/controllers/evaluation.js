@@ -63,7 +63,25 @@ async function getEval(req, res, next) {
   }
 }
 
+async function getClasEvaUs(req, res, next) {
+  try {
+    const { idClas } = req.params;
+    const classDetail = await Class.findAll({
+      where: {
+        id: idClas,
+      },
+      include: [{ model:Evaluation, include: User}],
+    });
+    res.send(classDetail);
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+
 module.exports = {
   addEval,
   getEval,
+  getClasEvaUs
 };

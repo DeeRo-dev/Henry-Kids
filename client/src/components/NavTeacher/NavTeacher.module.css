@@ -18,7 +18,9 @@
   display: inline-block;
   margin-right: 5px;
 }
-
+.perfil{
+  margin-right: 15px;
+}
 .blue:hover {
   background-color:  #ff8d00;
   border: 2px #ff8d00 solid;
