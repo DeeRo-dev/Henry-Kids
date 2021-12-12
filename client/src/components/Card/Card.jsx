@@ -27,6 +27,7 @@ export default function Card({
   game_link,
   valoration,
 }) {
+
   let firstIndex = video_link && video_link.indexOf("=") + 1;
   let slice = video_link && video_link.slice(firstIndex, video_link.length);
 
@@ -37,9 +38,6 @@ export default function Card({
   const idUser = window.localStorage.sessionUser;
   useEffect (()=> {dispatch(getFavorites(idUser))},[dispatch, idUser])
   const favoritesRedux = useSelector(state => state.favorites)
-
-  useEffect (()=> {dispatch(getValoracion(id))},[])
-  const valoracion = useSelector(state => state.valoracion)
   
   
   
@@ -86,16 +84,17 @@ export default function Card({
 
           <div className={styles.instructor}>Dificultad: {difficulty} </div>
           <form  >
+    
           <p className={styles.clasificacion}>
-  <input  checked={valoracion.promedio===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
+  <input  checked={valoration===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
   <label  for="radio1">★</label>
-  <input  checked={valoracion.promedio===4? true: false} id="radio2" type="radio" name="estrellas" value="4"/>
+  <input  checked={valoration===4? true: false} id="radio2" type="radio" name="estrellas" value="4"/>
   <label for="radio2">★</label>
-  <input  checked={valoracion.promedio===3? true: false} id="radio3" type="radio" name="estrellas" value="3"/>
+  <input  checked={valoration===3? true: false} id="radio3" type="radio" name="estrellas" value="3"/>
   <label for="radio3">★</label>
-  <input  checked={valoracion.promedio===2? true: false} id="radio4" type="radio" name="estrellas" value="2"/>
+  <input  checked={valoration===2? true: false} id="radio4" type="radio" name="estrellas" value="2"/>
   <label for="radio4">★</label>
-  <input  checked={valoracion.promedio===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
+  <input  checked={valoration===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
   <label for="radio5">★</label>
           </p>
           </form>
