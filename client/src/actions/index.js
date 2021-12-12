@@ -198,10 +198,10 @@ export function getValoracion(id) {
 export function getClasEvaUs(id) {
   return async function (dispatch) {
     var info = await axios.get(`/evaluation/claseEval/${id}`);
-    // console.log(info);
+    console.log(info);
     return dispatch({
       type: "GET_CLASEVAL",
-      payload: info.data,
+      payload: info.data[0].Evaluations[0],
     });
   };
 }

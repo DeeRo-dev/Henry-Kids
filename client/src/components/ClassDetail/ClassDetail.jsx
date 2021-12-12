@@ -70,9 +70,9 @@ export default function ClassDetail() {
 
   const idUser = window.localStorage.sessionUser;
    
-  useEffect (()=> {dispatch(getClasEvaUs(id))},[])
-  const users = useSelector(state => state.valoracion2)
-  // console.log(users[0].Evaluations[0].userId) 
+  useEffect (()=> {dispatch(getClasEvaUs(id))},[dispatch,id])
+  const userss = useSelector((state) => state.valoracion2)
+  console.log(userss) 
 
   
  
@@ -120,18 +120,36 @@ export default function ClassDetail() {
 
           <div className={styles.contentDescription}>{detail.description}</div>
           <div  >
-          <p className={styles.clasificacion2}>
-  <input  onClick={ ()=> onChangeVal(5) } id="radio1" type="radio"  name="estrellas" value="5"/>
-  <label  for="radio1">★</label>
-  <input  onClick={ ()=> onChangeVal(4) } id="radio2" type="radio" name="estrellas" value="4"/>
-  <label for="radio2">★</label>
-  <input  onClick={ ()=> onChangeVal(3) } id="radio3" type="radio" name="estrellas" value="3"/>
-  <label for="radio3">★</label>
-  <input  onClick={ ()=> onChangeVal(2) } id="radio4" type="radio" name="estrellas" value="2"/>
-  <label for="radio4">★</label>
-  <input  onClick={ ()=> onChangeVal(1) } id="radio5" type="radio" name="estrellas" value="1"/>
-  <label for="radio5">★</label>
-          </p>
+          
+            {
+              (userss.userId===idUser)?
+              <p className={styles.clasificacion}>
+              <input  checked={userss.Promedio===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
+              <label  for="radio1">★</label>
+              <input  checked={userss.Promedio===4? true: false} id="radio2" type="radio" name="estrellas" value="4"/>
+              <label for="radio2">★</label>
+              <input  checked={userss.Promedio===3? true: false} id="radio3" type="radio" name="estrellas" value="3"/>
+              <label for="radio3">★</label>
+              <input  checked={userss.Promedio===2? true: false} id="radio4" type="radio" name="estrellas" value="2"/>
+              <label for="radio4">★</label>
+              <input  checked={userss.Promedio===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
+              <label for="radio5">★</label>
+                      </p>
+              :
+              <p className={styles.clasificacion2}>
+              <input  onClick={ ()=> onChangeVal(5) } id="radio1" type="radio"  name="estrellas" value="5"/>
+              <label  for="radio1">★</label>
+              <input  onClick={ ()=> onChangeVal(4) } id="radio2" type="radio" name="estrellas" value="4"/>
+              <label for="radio2">★</label>
+              <input  onClick={ ()=> onChangeVal(3) } id="radio3" type="radio" name="estrellas" value="3"/>
+              <label for="radio3">★</label>
+              <input  onClick={ ()=> onChangeVal(2) } id="radio4" type="radio" name="estrellas" value="2"/>
+              <label for="radio4">★</label>
+              <input  onClick={ ()=> onChangeVal(1) } id="radio5" type="radio" name="estrellas" value="1"/>
+              <label for="radio5">★</label>
+                      </p>
+            }
+   
           </div>
 
           {/* <iframe width="727" height="409" src="https://www.youtube.com/embed/LO2RPDZkY88" 

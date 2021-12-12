@@ -104,7 +104,6 @@ margin: 20px
 
  label{ color:grey;}
 input[type = "radio"]{ display:none;}
-
 input[type = "radio"]:checked ~ label{color:orange;}
 .clasificacion2 {
   direction: rtl;
@@ -117,4 +116,8 @@ input[type = "radio"]:checked ~ label{color:orange;}
 .clasificacion2 label:hover {
   
    color:orange
+}
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
 }
