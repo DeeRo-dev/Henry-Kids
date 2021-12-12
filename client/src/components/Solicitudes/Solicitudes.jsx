@@ -14,13 +14,25 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
+import StarIcon from '@material-ui/icons/Star';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { acceptTeacher, rechazarTeacher } from "../../actions";
+import { acceptTeacher, rechazarTeacher, getUser } from "../../actions";
+import HomeIcon from '@material-ui/icons/Home';
 
 export default function Solicitudes(){
 
 const dispatch = useDispatch();
+
+
+ //TRAER EL NOMBRE DEL ADMIN
+  
+ useEffect(() => {
+  const id = window.localStorage.sessionUser;
+  dispatch(getUser(id))
+}, [dispatch])
+const adminDatos = useSelector((state) => state.user);
+
+
 const allSolicitudes = useSelector((state) => state.solicitudes)
 
 useEffect(()=> {
@@ -29,7 +41,7 @@ useEffect(()=> {
 
 const navigate = useNavigate();
 
-  function onSubmit(){  
+  function onSubmit(){
     navigate('/home/admin')
   }
   const useStyles = makeStyles({
@@ -52,7 +64,7 @@ const navigate = useNavigate();
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  
+  console.log(window.localStorage.sessionUser)
 
   const columns = [{ id: 'lastName', label: 'Apellido', minWidth: 10 },
     { id: 'firstName', label: 'Nombre',  minWidth: 10 },
@@ -112,15 +124,18 @@ const navigate = useNavigate();
       dispatch(rechazarTeacher(id))
     }
 
+
   return(
+
     <div>
+   
     <div> 
       <div>
         <nav className={style.naav}>
-          <h1 className={style.tituloNav}> Panel de Administrador: </h1>
-          <h3>  NombreDeUsuario</h3> 
-          <input type="button" value="<-" onClick={onSubmit}/>
-         
+        <p className={style.tituloNav}>Administrador: </p>
+     
+          <div className={style.name}> {adminDatos[0]?.firstName} {adminDatos[0]?.lastName}</div>
+          <HomeIcon className={style.homeIcon}  onClick={onSubmit}/>
         </nav>
          
       </div>

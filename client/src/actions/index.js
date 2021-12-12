@@ -1,5 +1,3 @@
-import { async } from "@firebase/util";
-import { responsiveFontSizes } from "@material-ui/core";
 
 const axios = require("axios");
 
@@ -223,7 +221,9 @@ export function getProfesores(){
 }
 export function rechazarTeacher(id){
   return async function(dispatch){
-    let response = await axios.put(`/user/solicitud/rechazada/${id}`)
+    
+   let response= await axios.put(`/user/solicitud/rechazada/${id}`)
+    console.log(response.data, 'id',id)
     dispatch({
       type:"RECHAZAR_TEACHER",
       data: id

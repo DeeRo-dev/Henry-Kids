@@ -7,7 +7,7 @@ html {
   --amarillo: #ffd200;
   --naranja: #ff8d00;
   --verde: #a1d1af;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   height:100%;
   width:101%;
   margin: 0px;

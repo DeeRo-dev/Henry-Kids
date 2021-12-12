@@ -5,13 +5,16 @@
   background: chocolate;
   font-size: 30px;
   align-items: center;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   box-shadow: 0 1px 10px -0px var(--amarillo);
   background: #fff;
   
 }
 .tituloNav{
-  font-family: 'Pacifico', cursive;
+  font-family: 'Balsamiq Sans', cursive;
+  
+  font-size: 30px;
+  margin-left: 10px;
 }
 
 .contentTable{
@@ -28,4 +31,27 @@
   color:red;
   margin: 3px;
   cursor: pointer;
+}
+.homeIcon{
+  cursor:pointer
+
+}
+
+.name{
+  /* font-family: Roboto, -apple-system, BlinkMacSystemFont; */
+ display: inline;
+ 
+
+  font-family: 'Balsamiq Sans', cursive;
+  text-shadow: 5px 5px 5px var(--amarillo);
+  font-size: 30px;
+  margin-left: 13px;
+  margin-bottom: 0px;
+  margin-right: 750px
+}
+.name:hover{
+  cursor:pointer;
+  /* border-bottom: 1px solid rgba(255, 217, 0, 0.911); */
+  transition:1s;
+  font-size: 31px;
 }

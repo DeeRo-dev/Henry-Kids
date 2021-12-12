@@ -7,6 +7,7 @@ import style from "./MenuCardsAdmin.module.css";
 import { Link } from "react-router-dom";
 // import { DeleteClass, getAllClassTeacher } from '../../actions';
 import { useDispatch } from "react-redux";
+import { DeleteClass } from "../../actions";
 
 /* const options = [
   'Borrar',
@@ -32,7 +33,7 @@ export default function LongMenu(props) {
   let { id } = props;
 
   function onSubmit(id) {
-    // dispatch(DeleteClass(id))
+    dispatch(DeleteClass(id))
   }
 
   return (

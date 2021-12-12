@@ -166,6 +166,9 @@ export default function rootReducer(state = initialState, action) {
         allClassTeacher: state.allClassTeacher.filter(
           (c) => c.id !== action.data
         ),
+        allClasses: state.allClasses.filter(
+          (c) => c.id !== action.data
+        ),
       };
 
     case "REMOVE_FAVORITE":
@@ -203,13 +206,17 @@ export default function rootReducer(state = initialState, action) {
         solicitudes: state.solicitudes.filter(c => c.id !== action.data)
       };
     case "RECHAZAR_TEACHER":
+      console.log(action.data)
       return {
         ...state,
-        solicitudes: state.solicitudes.filter(c => c.id !== action.data)
+        solicitudes: state.solicitudes.filter(soli => soli.id !== action.data)
       };
       case "DELETE_USER":
       return {
         ...state,
+        userTeacher: state.userTeacher.filter(user => user.id !== action.data),
+        userStudent: state.userStudent.filter(user => user.id !== action.data),
+        user: state.user.filter(user => user.id !== action.data),
       };
     default:
       return state;
