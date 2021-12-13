@@ -122,3 +122,24 @@ input[type = "radio"]:checked ~ label{color:orange;}
   direction: rtl;
   unicode-bidi: bidi-override;
 }
+.inputDonar{
+  background: transparent;
+  text-decoration: none;
+  border:none;
+}
+.inputDonar:hover{
+  cursor:pointer;
+}
+
+.alert{
+  margin-left: 494px;
+  border-radius: 10px;
+  
+  
+}
+
+.divAlert{
+  display:flex;
+  align-items: center;
+ 
+}

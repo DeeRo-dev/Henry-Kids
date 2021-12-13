@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CardClasseAdmin.module.css"
 import LongMenu from "../MenuCardsAdmin/MenuCardsAdmin.jsx";
-
+import { Link } from "react-router-dom";
 
 export default function CardClasseAdmin({
   id,
@@ -30,6 +30,7 @@ console.log(categories)
           <img src={url} alt='Contenido sin imagen disponible' />
         </div>
         <p className={styles.category}>{categories[0].name}</p>
+        <Link to={"/home/student/" + id}> 
         <div className={styles.title}>
           {title}
         </div>
@@ -46,7 +47,7 @@ console.log(categories)
             alt="user"
           />
         </p>
-
+        </Link>
       </div>
     </div>
   );
