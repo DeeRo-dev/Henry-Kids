@@ -178,9 +178,9 @@ export default function NavAdmin({ state, adminDatos }) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <Link to="/home/student/profile">
+           {/*  <Link to="/home/student/profile">
               <MenuItem onClick={handleClose}> Perfil </MenuItem>
-            </Link>
+            </Link> */}
             <MenuItem onClick={signOutUser}> Salir </MenuItem>
           </Menu>
 

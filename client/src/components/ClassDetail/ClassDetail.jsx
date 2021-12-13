@@ -11,7 +11,11 @@ import TextField from "@material-ui/core/TextField";
 import { Button, withStyles } from "@material-ui/core";
 import Comments from "../Comments/Comments"
 import axios from "axios";
-
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 export default function ClassDetail() {
   const { id } = useParams();
@@ -22,6 +26,19 @@ export default function ClassDetail() {
     name: "",
   });
   const dispatch = useDispatch();
+
+  const StyleAlert = withStyles({
+    root: {
+      background: "orange", 
+      marginBottom: "150px",
+      width: "330px",
+      
+    },
+  })(Snackbar);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   const StyleButtonSendComment = withStyles({
     root: {
@@ -43,7 +60,10 @@ export default function ClassDetail() {
       color: "white",
     },
   })(Button);
-
+  ///DONAR AL PROFE :DATOS
+function onSubmitDonar(e){
+  setOpen(!open);
+}
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -64,7 +84,7 @@ export default function ClassDetail() {
   };
   const detail = useSelector((state) => state.classById[0]);
 
-  useEffect(() => {
+  useEffect(() => { 
     dispatch(getClassById(id));
   }, [id, dispatch]);
 
@@ -75,7 +95,7 @@ export default function ClassDetail() {
   const userss = useSelector((state) => state.valoracion2)
   console.log(userss) 
 
-  
+  const [open, setOpen] = React.useState(false);
  
   
   function  onChangeVal (value){
@@ -118,10 +138,17 @@ export default function ClassDetail() {
               pip={true}
             />
           </div>
-
+        
           <div className={styles.contentDescription}>{detail.description}</div>
           <div  >
-          
+          <div onClick={()=>onSubmitDonar()}><AccountBalanceIcon/><input type="button" value="Queres colaborar con nosotros?" className={styles.inputDonar}/></div>
+            
+          <StyleAlert className={styles.alert}  open={open}>
+                  <div className={ styles.divAlert}><AccountCircleIcon /><p>&nbsp; DATOS DE LA CUENTA BANCARIA &nbsp;&nbsp;&nbsp;</p>
+                  <CancelIcon styles ={{cursor: 'pointer'}} onClick ={()=>onSubmitDonar() }/></div>
+               
+                </StyleAlert>
+
             {
               (userss.userId===idUser)?
               <p className={styles.clasificacion}>
