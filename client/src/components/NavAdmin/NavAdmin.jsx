@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Nav.module.css";
+import styles from "./NavAdmin.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Avatar, Icon, makeStyles } from "@material-ui/core";
+import { Icon } from "@material-ui/core";
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
-  getCategoryAll,
+  getCategory,
   getUser,
   filterCategory,
   filterDifficulty,
   editUser,
+  getCategoryAll,
 } from "../../actions";
 
-export default function Nav() {
+export default function NavAdmin({ state, adminDatos }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,16 +50,10 @@ export default function Nav() {
       });
   };
 
-  const allCategory = useSelector((state) => state.categoryAll);
 
-  useEffect(() => {
-    dispatch(getCategoryAll());
-  }, [dispatch]);
-  // console.log(category)
 
   function handleCategory(e) {
     e.preventDefault();
-    console.log(e.target.value)
     dispatch(filterCategory(e.target.value));
   }
 
@@ -66,33 +62,17 @@ export default function Nav() {
     dispatch(filterDifficulty(e.target.value));
   }
 
-// function typeUser(e){
-//   console.log('click')
-//   e.preventDefault();
-//   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
-// }
+  console.log(adminDatos)
 
+  //CONTIENE LAS CATEGORIAS
+  const allCategory = useSelector((state) => state.categoryAll);
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    marginRight: "20px",
-    cursor: "pointer",
-  },
-}));
-const classes = useStyles();
+  useEffect(() => {
+    dispatch(getCategoryAll());
+  }, [dispatch]);
+  // console.log(category)
 
+ 
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
@@ -104,9 +84,36 @@ const classes = useStyles();
               alt="not found"
             />
           </div>
-          <SearchBar />
+          <div className={styles.divEmpty}>
+            {state.Clases && <div><SearchBar /></div>}
+          </div>
+          <div className={styles.divDif}>
+            {state.Clases && <select
+              name=""
+              id=""
+              className={styles.select}
+              onChange={(e) => handleDifficulty(e)}
+            >
+              <option
+                value=""
+                selected
+                disabled
+                hidden
+                className={styles.selects}
+              >
+
+                Dificultad
+              </option>
+              <option value="all"> Todos </option>
+              <option value="Basica"> Básica </option>
+              <option value="Intermedia"> Intermedia </option>
+              <option value="Alta"> Alta </option>
+            </select>}
+          </div>
+
+
           <div className={styles.contenCat}>
-            <select
+          <select
               name=""
               id=""
               className={styles.select}
@@ -126,82 +133,42 @@ const classes = useStyles();
              
                 {
              allCategory.map((e) => (
-              <option value={e.id} key={e.name}>{e.name}</option>
+              <option value={e.id} key={e.name}>{e.name} </option>
                
             ))
           } 
             </select>
           </div>
-          <div>
-            <select
-              name=""
-              id=""
-              className={styles.select}
-              onChange={(e) => handleDifficulty(e)}
-            >
-              <option
-                value=""
-                selected
-                disabled
-                hidden
-                className={styles.selects}
-              >
-                {" "}
-                Dificultad{" "}
-              </option>
-              <option value="all"> Todos </option>
-              <option value="Basica"> Básica </option>
-              <option value="Intermedia"> Intermedia </option>
-              <option value="Alta"> Alta </option>
-            </select>
-          </div>
-          <div className={styles.contenValorado}>
-            {/* <select name="" id="" className={styles.select}>
-            <option
-              value=""
-              selected
-              disabled
-              hidden
-              className={styles.selects}
-            >
-              {" "}
-              Valoración{" "}
-            </option>
-            <option value="" className={styles.selects}>
-              ⭐⭐⭐⭐⭐
-            </option>
-            <option value="" className={styles.selects}>
-              ⭐⭐⭐⭐
-            </option>
-            <option value="" className={styles.selects}>
-              ⭐⭐⭐
-            </option>
-            <option value="2" className={styles.selects}>
-              ⭐⭐
-            </option>
-            <option value="1" className={styles.selects}>
-              ⭐
-            </option>
-          </select> */}
-            <div>
-              <Link to={"/home/student/register-teacher"}>
-                <button  className={styles.blue}> ¿Te gustaria enseñar?</button>
+
+          <div >
+
+            <div className={styles.btnCat}>
+              <Link to={"/home/admin/FormCategory"}>
+                <button className={styles.blue}> Crear Categoria</button>
+
               </Link>
             </div>
-            {/* <Link to="/create-clase">
-         <button className={styles.blue}>
-             Crear clase
-          </button>
-      </Link>
-   */}
+
+
           </div>
 
-          <div className={styles.imagen}>
-            <Avatar
-              src={currentUser ? currentUser.photo : ""}
-              className={classes.large}
-              onClick={handleClick}
-            />{" "}
+
+
+          <div className={styles.contenValorado}>
+
+            <div className={styles.btnSoli}>
+              <Link to={"/user/solicitud/lista"}>
+                <button className={styles.blue}>Ver Solicitudes</button>
+
+              </Link>
+            </div>
+
+          </div>
+          <div className={styles.imagen} onClick={handleClick}>
+
+            <p className={styles.initials}>{adminDatos[0]?.firstName[0]}
+            {adminDatos[0]?.lastName[0]}</p>
+
           </div>
 
           <Menu

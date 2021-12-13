@@ -1,0 +1,69 @@
+.naav{
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: chocolate;
+  font-size: 30px;
+  align-items: center;
+  /* padding-left: 10px; */
+  box-shadow: 0 1px 10px -0px var(--amarillo);
+  background: #fff;
+  
+}
+.logo {
+  background: #fff;
+  float: left;
+  width: 50px;
+  user-select: none;
+  margin-left: 12px;
+}
+.tituloNav{
+  font-family: 'Balsamiq Sans', cursive;
+  
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+.contentTable{
+  margin: auto;
+  
+  width: 95%;
+}
+.btnCheck{
+  color: rgb(45, 161, 22);
+  margin: 3px;
+  cursor: pointer;
+}
+.btnClose{
+  color:red;
+  margin: 3px;
+  cursor: pointer;
+}
+.contentIcon{
+ 
+  /* transform:translate(140px, 0px) */
+  margin-left: 100px
+}
+.homeIcon{
+  cursor:pointer;
+  transform: scale(1.8);
+}
+
+.name{
+  /* font-family: Roboto, -apple-system, BlinkMacSystemFont; */
+ display: inline;
+ 
+  align-items: center;
+  font-family: 'Balsamiq Sans', cursive;
+  text-shadow: 5px 5px 5px var(--amarillo);
+  font-size: 30px;
+ 
+  margin-bottom: 0px;
+  margin-right: 750px
+}
+.name:hover{
+  cursor:pointer;
+  /* border-bottom: 1px solid rgba(255, 217, 0, 0.911); */
+  transition:1s;
+  font-size: 31px;
+}

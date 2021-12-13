@@ -93,8 +93,8 @@ export default function FormularioClase() {
 
   
   function handleChange(e) {
-    if (e.target.name === "category") {
-     
+    if (e.target.name === "catId") {
+    
       validate({
         ...input,
         catId: searchId(e.target.value),
@@ -134,7 +134,7 @@ export default function FormularioClase() {
       game_link: "",
       difficulty: "",
       usId: id,
-      catId: "",
+      catId:"",
     });
     setOpen(true);
     setTimeout(() => {
@@ -258,7 +258,7 @@ export default function FormularioClase() {
                     </option>
                     {
                       category.map((e) => (
-                        <option value={e.id} key={e.id}>{e.name}</option>
+                        <option  value={e.name} key={e.id}>{e.name}</option>
                       ))
                     }
                   </select>
