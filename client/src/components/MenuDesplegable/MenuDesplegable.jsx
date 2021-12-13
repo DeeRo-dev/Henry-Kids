@@ -16,9 +16,6 @@ import { useDispatch } from 'react-redux';
 ]; */
 
 
-
-
-
 export default function LongMenu(props) {
 
   const ITEM_HEIGHT = 48;
@@ -41,11 +38,7 @@ export default function LongMenu(props) {
 
   function onSubmit(id) {
     dispatch(DeleteClass(id))
-  
   }
-
-
-
 
 
 return (

@@ -12,6 +12,7 @@ import { createClass, getCategory, getCategoryAll } from "../../actions/index.js
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
 const StyleAlert = withStyles({
   root: {
     marginBottom: "-10px",
@@ -23,8 +24,6 @@ export default function FormularioClase() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const category = useSelector(state => state.categoryAll)
-
-
   let id = window.localStorage.sessionUser;
 
   useEffect(() => {
@@ -34,7 +33,6 @@ export default function FormularioClase() {
 
   const [modal, setModal] = useState(true);
   const [errors, setErrors] = useState({})
-
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -85,8 +83,6 @@ export default function FormularioClase() {
     return errors
 
   }
-  
-
 
   function searchId(categ) {
     let idCat = category.find((item) => item.name === categ)
@@ -140,7 +136,6 @@ export default function FormularioClase() {
       usId: id,
       catId: "",
     });
-
     setOpen(true);
     setTimeout(() => {
       navigate("/home/teacher");
@@ -253,9 +248,6 @@ export default function FormularioClase() {
                 {errors.game_link && (
                   <p className={styles.danger}>{errors.game_link}</p>)}
 
-              
-
-
                 <div className={styles.containerOptions}>
                   <select name="catId"
                     className={errors.catId ? styles.dangerSelect : styles.select}
@@ -266,11 +258,11 @@ export default function FormularioClase() {
                     </option>
                     {
                       category.map((e) => (
-                        <option value={e.name} key={e.id}>{e.name}</option>
+                        <option value={e.id} key={e.id}>{e.name}</option>
                       ))
                     }
                   </select>
-                  {errors.catId && (
+                {errors.catId && (
                     <p className={styles.danger}>{errors.catId}</p>)}
                 </div>
                 <div className={styles.containerOptions}>

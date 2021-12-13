@@ -24,6 +24,14 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case "EDIT_COMMENT":
+      return {
+        ...state,
+      };
+      case "DELETE_COMMENT":
+        return{
+          ...state
+        }
     case "POST_USER":
       return {
         ...state,

@@ -1,34 +1,192 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import styles from "./Comments.module.css";
+import { makeStyles } from "@material-ui/styles";
+import { useDispatch } from "react-redux";
+import { editComment, deleteComment } from "../../actions";
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/styles";
+import { Button } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 export default function Comments({ detail }) {
+  const dispatch = useDispatch();
+  const [modalEditarComentario, setModalEditarComentario] = useState(false);
+  const [modalBorrarComentario, setModalBorrarComentario] = useState(false);
+  const [oldComment, setOldComment] = useState();
+  const [newComment, setNewComment] = useState({ id: "", name: "" });
+
+  const StyleAlert = withStyles({
+    root: {
+      marginBottom: "5px",
+      display: "flex",
+      justifyContent: "center",
+    },
+  })(Alert);
+
+  const useStyles = makeStyles((theme) => ({
+    img: {
+      width: "55px",
+      height: "55px",
+    },
+    root: {
+      width: "100%",
+      "& > * + *": {
+        /*  marginTop: theme.spacing(2), */
+      },
+    },
+  }));
+
+  const classes = useStyles();
+
+  const toggleModalBorrarComentario = (event) => {
+    event.preventDefault();
+    /* if (!modalEditarComentario) {
+      const comment = detail.comments.find(
+        (element) => element.id === parseInt(event.target.name)
+      );
+      setOldComment(comment.name);
+      setNewComment({
+        id: comment.id,
+        name: comment.name,
+      });
+    } */
+    setModalBorrarComentario(!modalBorrarComentario);
+  };
+
+  const toggleModalEditarComentario = (event) => {
+    event.preventDefault();
+    if (!modalEditarComentario) {
+      const comment = detail.comments.find(
+        (element) => element.id === parseInt(event.target.name)
+      );
+      setOldComment(comment.name);
+      setNewComment({
+        id: comment.id,
+        name: comment.name,
+      });
+    }
+    setModalEditarComentario(!modalEditarComentario);
+  };
+
+  function handleChangeComment(e) {
+    e.preventDefault();
+    setNewComment({
+      ...newComment,
+      name: e.target.value,
+    });
+  }
+  function handleEditComment(e) {
+    e.preventDefault();
+    dispatch(editComment(newComment.id, { name: newComment.name })).then(() => {
+      alert("comentario Editado");
+      window.location.reload();
+    });
+  }
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function onSubmitDelete(e) {
+    const comment = detail.comments.find(
+      (element) => element.id === parseInt(e.target.name)
+    );
+    /* dispatch(deleteComment(comment.id)).then(()=>{
+      window.Location.reload()
+    }); */
+    console.log(comment)
+  }
+
+  // function DescriptionAlerts() {}
+
   return (
-    <div className={styles.container}>
-      {/* <h3 className="titleComment">Comentarios</h3>
-      {detail.comments &&
+    <div className={styles.comments}>
+      <h3 className={styles.titleComment}>Comentarios</h3>
+      {detail.comments.length &&
         detail.comments.map((e) => {
-          return <p>{e.name}</p>;
-        })} */}
-      <div className={styles.media}>
-        <Avatar src="#" />
-        <div className={styles.media_body}>
-          <p className={styles.nombre}>
-            Felipe<span>7:51, Hoy</span>
-          </p>
-          <p className={styles.comentario}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis
-            inventore vitae aut! Amet, inventore eos nisi corrupti deleniti
-            mollitia. Placeat provident quod nisi voluptatem magnam unde odio
-            qui iusto. Quidem.
-          </p>
-          <div className={styles.botones}>
-            <a href="#">Responder</a>
-            <a href="#">Editar</a>
-            <a href="#">Borrar</a>
+          return (
+            <div className={styles.media}>
+              <div className={styles.user}>
+                <Avatar src={e.user.photo} className={classes.img} />
+                <h3 className={styles.nombre}>{e.user.userName}</h3>
+              </div>
+              <p className={styles.comentario}>{e.name}</p>
+              <div className={styles.botones}>
+                <button>Responder</button>
+
+                {/*EDITAR COMENTARIO*/}
+                <button
+                  name={e.id}
+                  onClick={(event) => toggleModalEditarComentario(event)}
+                >
+                  Editar
+                </button>
+                <button
+                  name={e.id}
+                  onClick={(event) =>
+                    /* onSubmitDelete(e) */ toggleModalBorrarComentario(event)
+                  }
+                >
+                  Borrar
+                </button>
+              </div>
+            </div>
+          );
+        })}
+
+      {modalEditarComentario && (
+        <div className={styles.modal}>
+          <div
+            onClick={toggleModalEditarComentario}
+            className={styles.overlay}
+          ></div>
+          <div className={styles.modal_content_Cambiar_Contraseña}>
+            <button
+              className={styles.close_modal}
+              onClick={toggleModalEditarComentario}
+            >
+              x
+            </button>
+            <TextField
+              multiline
+              defaultValue={oldComment}
+              onChange={(e) => handleChangeComment(e)}
+            ></TextField>
+            <Button onClick={(e) => handleEditComment(e)}>Enviar</Button>
           </div>
         </div>
-      </div>
+      )}
+      {modalBorrarComentario && (
+        <div className={styles.modal}>
+          <div
+            onClick={toggleModalBorrarComentario}
+            className={styles.overlay}
+          ></div>
+          <div className={styles.modal_content_Cambiar_Contraseña}>
+            <StyleAlert
+              open={open}
+              /* onClose={handleClose} */ severity="warning"
+            >
+              {/* <button
+              className={styles.close_modal}
+              onClick={toggleModalBorrarComentario}
+            >
+              x
+            </button> */}
+              <AlertTitle>¿Desea eliminar el comentario?</AlertTitle>
+              <Button /* name={e.id} */ /* className={styles.btn1} */ onClick={e=> onSubmitDelete(e)}>Confirmar</Button>
+              <Button /* className={styles.btn2} */>Cancelar</Button>
+            </StyleAlert>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

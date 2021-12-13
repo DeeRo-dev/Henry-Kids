@@ -10,12 +10,13 @@
   overflow-y:hidden; */
 }
 
-/* .comments{
-
-} */
-
-
-
+.comments{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+margin-top: 150px;
+}
 
 .contentDescription {
   display: flex;
