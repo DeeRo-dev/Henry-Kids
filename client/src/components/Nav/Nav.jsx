@@ -184,16 +184,16 @@ const classes = useStyles();
             </option>
           </select> */}
             <div>
-              {/* <Link to={"/home/student/register-teacher"}> */}
+              <Link to={"/home/student/register-teacher"}>
                 <button  onClick={(e) => typeUser(e)} className={styles.blue}> ¿Te gustaria enseñar?</button>
-              {/* </Link> */}
+              </Link>
             </div>
             {/* <Link to="/create-clase">
          <button className={styles.blue}>
              Crear clase
           </button>
-      </Link>
-   */}
+      </Link> */}
+  
           </div>
 
           <div className={styles.imagen}>
