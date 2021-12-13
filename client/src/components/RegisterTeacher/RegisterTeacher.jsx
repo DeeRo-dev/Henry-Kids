@@ -4,7 +4,7 @@ import styles from "./RegisterTeacher.module.css";
 import { Button, withStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { enviarSoliProfe } from "../../actions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function RegisterTeacher() {
   const dispatch = useDispatch();
@@ -124,11 +124,13 @@ function onSubmit(e){
     <div className={styles.modal}>
       <div onClick={toggleModal} className={styles.overlay}></div>
       <div className={styles.modal_content}>
-        {/* <button className={styles.close_modal} onClick={toggleModal}>
-      x
-    </button> */}
-
+      <Link className={styles.btnCrear} to="/home/student">
+              <button className={styles.close_modal} onClick={toggleModal}>
+                x
+              </button>
+            </Link>
         <div className={styles.container}>
+          
           <form className={styles.inputs}>
             <input name="pais" type="text" placeholder="País:" onChange={(e)=> onInputChange(e)}/>
             <input name="region" type="text" placeholder="Región:" onChange={(e)=> onInputChange(e)}/>
