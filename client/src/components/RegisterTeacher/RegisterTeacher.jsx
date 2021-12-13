@@ -138,7 +138,7 @@ function onSubmit(e){
           
 
             <input name="cuentaBancaria" type="text" placeholder="CBU-Alias:"onChange={(e)=> onInputChange(e)}/>
-            <input name="linkedin" type="url" placeholder="URL-Linkedin:" onChange={(e)=> onInputChange(e)}/>
+            <input name="linkedin" type="text" placeholder="URL-Linkedin:" onChange={(e)=> onInputChange(e)}/>
             <p id={styles.p}>Fecha de nacimiento:</p>
             <input
               name="fecha"
