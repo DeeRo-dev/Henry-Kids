@@ -39,6 +39,7 @@ export default function Card({
   useEffect (()=> {dispatch(getFavorites(idUser))},[dispatch, idUser])
   const favoritesRedux = useSelector(state => state.favorites)
   
+ 
   
   
 
@@ -46,31 +47,38 @@ export default function Card({
     e.preventDefault();
     console.log(e.target.checked)
     dispatch(setFavorite(idUser, id));
+    window.location.reload()
+    
   }
 
   function onClickRemove(e, idUser, id) {
     e.preventDefault();
     console.log(e.target.checked)
     dispatch(removeFavorite(idUser, id));
+    // window.location.reload()
   }
 
   let fav;
   favoritesRedux === undefined ?
       fav = false
     : fav = favoritesRedux.some(c => c.id === id)
- 
-  
+
   return (
     <div className={styles.card} value={value}>
       <div className={styles.threeBtns} />
-      <FormGroup row>
+      
+        <FormGroup row>
         <FormControlLabel
+       checked={fav? true: false}
           className={styles.icono}
           control={<Checkbox icon={<FavoriteBorder />}  checkedIcon={<Favorite />} name="checkedH" />}
           label=""
-          onChange={fav ? (e) => onClickRemove(e, idUser, id) : (e) => onclickFav(e, idUser, id)}
+          onChange={fav ?   (e) => onClickRemove(e, idUser, id)  : (e) => onclickFav(e, idUser, id)}
+          
         />
       </FormGroup>
+
+      
       <Link to={"/home/student/" + id}> 
         <div className={styles.cardHeader}>
           <img src={url} alt="Contenido sin imagen disponible" />

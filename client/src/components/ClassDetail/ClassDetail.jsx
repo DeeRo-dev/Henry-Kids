@@ -87,7 +87,9 @@ export default function ClassDetail() {
       classId:id,    
       userId:idUser
   }
-     axios.post("https://henry-kids.herokuapp.com/evaluation/",aux)
+     axios.post("https://henry-kids.herokuapp.com/evaluation/",aux).then(() => {
+      window.location.reload();
+    });
   }
 
   return (
@@ -138,7 +140,7 @@ export default function ClassDetail() {
                       </p>
               :
               <p className={styles.clasificacion2}>
-                <p>Valorar Clase</p>
+                
               <input  onClick={ ()=> onChangeVal(5) } id="radio1" type="radio"  name="estrellas" value="5"/>
               <label  for="radio1">★</label>
               <input  onClick={ ()=> onChangeVal(4) } id="radio2" type="radio" name="estrellas" value="4"/>
@@ -149,7 +151,7 @@ export default function ClassDetail() {
               <label for="radio4">★</label>
               <input  onClick={ ()=> onChangeVal(1) } id="radio5" type="radio" name="estrellas" value="1"/>
               <label for="radio5">★</label>
-                      </p>
+              </p>
             }
    
           </div>

@@ -113,7 +113,7 @@ export function getClassById(id) {
 export function getFavorites(idUs) {
   return async function (dispatch) {
     let response = await axios.get(`/fav/${idUs}`);
-    console.log(response.data, idUs);
+    // console.log(response.data, idUs);
     dispatch({ type: "GET_FAVORITES", data: response.data });
   };
 }
