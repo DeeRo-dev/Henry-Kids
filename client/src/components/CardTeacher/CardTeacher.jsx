@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CardTeacher.module.css"
 import LongMenu from "../MenuDesplegable/MenuDesplegable";
-
+import {Link} from 'react-router-dom'
 
 export default function CardTeacher({
   id,
@@ -30,6 +30,7 @@ export default function CardTeacher({
         <div className={styles.preview}>
           <img src={url} alt='Contenido sin imagen disponible' />
         </div>
+        <Link to={"/home/teacher/" + id}>
         <p className={styles.category}>{category}</p>
         <div className={styles.title}>
           {title}
@@ -52,7 +53,7 @@ export default function CardTeacher({
   <input  checked={valoration===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
   <label for="radio5">★</label>
           </p>
-
+</Link>
       </div>
     </div>
   );

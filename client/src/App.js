@@ -39,7 +39,7 @@ const teacherRoutes = [
   { path: "/cropImage", element: <CropImage /> },
   { path: "/home/admin", element: <HomeAdmin /> },
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
-
+  { path: "/home/teacher/:id", element: <ClassDetail /> },
  
 ];
 

@@ -6,6 +6,8 @@
   background-repeat: no-repeat;
   background-position: center center;
   -webkit-scrollbar-display: antialiased;
+  background-attachment: fixed;
+  margin:0;
 }
 
 .cards {
