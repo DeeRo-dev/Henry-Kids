@@ -22,6 +22,14 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case "EDIT_COMMENT":
+      return {
+        ...state,
+      };
+      case "DELETE_COMMENT":
+        return{
+          ...state
+        }
     case "POST_USER":
       return {
         ...state,
@@ -172,7 +180,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         favorites: state.favorites?.filter((c) => c.id !== action.data),
       };
-
     default:
       return state;
   }

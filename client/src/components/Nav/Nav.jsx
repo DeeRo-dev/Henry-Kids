@@ -4,7 +4,7 @@ import styles from "./Nav.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Icon } from "@material-ui/core";
+import { Avatar, Icon, makeStyles } from "@material-ui/core";
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -69,6 +69,27 @@ function typeUser(e){
   e.preventDefault();
   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
 }
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    marginRight: "20px",
+    cursor: "pointer",
+  },
+}));
+const classes = useStyles();
 
   return (
     <div className={styles.containerBackground}>
@@ -176,14 +197,9 @@ function typeUser(e){
           </div>
 
           <div className={styles.imagen}>
-            <img
-              src={
-                currentUser
-                  ? currentUser.photo
-                  : "https://f5c4537feeb2b644adaf-b9c0667778661278083bed3d7c96b2f8.ssl.cf1.rackcdn.com/artistas/perfil-usuario.png"
-              }
-              alt="404"
-              className={styles.img}
+            <Avatar
+              src={currentUser ? currentUser.photo : ""}
+              className={classes.large}
               onClick={handleClick}
             />{" "}
           </div>

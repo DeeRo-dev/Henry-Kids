@@ -182,3 +182,17 @@ export function removeFavorite(idUser, id) {
     dispatch({ type: "REMOVE_FAVORITE", data: id });
   };
 }
+
+export function editComment(id, name) {
+  return async function (dispatch) {
+    const response = await axios.put(`/comment/${id}`, name);
+    dispatch({ type: "EDIT_COMMENT", data: response.data });
+  };
+}
+
+export function deleteComment(idComment) {
+  return async function (dispatch) {
+    const response = await axios.delete(`/comment/${idComment}`);
+    dispatch({ type: "DELETE_COMMENT" });
+  };
+}

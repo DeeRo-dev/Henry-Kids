@@ -9,7 +9,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button, withStyles } from "@material-ui/core";
-import Comments from "../Comments/Comments"
+import Comments from "../Comments/Comments";
 
 export default function ClassDetail() {
   const { id } = useParams();
@@ -48,9 +48,9 @@ export default function ClassDetail() {
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
-    dispatch(sendComment(comment)).then(()=>{
-      window.location.reload()
-    })
+    dispatch(sendComment(comment)).then(() => {
+      window.location.reload();
+    });
   };
 
   const handleChangeComment = (e) => {
@@ -116,22 +116,21 @@ export default function ClassDetail() {
               ></iframe>
             </div>
           ) : null} */}
+
           <div className={styles.comments}>
-            <div className={styles.comment}>
-              <Comments detail={detail}></Comments>
-              <TextField
-                onChange={(e) => handleChangeComment(e)}
-                id="outlined-multiline-static"
-                label="Comentario"
-                multiline
-                rows={4}
-                variant="outlined"
-                type="submit"
-              />
-              <StyleButtonSendComment onClick={(e) => handleSubmitComment(e)}>
-                Enviar
-              </StyleButtonSendComment>
-            </div>
+            <Comments detail={detail}></Comments>
+            <TextField
+              onChange={(e) => handleChangeComment(e)}
+              id="outlined-multiline-static"
+              label="Comentario"
+              multiline
+              rows={4}
+              variant="outlined"
+              type="submit"
+            />
+            <StyleButtonSendComment onClick={(e) => handleSubmitComment(e)}>
+              Enviar
+            </StyleButtonSendComment>
           </div>
         </div>
       )}

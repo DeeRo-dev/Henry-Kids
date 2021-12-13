@@ -12,6 +12,7 @@ import { createClass, getCategory, getCategoryAll } from "../../actions/index.js
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
 const StyleAlert = withStyles({
   root: {
     marginBottom: "-10px",
@@ -23,8 +24,6 @@ export default function FormularioClase() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const category = useSelector(state => state.categoryAll)
- 
-  
   let id = window.localStorage.sessionUser;
 
   useEffect(() => {
@@ -33,6 +32,7 @@ export default function FormularioClase() {
 
  
   const [modal, setModal] = useState(true);
+  const [errors, setErrors] = useState({})
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -41,8 +41,48 @@ export default function FormularioClase() {
     game_link: "",
     difficulty: "",
     usId: id,
-    catId:""
-  });
+    catId: ""
+  }
+
+  );
+
+
+  function validate(input) {
+
+    /* let expression = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
+    let regex = new RegExp(expression); */
+    let regex2 = /((http|ftp|https):\/\/)?[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+    let errors = {};
+    if (!input.title) {
+      errors.title = 'El titulo es requerido';
+    }
+    if (!input.description) {
+      errors.description = 'La descripcion es requerida';
+    }
+    if (!(regex2.test(input.video_link))) {
+      errors.video_link = 'Debe ser una URL valida';
+    }
+    if (!(regex2.test(input.studio_material))) {
+      errors.studio_material = 'Debe ser una URL valida';
+    }
+    if (!(regex2.test(input.game_link))) {
+      errors.game_link = '* No obligatorio, Debe ser una URL valida';
+    }
+    if (!input.difficulty) {
+      errors.difficulty = 'La dificultad es requerida';
+    }
+    if (!input.catId) {
+      errors.catId = 'La tecnologia es requerida'; 
+    }
+    
+    /* if (!input.catId) {
+      errors.catId = 'La tecnologia es requerida';
+    } */
+    /* console.log("input: ", input.difficulty, "---", "Error:", errors.difficulty) */
+    
+    return errors
+
+  }
 
   function searchId(categ) {
     let idCat = category.find((item) => item.name === categ)
@@ -77,7 +117,6 @@ export default function FormularioClase() {
       usId: id,
       catId: "",
     });
-    
     setOpen(true);
     setTimeout(() => {
       navigate("/home/teacher");
@@ -169,6 +208,26 @@ export default function FormularioClase() {
                   placeholder="Link de juegos"
                   onChange={handleChange}
                 />
+                {errors.game_link && (
+                  <p className={styles.danger}>{errors.game_link}</p>)}
+
+                <div className={styles.containerOptions}>
+                  <select name="catId"
+                    className={errors.catId ? styles.dangerSelect : styles.select}
+                    onChange={handleChange}>
+
+                    <option value="" selected disabled hidden>
+                      Tecnología
+                    </option>
+                    {
+                      category.map((e) => (
+                        <option value={e.id} key={e.id}>{e.name}</option>
+                      ))
+                    }
+                  </select>
+                {errors.catId && (
+                    <p className={styles.danger}>{errors.catId}</p>)}
+                </div>
                 <div className={styles.containerOptions}>
                   {" "}
                   <select
