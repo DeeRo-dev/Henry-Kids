@@ -20,7 +20,7 @@ export default function Card({
   isFav,
   value,
   title,
-  category,
+  categories,
   description,
   video_link,
   difficulty,
@@ -58,8 +58,12 @@ export default function Card({
   favoritesRedux === undefined ?
       fav = false
     : fav = favoritesRedux.some(c => c.id === id)
- 
+  console.log(categories)
   
+
+
+
+
   return (
     <div className={styles.card} value={value}>
       <div className={styles.threeBtns} />
@@ -76,7 +80,7 @@ export default function Card({
           <img src={url} alt="Contenido sin imagen disponible" />
         </div>
 
-        <p className={styles.category}>{category}</p>
+        <p className={styles.categories}>{categories}</p>
         <div className={styles.cuerpoTexto}>
           <div className={styles.title}>{title}</div>
 
