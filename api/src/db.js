@@ -79,8 +79,8 @@ Evaluation.belongsTo(Class);
 Class.hasMany(Comment);
 Comment.belongsTo(Class);
 
-User.hasMany(Comment);
-Comment.belongsTo(User);
+User.belongsToMany(Comment, { through: "userComment" });
+Comment.belongsToMany(User, { through: "userComment" });
 
 Status.hasMany(AssUserClass);
 AssUserClass.belongsTo(Status);

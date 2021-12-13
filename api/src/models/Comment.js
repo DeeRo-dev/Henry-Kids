@@ -1,12 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const fs = require('fs');
 
 module.exports = (sequelize) => {
 
   sequelize.define('comment', {
      name: {
       type: DataTypes.TEXT,
-      unique: true,
       allowNull: false
     },
     id: {
