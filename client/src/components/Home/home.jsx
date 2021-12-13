@@ -45,10 +45,9 @@ export default function Home() {
   let indexLastPage = page * cardsInPage;
   let indexFirstPage = indexLastPage - cardsInPage;
 
-
-  if (allClasses.length > 8) {
-    currentPage = allClasses.slice(indexFirstPage, indexLastPage);
-  } else currentPage = allClasses
+  if (allClasses.length > 8){
+    currentPage = allClasses.slice(indexFirstPage, indexLastPage)
+  } else currentPage = allClasses;
 
   useEffect(() => {
     setPage(1);
@@ -71,21 +70,22 @@ export default function Home() {
       </div>
       <div className={styles.cards}>
         {currentPage?.map((e) => {
+         
           return (
             <div key={e.id}>
               <Card
                 id={e.id}
                 title={e.title}
                 isFav={e.isFav}
-                category={e.categories[0].name}
+                categories={e.categories[0]?.name}
                 description={e.description}
                 video_link={e.video_link}
                 difficulty={e.difficulty}
                 game_link={e.game_link}
-                /* valoration={e.Evaluations[0].Evaluation} */
+                valoration={e.Evaluations[0].Promedio} 
               />{" "}
             </div>
-          );
+          );  
         })}
       </div>
 

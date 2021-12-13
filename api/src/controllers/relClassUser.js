@@ -37,7 +37,7 @@ async function getProf(req, res, next) {
       id: req.params.idUs,
       type: "teacher",
     },
-    include: [{ model: Class, include: Category }],
+    include: [{ model: Class, include: [Category,Evaluation] }],
   });
   res.status(200).send(cursos);
 }

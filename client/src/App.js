@@ -12,7 +12,10 @@ import ProfileTeacher from "./components/ProfileTeacher/ProfileTeacher";
 import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
-import CropImage from "./components/CropImage/CropImage";
+import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
+import Solicitudes from "./components/Solicitudes/Solicitudes";
+import CropImage from "./components/CropImage/CropImage"
+import FormCategory from "./components/FormCategory/FormCategory"
 import About from "./components/About/About";
 
 const studentRoutes = [
@@ -22,6 +25,10 @@ const studentRoutes = [
   { path: "/home/student/profile", element: <ProfileStudent /> },
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
+  { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/home/admin/FormCategory", element: <FormCategory /> }, 
+  { path: "/user/solicitud/lista", element: <Solicitudes /> },
+  { path: "home/create-clase", element: <FormularioClase /> },
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
@@ -30,6 +37,10 @@ const teacherRoutes = [
   { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> },
   { path: "/cropImage", element: <CropImage /> },
+  { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/user/solicitud/lista", element: <Solicitudes /> },
+  { path: "/home/teacher/:id", element: <ClassDetail /> },
+ 
 ];
 
 const publicRoutes = [

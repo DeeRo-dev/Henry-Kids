@@ -102,3 +102,44 @@ margin: 20px
   font-size: 20px;
 }
  */
+
+ label{ color:grey;}
+input[type = "radio"]{ display:none;}
+input[type = "radio"]:checked ~ label{color:orange;}
+.clasificacion2 {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.clasificacion2 label:hover~ label {
+ 
+   color:orange
+}
+.clasificacion2 label:hover {
+  
+   color:orange
+}
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.inputDonar{
+  background: transparent;
+  text-decoration: none;
+  border:none;
+}
+.inputDonar:hover{
+  cursor:pointer;
+}
+
+.alert{
+  margin-left: 494px;
+  border-radius: 10px;
+  
+  
+}
+
+.divAlert{
+  display:flex;
+  align-items: center;
+ 
+}

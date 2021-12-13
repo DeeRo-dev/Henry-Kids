@@ -4,6 +4,7 @@ module.exports = (sequelize) => {
   sequelize.define(
     "user",
     {
+      // Reveer los allowNull ---> True ---> False
       id: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -79,6 +80,7 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: true,
       },
 
       solictud: {

@@ -1,0 +1,11 @@
+
+.btnClose{
+  color:red;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.contentTable{
+  margin: auto;
+  width: 95%;
+}

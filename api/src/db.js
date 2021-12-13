@@ -11,7 +11,7 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 //     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 //   }
 // );
-
+console.log(DB_HOST)
 let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
@@ -79,21 +79,22 @@ Evaluation.belongsTo(Class);
 Class.hasMany(Comment);
 Comment.belongsTo(Class);
 
-User.hasMany(Comment);
-Comment.belongsTo(User);
+User.belongsToMany(Comment, { through: "userComment" });
+Comment.belongsToMany(User, { through: "userComment" });
 
 Status.hasMany(AssUserClass);
 AssUserClass.belongsTo(Status);
 
 
-User.hasOne(Evaluation);
+User.hasMany(Evaluation);
 Evaluation.belongsTo(User);
 
 Class.belongsToMany(User, { through: AssUserClass});
 User.belongsToMany(Class, { through: AssUserClass});
 
-User.hasOne(Evaluation);
-Evaluation.belongsTo(User);
+
+Comment.belongsTo(User)
+User.hasMany(Comment)
 
 
 

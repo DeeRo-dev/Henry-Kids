@@ -30,7 +30,7 @@ export default function FormularioClase() {
     dispatch(getCategoryAll())
   }, [dispatch])
 
- 
+
   const [modal, setModal] = useState(true);
   const [errors, setErrors] = useState({})
   const [input, setInput] = useState({
@@ -89,20 +89,39 @@ export default function FormularioClase() {
     return idCat.id
   }
 
+
+
+  
   function handleChange(e) {
-    if (e.target.name === "category") {
-      console.log(e.target.value)
+    if (e.target.name === "catId") {
+    
+      validate({
+        ...input,
+        catId: searchId(e.target.value),
+      })
+    
       setInput({
         ...input,
         catId: searchId(e.target.value),
       });
+
     } else {
       setInput({
         ...input,
         [e.target.name]: e.target.value,
       });
     }
+  
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      }))
+  
   }
+
+
+
 
   function handleOnSubmit(e) {
     e.preventDefault();
@@ -115,7 +134,7 @@ export default function FormularioClase() {
       game_link: "",
       difficulty: "",
       usId: id,
-      catId: "",
+      catId:"",
     });
     setOpen(true);
     setTimeout(() => {
@@ -171,6 +190,7 @@ export default function FormularioClase() {
         <div className={styles.modal}>
           <div onClick={toggleModal} className={styles.overlay}></div>
           <div className={styles.modal_content}>
+            <h4> INGRESE LOS DATOS</h4>
             <Link className={styles.btnCrear} to="/home/teacher">
               <button className={styles.close_modal} onClick={toggleModal}>
                 x
@@ -179,30 +199,47 @@ export default function FormularioClase() {
             <div>
               <form>
                 <input
+                  className={errors.title && styles.danger}
                   type="text"
                   name="title"
                   placeholder="Titulo"
                   onChange={handleChange}
                 />
+                {errors.title && (
+                  <p className={styles.danger}>{errors.title}</p>)}
+
                 <input
+                  className={errors.description && styles.danger}
                   type="text"
                   name="description"
                   placeholder="Descripcion"
                   onChange={handleChange}
                 />
+                {errors.description && (
+                  <p className={styles.danger}>{errors.description}</p>)}
+
                 <input
+                  className={errors.studio_material && styles.danger}
                   type="text"
                   name="studio_material"
                   placeholder="Material de estudio"
                   onChange={handleChange}
                 />
+                {errors.studio_material && (
+                  <p className={styles.danger}>{errors.studio_material}</p>)}
+
                 <input
+                  className={errors.video_link && styles.danger}
                   type="text"
                   name="video_link"
                   placeholder="Link al video"
                   onChange={handleChange}
                 />
+                {errors.video_link && (
+                  <p className={styles.danger}>{errors.video_link}</p>)}
+
                 <input
+                  className={errors.game_link && styles.danger}
                   type="text"
                   name="game_link"
                   placeholder="Link de juegos"
@@ -221,7 +258,7 @@ export default function FormularioClase() {
                     </option>
                     {
                       category.map((e) => (
-                        <option value={e.id} key={e.id}>{e.name}</option>
+                        <option  value={e.name} key={e.id}>{e.name}</option>
                       ))
                     }
                   </select>
@@ -232,7 +269,7 @@ export default function FormularioClase() {
                   {" "}
                   <select
                     name="difficulty"
-                    className={styles.select}
+                    className={errors.difficulty ? styles.dangerSelect : styles.select}
                     onChange={handleChange}
                   >
                     <option value="" selected disabled hidden>
@@ -244,16 +281,19 @@ export default function FormularioClase() {
                   </select>
                 </div>
 
-                <StyleButtonCrearCuenta
-                  onClick={(e) => handleOnSubmit(e)}
-                  type="button"
-                  className={styles.btnCrearCuenta}
-                  variant="contained"
-                  color="primary"
-                >
-                  Crear clase
-                </StyleButtonCrearCuenta>
 
+                {!errors.catId && !errors.difficulty && !errors.video_link && !errors.studio_material
+                  && !errors.description && !errors.title && input.difficulty?.length > 2 && (
+                    <StyleButtonCrearCuenta
+                      onClick={(e) => handleOnSubmit(e)}
+                      type="button"
+                      className={styles.btnCrearCuenta}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Crear clase
+                    </StyleButtonCrearCuenta>
+                  )}
                 <StyleAlert open={open} onClose={handleClose}>
                   <Alert severity="success">¡Clase creada exitosamente!</Alert>
                 </StyleAlert>

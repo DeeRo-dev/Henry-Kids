@@ -8,7 +8,7 @@ import { Avatar, Icon, makeStyles } from "@material-ui/core";
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getCategory,
+  getCategoryAll,
   getUser,
   filterCategory,
   filterDifficulty,
@@ -48,15 +48,16 @@ export default function Nav() {
       });
   };
 
-  const allCategory = useSelector((state) => state.category);
+  const allCategory = useSelector((state) => state.categoryAll);
 
   useEffect(() => {
-    dispatch(getCategory());
+    dispatch(getCategoryAll());
   }, [dispatch]);
   // console.log(category)
 
   function handleCategory(e) {
     e.preventDefault();
+    console.log(e.target.value)
     dispatch(filterCategory(e.target.value));
   }
 
@@ -65,10 +66,11 @@ export default function Nav() {
     dispatch(filterDifficulty(e.target.value));
   }
 
-function typeUser(e){
-  e.preventDefault();
-  dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
-}
+// function typeUser(e){
+//   console.log('click')
+//   e.preventDefault();
+//   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
+// }
 
 
 const useStyles = makeStyles((theme) => ({
@@ -121,15 +123,13 @@ const classes = useStyles();
                 Tecnología{" "}
               </option>
               <option value="all">Todos</option>
-              <option value="1"> JavaScript</option>
-              <option value="2"> React</option>
-              <option value="3"> HTML</option>
-              {/*  {
+             
+                {
              allCategory.map((e) => (
-              <option value={e} key={e}>{e}</option>
+              <option value={e.id} key={e.name}>{e.name}</option>
                
             ))
-          } */}
+          } 
             </select>
           </div>
           <div>
@@ -176,16 +176,16 @@ const classes = useStyles();
             <option value="" className={styles.selects}>
               ⭐⭐⭐
             </option>
-            <option value="" className={styles.selects}>
+            <option value="2" className={styles.selects}>
               ⭐⭐
             </option>
-            <option value="" className={styles.selects}>
+            <option value="1" className={styles.selects}>
               ⭐
             </option>
           </select> */}
             <div>
               <Link to={"/home/student/register-teacher"}>
-                <button  onClick={(e) => typeUser(e)} className={styles.blue}> ¿Te gustaria enseñar?</button>
+                <button  className={styles.blue}> ¿Te gustaria enseñar?</button>
               </Link>
             </div>
             {/* <Link to="/create-clase">
@@ -198,7 +198,7 @@ const classes = useStyles();
 
           <div className={styles.imagen}>
             <Avatar
-              src={currentUser ? currentUser.photo : ""}
+              src={currentUser.photo ? currentUser.photo : ""}
               className={classes.large}
               onClick={handleClick}
             />{" "}

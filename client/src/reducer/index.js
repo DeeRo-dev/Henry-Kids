@@ -6,8 +6,14 @@ const initialState = {
   allClassTeacher: [],
   allClassTeacher2: [],
   favorites: [],
-  category: [],
+  // category: [],
   categoryAll: [],
+  valoracion:[],
+  valoracion2:[],
+  solicitudes: [],
+  userStudent: [],
+  userTeacher: [],
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -145,11 +151,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
       };
 
-    case "GET_CATEGORY":
-      return {
-        ...state,
-        category: action.payload,
-      };
+    // case "GET_CATEGORY":
+    //   return {
+    //     ...state,
+    //     category: action.payload,
+    //   };
 
     case "GET_CATEGORY_ALL":
       return {
@@ -173,13 +179,75 @@ export default function rootReducer(state = initialState, action) {
         allClassTeacher: state.allClassTeacher.filter(
           (c) => c.id !== action.data
         ),
+        allClasses: state.allClasses.filter(
+          (c) => c.id !== action.data
+        ),
       };
 
     case "REMOVE_FAVORITE":
       return {
         ...state,
-        favorites: state.favorites?.filter((c) => c.id !== action.data),
+        favorites: state.favorites?.filter(
+          (c) => c.id !== action.data
+        )
       };
+    case "GET_SOLICITUDES":
+      return {
+        ...state,
+        solicitudes: action.data
+      };
+    case "SET_SOLICITUD":
+      return {
+        ...state,
+      };
+      
+    case "GET_USER_ALUMNO":
+
+      return {
+        ...state,
+        userStudent: action.data,
+      };
+    case "GET_USER_TEACHER":
+      return {
+        ...state,
+        userTeacher: action.data,
+      };
+    case "ACCEPT_TEACHER":
+      console.log(action.data)
+      return {
+        ...state,
+        solicitudes: state.solicitudes.filter(c => c.id !== action.data)
+      };
+    case "RECHAZAR_TEACHER":
+      console.log(action.data)
+      return {
+        ...state,
+        solicitudes: state.solicitudes.filter(soli => soli.id !== action.data)
+      };
+      case "DELETE_USER":
+      return {
+        ...state,
+        userTeacher: state.userTeacher.filter(user => user.id !== action.data),
+        userStudent: state.userStudent.filter(user => user.id !== action.data),
+        user: state.user.filter(user => user.id !== action.data),
+      };
+
+      case "GET_VALORACION":
+      return {
+        ...state,
+        valoracion: action.payload,
+      };
+
+      case "GET_CLASEVAL":
+      return {
+        ...state,
+        valoracion2: action.payload,
+      };
+      case "NEW_CATEGORY":
+        return{
+          ...state
+        }
+        
     default:
       return state;
   }

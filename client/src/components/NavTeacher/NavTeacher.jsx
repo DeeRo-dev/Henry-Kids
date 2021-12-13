@@ -7,7 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategory, filterCategoryTeacher, getUser } from "../../actions";
+import { getCategoryAll, filterCategoryTeacher, getUser } from "../../actions";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default function NavTeacher() {
@@ -65,17 +65,22 @@ export default function NavTeacher() {
   // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
   // }
 
-  const allCategory = useSelector((state) => state.category);
+
+  //CONTIENE EL ESTADO DE TODAS LAS CATEGORIAS
+  const allCategory = useSelector((state) => state.categoryAll);
+
+  useEffect(() => {
+    dispatch(getCategoryAll());
+  }, [dispatch]);
+  // console.log(category)
+
 
   function handleCategoryTeacher(e) {
     e.preventDefault();
     dispatch(filterCategoryTeacher(e.target.value));
   }
 
-  useEffect(() => {
-    dispatch(getCategory());
-  }, [dispatch]);
-
+  
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
@@ -101,27 +106,31 @@ export default function NavTeacher() {
         <button className={styles.inter}>Interacción</button>
       </Link>
       <div className={styles.contenCat}>
-        <select
-          name=""
-          id=""
-          className={styles.select}
-          onChange={(e) => handleCategoryTeacher(e)}
-        >
-          <option value="" selected disabled hidden className={styles.selects}>
-            {" "}
-            Tecnología{" "}
-          </option>
-          <option value="all"> Todos</option>
-          <option value="1"> JavaScript</option>
-          <option value="2"> React</option>
-          <option value="3"> HTML</option>
-          {/*  {
+      <select
+              name=""
+              id=""
+              className={styles.select}
+              onChange={(e) => handleCategoryTeacher(e)}
+            >
+              <option
+                value=""
+                selected
+                disabled
+                hidden
+                className={styles.selects}
+              >
+                {" "}
+                Tecnología{" "}
+              </option>
+              <option value="all">Todos</option>
+             
+                {
              allCategory.map((e) => (
-              <option value={e} key={e}>{e}</option>
+              <option value={e.id} key={e.name}>{e.name}</option>
                
             ))
-          } */}
-        </select>
+          } 
+            </select>
       </div>
       <div className={styles.contenValorado}>
         {/* <select name="" id="" className={styles.select}>
