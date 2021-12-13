@@ -154,6 +154,14 @@ async function solTeacher(req, res, next) {
       },
     });
 
+    // Acá le ponemos mayúscula a la primer letra del nombre.
+    let newFirstName = result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)
+    // Acá leemos el archivo html y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
+    let html_template = fs.readFileSync('./src/mails/templates/inProcess.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+    //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
+    sendMail(result.email, "Request in process", html_template, "html");
+
     console.log(result);
 
     res.send("el Usario esta en la lista de espera de Profesores  ");
