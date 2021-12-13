@@ -6,7 +6,7 @@ import LongMenu from "../MenuCardsAdmin/MenuCardsAdmin.jsx";
 export default function CardClasseAdmin({
   id,
   title,
-  category,
+  categories,
   description,
   video_link,
   difficulty,
@@ -18,7 +18,7 @@ export default function CardClasseAdmin({
   let slice = video_link && video_link.slice(firstIndex, video_link.length)
 
   let url = `https://img.youtube.com/vi/${slice}/hqdefault.jpg`
-
+console.log(categories)
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
@@ -29,7 +29,7 @@ export default function CardClasseAdmin({
         <div className={styles.preview}>
           <img src={url} alt='Contenido sin imagen disponible' />
         </div>
-        <p className={styles.category}>{category}</p>
+        <p className={styles.category}>{categories[0].name}</p>
         <div className={styles.title}>
           {title}
         </div>

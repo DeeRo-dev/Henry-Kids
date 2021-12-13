@@ -6,7 +6,7 @@ const initialState = {
   allClassTeacher: [],
   allClassTeacher2: [],
   favorites: [],
-  category: [],
+  // category: [],
   categoryAll: [],
   solicitudes: [],
   userStudent: [],
@@ -141,11 +141,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
       };
 
-    case "GET_CATEGORY":
-      return {
-        ...state,
-        category: action.payload,
-      };
+    // case "GET_CATEGORY":
+    //   return {
+    //     ...state,
+    //     category: action.payload,
+    //   };
 
     case "GET_CATEGORY_ALL":
       return {
@@ -221,6 +221,12 @@ export default function rootReducer(state = initialState, action) {
         userStudent: state.userStudent.filter(user => user.id !== action.data),
         user: state.user.filter(user => user.id !== action.data),
       };
+
+      case "NEW_CATEGORY":
+        return{
+          ...state
+        }
+        
     default:
       return state;
   }

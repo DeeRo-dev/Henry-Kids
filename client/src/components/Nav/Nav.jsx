@@ -8,7 +8,7 @@ import { Icon } from "@material-ui/core";
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getCategory,
+  getCategoryAll,
   getUser,
   filterCategory,
   filterDifficulty,
@@ -48,15 +48,16 @@ export default function Nav() {
       });
   };
 
-  const allCategory = useSelector((state) => state.category);
+  const allCategory = useSelector((state) => state.categoryAll);
 
   useEffect(() => {
-    dispatch(getCategory());
+    dispatch(getCategoryAll());
   }, [dispatch]);
   // console.log(category)
 
   function handleCategory(e) {
     e.preventDefault();
+    console.log(e.target.value)
     dispatch(filterCategory(e.target.value));
   }
 
@@ -101,15 +102,13 @@ export default function Nav() {
                 Tecnología{" "}
               </option>
               <option value="all">Todos</option>
-              <option value="1"> JavaScript</option>
-              <option value="2"> React</option>
-              <option value="3"> HTML</option>
-              {/*  {
+             
+                {
              allCategory.map((e) => (
-              <option value={e} key={e}>{e}</option>
+              <option value={e.id} key={e.name}>{e.name}</option>
                
             ))
-          } */}
+          } 
             </select>
           </div>
           <div>
@@ -156,10 +155,10 @@ export default function Nav() {
             <option value="" className={styles.selects}>
               ⭐⭐⭐
             </option>
-            <option value="" className={styles.selects}>
+            <option value="2" className={styles.selects}>
               ⭐⭐
             </option>
-            <option value="" className={styles.selects}>
+            <option value="1" className={styles.selects}>
               ⭐
             </option>
           </select> */}

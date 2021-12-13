@@ -255,9 +255,9 @@ export function deleteUser(id){
   }
 }
 
-export function newCategory(){
+export function newCategory(data){
   return async function(dispatch){
-    let response= await axios.post('/category')
+    let response= await axios.post('/category',data)
     dispatch({
       type: "NEW_CATEGORY",
       data:response.data

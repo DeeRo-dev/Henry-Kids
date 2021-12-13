@@ -1,6 +1,6 @@
 import React , { useState, useEffect }from "react"
 import style from "./Solicitudes.module.css"
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getSolicitudes } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,10 +14,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import StarIcon from '@material-ui/icons/Star';
+
 import CancelIcon from '@material-ui/icons/Cancel';
 import { acceptTeacher, rechazarTeacher, getUser } from "../../actions";
-import HomeIcon from '@material-ui/icons/Home';
+
 
 export default function Solicitudes(){
 
@@ -39,11 +39,9 @@ useEffect(()=> {
   dispatch(getSolicitudes())
 },[dispatch]);
 
-const navigate = useNavigate();
 
-  function onSubmit(){
-    navigate('/home/admin')
-  }
+
+ 
   const useStyles = makeStyles({
     root: {
       width: '70%',
@@ -132,6 +130,7 @@ const navigate = useNavigate();
     <div> 
       <div>
         <nav className={style.naav}>
+          <Link to="/home/admin">
         <div className={style.logo}>
             <img
               className={style.logo}
@@ -139,10 +138,12 @@ const navigate = useNavigate();
               alt="not found"
             />
           </div>
+        </Link>
+        
         <p className={style.tituloNav}>Administrador: </p>
      
           <div className={style.name}> {adminDatos[0]?.firstName} {adminDatos[0]?.lastName}</div>
-          <HomeIcon className={style.homeIcon}  onClick={onSubmit}/>
+        
         </nav>
          
       </div>

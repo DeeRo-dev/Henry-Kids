@@ -78,7 +78,7 @@ export default function Card({
           <img src={url} alt="Contenido sin imagen disponible" />
         </div>
 
-        <p className={styles.category}>{categories.name}</p>
+        <p className={styles.categories}>{categories}</p>
         <div className={styles.cuerpoTexto}>
           <div className={styles.title}>{title}</div>
 

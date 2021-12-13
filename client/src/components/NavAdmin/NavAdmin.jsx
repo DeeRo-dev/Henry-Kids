@@ -14,9 +14,10 @@ import {
   filterCategory,
   filterDifficulty,
   editUser,
+  getCategoryAll,
 } from "../../actions";
 
-export default function NavAdmin({state, adminDatos}) {
+export default function NavAdmin({ state, adminDatos }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,12 +50,7 @@ export default function NavAdmin({state, adminDatos}) {
       });
   };
 
-  const allCategory = useSelector((state) => state.category);
 
-  useEffect(() => {
-    dispatch(getCategory());
-  }, [dispatch]);
-  // console.log(category)
 
   function handleCategory(e) {
     e.preventDefault();
@@ -66,7 +62,17 @@ export default function NavAdmin({state, adminDatos}) {
     dispatch(filterDifficulty(e.target.value));
   }
 
-console.log(adminDatos)
+  console.log(adminDatos)
+
+  //CONTIENE LAS CATEGORIAS
+  const allCategory = useSelector((state) => state.categoryAll);
+
+  useEffect(() => {
+    dispatch(getCategoryAll());
+  }, [dispatch]);
+  // console.log(category)
+
+ 
   return (
     <div className={styles.containerBackground}>
       <div className={styles.background}>
@@ -78,11 +84,11 @@ console.log(adminDatos)
               alt="not found"
             />
           </div>
-      <div className={styles.divEmpty}>
-        {state.Clases && <div><SearchBar /></div> }
-        </div> 
+          <div className={styles.divEmpty}>
+            {state.Clases && <div><SearchBar /></div>}
+          </div>
           <div className={styles.divDif}>
-          {state.Clases &&  <select
+            {state.Clases && <select
               name=""
               id=""
               className={styles.select}
@@ -95,8 +101,8 @@ console.log(adminDatos)
                 hidden
                 className={styles.selects}
               >
-                {" "}
-                Dificultad{" "}
+
+                Dificultad
               </option>
               <option value="all"> Todos </option>
               <option value="Basica"> Básica </option>
@@ -107,7 +113,7 @@ console.log(adminDatos)
 
 
           <div className={styles.contenCat}>
-            <select
+          <select
               name=""
               id=""
               className={styles.select}
@@ -124,46 +130,45 @@ console.log(adminDatos)
                 Tecnología{" "}
               </option>
               <option value="all">Todos</option>
-              <option value="1"> JavaScript</option>
-              <option value="2"> React</option>
-              <option value="3"> HTML</option>
-              {/*  {
+             
+                {
              allCategory.map((e) => (
-              <option value={e} key={e}>{e}</option>
+              <option value={e.id} key={e.name}>{e.name} </option>
                
             ))
-          } */}
+          } 
             </select>
           </div>
 
           <div >
-         
-         <div className={styles.btnCat}>
-           <Link to={"/home/admin/FormCategory"}>
-             <button  className={styles.blue}> Crear Categoria</button>
-             
-           </Link>
-         </div>
-        
 
-       </div>
+            <div className={styles.btnCat}>
+              <Link to={"/home/admin/FormCategory"}>
+                <button className={styles.blue}> Crear Categoria</button>
 
-
-          
-          <div className={styles.contenValorado}>
-         
-            <div className={styles.btnSoli}>
-              <Link to={"/user/solicitud/lista"}>
-                <button  className={styles.blue}>Ver Solicitudes</button>
-                
               </Link>
             </div>
-           
-          </div>
-          <div  className={styles.imagen} onClick={handleClick}>
 
-          <p className={styles.initials}>{adminDatos[0]?.firstName[0]}{adminDatos[0]?.lastName[0]}</p>
-         
+
+          </div>
+
+
+
+          <div className={styles.contenValorado}>
+
+            <div className={styles.btnSoli}>
+              <Link to={"/user/solicitud/lista"}>
+                <button className={styles.blue}>Ver Solicitudes</button>
+
+              </Link>
+            </div>
+
+          </div>
+          <div className={styles.imagen} onClick={handleClick}>
+
+            <p className={styles.initials}>{adminDatos[0]?.firstName[0]}
+            {adminDatos[0]?.lastName[0]}</p>
+
           </div>
 
           <Menu

@@ -55,10 +55,10 @@ function onSubmit(e){
     dispatch(newCategory(data))
     alert('formulario enviado')
     setData({
-    categoria:"",
-    tecnologia:"",
-    descripcion:"",
-    linkImagen:"",
+    name:"",
+    tecnology:"",
+    description:"",
+    img_link:"",
    
   })
   navigate('/home/admin')
@@ -87,10 +87,10 @@ http://localhost:3001/category
 
         <div className={styles.container}>
           <form className={styles.inputs}>
-            <input name="categoria" type="text" placeholder="Nueva categoria:" onChange={(e)=> onInputChange(e)}/>
-            <input name="tecnologia" type="text" placeholder="Tecnologia:" onChange={(e)=> onInputChange(e)}/>
-            <input name="descripcion" type="text" placeholder="Descripcion:" onChange={(e)=> onInputChange(e)}/>
-            <input name="linkImagen" type="text" placeholder="Link de la imagen:"onChange={(e)=> onInputChange(e)}/>
+            <input name="name" type="text" placeholder="Nueva categoria:" onChange={(e)=> onInputChange(e)}/>
+            <input name="technology" type="text" placeholder="Tecnologia:" onChange={(e)=> onInputChange(e)}/>
+            <input name="description" type="text" placeholder="Descripcion:" onChange={(e)=> onInputChange(e)}/>
+            <input name="img_link" type="text" placeholder="Link de la imagen:"onChange={(e)=> onInputChange(e)}/>
           
             <div className={styles.containerBtn} >
               <StyleButtonCrearCuenta

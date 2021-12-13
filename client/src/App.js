@@ -28,6 +28,7 @@ const studentRoutes = [
   { path: "/home/admin", element: <HomeAdmin /> },
   { path: "/home/admin/FormCategory", element: <FormCategory /> }, 
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
+  { path: "home/create-clase", element: <FormularioClase /> },
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },

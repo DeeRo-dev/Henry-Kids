@@ -21,7 +21,7 @@
   font-family: 'Balsamiq Sans', cursive;
   
   font-size: 30px;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
 .contentTable{
@@ -39,20 +39,25 @@
   margin: 3px;
   cursor: pointer;
 }
+.contentIcon{
+ 
+  /* transform:translate(140px, 0px) */
+  margin-left: 100px
+}
 .homeIcon{
-  cursor:pointer
-
+  cursor:pointer;
+  transform: scale(1.8);
 }
 
 .name{
   /* font-family: Roboto, -apple-system, BlinkMacSystemFont; */
  display: inline;
  
-
+  align-items: center;
   font-family: 'Balsamiq Sans', cursive;
   text-shadow: 5px 5px 5px var(--amarillo);
   font-size: 30px;
-  margin-left: 13px;
+ 
   margin-bottom: 0px;
   margin-right: 750px
 }

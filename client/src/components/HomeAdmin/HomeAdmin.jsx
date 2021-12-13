@@ -26,8 +26,9 @@ export default function HomeAdmin() {
     const id = window.localStorage.sessionUser;
     dispatch(getUser(id))
   }, [dispatch])
+ 
   const adminDatos = useSelector((state) => state.user);
-console.log(adminDatos);
+
 
   //tRAER TODAS LAS CLASES
   useEffect(() => {
@@ -156,7 +157,7 @@ console.log(adminDatos);
                         <CardClasseAdmin
                           id={e.id}
                           title={e.title}
-                          category={e.category}
+                          categories={e.categories}
                           description={e.description}
                           video_link={e.video_link}
                           difficulty={e.difficulty}
