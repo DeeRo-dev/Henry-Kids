@@ -116,7 +116,7 @@ export default function Comments({ detail }) {
           return (
             <div className={styles.media}>
               <div className={styles.user}>
-                <Avatar src={e.user.photo} className={classes.img} />
+                <Avatar src={e.user.photo ? e.user.photo : ""} className={classes.img} />
                 <h3 className={styles.nombre}>{e.user.userName}</h3>
               </div>
               <p className={styles.comentario}>{e.name}</p>

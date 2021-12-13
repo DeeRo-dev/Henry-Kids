@@ -339,11 +339,11 @@ export default function LandingPage() {
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         />
-         {/* <div className={styles.about}> */}
+         <div className={styles.sobre}>
             <Link to ="/about" className={styles.about}>
             ¿Qué es Henry Kids?<NearMeIcon className={styles.navigation}/> </Link>
 
-          {/* </div> */}
+          </div>
         <div> 
           <div className={styles.containerBtns}>
             <StyleButtonIngresar

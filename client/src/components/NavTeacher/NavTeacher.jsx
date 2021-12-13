@@ -55,7 +55,6 @@ export default function NavTeacher() {
     large: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      marginRight: "20px",
       cursor: "pointer",
     },
   }));
@@ -158,20 +157,13 @@ export default function NavTeacher() {
         </Link>
       </div>
 
-      <div className={styles.imagen}>
-        {/*<img
-            src="https://static.diariofemenino.com/media/13502/carta-gracias-profesor.jpg"
-            alt="404"
-            className={styles.img}
-     onClick={handleClick}/>*/}
-      </div>
+     
       <div className={styles.perfil}>
       <Avatar
+      onClick={handleClick}
         src={currentUser ? currentUser.photo : ""}
-        onClick={handleClick}
         className={classes.large}
       />
-</div>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -184,6 +176,8 @@ export default function NavTeacher() {
         </Link>
         <MenuItem onClick={signOutUser}> Salir </MenuItem>
       </Menu>
+      <h4 onClick={handleClick}>{currentUser?.userName}</h4>
+      </div>
 
       {/* <div className={styles.contentBoton}> */}
       {/* <input className={style.botonInSesion}type="submit" value="Usuario"/> */}
