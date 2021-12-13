@@ -14,6 +14,7 @@ export default function CardTeacher({
   valoration,
 }) {
 
+  console.log(valoration)
   let firstIndex = video_link && video_link.indexOf("=") + 1;
   let slice = video_link && video_link.slice(firstIndex, video_link.length)
 
