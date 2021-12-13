@@ -192,8 +192,8 @@ const classes = useStyles();
          <button className={styles.blue}>
              Crear clase
           </button>
-      </Link>
-   */}
+      </Link> */}
+  
           </div>
 
           <div className={styles.imagen}>

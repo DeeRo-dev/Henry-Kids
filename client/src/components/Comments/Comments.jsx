@@ -15,6 +15,7 @@ export default function Comments({ detail }) {
   const [modalBorrarComentario, setModalBorrarComentario] = useState(false);
   const [oldComment, setOldComment] = useState();
   const [newComment, setNewComment] = useState({ id: "", name: "" });
+  const [currentId, setCurrentId] = useState();
 
   const StyleAlert = withStyles({
     root: {
@@ -39,7 +40,7 @@ export default function Comments({ detail }) {
 
   const classes = useStyles();
 
-  const toggleModalBorrarComentario = (event) => {
+  const toggleModalBorrarComentario = (event, id) => {
     event.preventDefault();
     /* if (!modalEditarComentario) {
       const comment = detail.comments.find(
@@ -51,6 +52,7 @@ export default function Comments({ detail }) {
         name: comment.name,
       });
     } */
+    setCurrentId(id);
     setModalBorrarComentario(!modalBorrarComentario);
   };
 
@@ -90,7 +92,6 @@ export default function Comments({ detail }) {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
@@ -98,10 +99,11 @@ export default function Comments({ detail }) {
     const comment = detail.comments.find(
       (element) => element.id === parseInt(e.target.name)
     );
-    /* dispatch(deleteComment(comment.id)).then(()=>{
-      window.Location.reload()
-    }); */
-    console.log(comment)
+    dispatch(deleteComment(comment.id)).then(() => {
+      window.location.reload()
+    });
+    /*  console.log(e.target.name); */
+    /* console.log(comment); */
   }
 
   // function DescriptionAlerts() {}
@@ -109,7 +111,7 @@ export default function Comments({ detail }) {
   return (
     <div className={styles.comments}>
       <h3 className={styles.titleComment}>Comentarios</h3>
-      {detail.comments.length &&
+      {detail.comments &&
         detail.comments.map((e) => {
           return (
             <div className={styles.media}>
@@ -131,7 +133,10 @@ export default function Comments({ detail }) {
                 <button
                   name={e.id}
                   onClick={(event) =>
-                    /* onSubmitDelete(e) */ toggleModalBorrarComentario(event)
+                    /* onSubmitDelete(e) */ toggleModalBorrarComentario(
+                      event,
+                      e.id
+                    )
                   }
                 >
                   Borrar
@@ -181,9 +186,14 @@ export default function Comments({ detail }) {
               x
             </button> */}
               <AlertTitle>¿Desea eliminar el comentario?</AlertTitle>
-              <Button /* name={e.id} */ /* className={styles.btn1} */ onClick={e=> onSubmitDelete(e)}>Confirmar</Button>
-              <Button /* className={styles.btn2} */>Cancelar</Button>
             </StyleAlert>
+            <button /* className={styles.btn2} */ onClick={toggleModalBorrarComentario}>Cancelar</button>
+            <button
+              name={currentId}
+              /* className={styles.btn1} */ onClick={(e) => onSubmitDelete(e)}
+            >
+              Confirmar
+            </button>
           </div>
         </div>
       )}

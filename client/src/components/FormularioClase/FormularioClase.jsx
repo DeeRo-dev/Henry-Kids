@@ -279,8 +279,6 @@ export default function FormularioClase() {
                     <option value="Intermedia">Intermedia</option>
                     <option value="Alta">Alta</option>
                   </select>
-                  {errors.difficulty && (
-                    <p className={styles.danger}>{errors.difficulty}</p>)}
                 </div>
 
 
