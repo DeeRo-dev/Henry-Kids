@@ -198,7 +198,7 @@ const classes = useStyles();
 
           <div className={styles.imagen}>
             <Avatar
-              src={currentUser.photo ? currentUser.photo : ""}
+              src={currentUser?.photo ? currentUser?.photo : ""}
               className={classes.large}
               onClick={handleClick}
             />{" "}
