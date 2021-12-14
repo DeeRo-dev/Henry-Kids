@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@mui/material": "^5.2.1",
-    "axios": "^0.24.0",
-    "react-easy-crop": "^4.0.1"
-  }
-}
