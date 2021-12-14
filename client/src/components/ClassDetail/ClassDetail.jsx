@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ClassDetail.module.css";
 import { Link, useParams } from "react-router-dom";
-import { getClassById, sendComment,getClasEvaUs } from "../../actions";
+import { getClassById, sendComment, getClasEvaUs } from "../../actions";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -18,21 +18,35 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 export default function ClassDetail() {
+
   const { id } = useParams();
+  const dispatch = useDispatch();
+
   const [value, setValue] = React.useState("Controlled");
   const [comment, setComment] = React.useState({
     userId: window.localStorage.sessionUser,
     classId: id,
     name: "",
   });
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getClassById(id));
+  }, [id, dispatch]);
+
+  const detail = useSelector((state) => state.classById[0]);
+  console.log(detail)
+
+
 
   const StyleAlert = withStyles({
     root: {
-      background: "orange", 
+      background: "hsla(0, 0%, 100%, 0.438)",
       marginBottom: "150px",
       width: "330px",
-      
+      border: "1px solid #fff",
+      boxShadow: "1px -2px 10px black"
+
+
     },
   })(Snackbar);
 
@@ -61,9 +75,9 @@ export default function ClassDetail() {
     },
   })(Button);
   ///DONAR AL PROFE :DATOS
-function onSubmitDonar(e){
-  setOpen(!open);
-}
+  function onSubmitDonar(e) {
+    setOpen(!open);
+  }
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -82,35 +96,33 @@ function onSubmitDonar(e){
       name: e.target.value,
     });
   };
-  const detail = useSelector((state) => state.classById[0]);
 
-  useEffect(() => { 
-    dispatch(getClassById(id));
-  }, [id, dispatch]);
+
 
 
   const idUser = window.localStorage.sessionUser;
-   
-  useEffect (()=> {dispatch(getClasEvaUs(id))},[dispatch,id])
+
+  useEffect(() => { dispatch(getClasEvaUs(id)) }, [dispatch, id])
   const userss = useSelector((state) => state.valoracion2)
-  console.log(userss) 
+
 
   const [open, setOpen] = React.useState(false);
+
+
+  function onChangeVal(value) {
+
+    
+    let aux = {
+      nota: value,
+      classId: id,
+      userId: idUser
+    }
+    axios.post("https://henry-kids.herokuapp.com/evaluation/", aux)
+  }
+
+
+  const teacherClass = detail?.users?.find((user) => user.type === "teacher");
  
-  
-  function  onChangeVal (value){
-  
-    console.log(idUser)
-  console.log(id) 
-    let aux={
-      nota:value,
-      classId:id,    
-      userId:idUser
-  }
-     axios.post("https://henry-kids.herokuapp.com/evaluation/",aux).then(() => {
-      window.location.reload();
-    });
-  }
 
   return (
     <div className={styles.contentDetail}>
@@ -125,83 +137,102 @@ function onSubmitDonar(e){
           <div className={styles.contentTitle}>
             <h1>{detail.title}</h1>
           </div>
-          <div className={styles.contentDifficult}>
-            Dificultad: {detail.difficulty}
-          </div>
+
 
           <div className={styles.contentVideo}>
             <ReactPlayer
               url={detail.video_link}
               className={styles.react_player}
               playing={false}
-              width="640px"
-              height="360px"
+              width="832px"
+              height="468px"
               controls={true}
               pip={true}
-            />
+            /*   width=""640px"
+              height="360px
+ */         />
           </div>
-        
+          <div className={styles.contentDifyValorado}>
+            <div className={styles.contentDifficult}>
+              Dificultad: {detail.difficulty}
+            </div>
+
+
+            <div>
+
+
+              {
+                (userss.userId === idUser) ?
+                  <div className={styles.divValoration}>
+                    <h3 className={styles.titlePromedio}>Promedio de la clase:</h3>
+                    <p className={styles.clasificacion}>
+
+                      <input checked={userss.Promedio === 5 ? true : false} id="radio1" type="radio" name="estrellas" value="5" />
+                      <label for="radio1">★</label>
+                      <input checked={userss.Promedio === 4 ? true : false} id="radio2" type="radio" name="estrellas" value="4" />
+                      <label for="radio2">★</label>
+                      <input checked={userss.Promedio === 3 ? true : false} id="radio3" type="radio" name="estrellas" value="3" />
+                      <label for="radio3">★</label>
+                      <input checked={userss.Promedio === 2 ? true : false} id="radio4" type="radio" name="estrellas" value="2" />
+                      <label for="radio4">★</label>
+                      <input checked={userss.Promedio === 1 ? true : false} id="radio5" type="radio" name="estrellas" value="1" />
+                      <label for="radio5">★</label>
+                    </p>
+                  </div>
+                  :
+                  <div className={styles.divValoration}>
+                    <h3 className={styles.titleValoration}>Califica nuestra clase</h3>
+                    <p className={styles.clasificacion2}>
+                      <input onClick={() => onChangeVal(5)} id="radio1" type="radio" name="estrellas" value="5" />
+                      <label for="radio1">★</label>
+                      <input onClick={() => onChangeVal(4)} id="radio2" type="radio" name="estrellas" value="4" />
+                      <label for="radio2">★</label>
+                      <input onClick={() => onChangeVal(3)} id="radio3" type="radio" name="estrellas" value="3" />
+                      <label for="radio3">★</label>
+                      <input onClick={() => onChangeVal(2)} id="radio4" type="radio" name="estrellas" value="2" />
+                      <label for="radio4">★</label>
+                      <input onClick={() => onChangeVal(1)} id="radio5" type="radio" name="estrellas" value="1" />
+                      <label for="radio5">★</label>
+                    </p>
+                  </div>
+              }
+
+            </div>
+
+
+          </div>
           <div className={styles.contentDescription}>{detail.description}</div>
-          <div  >
-          <div onClick={()=>onSubmitDonar()}><AccountBalanceIcon/><input type="button" value="Queres colaborar con nosotros?" className={styles.inputDonar}/></div>
-            
-          <StyleAlert className={styles.alert}  open={open}>
-                  <div className={ styles.divAlert}><AccountCircleIcon /><p>&nbsp; DATOS DE LA CUENTA BANCARIA &nbsp;&nbsp;&nbsp;</p>
-                  <CancelIcon styles ={{cursor: 'pointer'}} onClick ={()=>onSubmitDonar() }/></div>
-               
-                </StyleAlert>
 
-            {
-              (userss.userId===idUser)?
-              <p className={styles.clasificacion}>
-              <input  checked={userss.Promedio===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
-              <label  for="radio1">★</label>
-              <input  checked={userss.Promedio===4? true: false} id="radio2" type="radio" name="estrellas" value="4"/>
-              <label for="radio2">★</label>
-              <input  checked={userss.Promedio===3? true: false} id="radio3" type="radio" name="estrellas" value="3"/>
-              <label for="radio3">★</label>
-              <input  checked={userss.Promedio===2? true: false} id="radio4" type="radio" name="estrellas" value="2"/>
-              <label for="radio4">★</label>
-              <input  checked={userss.Promedio===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
-              <label for="radio5">★</label>
-                      </p>
-              :
-              <p className={styles.clasificacion2}>
-                
-              <input  onClick={ ()=> onChangeVal(5) } id="radio1" type="radio"  name="estrellas" value="5"/>
-              <label  for="radio1">★</label>
-              <input  onClick={ ()=> onChangeVal(4) } id="radio2" type="radio" name="estrellas" value="4"/>
-              <label for="radio2">★</label>
-              <input  onClick={ ()=> onChangeVal(3) } id="radio3" type="radio" name="estrellas" value="3"/>
-              <label for="radio3">★</label>
-              <input  onClick={ ()=> onChangeVal(2) } id="radio4" type="radio" name="estrellas" value="2"/>
-              <label for="radio4">★</label>
-              <input  onClick={ ()=> onChangeVal(1) } id="radio5" type="radio" name="estrellas" value="1"/>
-              <label for="radio5">★</label>
-              </p>
-            }
-   
-          </div>
 
-          {/* <iframe width="727" height="409" src="https://www.youtube.com/embed/LO2RPDZkY88" 
-                                title="YouTube video player" 
-                                frameBorder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> */}
-          {/*  "https://scratch.mit.edu/projects/216620796/embed"   */}
-
-          {/* {detail.game_link ? (
+          {detail.game_link && (
             <div className={styles.contentGame}>
-              <p>Aprendamos jugando!</p>
+              <p className={styles.titleJuego}>¡Aprendamos jugando!</p>
               <iframe
-                src="https://scratch.mit.edu/projects/216620796/embed"
+                src={detail.game_link}
                 title="game"
-                width="485"
-                height="402"
+                width="593"
+                height="562"
                 frameBorder="0"
                 scrolling="no"
               ></iframe>
+            </div>)}
+
+          {/* cartel datos cuenta */}
+          <StyleAlert className={styles.alert} open={open}>
+            <div className={styles.divAlert}>
+              <CancelIcon onClick={() => onSubmitDonar()} className={styles.btnIcon} />
+              <AccountCircleIcon className={styles.iconCuenta} />
+              <h4 className={styles.datosTeacher}>&nbsp;Profesor:&nbsp;{teacherClass.firstName}&nbsp;{teacherClass.lastName}&nbsp;&nbsp;&nbsp;</h4>
+              <h4 className={styles.datosCta}>Cuenta: {teacherClass.cuentaBancaria}</h4>
             </div>
-          ) : null} */}
+          </StyleAlert>
+          
+          <div className={styles.inputDonar}>
+              <div onClick={() => onSubmitDonar()}><AccountBalanceIcon className={styles.icon} /><input type="button"
+                className={styles.btnDonar} value="Si te gusta nuestro contenido, podes colaborar
+                     para que nuestra comunidad siga creciendo, hace click aqui!" />
+              </div>
+            </div>
           <div className={styles.comments}>
             <Comments detail={detail}></Comments>
             <TextField
@@ -216,6 +247,11 @@ function onSubmitDonar(e){
             <StyleButtonSendComment onClick={(e) => handleSubmitComment(e)}>
               Enviar
             </StyleButtonSendComment>
+
+            
+           
+
+
           </div>
         </div>
       )}
