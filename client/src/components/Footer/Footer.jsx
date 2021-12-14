@@ -3,15 +3,24 @@ import style from "./Footer.module.css"
 export default function Footer(){
   return (
     <div className={style.contentFooter}>
-    <div>
-      <h4>Henry kids</h4>
-      <p>Todos los derechos reservados Henry Kids 2021</p>
+    <div className={style.contentDer}>
+      <h3>Henry kids</h3>
+      <p>© Todos los derechos reservados Henry Kids 2021</p>
      <a href='http://localhost:3000/home' >Politicas de Privacidad</a> 
  </div>
 
  <div className={style.nombDes}>
    <h3>Desarrolladores de Henry Kids</h3>
-
+   <div className={style.contenNomb}>
+    <a className={style.nombres} href=''>Felipe Sanchez</a>
+    <a className={style.nombres} href='https://www.linkedin.com/in/derek-cabrera-fullstack/'>Derek Cabrera</a>
+    <a className={style.nombres} href='www.linkedin.com/in/gaston-ripamonti'>Gaston Ripamonti</a>
+    <a className={style.nombres} href='https://www.linkedin.com/in/ignaciopaezz/'>Ignacio Páez</a>
+    <a className={style.nombres} href=''>Ignacio Páez</a>
+    <a className={style.nombres} href=''>Yanina Brancolino</a>
+    <a className={style.nombres} href=''>Giovi Cilfone</a>
+    <a className={style.nombres} href='https://www.linkedin.com/in/marlondelaroch3/'>Marlon De La Roche</a>
+    </div>
  </div>
   </div>
   )

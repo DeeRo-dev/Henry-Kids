@@ -99,7 +99,7 @@ export default function Home() {
           paginate={Paginate}
         />
       </div>
-        {/* <Footer/> */}
+        <Footer/>
     </div>
   );
 }
