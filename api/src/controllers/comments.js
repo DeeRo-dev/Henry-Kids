@@ -5,9 +5,9 @@ async function createComment(req, res, next) {
   const { name, classId, userId } = req.body;
   try {
     const comment = await Comment.create({ name });
+    await comment.addUser(userId);
     await comment.setClass(parseInt(classId));
-    await comment.setUser(userId);
-    const verifiedComment = await Comment.findOne({ where: { name } });
+    const verifiedComment = await Comment.findOne({ where: { name }, include: [User] });
 
     res.send(verifiedComment);
   } catch {

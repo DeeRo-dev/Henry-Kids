@@ -92,9 +92,6 @@ Class.belongsToMany(User, { through: AssUserClass});
 User.belongsToMany(Class, { through: AssUserClass});
 
 
-Comment.belongsTo(User)
-User.hasMany(Comment)
-
 
 
 
