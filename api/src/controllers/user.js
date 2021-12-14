@@ -3,7 +3,6 @@ const { User, Class, Status } = require("../db.js");
 const { sendMail } = require('../mails/mails')
 const fs = require('fs')
 // fs es una libreria, sistema de archivo, para interactuar con los archivos y directorios. (en este caso usamos ---> readFileSync())
-const { Association } = require("sequelize/dist");
 
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {

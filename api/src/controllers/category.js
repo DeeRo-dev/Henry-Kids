@@ -6,7 +6,6 @@ const {
   valoration,
 } = require("../db");
 const Sequelize = require("sequelize");
-const { mapFinderOptions } = require("sequelize/dist/lib/utils");
 
 async function getCat(req, res, next) {
   try {
