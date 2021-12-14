@@ -1,0 +1,16 @@
+.contentFooter{
+  display: grid;
+  grid-template-columns: repeat(2 , 1fr);
+  margin-top: 200px;
+  background: red;
+  width: 100%;
+  height: 200px;
+}
+.nombDes{
+  background: green;
+  height: 150px;
+  width: 400px;
+  border: 1px solid #fff;
+  color:#aaa;
+  
+}

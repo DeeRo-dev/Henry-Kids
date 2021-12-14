@@ -5,6 +5,21 @@ import { Button, withStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { enviarSoliProfe } from "../../actions";
 import { useNavigate, Link } from "react-router-dom";
+import MuiAlert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const StyleAlert = withStyles({
+  root: {
+
+    marginBottom: "450px",
+    width: "300px",
+  },
+})(Snackbar);
+
 
 export default function RegisterTeacher() {
   const dispatch = useDispatch();
@@ -90,12 +105,19 @@ const convertiraBase64=(archivos)=>{
   //   ...data,
   //   [e.target.name]: e.target.value,
   // });
+  const [open, setOpen] = React.useState(false);
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 function onSubmit(e){
   e.preventDefault();
 
-  // console.log(id)
   if ( data.dni&&
     data.linkedin &&
     data.cuentaBancaria &&
@@ -104,7 +126,7 @@ function onSubmit(e){
     data.fecha) {
       const id = window.localStorage.sessionUser;
     dispatch(enviarSoliProfe(data,id))
-    alert('form enviad?')
+    setOpen(true)
     setData({
     dni:"",
     linkedin:"",
@@ -114,7 +136,10 @@ function onSubmit(e){
     region:"",
     fecha:""
   })
-  navigate('/home')
+  
+  setTimeout(() => {
+    navigate("/home/teacher");
+  }, 2000);
    }
    else(alert('error'))
 }
@@ -159,6 +184,13 @@ function onSubmit(e){
                 Enviar
               </StyleButtonCrearCuenta>
             </div>
+
+
+            <StyleAlert className={styles.alert} open={open} onClose={handleClose}>
+                  <Alert severity="success">¡La solicitud se ha enviado satisfactoriamente!</Alert>
+                </StyleAlert>
+
+
     
           </form>
         </div>

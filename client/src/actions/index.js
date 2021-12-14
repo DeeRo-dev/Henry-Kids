@@ -144,7 +144,7 @@ export function getCategory() {
 export function getCategoryAll() {
   return async function (dispatch) {
     var info = await axios.get("/category");
-    console.log(info);
+   
     return dispatch({
       type: "GET_CATEGORY_ALL",
       payload: info.data,
