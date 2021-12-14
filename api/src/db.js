@@ -93,11 +93,6 @@ Class.belongsToMany(User, { through: AssUserClass});
 User.belongsToMany(Class, { through: AssUserClass});
 
 
-Comment.belongsTo(User)
-User.hasMany(Comment)
-
-
-
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
