@@ -3,7 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import styles from "./Comments.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useDispatch } from "react-redux";
-import { editComment, deleteComment } from "../../actions";
+import { editComment, deleteComment, responseComment } from "../../actions";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/styles";
 import { Button } from "@material-ui/core";
@@ -13,8 +13,10 @@ export default function Comments({ detail }) {
   const dispatch = useDispatch();
   const [modalEditarComentario, setModalEditarComentario] = useState(false);
   const [modalBorrarComentario, setModalBorrarComentario] = useState(false);
+  const [modalResponderComentario, setModalResponderComentario] = useState(false);
   const [oldComment, setOldComment] = useState();
   const [newComment, setNewComment] = useState({ id: "", name: "" });
+  const [newResponse, setNewResponse] = useState({ id: "", name: "" });
   const [currentId, setCurrentId] = useState();
 
   const StyleAlert = withStyles({
@@ -71,6 +73,28 @@ export default function Comments({ detail }) {
     setModalEditarComentario(!modalEditarComentario);
   };
 
+  const toggleModalResponderComentario = (event) => {
+    event.preventDefault();
+    if (!modalResponderComentario) {
+      const comment = detail.comments.find(
+        (element) => element.id === parseInt(event.target.name)
+      );
+      setNewResponse({
+        ...newResponse,
+        id: comment.id,
+      });
+    }
+    setModalResponderComentario(!modalResponderComentario);
+  };
+
+  function handleChangeResponseComment(e) {
+    e.preventDefault();
+    setNewResponse({
+      ...newResponse,
+      name: e.target.value,
+    });
+  }
+
   function handleChangeComment(e) {
     e.preventDefault();
     setNewComment({
@@ -86,6 +110,13 @@ export default function Comments({ detail }) {
     });
   }
 
+  function handleResponderComment(e) {
+    e.preventDefault();
+    dispatch(responseComment(newResponse.id, { response: newResponse.name })).then(() => {
+      alert("Respuesta Enviada");
+      window.location.reload();
+    });
+  }
   const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
@@ -116,12 +147,12 @@ export default function Comments({ detail }) {
           return (
             <div className={styles.media}>
               <div className={styles.user}>
-                <Avatar src={e.user.photo ? e.user.photo : ""} className={classes.img} />
-                <h3 className={styles.nombre}>{e.user.userName}</h3>
+                <Avatar src={e.users.length ? e.users[0].photo : ""} className={classes.img} />
+                <h3 className={styles.nombre}>{e.users[0].userName}</h3>
               </div>
               <p className={styles.comentario}>{e.name}</p>
               <div className={styles.botones}>
-                <button>Responder</button>
+                <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button>
 
                 {/*EDITAR COMENTARIO*/}
                 <button
@@ -145,6 +176,29 @@ export default function Comments({ detail }) {
             </div>
           );
         })}
+
+{modalResponderComentario && (
+        <div className={styles.modal}>
+          <div
+            onClick={toggleModalEditarComentario}
+            className={styles.overlay}
+          ></div>
+          <div className={styles.modal_content_Cambiar_Contraseña}>
+            <button
+              className={styles.close_modal}
+              onClick={toggleModalResponderComentario}
+            >
+              x
+            </button>
+            <TextField
+              multiline
+              onChange={(e) => handleChangeResponseComment(e)}
+            ></TextField>
+            <Button onClick={(e) => handleResponderComment(e)}>Enviar</Button>
+          </div>
+        </div>
+      )}
+
 
       {modalEditarComentario && (
         <div className={styles.modal}>
@@ -187,12 +241,12 @@ export default function Comments({ detail }) {
             </button> */}
               <AlertTitle>¿Desea eliminar el comentario?</AlertTitle>
             </StyleAlert>
-            <button /* className={styles.btn2} */ onClick={toggleModalBorrarComentario}>Cancelar</button>
+            <button /* className={styles.btn2} */ onClick={toggleModalBorrarComentario} className={styles.buttons}>Confirmar</button>
             <button
               name={currentId}
-              /* className={styles.btn1} */ onClick={(e) => onSubmitDelete(e)}
+              /* className={styles.btn1} */ onClick={(e) => onSubmitDelete(e)} className={styles.buttons}
             >
-              Confirmar
+              Cancelar
             </button>
           </div>
         </div>

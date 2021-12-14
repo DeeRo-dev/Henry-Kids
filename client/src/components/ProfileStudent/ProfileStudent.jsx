@@ -66,6 +66,7 @@ export default function ProfileStudent() {
   };
    
   return (
+    <div className={styles.contenedor}>
     <div className={classes.root}>
       <AppBar position="static" color="default">
       <Link to="/home/student">
@@ -97,6 +98,7 @@ export default function ProfileStudent() {
       </TabPanel>
       <TabPanel value={value} index={0}> <FavsContainer/> </TabPanel>
       {/* <TabPanel value={value} index={3}></TabPanel> */}
+    </div>
     </div>
   );
 }

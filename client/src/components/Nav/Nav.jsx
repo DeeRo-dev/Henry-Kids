@@ -57,7 +57,7 @@ export default function Nav() {
 
   function handleCategory(e) {
     e.preventDefault();
-    console.log(e.target.value)
+    console.log(e.target.value);
     dispatch(filterCategory(e.target.value));
   }
 
@@ -66,32 +66,30 @@ export default function Nav() {
     dispatch(filterDifficulty(e.target.value));
   }
 
-// function typeUser(e){
-//   console.log('click')
-//   e.preventDefault();
-//   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
-// }
+  // function typeUser(e){
+  //   console.log('click')
+  //   e.preventDefault();
+  //   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
+  // }
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+      "& > *": {
+        margin: theme.spacing(1),
+      },
     },
-  },
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    marginRight: "20px",
-    cursor: "pointer",
-  },
-}));
-const classes = useStyles();
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      cursor: "pointer",
+    },
+  }));
+  const classes = useStyles();
 
   return (
     <div className={styles.containerBackground}>
@@ -123,13 +121,12 @@ const classes = useStyles();
                 Tecnología{" "}
               </option>
               <option value="all">Todos</option>
-             
-                {
-             allCategory.map((e) => (
-              <option value={e.id} key={e.name}>{e.name}</option>
-               
-            ))
-          } 
+
+              {allCategory.map((e) => (
+                <option value={e.id} key={e.name}>
+                  {e.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -185,7 +182,7 @@ const classes = useStyles();
           </select> */}
             <div>
               <Link to={"/home/student/register-teacher"}>
-                <button  className={styles.blue}> ¿Te gustaria enseñar?</button>
+                <button className={styles.blue}> ¿Te gustaria enseñar?</button>
               </Link>
             </div>
             {/* <Link to="/create-clase">
@@ -193,30 +190,28 @@ const classes = useStyles();
              Crear clase
           </button>
       </Link> */}
-  
           </div>
 
-          <div className={styles.imagen}>
+          <div className={styles.perfil}>
             <Avatar
-              src={currentUser.photo ? currentUser.photo : ""}
+              src={currentUser ? currentUser.photo : ""}
               className={classes.large}
               onClick={handleClick}
             />{" "}
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <Link to="/home/student/profile">
+                <MenuItem onClick={handleClose}> Perfil </MenuItem>
+              </Link>
+              <MenuItem onClick={signOutUser}> Salir </MenuItem>
+            </Menu>
+            <h4 onClick={handleClick}>{currentUser?.userName}</h4>
           </div>
-
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <Link to="/home/student/profile">
-              <MenuItem onClick={handleClose}> Perfil </MenuItem>
-            </Link>
-            <MenuItem onClick={signOutUser}> Salir </MenuItem>
-          </Menu>
-
           {/* <div className={styles.imagen}>
           <img
             src="https://static.guiainfantil.com/media/24057/c/el-desarrollo-de-un-nino-de-5-anos-que-aprenden-los-ninos-a-esta-edad-md.jpg"

@@ -4,8 +4,8 @@ import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getUser, postUser } from "../../actions/index.js";
-import NearMeIcon from '@material-ui/icons/NearMe';
+import { getUser, postUser, setDataForGoogle } from "../../actions/index.js";
+import NearMeIcon from "@material-ui/icons/NearMe";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -44,7 +44,7 @@ export default function LandingPage() {
     lastName: "",
     userName: "",
     type: "student",
-    email: ""
+    email: "",
   });
   const [dataFirebase, setDataFirebase] = useState({
     email: "",
@@ -198,19 +198,18 @@ export default function LandingPage() {
       color: "white",
     },
   })(Button);
-  const [errorFirst, setErrorFirst] = useState(false)
-  const [msjFirst, setMsjFirst] = useState("")
-  const [errorLast, setErrorLast] = useState(false)
-  const [msjLast, setMsjLast] = useState("")
-  const [errorUser, setErrorUser] = useState(false)
-  const [msjUser, setMsjUser] = useState("")
-  const [errorEmail, setErrorEmail] = useState(false)
-  const [msjEmail, setMsjEmail] = useState("")
-  const [errorpass, setErrorPass] = useState(false)
-  const [msjPas, setMsjPass] = useState("")
-  const [errorPassConf, setErrorPassConf] = useState(false)
-  const [msjPassConf, setPassConf] = useState("")
-
+  const [errorFirst, setErrorFirst] = useState(false);
+  const [msjFirst, setMsjFirst] = useState("");
+  const [errorLast, setErrorLast] = useState(false);
+  const [msjLast, setMsjLast] = useState("");
+  const [errorUser, setErrorUser] = useState(false);
+  const [msjUser, setMsjUser] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [msjEmail, setMsjEmail] = useState("");
+  const [errorpass, setErrorPass] = useState(false);
+  const [msjPas, setMsjPass] = useState("");
+  const [errorPassConf, setErrorPassConf] = useState(false);
+  const [msjPassConf, setPassConf] = useState("");
 
   function onInputChangeDB(e) {
     e.preventDefault();
@@ -220,31 +219,29 @@ export default function LandingPage() {
     });
 
     if (user.firstName.length < 2) {
-      setErrorFirst(true)
-      setMsjFirst("El nombre es requerido")
+      setErrorFirst(true);
+      setMsjFirst("El nombre es requerido");
     } else {
-      setErrorFirst(false)
-      setMsjFirst("")
+      setErrorFirst(false);
+      setMsjFirst("");
     }
 
     if (user.lastName.length < 2) {
-      setErrorLast(true)
-      setMsjLast("El apellido es requerido")
+      setErrorLast(true);
+      setMsjLast("El apellido es requerido");
     } else {
-      setErrorLast(false)
-      setMsjLast("")
+      setErrorLast(false);
+      setMsjLast("");
     }
 
     if (user.userName.length < 2) {
-      setErrorUser(true)
-      setMsjUser("El usuario es requerido")
+      setErrorUser(true);
+      setMsjUser("El usuario es requerido");
     } else {
-      setErrorUser(false)
-      setMsjUser("")
+      setErrorUser(false);
+      setMsjUser("");
     }
-
   }
-
 
   function onInputChangeFirebase(e) {
     e.preventDefault();
@@ -253,30 +250,35 @@ export default function LandingPage() {
       [e.target.name]: e.target.value,
     });
 
-    if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email))) {
-      setErrorEmail(true)
-      setMsjEmail("Debe ingresar un email valido")
+    if (
+      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email)
+    ) {
+      setErrorEmail(true);
+      setMsjEmail("Debe ingresar un email valido");
     } else {
-      setErrorEmail(false)
-      setMsjEmail("")
+      setErrorEmail(false);
+      setMsjEmail("");
     }
 
-
-    if (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password))) {
-      setErrorPass(true)
-      setMsjPass("La contraseña debe contener un minimo de un numero y 8 digitos")
-    }
-    else {
-      setErrorPass(false)
-      setMsjPass("") 
-    }
-
-    if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
-      setErrorPassConf(true)
-      setPassConf("Las contraseñas deben coincidir")
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password)) {
+      setErrorPass(true);
+      setMsjPass(
+        "La contraseña debe contener un minimo de un numero y 8 digitos"
+      );
     } else {
-      setErrorPassConf(false)
-      setPassConf("")
+      setErrorPass(false);
+      setMsjPass("");
+    }
+
+    if (
+      dataFirebase.password.slice(0, dataFirebase.password.length - 1) !==
+      dataFirebase.passwordConfirm
+    ) {
+      setErrorPassConf(true);
+      setPassConf("Las contraseñas deben coincidir");
+    } else {
+      setErrorPassConf(false);
+      setPassConf("");
     }
   }
 
@@ -291,31 +293,32 @@ export default function LandingPage() {
 
   const registrarUsuario = (e) => {
     e.preventDefault();
-   /*  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+    /*  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
       alert("contraseñas diferentes");
     } else { */
-      createUserWithEmailAndPassword(
-        auth,
-        dataFirebase.email,
-        dataFirebase.password
-      ).then((userCredential) => {
+    createUserWithEmailAndPassword(
+      auth,
+      dataFirebase.email,
+      dataFirebase.password
+    )
+      .then((userCredential) => {
         localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userCredential) => {
           localStorage.setItem("sessionUser", userCredential.uid);
           //  console.log(userCredential.user);
           dispatch(postUser(user))
             .then(() => {
-              navigate("/home/student");
-              window.location.reload();
+              /* navigate("/home/student");
+              window.location.reload(); */
             })
             .catch((e) => {
               console.log(e + "este");
             });
         });
-      }).catch((e)=>{
-        alert(e)
+      })
+      .catch((e) => {
+        alert(e);
       });
-    
   };
 
   const ingresarUsuario = (e) => {
@@ -325,9 +328,9 @@ export default function LandingPage() {
         auth.onAuthStateChanged((userFirebase) => {
           localStorage.setItem("sessionUser", userFirebase.uid);
           const typeUser = allUsers.find((e) => {
-            return e.id === userFirebase.uid
-          })
-          console.log(typeUser)
+            return e.id === userFirebase.uid;
+          });
+          console.log(typeUser);
           if (typeUser.type === "student") {
             localStorage.setItem("type", "student");
             navigate("/home/student");
@@ -346,58 +349,87 @@ export default function LandingPage() {
 
   const ingresarUsuarioConGoogle = (e) => {
     e.preventDefault();
-    if (user.type === "") {
-      alert("Please, select a type of user");
-    } else {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          localStorage.setItem("type", user.type);
-          auth.onAuthStateChanged((userFirebase) => {
-            dispatch(getUser("All")).then(() => {
-              const userGoogle = allUsers?.filter(
-                (e) => e.id === userFirebase.uid
-              );
-              if (!userGoogle.length) {
-                localStorage.setItem("sessionUser", userFirebase.uid);
-                if (user.type === "student") {
-                  setUser({
-                    ...user,
-                    userName: result.user.displayName,
-                  });
-                  dispatch(postUser(user)).then(() => {
-                    navigate("/home/student");
-                    window.location.reload();
-                  });
-                }
-                if (user.type === "teacher") {
-                  console.log(user);
-                  dispatch(postUser(user)).then(() => {
-                    navigate("/home/teacher");
-                    window.location.reload();
-                  });
-                }
-              } else {
-                if (user.type === "student") {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        localStorage.setItem("type", user.type);
+        auth.onAuthStateChanged((userFirebase) => {
+          dispatch(getUser("All")).then(() => {
+            const userGoogle = allUsers?.filter(
+              (e) => e.id === userFirebase.uid
+            );
+            if (!userGoogle.length) {
+              alert("No existe una cuenta, debes registrarte primero");
+            } else {
+              if (userGoogle[0].type === "student") {
+                navigate("/home/student");
+                window.location.reload();
+              }
+              if (userGoogle[0].type === "teacher") {
+                navigate("/home/teacher");
+                window.location.reload();
+              }
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        alert(error.message);
+        // ...
+      });
+  };
+
+  const RegistrarUsuarioConGoogle = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        localStorage.setItem("type", user.type);
+        auth.onAuthStateChanged((userFirebase) => {
+          dispatch(getUser("All")).then(() => {
+            const userGoogle = allUsers?.filter(
+              (e) => e.id === userFirebase.uid
+            );
+            if (!userGoogle.length) {
+              window.localStorage.setItem("sessionUser", userFirebase.uid);
+              const userNameSplit = userFirebase.displayName.split(" ");
+              dispatch(
+                postUser({
+                  id: "provi",
+                  firstName: "Registrado con Google",
+                  lastName: "Registrado con Google",
+                  userName: userNameSplit[0],
+                  type: "student",
+                  email: userFirebase.email,
+                })
+              )
+                .then(() => {
                   navigate("/home/student");
                   window.location.reload();
-                }
-                if (user.type === "teacher") {
-                  navigate("/home/teacher");
-                  window.location.reload();
-                }
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            } else {
+              if (userGoogle[0].type === "student") {
+                navigate("/home/student");
+                window.location.reload();
               }
-            });
+              if (userGoogle[0].type === "teacher") {
+                navigate("/home/teacher");
+                window.location.reload();
+              }
+            }
           });
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          // The signed-in user info.
-          // ...
-        })
-        .catch((error) => {
-          // Handle Errors here.
-          alert(error.message);
-          // ...
         });
-    }
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // The signed-in user info.
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        alert(error.message);
+        // ...
+      });
   };
 
   return (
@@ -408,12 +440,13 @@ export default function LandingPage() {
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         />
-         <div className={styles.sobre}>
-            <Link to ="/about" className={styles.about}>
-            ¿Qué es Henry Kids?<NearMeIcon className={styles.navigation}/> </Link>
-
-          </div>
-        <div> 
+        <div className={styles.sobre}>
+          <Link to="/about" className={styles.about}>
+            ¿Qué es Henry Kids?
+            <NearMeIcon className={styles.navigation} />{" "}
+          </Link>
+        </div>
+        <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
               onClick={(e) => toggleModalIngresar(e)}
@@ -451,7 +484,6 @@ export default function LandingPage() {
                   <form action="" name="f1">
                     <input
                       onChange={(e) => onInputChangeFirebase(e)}
-                      
                       name="email"
                       type="text"
                       placeholder="Email:"
@@ -491,7 +523,7 @@ export default function LandingPage() {
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                    {/* <StyleButtonIngresarConGoogle
+                    <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
@@ -499,7 +531,7 @@ export default function LandingPage() {
                       color="primary"
                     >
                       Ingresar con google
-                    </StyleButtonIngresarConGoogle> */}
+                    </StyleButtonIngresarConGoogle>
                   </form>
                 </div>
               </div>
@@ -567,9 +599,10 @@ export default function LandingPage() {
                       placeholder="Email:"
                       name="email"
                       label=""
-                      onChange={e=>{
-                        onInputChangeFirebase(e) 
-                        onInputChangeDB(e)}}
+                      onChange={(e) => {
+                        onInputChangeFirebase(e);
+                        onInputChangeDB(e);
+                      }}
                     />
 
                     <TextField
@@ -619,9 +652,13 @@ export default function LandingPage() {
                       </FormControl>
                     </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
-                    {!errorFirst && !errorLast && !errorUser
-                      && !errorEmail && !errorpass && !errorPassConf &&
-                       dataFirebase.passwordConfirm.length > 7?
+                    {!errorFirst &&
+                    !errorLast &&
+                    !errorUser &&
+                    !errorEmail &&
+                    !errorpass &&
+                    !errorPassConf &&
+                    dataFirebase.passwordConfirm.length > 7 ? (
                       <StyleButtonCrearCuenta
                         onClick={(e) => registrarUsuario(e)}
                         type="button"
@@ -631,16 +668,16 @@ export default function LandingPage() {
                       >
                         Crear cuenta
                       </StyleButtonCrearCuenta>
-                      : null}
-                    {/*  <StyleButtonRegistrarseConGoogle
-                      onClick={(e) => ingresarUsuarioConGoogle(e)}
+                    ) : null}
+                    <StyleButtonRegistrarseConGoogle
+                      onClick={(e) => RegistrarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
                       variant="contained"
                       color="primary"
                     >
-                      Crear cuenta con google
-                    </StyleButtonRegistrarseConGoogle> */}
+                      Registrarse con google
+                    </StyleButtonRegistrarseConGoogle>
                     {/* </Link> */}
                   </form>
                 </div>

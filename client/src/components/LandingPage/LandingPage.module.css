@@ -193,6 +193,7 @@ input:focus {
   align-items: center;
   justify-content: center;
   width: 300px;
+  font-family: 'Lucida Grande';
   height: 170px;
 }
 

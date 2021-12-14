@@ -35,6 +35,7 @@
 .perfil h4{
   margin:0px;
   user-select: none;
+  cursor: pointer;
 }
 .blue:hover {
   background-color:  #ff8d00;
