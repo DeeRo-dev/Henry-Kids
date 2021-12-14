@@ -21,6 +21,7 @@ async function getClass(req, res, next) {
 
   results = await Class.findAll({
     attributes: ["id", "title", "description", "difficulty", "video_link", "game_link", "studio_material"],
+    order:[[Evaluation, 'Promedio', 'DESC']],
     include: [{model: Category} ,{model: Evaluation}, {model: User}, {model: Comment, include:[User]}],
   });
 
