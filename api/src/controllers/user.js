@@ -3,7 +3,6 @@ const { User, Class, Status } = require("../db.js");
 const { sendMail } = require('../mails/mails')
 const fs = require('fs')
 // fs es una libreria, sistema de archivo, para interactuar con los archivos y directorios. (en este caso usamos ---> readFileSync())
-const { Association } = require("sequelize/dist");
 
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
@@ -28,7 +27,7 @@ async function createUser(req, res, next) {
     html_template = html_template.replace('FIRST_NAME', newFirstName)
 
     //Acá le pasamos a la función, el email del usuario, el asunto, el template, y si es html o text.
-    sendMail(email, "Welcome to Henry Kids", html_template, "html");
+    sendMail(email, "Bienvenido a Henry Kids", html_template, "html");
 
     res.status(200).send(newUser);
 
@@ -162,7 +161,7 @@ async function solTeacher(req, res, next) {
     let html_template = fs.readFileSync('./src/mails/templates/inProcess.html', {encoding:'utf8', flag:'r'})
     html_template = html_template.replace('FIRST_NAME', newFirstName)
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
-    sendMail(user.email, "Request in process", html_template, "html");
+    sendMail(user.email, "Solicitud en proceso...", html_template, "html");
 
     console.log(result);
 
@@ -192,7 +191,7 @@ async function solAceptadaTeacher(req, res, next) {
     let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
     let html_template = fs.readFileSync('./src/mails/templates/approvedRequest.html', {encoding:'utf8', flag:'r'})
     html_template = html_template.replace('FIRST_NAME', newFirstName)
-    sendMail(user.email, "Su solicitud ha sido aprobada", html_template, "html");
+    sendMail(user.email, "Su solicitud ha sido aprobada...", html_template, "html");
 
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
@@ -217,7 +216,7 @@ async function solRechazadaTeacher(req, res, next) {
   let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
  let html_template = fs.readFileSync('./src/mails/templates/rejectedRequest.html', {encoding:'utf8', flag:'r'})
     html_template = html_template.replace('FIRST_NAME', newFirstName)
-    sendMail(user.email, "Muchas gracias por tu interés", html_template, "html");
+    sendMail(user.email, "Muchas gracias por tu interés...", html_template, "html");
 
 
     res.send("el Usario esta en la lista student");

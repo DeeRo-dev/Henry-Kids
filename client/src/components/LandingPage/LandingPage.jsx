@@ -1,3 +1,5 @@
+//landing
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./LandingPage.module.css";
@@ -247,7 +249,7 @@ export default function LandingPage() {
     e.preventDefault();
     setDataFirebase({
       ...dataFirebase,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value   
     });
 
     if (
@@ -260,35 +262,42 @@ export default function LandingPage() {
       setMsjEmail("");
     }
 
-    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password)) {
-      setErrorPass(true);
-      setMsjPass(
-        "La contraseña debe contener un minimo de un numero y 8 digitos"
-      );
-    } else {
-      setErrorPass(false);
-      setMsjPass("");
+    if (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password))) {
+      setErrorPass(true)
+      setMsjPass("La contraseña debe contener un minimo de un numero y 8 digitos")
+    }
+    else {
+      setErrorPass(false)
+      setMsjPass("") 
     }
 
-    if (
-      dataFirebase.password.slice(0, dataFirebase.password.length - 1) !==
-      dataFirebase.passwordConfirm
-    ) {
-      setErrorPassConf(true);
-      setPassConf("Las contraseñas deben coincidir");
-    } else {
-      setErrorPassConf(false);
-      setPassConf("");
-    }
+    
   }
+  function onInputChangeFirebasePass(e) {
+    e.preventDefault();
+    setDataFirebase({
+      ...dataFirebase,
+      [e.target.name]: e.target.value   
+    });
+  /* if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
+    setErrorPassConf(true)
+    setPassConf("Las contraseñas deben coincidir")
+  } else {
+    setErrorPassConf(false)
+    setPassConf("")
+  } */
+}
 
-  // setErrors(
-  //   validate({
-  //     ...user,
-  //     [e.target.name]: e.target.value,
-  //   })
-  // );
-
+useEffect(()=> {
+  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+    setErrorPassConf(true)
+    setPassConf("Las contraseñas deben coincidir")
+  } else {
+    setErrorPassConf(false)
+    setPassConf("")
+  }
+}
+,[dataFirebase.passwordConfirm, dataFirebase.password])
   //------------------------------------------------------------------------------------------
 
   const registrarUsuario = (e) => {
@@ -627,7 +636,7 @@ export default function LandingPage() {
                       type="password"
                       helperText={msjPassConf}
                       placeholder="Confirmar contraseña:"
-                      onChange={(e) => onInputChangeFirebase(e)}
+                      onChange={(e) => onInputChangeFirebasePass(e)}
                     />
                     {/* <div>
                       <FormControl component="fieldset">

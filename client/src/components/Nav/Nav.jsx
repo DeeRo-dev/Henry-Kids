@@ -7,6 +7,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Avatar, Icon, makeStyles } from "@material-ui/core";
 import { auth } from "../../firebase/firebaseConfig";
 import { useSelector, useDispatch } from "react-redux";
+import { withStyles } from "@material-ui/styles";
+import MuiAlert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
 import {
   getCategoryAll,
   getUser,
@@ -15,16 +18,31 @@ import {
   editUser,
 } from "../../actions";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
+const StyleAlert = withStyles({
+  root: {
+
+    marginBottom: "450px",
+    width: "300px",
+  },
+})(Snackbar);
+
 export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentUser = useSelector((state) => state.user[0]);
-
   useEffect(() => {
     dispatch(getUser(window.localStorage.sessionUser));
   }, [dispatch]);
+
+
+
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,8 +65,10 @@ export default function Nav() {
         console.log(error);
       });
   };
-
+  const currentUser = useSelector((state) => state.user[0]);
   const allCategory = useSelector((state) => state.categoryAll);
+
+  
 
   useEffect(() => {
     dispatch(getCategoryAll());
@@ -72,12 +92,17 @@ export default function Nav() {
   //   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
   // }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
       "& > *": {
         margin: theme.spacing(1),
       },
+<<<<<<< HEAD
     },
     small: {
       width: theme.spacing(3),
@@ -86,10 +111,41 @@ export default function Nav() {
     large: {
       width: theme.spacing(7),
       height: theme.spacing(7),
+=======
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: "20px",
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
       cursor: "pointer",
     },
   }));
   const classes = useStyles();
+<<<<<<< HEAD
+=======
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  function handleOpen() {
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 3000);
+  }
+
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
 
   return (
     <div className={styles.containerBackground}>
@@ -122,11 +178,20 @@ export default function Nav() {
               </option>
               <option value="all">Todos</option>
 
+<<<<<<< HEAD
               {allCategory.map((e) => (
                 <option value={e.id} key={e.name}>
                   {e.name}
                 </option>
               ))}
+=======
+              {
+                allCategory.map((e) => (
+                  <option value={e.id} key={e.name}>{e.name}</option>
+
+                ))
+              }
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
             </select>
           </div>
           <div>
@@ -180,21 +245,61 @@ export default function Nav() {
               ⭐
             </option>
           </select> */}
+<<<<<<< HEAD
             <div>
               <Link to={"/home/student/register-teacher"}>
                 <button className={styles.blue}> ¿Te gustaria enseñar?</button>
               </Link>
             </div>
+=======
+
+
+            {currentUser ?
+              currentUser.solictud ?
+                <div>
+
+                  <button className={styles.blue} onClick={handleOpen}>¿Te gustaria enseñar?</button>
+
+                </div>
+                :
+                <div>
+                  <Link to={"/home/student/register-teacher"}>
+                    <button className={styles.blue}> ¿Te gustaria enseñar?</button>
+                  </Link>
+                </div>
+
+              : <div>
+                <Link to={"/home/student/register-teacher"}>
+                  <button className={styles.blue}> ¿Te gustaria enseñar?</button>
+                </Link>
+              </div>
+
+            }
+            <StyleAlert className={styles.alert} open={open} onClose={handleCloseAlert}>
+              <Alert severity="success">
+                ¡Actualmente tenes una solicitud pendiente de confirmacion!
+              </Alert>
+            </StyleAlert>
+
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
             {/* <Link to="/create-clase">
          <button className={styles.blue}>
              Crear clase
           </button>
       </Link> */}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
           </div>
 
           <div className={styles.perfil}>
             <Avatar
+<<<<<<< HEAD
               src={currentUser ? currentUser.photo : ""}
+=======
+              src={currentUser?.photo ? currentUser?.photo : ""}
+>>>>>>> 456ccca8e2d6e58141037cf12f67e341be957dbe
               className={classes.large}
               onClick={handleClick}
             />{" "}
