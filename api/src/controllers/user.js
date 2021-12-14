@@ -153,15 +153,15 @@ async function solTeacher(req, res, next) {
       },
     });
 
-    // const foundUser = await User.findByPk(req.params.id);
-    // const user = foundUser.toJSON();
-    // // Acá le ponemos mayúscula a la primer letra del nombre.
-    // let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-    // // Acá leemos el archivo html y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
-    // let html_template = fs.readFileSync('./src/mails/templates/inProcess.html', {encoding:'utf8', flag:'r'})
-    // html_template = html_template.replace('FIRST_NAME', newFirstName)
-    // //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
-    // sendMail(user.email, "Solicitud en proceso...", html_template, "html");
+    const foundUser = await User.findByPk(req.params.id);
+    const user = foundUser.toJSON();
+    // Acá le ponemos mayúscula a la primer letra del nombre.
+    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+    // Acá leemos el archivo html y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
+    let html_template = fs.readFileSync('./src/mails/templates/inProcess.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+    //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
+    sendMail(user.email, "Solicitud en proceso...", html_template, "html");
 
     console.log(result);
 
@@ -186,12 +186,12 @@ async function solAceptadaTeacher(req, res, next) {
    
 
 
-    // const foundUser = await User.findByPk(req.params.id);
-    // const user = foundUser.toJSON();
-    // let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-    // let html_template = fs.readFileSync('./src/mails/templates/approvedRequest.html', {encoding:'utf8', flag:'r'})
-    // html_template = html_template.replace('FIRST_NAME', newFirstName)
-    // sendMail(user.email, "Su solicitud ha sido aprobada...", html_template, "html");
+    const foundUser = await User.findByPk(req.params.id);
+    const user = foundUser.toJSON();
+    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+    let html_template = fs.readFileSync('./src/mails/templates/approvedRequest.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+    sendMail(user.email, "Su solicitud ha sido aprobada...", html_template, "html");
 
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
@@ -211,12 +211,12 @@ async function solRechazadaTeacher(req, res, next) {
       },
     });
 
-//     const foundUser = await User.findByPk(req.params.id);
-//     const user = foundUser.toJSON();
-//   let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-//  let html_template = fs.readFileSync('./src/mails/templates/rejectedRequest.html', {encoding:'utf8', flag:'r'})
-//     html_template = html_template.replace('FIRST_NAME', newFirstName)
-//     sendMail(user.email, "Muchas gracias por tu interés...", html_template, "html");
+    const foundUser = await User.findByPk(req.params.id);
+    const user = foundUser.toJSON();
+  let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+ let html_template = fs.readFileSync('./src/mails/templates/rejectedRequest.html', {encoding:'utf8', flag:'r'})
+    html_template = html_template.replace('FIRST_NAME', newFirstName)
+    sendMail(user.email, "Muchas gracias por tu interés...", html_template, "html");
 
 
     res.send("el Usario esta en la lista student");
