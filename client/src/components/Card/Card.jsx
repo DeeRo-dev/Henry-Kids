@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import styles from "./Card.module.css";
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
@@ -36,18 +36,18 @@ export default function Card({
 
   const dispatch = useDispatch();
   const idUser = window.localStorage.sessionUser;
-  useEffect (()=> {dispatch(getFavorites(idUser))},[dispatch, idUser])
+ 
   const favoritesRedux = useSelector(state => state.favorites)
   
  
-  
-  
+ 
+  useEffect (()=> {dispatch(getFavorites(idUser))},[ dispatch])
 
   function onclickFav(e, idUser, id) {
     e.preventDefault();
     console.log(e.target.checked)
     dispatch(setFavorite(idUser, id));
-    window.location.reload()
+    //window.location.reload()
     
   }
 
@@ -63,22 +63,41 @@ export default function Card({
       fav = false
     : fav = favoritesRedux.some(c => c.id === id)
 
+    let [favs, setFavs] = useState(false)
+
+
   return (
     <div className={styles.card} value={value}>
       <div className={styles.threeBtns} />
       
         <FormGroup row>
         <FormControlLabel
-       checked={fav? true: false}
+          checked={fav? true : false}
           className={styles.icono}
           control={<Checkbox icon={<FavoriteBorder />}  checkedIcon={<Favorite />} name="checkedH" />}
           label=""
           onChange={fav ?   (e) => onClickRemove(e, idUser, id)  : (e) => onclickFav(e, idUser, id)}
-          
+          onClic
         />
       </FormGroup>
+      {/* <FavoriteBorder/>
 
-      
+        { 
+          aux = false;
+          function cambiar (){
+            if(!aux)
+            aux = true
+          }else{
+            aux = false
+          }
+          aux ? <Favorite /> : <FavoriteBorder/>
+
+          
+          () => cambiar();
+        }
+
+
+      */}
       <Link to={"/home/student/" + id}> 
         <div className={styles.cardHeader}>
           <img src={url} alt="Contenido sin imagen disponible" />
