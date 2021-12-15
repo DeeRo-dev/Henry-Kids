@@ -388,6 +388,13 @@ useEffect(()=> {
                     window.location.reload();
                   });
                 }
+                if (user.type === "confirmacion") {
+                  console.log(user);
+                  dispatch(postUser(user)).then(() => {
+                    navigate("/home/confirmacion");
+                    window.location.reload();
+                  });
+                }
               } else {
                 if (user.type === "student") {
                   navigate("/home/student");
@@ -395,6 +402,10 @@ useEffect(()=> {
                 }
                 if (user.type === "teacher") {
                   navigate("/home/teacher");
+                  window.location.reload();
+                }
+                if (user.type === "confirmacion") {
+                  navigate("/home/confirmacion");
                   window.location.reload();
                 }
               }
