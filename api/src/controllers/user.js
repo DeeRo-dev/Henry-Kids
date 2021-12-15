@@ -194,16 +194,19 @@ async function solTeacher(req, res, next) {
 }
 
 async function BorarFavoritos(id) {
-  const  relode = await User.findAll({
+  const relode = await User.findAll({
     where: {
       id: id,
     },
     include: [{ model: Class }],
   });
-  const userr = relode.toJSON();
-  userr.classes.map((x)=>{
-    userr.removeClass(x.id);
-  })
+  const user = await User.findByPk(id);
+  const userr = relode[0].toJSON().classes;
+  console.log(relode[0].toJSON().classes);
+  userr.map((x) => {
+    console.log(x.id);
+    user.removeClass(x.id);
+  });
 }
 
 async function solAceptadaTeacher(req, res, next) {
@@ -232,7 +235,7 @@ async function solAceptadaTeacher(req, res, next) {
       html_template,
       "html"
     );
-    BorarFavoritos(req.params.id)
+    BorarFavoritos(req.params.id);
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
     next(err);
