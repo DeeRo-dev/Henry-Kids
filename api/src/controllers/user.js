@@ -6,7 +6,7 @@ const fs = require("fs");
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
   const { firstName, lastName, userName, type, id, email, photo } = req.body;
-  
+
   try {
     const user = await User.create({
       id,
@@ -23,19 +23,26 @@ async function createUser(req, res, next) {
       user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
 
     // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
-    let html_template = fs.readFileSync("./src/mails/templates/confirmacion.html", {
-      encoding: "utf8",
-      flag: "r",
-    });
+    let html_template = fs.readFileSync(
+      "./src/mails/templates/confirmacion.html",
+      {
+        encoding: "utf8",
+        flag: "r",
+      }
+    );
     html_template = html_template.replace("FIRST_NAME", newFirstName);
 
-    
-    let rute =`<a href="http://localhost:3000/Verificacion/${user.userName}">Link</a>`
-    
+    let rute = `<a href="http://localhost:3000/Verificacion/${user.userName}">Link</a>`;
+
     html_template = html_template.replace("RUTA_CONF", rute);
 
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
-    sendMail(user.email, "Confirma tu dirección de correo electrónico", html_template, "html");
+    sendMail(
+      user.email,
+      "Confirma tu dirección de correo electrónico",
+      html_template,
+      "html"
+    );
 
     res.status(200).send(user);
   } catch {
@@ -167,20 +174,36 @@ async function solTeacher(req, res, next) {
     const foundUser = await User.findByPk(req.params.id);
     const user = foundUser.toJSON();
     // Acá le ponemos mayúscula a la primer letra del nombre.
-    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+    let newFirstName =
+      user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
     // Acá leemos el archivo html y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
-    let html_template = fs.readFileSync('./src/mails/templates/inProcess.html', {encoding:'utf8', flag:'r'})
-    html_template = html_template.replace('FIRST_NAME', newFirstName)
+    let html_template = fs.readFileSync(
+      "./src/mails/templates/inProcess.html",
+      { encoding: "utf8", flag: "r" }
+    );
+    html_template = html_template.replace("FIRST_NAME", newFirstName);
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
     sendMail(user.email, "Solicitud en proceso...", html_template, "html");
 
     console.log(result);
 
     res.send("el Usario esta en la lista de espera de Profesores  ");
-
   } catch (err) {
     next(err);
   }
+}
+
+function BorarFavoritos(id) {
+  const  relode = await User.findAll({
+    where: {
+      id: id,
+    },
+    include: [{ model: Class }],
+  });
+  const userr = relode.toJSON();
+  userr.classes.map((x)=>{
+    userr.removeClass(x.id);
+  })
 }
 
 async function solAceptadaTeacher(req, res, next) {
@@ -194,16 +217,22 @@ async function solAceptadaTeacher(req, res, next) {
         id: req.params.id,
       },
     });
-   
-
-
     const foundUser = await User.findByPk(req.params.id);
     const user = foundUser.toJSON();
-    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-    let html_template = fs.readFileSync('./src/mails/templates/approvedRequest.html', {encoding:'utf8', flag:'r'})
-    html_template = html_template.replace('FIRST_NAME', newFirstName)
-    sendMail(user.email, "Su solicitud ha sido aprobada...", html_template, "html");
-
+    let newFirstName =
+      user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+    let html_template = fs.readFileSync(
+      "./src/mails/templates/approvedRequest.html",
+      { encoding: "utf8", flag: "r" }
+    );
+    html_template = html_template.replace("FIRST_NAME", newFirstName);
+    sendMail(
+      user.email,
+      "Su solicitud ha sido aprobada...",
+      html_template,
+      "html"
+    );
+    BorarFavoritos(req.params.id)
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
     next(err);
@@ -221,17 +250,22 @@ async function solRechazadaTeacher(req, res, next) {
         id: req.params.id,
       },
     });
-
     const foundUser = await User.findByPk(req.params.id);
     const user = foundUser.toJSON();
-    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-    let html_template = fs.readFileSync('./src/mails/templates/rejectedRequest.html', {encoding:'utf8', flag:'r'})
-    html_template = html_template.replace('FIRST_NAME', newFirstName)
-    sendMail(user.email, "Muchas gracias por tu interés...", html_template, "html");
-
-
+    let newFirstName =
+      user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+    let html_template = fs.readFileSync(
+      "./src/mails/templates/rejectedRequest.html",
+      { encoding: "utf8", flag: "r" }
+    );
+    html_template = html_template.replace("FIRST_NAME", newFirstName);
+    sendMail(
+      user.email,
+      "Muchas gracias por tu interés...",
+      html_template,
+      "html"
+    );
     res.send("el Usario esta en la lista student");
-
   } catch (err) {
     next(err);
   }
@@ -286,7 +320,6 @@ async function confirmacionEmail(req, res, next) {
     console.log(userDetail.toJSON());
     let email = userDetail.toJSON().email;
     let user = userDetail.toJSON();
-
     let newFirstName =
       user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
     let html_template = fs.readFileSync("./src/mails/templates/welcome.html", {
@@ -294,13 +327,7 @@ async function confirmacionEmail(req, res, next) {
       flag: "r",
     });
     html_template = html_template.replace("FIRST_NAME", newFirstName);
-
-    sendMail(
-      email,
-      "Welcome to Henry Kids",
-      html_template,
-      "html"
-    );
+    sendMail(email, "Welcome to Henry Kids", html_template, "html");
 
     res.send("el Usario ahora es estudiante");
   } catch (err) {
@@ -323,4 +350,3 @@ module.exports = {
   getAllTeacher,
   confirmacionEmail,
 };
-
