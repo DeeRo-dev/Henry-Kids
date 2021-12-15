@@ -13,8 +13,8 @@ async function createUser(req, res, next) {
       firstName,
       lastName,
       userName,
-      type: "confirmacion",
       type,
+      type: "confirmacion",
       email,
       photo,
     });
@@ -30,7 +30,7 @@ async function createUser(req, res, next) {
     html_template = html_template.replace("FIRST_NAME", newFirstName);
 
     
-    let rute ="<a href="+"http://localhost:3000/Verificacion/"+id+">"+id+"</a>"
+    let rute ="<a href="+"http://localhost:3000/Verificacion/"+userName+">"+userName+"</a>"
     html_template = html_template.replace("RUTA_CONF", rute);
 
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
@@ -274,12 +274,12 @@ async function confirmacionEmail(req, res, next) {
   try {
     const result = await User.update(changes, {
       where: {
-        id: req.params.id,
+        userName: req.params.id,
       },
     });
     const userDetail = await User.findAll({
       where: {
-        id: req.params.id,
+        userName: req.params.id,
       },
     });
     console.log(userDetail.toJSON());
