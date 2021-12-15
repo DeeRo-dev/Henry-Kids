@@ -68,6 +68,35 @@ async function getClass(req, res, next) {
     case "valoration":
       break;
   }
+
+  switch (req.query.second_filter) {
+
+    case "category":
+
+      // modelo ruta 
+      // GET https://localhost:3001/class?filter=xxxxxxxxxxx&category_id=yyyyyyy&second_filter=category&category_id=1
+
+      // Valido si tengo el category_id en el query string del request
+      if (!req.query.category_id) {
+        return res.status(400).send({ error: "category_id is required" });
+      }
+     
+      results = await filterByCategory(results, req.query.category_id)
+      break;
+
+    case "difficulty":
+      
+      // modelo ruta 
+      // GET http://localhost:3001/class?filter=category&category_id=1&second_filter=difficulty&difficulty=Intermedia
+
+      // Valido si tengo el la dificultad en el query string del request
+      if (!req.query.difficulty) {
+        return res.status(400).send({ error: "difficulty is required" });
+      }
+     
+      results = await filterByDifficulty(results, req.query.difficulty)
+      break;
+  }
   
   res.send(results);
 

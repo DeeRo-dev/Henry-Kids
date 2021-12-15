@@ -43,6 +43,21 @@ export function filterCategory(id) {
   };
 }
 
+
+export function filterCategoryAndDifficulty(categoryId, difficulty) {
+  return async (dispatch) => {
+    try {
+      const json = await axios.get(`/class?filter=category&category_id=${categoryId}&second_filter=difficulty&difficulty=${difficulty}`);
+      return dispatch({
+        type: "FILTER_BY_CATEGORY_AND_DIFFICULTY",
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function filterCategoryTeacher(id) {
   return async (dispatch) => {
     return dispatch({

@@ -13,10 +13,13 @@ import {
   filterCategory,
   filterDifficulty,
   editUser,
+  filterCategoryAndDifficulty
 } from "../../actions";
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [filterCatActive, setFilterCatActive] = useState(false);
+  const [filterDiffActive, setFilterDiffActive] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,17 +56,57 @@ export default function Nav() {
   useEffect(() => {
     dispatch(getCategoryAll());
   }, [dispatch]);
-  // console.log(category)
 
   function handleCategory(e) {
+
     e.preventDefault();
-    console.log(e.target.value)
-    dispatch(filterCategory(e.target.value));
+
+    let filterCatIsActive = filterCatActive
+    let filterDiffIsActive = filterDiffActive
+
+    if (e.target.value === "all") {
+      setFilterCatActive(false)
+      setFilterDiffActive(false)
+      filterDiffIsActive = false
+      filterCatIsActive = false
+      document.getElementById("select-difficulty").value = "all"
+    }
+
+    if (filterDiffIsActive) {
+      const difficulty = document.getElementById("select-difficulty").value
+      dispatch(filterCategoryAndDifficulty(e.target.value, difficulty));
+    }
+    else {
+      dispatch(filterCategory(e.target.value));
+      setFilterCatActive(true)
+    }
+
   }
 
   function handleDifficulty(e) {
+
     e.preventDefault();
-    dispatch(filterDifficulty(e.target.value));
+
+    let filterCatIsActive = filterCatActive
+    let filterDiffIsActive = filterDiffActive
+
+    if (e.target.value === "all") {
+      setFilterCatActive(false)
+      setFilterDiffActive(false)
+      filterDiffIsActive = false
+      filterCatIsActive = false
+      document.getElementById("select-category").value = "all"
+    }
+
+    if (filterCatIsActive) {
+      const category = document.getElementById("select-category").value
+      dispatch(filterCategoryAndDifficulty(category, e.target.value));
+    }
+    else {
+      dispatch(filterDifficulty(e.target.value));
+      setFilterDiffActive(true)
+    }
+
   }
 
 // function typeUser(e){
@@ -108,7 +151,7 @@ const classes = useStyles();
           <div className={styles.contenCat}>
             <select
               name=""
-              id=""
+              id="select-category"
               className={styles.select}
               onChange={(e) => handleCategory(e)}
             >
@@ -135,7 +178,7 @@ const classes = useStyles();
           <div>
             <select
               name=""
-              id=""
+              id="select-difficulty"
               className={styles.select}
               onChange={(e) => handleDifficulty(e)}
             >

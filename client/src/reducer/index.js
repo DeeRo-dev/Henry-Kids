@@ -97,6 +97,12 @@ export default function rootReducer(state = initialState, action) {
           allClasses: action.payload,
         };
       }
+    
+    case "FILTER_BY_CATEGORY_AND_DIFFICULTY":
+      return {
+        ...state,
+        allClasses: action.payload,
+      };
     case "FILTER_BY_CATEGORY_TEACHER":
       const allClassesTeacher = state.allClassTeacher2;
       switch (action.payload) {
