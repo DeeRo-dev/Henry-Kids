@@ -17,11 +17,7 @@ async function createUser(req, res, next) {
       type,
       email,
       photo,
-      
     });
-    const foundUser = await User.findByPk(id);
-    const user2 = foundUser.toJSON();
-    
     // aca le ponemos mayuscula a la primer letra del nombre.
     let newFirstName =
       user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
@@ -33,9 +29,9 @@ async function createUser(req, res, next) {
     });
     html_template = html_template.replace("FIRST_NAME", newFirstName);
 
-    let ruta= "http://localhost:3000/Verificacion/"+user2.id
-    let rute ="<A HREF={"+ruta+"}> Link de Verificacion </A>"
-    html_template = html_template.replace("RUTA_CONF", ruta);
+    // let ruta= "http://localhost:3000/Verificacion/"+id
+    // let rute ="<A HREF={"+ruta+"}> Link de Verificacion </A>"
+    html_template = html_template.replace("RUTA_CONF", "http://localhost:3000/Verificacion/"+id);
 
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
     sendMail(email, "Confirma tu dirección de correo electrónico", html_template, "html");
