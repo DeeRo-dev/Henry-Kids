@@ -181,7 +181,7 @@ export default function ClassDetail() {
                   </div>
                   :
                   <div className={styles.divValoration}>
-                    <h3 className={styles.titleValoration}>Califica nuestra clase</h3>
+                    <h3 className={styles.titleValoration}>Califica la clase</h3>
                     <p className={styles.clasificacion2}>
                       <input onClick={() => onChangeVal(5)} id="radio1" type="radio" name="estrellas" value="5" />
                       <label for="radio1">★</label>
@@ -229,8 +229,7 @@ export default function ClassDetail() {
           
           <div className={styles.inputDonar}>
               <div onClick={() => onSubmitDonar()}><AccountBalanceIcon className={styles.icon} /><input type="button"
-                className={styles.btnDonar} value="Si te gusta nuestro contenido, podes colaborar
-                     para que nuestra comunidad siga creciendo, hace click aqui!" />
+                className={styles.btnDonar} value="¿Quieres colaborar con el profesor?" />
               </div>
             </div>
           <div className={styles.comments}>
