@@ -53,6 +53,7 @@ const confirmacionRoutes = [
 const publicRoutes = [
   { path: "/*", element: <LandingPage /> },
   { path: "/about", element: <About /> },
+  { path: "/home/confirmacion", element: <Confirmation /> },
 ];
 
 const { type } = localStorage;
