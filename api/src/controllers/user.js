@@ -193,7 +193,7 @@ async function solTeacher(req, res, next) {
   }
 }
 
-function BorarFavoritos(id) {
+async function BorarFavoritos(id) {
   const  relode = await User.findAll({
     where: {
       id: id,
