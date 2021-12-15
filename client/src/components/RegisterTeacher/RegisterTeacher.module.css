@@ -16,6 +16,20 @@
   font-size: 25px;
   cursor:pointer;
 }
+.about {
+  display:flex;
+  background-attachment: initial;
+  margin-bottom: 0px;
+  text-align: center;
+  position: absolute;
+  margin-top: 0px;
+}
+
+.volver{
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
 
 .modal, .overlay {
   width: 100vw;

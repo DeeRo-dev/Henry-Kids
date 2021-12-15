@@ -186,7 +186,7 @@ export default function CropImage({ toggleModalCambiarFoto }) {
           onClick={triggerFileSelectPopup}
           style={{ marginRight: "10px" }}
         >
-          Choose
+          Elegir
         </Button>
         <Button
           className={styles.btnGuardar}

@@ -6,7 +6,7 @@ import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getUser, postUser, setDataForGoogle } from "../../actions/index.js";
+import { getUser, postUser } from "../../actions/index.js";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import {
   auth,
@@ -249,7 +249,7 @@ export default function LandingPage() {
     e.preventDefault();
     setDataFirebase({
       ...dataFirebase,
-      [e.target.name]: e.target.value   
+      [e.target.name]: e.target.value,
     });
 
     if (
@@ -262,42 +262,40 @@ export default function LandingPage() {
       setMsjEmail("");
     }
 
-    if (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password))) {
-      setErrorPass(true)
-      setMsjPass("La contraseña debe contener un minimo de un numero y 8 digitos")
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password)) {
+      setErrorPass(true);
+      setMsjPass(
+        "La contraseña debe contener un minimo de un numero y 8 digitos"
+      );
+    } else {
+      setErrorPass(false);
+      setMsjPass("");
     }
-    else {
-      setErrorPass(false)
-      setMsjPass("") 
-    }
-
-    
   }
   function onInputChangeFirebasePass(e) {
     e.preventDefault();
     setDataFirebase({
       ...dataFirebase,
-      [e.target.name]: e.target.value   
+      [e.target.name]: e.target.value,
     });
-  /* if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
+    /* if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
     setErrorPassConf(true)
     setPassConf("Las contraseñas deben coincidir")
   } else {
     setErrorPassConf(false)
     setPassConf("")
   } */
-}
-
-useEffect(()=> {
-  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
-    setErrorPassConf(true)
-    setPassConf("Las contraseñas deben coincidir")
-  } else {
-    setErrorPassConf(false)
-    setPassConf("")
   }
-}
-,[dataFirebase.passwordConfirm, dataFirebase.password])
+
+  useEffect(() => {
+    if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+      setErrorPassConf(true);
+      setPassConf("Las contraseñas deben coincidir");
+    } else {
+      setErrorPassConf(false);
+      setPassConf("");
+    }
+  }, [dataFirebase.passwordConfirm, dataFirebase.password]);
   //------------------------------------------------------------------------------------------
 
   const registrarUsuario = (e) => {
@@ -317,8 +315,9 @@ useEffect(()=> {
           //  console.log(userCredential.user);
           dispatch(postUser(user))
             .then(() => {
-              /* navigate("/home/student");
-              window.location.reload(); */
+              window.localStorage.setItem("userName", user.userName)
+              navigate("/home/student");
+              window.location.reload();
             })
             .catch((e) => {
               console.log(e + "este");
@@ -341,10 +340,12 @@ useEffect(()=> {
           });
           console.log(typeUser);
           if (typeUser.type === "student") {
+            window.localStorage.setItem("userName", typeUser.userName)
             localStorage.setItem("type", "student");
             navigate("/home/student");
             window.location.reload();
           } else if (typeUser.type === "teacher") {
+            window.localStorage.setItem("userName", typeUser.userName)
             localStorage.setItem("type", "teacher");
             navigate("/home/teacher");
             window.location.reload();
@@ -360,7 +361,7 @@ useEffect(()=> {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then((result) => {
-        localStorage.setItem("type", user.type);
+        window.localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userFirebase) => {
           dispatch(getUser("All")).then(() => {
             const userGoogle = allUsers?.filter(
@@ -370,10 +371,12 @@ useEffect(()=> {
               alert("No existe una cuenta, debes registrarte primero");
             } else {
               if (userGoogle[0].type === "student") {
+                window.localStorage.setItem("userName", userGoogle[0].userName)
                 navigate("/home/student");
                 window.location.reload();
               }
               if (userGoogle[0].type === "teacher") {
+                window.localStorage.setItem("userName", userGoogle[0].userName)
                 navigate("/home/teacher");
                 window.location.reload();
               }
@@ -392,14 +395,12 @@ useEffect(()=> {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then((result) => {
-        localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userFirebase) => {
           dispatch(getUser("All")).then(() => {
             const userGoogle = allUsers?.filter(
               (e) => e.id === userFirebase.uid
             );
             if (!userGoogle.length) {
-              window.localStorage.setItem("sessionUser", userFirebase.uid);
               const userNameSplit = userFirebase.displayName.split(" ");
               dispatch(
                 postUser({
@@ -412,6 +413,9 @@ useEffect(()=> {
                 })
               )
                 .then(() => {
+                  window.localStorage.setItem("userName", userNameSplit[0])
+                  window.localStorage.setItem("sessionUser", userFirebase.uid);
+                  window.localStorage.setItem("type", user.type);
                   navigate("/home/student");
                   window.location.reload();
                 })
@@ -420,10 +424,12 @@ useEffect(()=> {
                 });
             } else {
               if (userGoogle[0].type === "student") {
+                window.localStorage.setItem("userName", userGoogle[0].userName)
                 navigate("/home/student");
                 window.location.reload();
               }
               if (userGoogle[0].type === "teacher") {
+                window.localStorage.setItem("userName", userGoogle[0].userName)
                 navigate("/home/teacher");
                 window.location.reload();
               }
