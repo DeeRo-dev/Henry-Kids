@@ -14,12 +14,11 @@ import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
 import Solicitudes from "./components/Solicitudes/Solicitudes";
-import CropImage from "./components/CropImage/CropImage"
-import FormCategory from "./components/FormCategory/FormCategory"
+import CropImage from "./components/CropImage/CropImage";
+import FormCategory from "./components/FormCategory/FormCategory";
 import About from "./components/About/About";
 import Verificacion from "./components/Verificacion/Verificacion";
-
-
+import Confirmation from "./components/Confirmation/Confirmation";
 
 const studentRoutes = [
   { path: "/home/student", element: <Home /> },
@@ -29,11 +28,10 @@ const studentRoutes = [
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
   { path: "/home/admin", element: <HomeAdmin /> },
-  { path: "/home/admin/FormCategory", element: <FormCategory /> }, 
+  { path: "/home/admin/FormCategory", element: <FormCategory /> },
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
   { path: "home/create-clase", element: <FormularioClase /> },
   { path: "/Verificacion/:id", element: <Verificacion /> },
- 
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
@@ -47,12 +45,14 @@ const teacherRoutes = [
   { path: "/home/teacher/:id", element: <ClassDetail /> },
   { path: "/Verificacion/:id", element: <Verificacion /> },
 ];
-  
+
+const confirmacionRoutes = [
+  { path: "/home/confirmacion", element: <Confirmation /> },
+];
 
 const publicRoutes = [
   { path: "/*", element: <LandingPage /> },
   { path: "/about", element: <About /> },
-
 ];
 
 const { type } = localStorage;
@@ -70,8 +70,12 @@ function App() {
             ? teacherRoutes.map((e) => {
                 return <Route path={e.path} element={e.element} />;
               })
+            : type === "confirmacion"
+            ? confirmacionRoutes.map((e) => {
+                return <Route path={e.path} element={e.element} />;
+              })
             : publicRoutes.map((e) => {
-               return <Route path={e.path} element={e.element} />;
+                return <Route path={e.path} element={e.element} />;
               })}
         </Routes>
       </div>

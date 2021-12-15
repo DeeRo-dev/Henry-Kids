@@ -183,6 +183,20 @@ async function solTeacher(req, res, next) {
   }
 }
 
+async function BorarFavoritos(id) {
+  const  relode = await User.findAll({
+    where: {
+      id: id,
+    },
+    include: [{ model: Class }],
+  });
+  const userr = relode.toJSON();
+  console.log(userr)
+  userr.classes.map((x)=>{
+    userr.removeClass(x.id);
+  })
+}
+
 async function solAceptadaTeacher(req, res, next) {
   const changes = {
     type: "teacher",
@@ -204,6 +218,7 @@ async function solAceptadaTeacher(req, res, next) {
     html_template = html_template.replace('FIRST_NAME', newFirstName)
     sendMail(user.email, "Su solicitud ha sido aprobada...", html_template, "html");
 
+    BorarFavoritos(req.params.id)
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
     next(err);

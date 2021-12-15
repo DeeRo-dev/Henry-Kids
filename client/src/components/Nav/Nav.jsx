@@ -89,7 +89,10 @@ export default function Nav() {
       setFilterDiffActive(false)
       filterDiffIsActive = false
       filterCatIsActive = false
+      dispatch(filterCategory(e.target.value));
       document.getElementById("select-difficulty").value = "all"
+      return
+      
     }
 
     if (filterDiffIsActive) {
@@ -115,7 +118,9 @@ export default function Nav() {
       setFilterDiffActive(false)
       filterDiffIsActive = false
       filterCatIsActive = false
+      dispatch(filterDifficulty(e.target.value));
       document.getElementById("select-category").value = "all"
+      return
     }
 
     if (filterCatIsActive) {

@@ -41,6 +41,7 @@ export default function CardTeacher({
         <div
           className={styles.instructor}>Dificultad: {difficulty}
         </div>
+        <form  >
         <p className={styles.clasificacion}>
   <input  checked={valoration===5? true: false} id="radio1" type="radio"  name="estrellas" value="5"/>
   <label  for="radio1">★</label>
@@ -53,6 +54,7 @@ export default function CardTeacher({
   <input  checked={valoration===1? true: false} id="radio5" type="radio" name="estrellas" value="1"/>
   <label for="radio5">★</label>
           </p>
+          </form  >
 </Link>
       </div>
     </div>
