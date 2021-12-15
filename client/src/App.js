@@ -17,6 +17,9 @@ import Solicitudes from "./components/Solicitudes/Solicitudes";
 import CropImage from "./components/CropImage/CropImage"
 import FormCategory from "./components/FormCategory/FormCategory"
 import About from "./components/About/About";
+import Verificacion from "./components/Verificacion/Verificacion";
+
+
 
 const studentRoutes = [
   { path: "/home/student", element: <Home /> },
@@ -29,6 +32,8 @@ const studentRoutes = [
   { path: "/home/admin/FormCategory", element: <FormCategory /> }, 
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
   { path: "home/create-clase", element: <FormularioClase /> },
+  { path: "/Verificacion/:id", element: <Verificacion /> },
+ 
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
@@ -40,8 +45,9 @@ const teacherRoutes = [
   { path: "/home/admin", element: <HomeAdmin /> },
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
   { path: "/home/teacher/:id", element: <ClassDetail /> },
- 
+  { path: "/Verificacion/:id", element: <Verificacion /> },
 ];
+  
 
 const publicRoutes = [
   { path: "/*", element: <LandingPage /> },

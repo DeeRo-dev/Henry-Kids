@@ -7,7 +7,7 @@ import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
 import CardTeacher from "../CardTeacher/CardTeacher.jsx";
 import { getAllClassTeacher, editUser } from "../../actions/index.js";
-
+import Footer from "../Footer/Footer.jsx"
 
 export default function HomeTeacher() {
 const navigate = useNavigate();
@@ -86,7 +86,7 @@ const navigate = useNavigate();
         <Paged cardsInPage={cardsInPage} totalElements={allClassTeacher?.length}
           paginate={Paginate} />
       </div>
-  
+  <Footer/>
     </div>
      
 

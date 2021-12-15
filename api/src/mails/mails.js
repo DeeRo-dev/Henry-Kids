@@ -5,7 +5,6 @@ sgMail.setApiKey(SENDGRID_API_KEY);
 
 async function sendMail(to, subject, content, type) {
   let mailType = "text/html";
-
   if (type === "text") {
     mailType = "text/plain";
   }

@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { styled } from "@material-ui/core";
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
-import { editUser, getAllClasses, getFavorites } from "../../actions/index.js";
+import { editUser, getAllClasses, getFavorites, getUser } from "../../actions/index.js";
 import Paged from "../Paged/Paged.jsx";
-
+import Footer from "../Footer/Footer.jsx"
 
 export default function Home() {
 
@@ -26,6 +26,9 @@ export default function Home() {
   const allClasses = useSelector((state) => state.allClasses);
   const favorites = useSelector(state => state.favorites)
 
+  useEffect(() => {
+    dispatch(getUser(window.localStorage.sessionUser));
+  }, [dispatch]);
 
 /*    if (favorites) {
     for (let i = 0; i < favorites.length; i++) {
@@ -96,6 +99,7 @@ export default function Home() {
           paginate={Paginate}
         />
       </div>
+        <Footer/>
     </div>
   );
 }

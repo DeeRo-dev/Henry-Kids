@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         },
       },
         photo: {
-        type: DataTypes.TEXT,
+        type: DataTypes.BLOB ,
         validate: {
           isUrl: true
         }
@@ -56,7 +56,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       dniImag: {
-        type: DataTypes.TEXT,
+        type: DataTypes.BLOB ,
         allowNull: true,
       },
       pais: {

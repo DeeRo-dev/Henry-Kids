@@ -15,7 +15,7 @@ import TablaDeStudent from "../TablaAdminStudent/TablaAdminStudent.jsx"
 import TablaAdminTeacher from '../TablaAdminTeacher/TablaAdminTeacher';
 // import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import NavAdmin from "../NavAdmin/NavAdmin.jsx"
-
+import Footer from "../Footer/Footer.jsx"
 export default function HomeAdmin() {
 
 
@@ -162,7 +162,7 @@ export default function HomeAdmin() {
                           video_link={e.video_link}
                           difficulty={e.difficulty}
                           game_link={e.game_link}
-                          valoration={e.valoration}
+                          valoration={e.Evaluations[0].Promedio}
                         />
                       </div>)
                   }
@@ -208,7 +208,7 @@ export default function HomeAdmin() {
 
 
     </div>
-
+    <Footer/>
     </div>
   );
 

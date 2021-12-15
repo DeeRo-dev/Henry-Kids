@@ -1,0 +1,37 @@
+.contentFooter{
+  display: grid;
+  color: #000;
+  grid-template-columns: repeat(2 , 1fr);
+  margin-top: 200px;
+   /* background: #020101; */
+  background-image: url(https://img.freepik.com/foto-gratis/textura-fondo-pared-ladrillo-amarillo_1372-86.jpg?size=626&ext=jpg);
+  width: 100%;
+  height: 170px;
+}
+.contentDer{
+  margin: auto;
+}
+.contenNomb{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  height: 90px;
+  width: auto;
+  margin: auto;
+}
+.nombDes{
+  height: 150px;
+  width: 600px;
+  margin: auto;
+}
+.nombres:hover{
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  background: rgba(255, 238, 51, 0.295);
+ 
+}
+.nombres{
+  width: 150px;
+  color: #000;
+  margin: auto;
+}
