@@ -361,8 +361,8 @@ export default function LandingPage() {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then((result) => {
-        window.localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userFirebase) => {
+          localStorage.setItem("sessionUser", userFirebase.uid);
           dispatch(getUser("All")).then(() => {
             const userGoogle = allUsers?.filter(
               (e) => e.id === userFirebase.uid
@@ -371,11 +371,13 @@ export default function LandingPage() {
               alert("No existe una cuenta, debes registrarte primero");
             } else {
               if (userGoogle[0].type === "student") {
+                window.localStorage.setItem("type", userGoogle[0].type);
                 window.localStorage.setItem("userName", userGoogle[0].userName)
                 navigate("/home/student");
                 window.location.reload();
               }
               if (userGoogle[0].type === "teacher") {
+                window.localStorage.setItem("type", userGoogle[0].type);
                 window.localStorage.setItem("userName", userGoogle[0].userName)
                 navigate("/home/teacher");
                 window.location.reload();
