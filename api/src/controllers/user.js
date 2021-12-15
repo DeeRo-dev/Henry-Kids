@@ -6,6 +6,7 @@ const fs = require("fs");
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
   const { firstName, lastName, userName, type, id, email, photo } = req.body;
+  console.log(id)
   try {
     const user = await User.create({
       id,
