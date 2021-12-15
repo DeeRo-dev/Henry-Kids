@@ -46,6 +46,7 @@ input[type="file"] {
   background-size: cover;
   height: 543px;
   width: 2000px;
+  overflow-y: hidden;
 }
 
 .containerBtns {

@@ -55,7 +55,6 @@ export default function NavTeacher() {
     large: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      marginRight: "20px",
       cursor: "pointer",
     },
   }));
@@ -66,7 +65,6 @@ export default function NavTeacher() {
   // ESTO VA EN EL BOTON onClick={(e) => handdleSubmit(e)} onChange={(e) => handleInput(e)}
   // }
 
-
   //CONTIENE EL ESTADO DE TODAS LAS CATEGORIAS
   const allCategory = useSelector((state) => state.categoryAll);
 
@@ -75,13 +73,11 @@ export default function NavTeacher() {
   }, [dispatch]);
   // console.log(category)
 
-
   function handleCategoryTeacher(e) {
     e.preventDefault();
     dispatch(filterCategoryTeacher(e.target.value));
   }
 
-  
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
@@ -107,31 +103,24 @@ export default function NavTeacher() {
         <button className={styles.inter}>Interacción</button>
       </Link>
       <div className={styles.contenCat}>
-      <select
-              name=""
-              id=""
-              className={styles.select}
-              onChange={(e) => handleCategoryTeacher(e)}
-            >
-              <option
-                value=""
-                selected
-                disabled
-                hidden
-                className={styles.selects}
-              >
-                {" "}
-                Tecnología{" "}
-              </option>
-              <option value="all">Todos</option>
-             
-                {
-             allCategory.map((e) => (
-              <option value={e.id} key={e.name}>{e.name}</option>
-               
-            ))
-          } 
-            </select>
+        <select
+          name=""
+          id=""
+          className={styles.select}
+          onChange={(e) => handleCategoryTeacher(e)}
+        >
+          <option value="" selected disabled hidden className={styles.selects}>
+            {" "}
+            Tecnología{" "}
+          </option>
+          <option value="all">Todos</option>
+
+          {allCategory.map((e) => (
+            <option value={e.id} key={e.name}>
+              {e.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div className={styles.contenValorado}>
         {/* <select name="" id="" className={styles.select}>
@@ -167,32 +156,30 @@ export default function NavTeacher() {
         </Link>
       </div>
 
-      <div className={styles.imagen}>
-        {/*<img
-            src="https://static.diariofemenino.com/media/13502/carta-gracias-profesor.jpg"
-            alt="404"
-            className={styles.img}
-     onClick={handleClick}/>*/}
-      </div>
       <div className={styles.perfil}>
-      <Avatar
-        src={currentUser ? currentUser.photo : ""}
-        onClick={handleClick}
-        className={classes.large}
-      />
-</div>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <Link to="/home/teacher/profile">
-          <MenuItem onClick={handleClose}> Perfil </MenuItem>
-        </Link>
-        <MenuItem onClick={signOutUser}> Salir </MenuItem>
-      </Menu>
+        <Avatar
+          onClick={handleClick}
+          src={currentUser ? currentUser.photo : ""}
+          className={classes.large}
+        />
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <Link to="/home/teacher/profile">
+            <MenuItem onClick={handleClose}> Perfil </MenuItem>
+          </Link>
+          <MenuItem onClick={signOutUser}> Salir </MenuItem>
+        </Menu>
+        <h4 onClick={handleClick}>
+          {window.localStorage.userName
+            ? window.localStorage.userName
+            : currentUser?.userName}
+        </h4>
+      </div>
 
       {/* <div className={styles.contentBoton}> */}
       {/* <input className={style.botonInSesion}type="submit" value="Usuario"/> */}
@@ -200,7 +187,6 @@ export default function NavTeacher() {
       {/* <p>Usuario</p>
      </div>
     </div> */}
-    
     </nav>
   );
 }

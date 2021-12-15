@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Button, Snackbar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+
 import MuiAlert from "@material-ui/lab/Alert";
 import { createClass, getCategory, getCategoryAll } from "../../actions/index.js";
 
@@ -186,7 +188,15 @@ export default function FormularioClase() {
 
   return (
     <div className={styles.background}>
+  
       <div className={styles.containerBackground}>
+      <div className={styles.about}>
+            <Link to="/">
+            <div className={styles.volver}>
+             <ArrowBackIosIcon color="secpndary" width="200%"/>
+             </div>
+             </Link>
+        </div>
         <div className={styles.modal}>
           <div onClick={toggleModal} className={styles.overlay}></div>
           <div className={styles.modal_content}>

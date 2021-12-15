@@ -10,27 +10,30 @@ html {
   --amarillo: #ffd200;
   --naranja: #ff8d00;
   --verde: #a1d1af;
-  /* overflow-y: hidden; */
 }
 
 /* .containerBackground {
-  display: flex;
-  
+  overflow: hidden;
 } */
 
+
 .background {
-  background-image: url("./img/landing.png");
+  background-image: url("https://i.imgur.com/hN4MHFu.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: initial;
   width: 100vw;
   height: 100vh;
+  margin-bottom: 0px;
   text-align: center;
-  position: relative;
-  margin-left: 15px;
-  margin-top: 15px
+  position: absolute;
+  margin-top: 0px;
 }
 
+.sobre{
+  margin-top: 15px;
+}
 .about{
   font-weight: bold;
   color: #ffd200;
@@ -51,6 +54,7 @@ html {
   float: left;
   width: 60px;
   margin-left: 15px;
+  margin-top: 15px;
   /* transform: translate(30px, 25px); */
   /* user-select: none; */
 }
@@ -182,13 +186,14 @@ input:focus {
 
 .containerBtns {
   display: flex;
-  margin-top: 370px;
+  margin-top: 320px;
   margin-left: 160px;
   flex-direction: column;
   align-content: center;
   align-items: center;
   justify-content: center;
   width: 300px;
+  font-family: 'Lucida Grande';
   height: 170px;
 }
 

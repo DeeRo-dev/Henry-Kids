@@ -80,7 +80,7 @@ export default function LandingPage() {
     lastName: "",
     userName: "",
     type: "student",
-    email: ""
+    email: "",
   });
   const [dataFirebase, setDataFirebase] = useState({
     email: "",
@@ -234,19 +234,18 @@ export default function LandingPage() {
       color: "white",
     },
   })(Button);
-  const [errorFirst, setErrorFirst] = useState(false)
-  const [msjFirst, setMsjFirst] = useState("")
-  const [errorLast, setErrorLast] = useState(false)
-  const [msjLast, setMsjLast] = useState("")
-  const [errorUser, setErrorUser] = useState(false)
-  const [msjUser, setMsjUser] = useState("")
-  const [errorEmail, setErrorEmail] = useState(false)
-  const [msjEmail, setMsjEmail] = useState("")
-  const [errorpass, setErrorPass] = useState(false)
-  const [msjPas, setMsjPass] = useState("")
-  const [errorPassConf, setErrorPassConf] = useState(false)
-  const [msjPassConf, setPassConf] = useState("")
-
+  const [errorFirst, setErrorFirst] = useState(false);
+  const [msjFirst, setMsjFirst] = useState("");
+  const [errorLast, setErrorLast] = useState(false);
+  const [msjLast, setMsjLast] = useState("");
+  const [errorUser, setErrorUser] = useState(false);
+  const [msjUser, setMsjUser] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [msjEmail, setMsjEmail] = useState("");
+  const [errorpass, setErrorPass] = useState(false);
+  const [msjPas, setMsjPass] = useState("");
+  const [errorPassConf, setErrorPassConf] = useState(false);
+  const [msjPassConf, setPassConf] = useState("");
 
   function onInputChangeDB(e) {
     e.preventDefault();
@@ -256,19 +255,19 @@ export default function LandingPage() {
     });
 
     if (user.firstName.length < 2) {
-      setErrorFirst(true)
-      setMsjFirst("El nombre es requerido")
+      setErrorFirst(true);
+      setMsjFirst("El nombre es requerido");
     } else {
-      setErrorFirst(false)
-      setMsjFirst("")
+      setErrorFirst(false);
+      setMsjFirst("");
     }
 
     if (user.lastName.length < 2) {
-      setErrorLast(true)
-      setMsjLast("El apellido es requerido")
+      setErrorLast(true);
+      setMsjLast("El apellido es requerido");
     } else {
-      setErrorLast(false)
-      setMsjLast("")
+      setErrorLast(false);
+      setMsjLast("");
     }
 
     if (user.userName.length < 2) {
@@ -291,12 +290,11 @@ export default function LandingPage() {
 
   }
 
-
   function onInputChangeFirebase(e) {
     e.preventDefault();
     setDataFirebase({
       ...dataFirebase,
-      [e.target.name]: e.target.value   
+      [e.target.name]: e.target.value,
     });
 
     if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email))) {
@@ -316,60 +314,60 @@ export default function LandingPage() {
       setMsjEmail("")
     }
 
-    if (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password))) {
-      setErrorPass(true)
-      setMsjPass("La contraseña debe contener un minimo de un numero y 8 digitos")
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password)) {
+      setErrorPass(true);
+      setMsjPass(
+        "La contraseña debe contener un minimo de un numero y 8 digitos"
+      );
+    } else {
+      setErrorPass(false);
+      setMsjPass("");
     }
-    else {
-      setErrorPass(false)
-      setMsjPass("") 
-    }
-
-    
   }
   function onInputChangeFirebasePass(e) {
     e.preventDefault();
     setDataFirebase({
       ...dataFirebase,
-      [e.target.name]: e.target.value   
+      [e.target.name]: e.target.value,
     });
-  /* if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
+    /* if (dataFirebase.password.slice(0, dataFirebase.password.length - 1) !== dataFirebase.passwordConfirm) {
     setErrorPassConf(true)
     setPassConf("Las contraseñas deben coincidir")
   } else {
     setErrorPassConf(false)
     setPassConf("")
   } */
-}
-
-useEffect(()=> {
-  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
-    setErrorPassConf(true)
-    setPassConf("Las contraseñas deben coincidir")
-  } else {
-    setErrorPassConf(false)
-    setPassConf("")
   }
-}
-,[dataFirebase.passwordConfirm, dataFirebase.password])
+
+  useEffect(() => {
+    if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+      setErrorPassConf(true);
+      setPassConf("Las contraseñas deben coincidir");
+    } else {
+      setErrorPassConf(false);
+      setPassConf("");
+    }
+  }, [dataFirebase.passwordConfirm, dataFirebase.password]);
   //------------------------------------------------------------------------------------------
 
   const registrarUsuario = (e) => {
     e.preventDefault();
-   /*  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
+    /*  if (dataFirebase.password !== dataFirebase.passwordConfirm) {
       alert("contraseñas diferentes");
     } else { */
-      createUserWithEmailAndPassword(
-        auth,
-        dataFirebase.email,
-        dataFirebase.password
-      ).then((userCredential) => {
+    createUserWithEmailAndPassword(
+      auth,
+      dataFirebase.email,
+      dataFirebase.password
+    )
+      .then((userCredential) => {
         localStorage.setItem("type", user.type);
         auth.onAuthStateChanged((userCredential) => {
           localStorage.setItem("sessionUser", userCredential.uid);
           //  console.log(userCredential.user);
           dispatch(postUser(user))
             .then(() => {
+              window.localStorage.setItem("userName", user.userName)
               navigate("/home/student");
               window.location.reload();
             })
@@ -377,10 +375,10 @@ useEffect(()=> {
               console.log(e + "este");
             });
         });
-      }).catch((e)=>{
-        alert(e)
+      })
+      .catch((e) => {
+        alert(e);
       });
-    
   };
 
   const ingresarUsuario = (e) => {
@@ -390,14 +388,16 @@ useEffect(()=> {
         auth.onAuthStateChanged((userFirebase) => {
           localStorage.setItem("sessionUser", userFirebase.uid);
           const typeUser = allUsers.find((e) => {
-            return e.id === userFirebase.uid
-          })
-          console.log(typeUser)
+            return e.id === userFirebase.uid;
+          });
+          console.log(typeUser);
           if (typeUser.type === "student") {
+            window.localStorage.setItem("userName", typeUser.userName)
             localStorage.setItem("type", "student");
             navigate("/home/student");
             window.location.reload();
           } else if (typeUser.type === "teacher") {
+            window.localStorage.setItem("userName", typeUser.userName)
             localStorage.setItem("type", "teacher");
             navigate("/home/teacher");
             window.location.reload();
@@ -411,69 +411,94 @@ useEffect(()=> {
 
   const ingresarUsuarioConGoogle = (e) => {
     e.preventDefault();
-    if (user.type === "") {
-      alert("Please, select a type of user");
-    } else {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          localStorage.setItem("type", user.type);
-          auth.onAuthStateChanged((userFirebase) => {
-            dispatch(getUser("All")).then(() => {
-              const userGoogle = allUsers?.filter(
-                (e) => e.id === userFirebase.uid
-              );
-              if (!userGoogle.length) {
-                localStorage.setItem("sessionUser", userFirebase.uid);
-                if (user.type === "student") {
-                  setUser({
-                    ...user,
-                    userName: result.user.displayName,
-                  });
-                  dispatch(postUser(user)).then(() => {
-                    navigate("/home/student");
-                    window.location.reload();
-                  });
-                }
-                if (user.type === "teacher") {
-                  console.log(user);
-                  dispatch(postUser(user)).then(() => {
-                    navigate("/home/teacher");
-                    window.location.reload();
-                  });
-                }
-                if (user.type === "confirmacion") {
-                  console.log(user);
-                  dispatch(postUser(user)).then(() => {
-                    navigate("/home/confirmacion");
-                    window.location.reload();
-                  });
-                }
-              } else {
-                if (user.type === "student") {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        auth.onAuthStateChanged((userFirebase) => {
+          localStorage.setItem("sessionUser", userFirebase.uid);
+          dispatch(getUser("All")).then(() => {
+            const userGoogle = allUsers?.filter(
+              (e) => e.id === userFirebase.uid
+            );
+            if (!userGoogle.length) {
+              alert("No existe una cuenta, debes registrarte primero");
+            } else {
+              if (userGoogle[0].type === "student") {
+                window.localStorage.setItem("type", userGoogle[0].type);
+                window.localStorage.setItem("userName", userGoogle[0].userName)
+                navigate("/home/student");
+                window.location.reload();
+              }
+              if (userGoogle[0].type === "teacher") {
+                window.localStorage.setItem("type", userGoogle[0].type);
+                window.localStorage.setItem("userName", userGoogle[0].userName)
+                navigate("/home/teacher");
+                window.location.reload();
+              }
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        alert(error.message);
+        // ...
+      });
+  };
+
+  const RegistrarUsuarioConGoogle = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        auth.onAuthStateChanged((userFirebase) => {
+          dispatch(getUser("All")).then(() => {
+            const userGoogle = allUsers?.filter(
+              (e) => e.id === userFirebase.uid
+            );
+            if (!userGoogle.length) {
+              const userNameSplit = userFirebase.displayName.split(" ");
+              dispatch(
+                postUser({
+                  id: "provi",
+                  firstName: "Registrado con Google",
+                  lastName: "Registrado con Google",
+                  userName: userNameSplit[0],
+                  type: "student",
+                  email: userFirebase.email,
+                })
+              )
+                .then(() => {
+                  window.localStorage.setItem("userName", userNameSplit[0])
+                  window.localStorage.setItem("sessionUser", userFirebase.uid);
+                  window.localStorage.setItem("type", user.type);
                   navigate("/home/student");
                   window.location.reload();
-                }
-                if (user.type === "teacher") {
-                  navigate("/home/teacher");
-                  window.location.reload();
-                }
-                if (user.type === "confirmacion") {
-                  navigate("/home/confirmacion");
-                  window.location.reload();
-                }
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            } else {
+              if (userGoogle[0].type === "student") {
+                window.localStorage.setItem("userName", userGoogle[0].userName)
+                navigate("/home/student");
+                window.location.reload();
               }
-            });
+              if (userGoogle[0].type === "teacher") {
+                window.localStorage.setItem("userName", userGoogle[0].userName)
+                navigate("/home/teacher");
+                window.location.reload();
+              }
+            }
           });
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          // The signed-in user info.
-          // ...
-        })
-        .catch((error) => {
-          // Handle Errors here.
-          alert(error.message);
-          // ...
         });
-    }
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // The signed-in user info.
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        alert(error.message);
+        // ...
+      });
   };
 
 
@@ -501,12 +526,13 @@ function handleChangeError(e){
           src="https://i.imgur.com/AWEe2XR.png"
           alt="img"
         />
-         {/* <div className={styles.about}> */}
-            <Link to ="/about" className={styles.about}>
-            ¿Qué es Henry Kids?<NearMeIcon className={styles.navigation}/> </Link>
-
-          {/* </div> */}
-        <div> 
+        <div className={styles.sobre}>
+          <Link to="/about" className={styles.about}>
+            ¿Qué es Henry Kids?
+            <NearMeIcon className={styles.navigation} />{" "}
+          </Link>
+        </div>
+        <div>
           <div className={styles.containerBtns}>
             <StyleButtonIngresar
               onClick={(e) => toggleModalIngresar(e)}
@@ -544,7 +570,6 @@ function handleChangeError(e){
                   <form action="" name="f1">
                     <input
                       onChange={(e) => onInputChangeFirebase(e)}
-                      
                       name="email"
                       type="text"
                       placeholder="Email:"
@@ -584,7 +609,7 @@ function handleChangeError(e){
                     >
                       Ingresar
                     </StyleButtonIngresarConCorreo>
-                    {/* <StyleButtonIngresarConGoogle
+                    <StyleButtonIngresarConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
@@ -592,7 +617,7 @@ function handleChangeError(e){
                       color="primary"
                     >
                       Ingresar con google
-                    </StyleButtonIngresarConGoogle> */}
+                    </StyleButtonIngresarConGoogle>
                   </form>
                 </div>
               </div>
@@ -660,9 +685,10 @@ function handleChangeError(e){
                       placeholder="Email:"
                       name="email"
                       label=""
-                      onChange={e=>{
-                        onInputChangeFirebase(e) 
-                        onInputChangeDB(e)}}
+                      onChange={(e) => {
+                        onInputChangeFirebase(e);
+                        onInputChangeDB(e);
+                      }}
                     />
 
                     <TextField
@@ -749,8 +775,8 @@ function handleChangeError(e){
                       variant="contained"
                       color="primary"
                     >
-                      Crear cuenta con google
-                    </StyleButtonRegistrarseConGoogle> */}
+                      Registrarse con google
+                    </StyleButtonRegistrarseConGoogle>
                     {/* </Link> */}
 
                     <StyleAlert className={styles.alert} open={open} onClose={handleClose}>

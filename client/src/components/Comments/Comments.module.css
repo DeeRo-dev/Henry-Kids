@@ -132,8 +132,23 @@
   flex-direction: row;
   align-items: flex-end;
 }
-
+button{
+  border: none;
+  outline:none;
+  cursor: pointer;
+  background-color: white;
+}
 .botones a {
   margin-left: 20px;
   margin-top: 15px;
+
+}
+
+.buttons{
+  border: none;
+  outline:none;
+  cursor: pointer;
+  font-family: Roboto;
+  font-size: 15px;
+  background-color:  #FFF4E5;
 }

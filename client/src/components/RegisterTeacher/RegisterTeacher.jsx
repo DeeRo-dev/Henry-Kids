@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import styles from "./RegisterTeacher.module.css";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { Button, withStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { enviarSoliProfe } from "../../actions";
@@ -148,6 +149,13 @@ function onSubmit(e){
   return (
     <div className={styles.modal}>
       <div onClick={toggleModal} className={styles.overlay}></div>
+      <div className={styles.about}>
+            <Link to="/">
+            <div className={styles.volver}>
+             <ArrowBackIosIcon width="500px"/>
+             </div>
+             </Link>
+        </div>
       <div className={styles.modal_content}>
       <Link className={styles.btnCrear} to="/home/student">
               <button className={styles.close_modal} onClick={toggleModal}>

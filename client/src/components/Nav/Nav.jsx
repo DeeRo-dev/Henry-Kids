@@ -23,10 +23,8 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-
 const StyleAlert = withStyles({
   root: {
-
     marginBottom: "450px",
     width: "300px",
   },
@@ -36,16 +34,14 @@ export default function Nav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterCatActive, setFilterCatActive] = useState(false);
   const [filterDiffActive, setFilterDiffActive] = useState(false);
+  const [flag, setFlag] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getUser(window.localStorage.sessionUser));
+    setFlag(true);
   }, [dispatch]);
-
-
-
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,8 +66,6 @@ export default function Nav() {
   };
   const currentUser = useSelector((state) => state.user[0]);
   const allCategory = useSelector((state) => state.categoryAll);
-
-  
 
   useEffect(() => {
     dispatch(getCategoryAll());
@@ -140,7 +134,6 @@ export default function Nav() {
   //   dispatch(editUser(window.localStorage.sessionUser,{type:"teacher"}))
   // }
 
-
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -155,7 +148,6 @@ export default function Nav() {
     large: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      marginRight: "20px",
       cursor: "pointer",
     },
   }));
@@ -177,71 +169,72 @@ export default function Nav() {
     }, 3000);
   }
 
-
-  return (
-    <div className={styles.containerBackground}>
-      <div className={styles.background}>
-        <nav className={styles.nav}>
-          <div className={styles.logo}>
-            <img
-              className={styles.logo}
-              src="https://i.imgur.com/AWEe2XR.png"
-              alt="not found"
-            />
-          </div>
-          <SearchBar />
-          <div className={styles.contenCat}>
-            <select
-              name=""
-              id="select-category"
-              className={styles.select}
-              onChange={(e) => handleCategory(e)}
-            >
-              <option
-                value=""
-                selected
-                disabled
-                hidden
-                className={styles.selects}
+  if (!currentUser && !flag) {
+    return <p>Loading...</p>;
+  } else {
+    return (
+      <div className={styles.containerBackground}>
+        <div className={styles.background}>
+          <nav className={styles.nav}>
+            <div className={styles.logo}>
+              <img
+                className={styles.logo}
+                src="https://i.imgur.com/AWEe2XR.png"
+                alt="not found"
+              />
+            </div>
+            <SearchBar />
+            <div className={styles.contenCat}>
+              <select
+                name=""
+                id=""
+                className={styles.select}
+                onChange={(e) => handleCategory(e)}
               >
-                {" "}
-                Tecnología{" "}
-              </option>
-              <option value="all">Todos</option>
+                <option
+                  value=""
+                  selected
+                  disabled
+                  hidden
+                  className={styles.selects}
+                >
+                  {" "}
+                  Tecnología{" "}
+                </option>
+                <option value="all">Todos</option>
 
-              {
-                allCategory.map((e) => (
-                  <option value={e.id} key={e.name}>{e.name}</option>
-
-                ))
-              }
-            </select>
-          </div>
-          <div>
-            <select
-              name=""
-              id="select-difficulty"
-              className={styles.select}
-              onChange={(e) => handleDifficulty(e)}
-            >
-              <option
-                value=""
-                selected
-                disabled
-                hidden
-                className={styles.selects}
+                {allCategory.map((e) => (
+                  <option value={e.id} key={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                name=""
+                id=""
+                className={styles.select}
+                onChange={(e) => handleDifficulty(e)}
               >
-                {" "}
-                Dificultad{" "}
-              </option>
-              <option value="all"> Todos </option>
-              <option value="Basica"> Básica </option>
-              <option value="Intermedia"> Intermedia </option>
-              <option value="Alta"> Alta </option>
-            </select>
-          </div>
-          <div className={styles.contenValorado}>
-            {/* <select name="" id="" className={styles.select}>
+                <option
+                  value=""
+                  selected
+                  disabled
+                  hidden
+                  className={styles.selects}
+                >
+                  {" "}
+                  Dificultad{" "}
+                </option>
+                <option value="all"> Todos </option>
+                <option value="Basica"> Básica </option>
+                <option value="Intermedia"> Intermedia </option>
+                <option value="Alta"> Alta </option>
+              </select>
+            </div>
+            <div className={styles.contenValorado}>
+              {/* <select name="" id="" className={styles.select}>
             <option
               value=""
               selected
@@ -269,64 +262,75 @@ export default function Nav() {
             </option>
           </select> */}
 
-
-            {currentUser ?
-              currentUser.solictud ?
-                <div>
-
-                  <button className={styles.blue} onClick={handleOpen}>¿Te gustaria enseñar?</button>
-
-                </div>
-                :
+              {currentUser ? (
+                currentUser.solictud ? (
+                  <div>
+                    <button className={styles.blue} onClick={handleOpen}>
+                      ¿Te gustaria enseñar?
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <Link to={"/home/student/register-teacher"}>
+                      <button className={styles.blue}>
+                        {" "}
+                        ¿Te gustaria enseñar?
+                      </button>
+                    </Link>
+                  </div>
+                )
+              ) : (
                 <div>
                   <Link to={"/home/student/register-teacher"}>
-                    <button className={styles.blue}> ¿Te gustaria enseñar?</button>
+                    <button className={styles.blue}>
+                      {" "}
+                      ¿Te gustaria enseñar?
+                    </button>
                   </Link>
                 </div>
+              )}
+              <StyleAlert
+                className={styles.alert}
+                open={open}
+                onClose={handleCloseAlert}
+              >
+                <Alert severity="success">
+                  ¡Actualmente tenes una solicitud pendiente de confirmacion!
+                </Alert>
+              </StyleAlert>
 
-              : <div>
-                <Link to={"/home/student/register-teacher"}>
-                  <button className={styles.blue}> ¿Te gustaria enseñar?</button>
-                </Link>
-              </div>
-
-            }
-            <StyleAlert className={styles.alert} open={open} onClose={handleCloseAlert}>
-              <Alert severity="success">
-                ¡Actualmente tenes una solicitud pendiente de confirmacion!
-              </Alert>
-            </StyleAlert>
-
-            {/* <Link to="/create-clase">
+              {/* <Link to="/create-clase">
          <button className={styles.blue}>
              Crear clase
           </button>
       </Link> */}
+            </div>
 
-          </div>
-
-          <div className={styles.imagen}>
-            <Avatar
-              src={currentUser?.photo ? currentUser?.photo : ""}
-              className={classes.large}
-              onClick={handleClick}
-            />{" "}
-          </div>
-
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <Link to="/home/student/profile">
-              <MenuItem onClick={handleClose}> Perfil </MenuItem>
-            </Link>
-            <MenuItem onClick={signOutUser}> Salir </MenuItem>
-          </Menu>
-
-          {/* <div className={styles.imagen}>
+            <div className={styles.perfil}>
+              <Avatar
+                src={currentUser?.photo ? currentUser?.photo : ""}
+                className={classes.large}
+                onClick={handleClick}
+              />{" "}
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <Link to="/home/student/profile">
+                  <MenuItem onClick={handleClose}> Perfil </MenuItem>
+                </Link>
+                <MenuItem onClick={signOutUser}> Salir </MenuItem>
+              </Menu>
+              <h4 onClick={handleClick}>
+                {window.localStorage.userName
+                  ? window.localStorage.userName
+                  : currentUser?.userName}
+              </h4>
+            </div>
+            {/* <div className={styles.imagen}>
           <img
             src="https://static.guiainfantil.com/media/24057/c/el-desarrollo-de-un-nino-de-5-anos-que-aprenden-los-ninos-a-esta-edad-md.jpg"
             alt="404"
@@ -334,14 +338,15 @@ export default function Nav() {
           />
         </div> */}
 
-          {/* <div className={styles.contentBoton}> */}
-          {/* <input className={style.botonInSesion}type="submit" value="Usuario"/> */}
-          {/* <div className={styles.botonInSesion}> */}
-          {/* <p>Usuario</p>
+            {/* <div className={styles.contentBoton}> */}
+            {/* <input className={style.botonInSesion}type="submit" value="Usuario"/> */}
+            {/* <div className={styles.botonInSesion}> */}
+            {/* <p>Usuario</p>
      </div>
     </div> */}
-        </nav>
+          </nav>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

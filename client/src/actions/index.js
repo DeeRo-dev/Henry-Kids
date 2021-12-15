@@ -1,4 +1,3 @@
-
 const axios = require("axios");
 
 export function sendComment(text) {
@@ -187,78 +186,77 @@ export function filterDifficulty(input) {
     } catch (e) {
       console.log(e);
     }
-  }}
-
-  export function removeFavorite(idUser, id){
-      return async function (dispatch){
-        const response = await axios.delete(`/fav/${idUser}/${id}`);
-        dispatch({type: "REMOVE_FAVORITE", data:id})
-      }
-  }
-
-  export function getSolicitudes(){
-    return async function(dispatch){
-      let response = await axios.get('/user/solicitud/lista');
-      console.log('solicitudes:', response.data)
-      dispatch({
-        type: "GET_SOLICITUDES",
-        data: response.data
-      })
-    }
-  }
-
-  export function enviarSoliProfe(data, id){
-    console.log(data, id)
-      return async function(dispatch){
-        let response = await axios.put(`/user/solicitud/${id}`, data);
-       console.log(response.data)
-        dispatch({
-          type: "SET_SOLICITUD",
-          data : response.data
-        })
-      }
-  }
-
-  export function getAlumnos(){
-    return async function(dispatch){
-      let response = await axios.get("/user/type/student")
-      dispatch({
-        type: "GET_USER_ALUMNO",
-        data: response.data
-      })
-  }
+  };
 }
-export function getProfesores(){
-  return async function(dispatch){
-    let response = await axios.get("/user/type/teacher")
-   
+
+export function removeFavorite(idUser, id) {
+  return async function (dispatch) {
+    const response = await axios.delete(`/fav/${idUser}/${id}`);
+    dispatch({ type: "REMOVE_FAVORITE", data: id });
+  };
+}
+
+export function getSolicitudes() {
+  return async function (dispatch) {
+    let response = await axios.get("/user/solicitud/lista");
+    console.log("solicitudes:", response.data);
+    dispatch({
+      type: "GET_SOLICITUDES",
+      data: response.data,
+    });
+  };
+}
+
+export function enviarSoliProfe(data, id) {
+  console.log(data, id);
+  return async function (dispatch) {
+    let response = await axios.put(`/user/solicitud/${id}`, data);
+    console.log(response.data);
+    dispatch({
+      type: "SET_SOLICITUD",
+      data: response.data,
+    });
+  };
+}
+
+export function getAlumnos() {
+  return async function (dispatch) {
+    let response = await axios.get("/user/type/student");
+    dispatch({
+      type: "GET_USER_ALUMNO",
+      data: response.data,
+    });
+  };
+}
+export function getProfesores() {
+  return async function (dispatch) {
+    let response = await axios.get("/user/type/teacher");
+
     dispatch({
       type: "GET_USER_TEACHER",
-      data: response.data
-    })
+      data: response.data,
+    });
+  };
 }
-}
-export function rechazarTeacher(id){
-  return async function(dispatch){
-    
-   let response= await axios.put(`/user/solicitud/rechazada/${id}`)
-    console.log(response.data, 'id',id)
+export function rechazarTeacher(id) {
+  return async function (dispatch) {
+    let response = await axios.put(`/user/solicitud/rechazada/${id}`);
+    console.log(response.data, "id", id);
     dispatch({
-      type:"RECHAZAR_TEACHER",
-      data: id
-    })
-  }
+      type: "RECHAZAR_TEACHER",
+      data: id,
+    });
+  };
 }
 
-
-export function acceptTeacher(id){
-  return async function(dispatch){
-    let response= await axios.put(`/user/solicitud/aceptada/${id}`)
+export function acceptTeacher(id) {
+  return async function (dispatch) {
+    let response = await axios.put(`/user/solicitud/aceptada/${id}`);
     dispatch({
       type: "ACCEPT_TEACHER",
-      data: id
-    })
-  }
+      data: id,
+    });
+  };
 }
 
 export function getValoracion(id) {
@@ -272,7 +270,6 @@ export function getValoracion(id) {
   };
 }
 
-
 export function getClasEvaUs(id) {
   return async function (dispatch) {
     var info = await axios.get(`/evaluation/claseEval/${id}`);
@@ -284,11 +281,17 @@ export function getClasEvaUs(id) {
   };
 }
 
-
 export function editComment(id, name) {
   return async function (dispatch) {
     const response = await axios.put(`/comment/${id}`, name);
     dispatch({ type: "EDIT_COMMENT", data: response.data });
+  };
+}
+
+export function responseComment(id, Response) {
+  return async function (dispatch) {
+    const response = await axios.put(`/comment/${id}`, Response);
+    dispatch({ type: "RESPONSE_COMMENT", data: response.data });
   };
 }
 
@@ -298,22 +301,22 @@ export function deleteComment(idComment) {
     dispatch({ type: "DELETE_COMMENT" });
   };
 }
-export function deleteUser(id){
-  return async function(dispatch){
-    let response= await axios.delete(`/user/${id}`)
+export function deleteUser(id) {
+  return async function (dispatch) {
+    let response = await axios.delete(`/user/${id}`);
     dispatch({
       type: "DELETE_USER",
-      data: id
-    })
-  }
+      data: id,
+    });
+  };
 }
 
-export function newCategory(data){
-  return async function(dispatch){
-    let response= await axios.post('/category',data)
+export function newCategory(data) {
+  return async function (dispatch) {
+    let response = await axios.post("/category", data);
     dispatch({
       type: "NEW_CATEGORY",
-      data:response.data
-    })
-  }
+      data: response.data,
+    });
+  };
 }
