@@ -6,19 +6,22 @@ const fs = require("fs");
 // funcion para crear Usuario, tambien mediante sendMail enviamos un correo de bienvenida.
 async function createUser(req, res, next) {
   const { firstName, lastName, userName, type, id, email, photo } = req.body;
-  console.log(id)
+  
   try {
     const user = await User.create({
       id,
       firstName,
       lastName,
       userName,
+      type: "confirmacion",
       type,
       email,
       photo,
-      type: "confirmacion",
+      
     });
-    // const newUser = await User.findOne({ where: { userName } });
+    const foundUser = await User.findByPk(id);
+    const user2 = foundUser.toJSON();
+    
     // aca le ponemos mayuscula a la primer letra del nombre.
     let newFirstName =
       user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
@@ -30,7 +33,7 @@ async function createUser(req, res, next) {
     });
     html_template = html_template.replace("FIRST_NAME", newFirstName);
 
-    let ruta= "http://localhost:3000/Verificacion/"+user.id
+    let ruta= "http://localhost:3000/Verificacion/"+user2.id
     let rute ="<A HREF={"+ruta+"}> Link de Verificacion </A>"
     html_template = html_template.replace("RUTA_CONF", ruta);
 
