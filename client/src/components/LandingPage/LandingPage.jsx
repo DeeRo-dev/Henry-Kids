@@ -6,7 +6,7 @@ import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getUser, postUser } from "../../actions/index.js";
+import { getUser, postUser,getAlumnos,getProfesores } from "../../actions/index.js";
 import NearMeIcon from '@material-ui/icons/NearMe';
 import {
   auth,
@@ -24,6 +24,9 @@ import {
   RadioGroup,
   TextField,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
+
 // import { confirmPasswordReset } from "@firebase/auth";
 
 // function validate(pokemon){
@@ -32,11 +35,42 @@ import {
 //     errors.name = "Se requiere un nombre"
 //   } return errors
 // }
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const StyleAlert = withStyles({
+  root: {
+    
+    marginBottom: "450px",
+    width: "300px",
+  },
+})(Snackbar);
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  //Usuarios
   const allUsers = useSelector((state) => state.user);
+  const username = allUsers.map(user => user.userName)
+    console.log(allUsers)
+
+    // //EMAIL student
+    useEffect(() => {
+      dispatch(getAlumnos());
+    }, [dispatch]);
+    const allUser = useSelector((state) => state.userStudent);
+    const userEmailStudent = allUser.map(user => user.email)
+      console.log(userEmailStudent)
+
+  //email teacher
+      useEffect(() => {
+        dispatch(getProfesores());
+      }, [dispatch]);
+      const allUserT = useSelector((state) => state.userTeacher);
+      const userEmailTeacher = allUserT.map(user => user.email)
+      console.log(userEmailTeacher)
+
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
   // const [errors,setErrors] = useState({});
@@ -240,10 +274,20 @@ export default function LandingPage() {
     if (user.userName.length < 2) {
       setErrorUser(true)
       setMsjUser("El usuario es requerido")
-    } else {
-      setErrorUser(false)
-      setMsjUser("")
     }
+    // else  {
+    //   setErrorUser(false)
+    //   setMsjUser("")
+    // }
+  
+    else if(username.includes(e.target.value)){
+      setErrorUser(true)
+      setMsjUser("el usuario ya esta registrado")
+    }
+    else  {
+      setErrorUser(false)
+      setMsjUser("") }
+    
 
   }
 
@@ -258,7 +302,16 @@ export default function LandingPage() {
     if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email))) {
       setErrorEmail(true)
       setMsjEmail("Debe ingresar un email valido")
-    } else {
+    } 
+    else if(userEmailStudent.includes(e.target.value)){
+      setErrorEmail(true)
+      setMsjEmail("el email ya esta registrado")
+    }
+    else if(userEmailTeacher.includes(e.target.value)){
+      setErrorEmail(true)
+      setMsjEmail("el email ya esta registrado")
+    }
+    else {
       setErrorEmail(false)
       setMsjEmail("")
     }
@@ -422,6 +475,23 @@ useEffect(()=> {
         });
     }
   };
+
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+function handleChangeError(e){
+  setOpen(true)
+  setTimeout(() => {
+    setOpen(false);
+  }, 2000);
+}
 
   return (
     <div className={styles.containerBackground}>
@@ -642,10 +712,17 @@ useEffect(()=> {
                       </FormControl>
                     </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
-                    {!errorFirst && !errorLast && !errorUser
+                   {/*  {!errorFirst && !errorLast && !errorUser
                       && !errorEmail && !errorpass && !errorPassConf &&
-                       dataFirebase.passwordConfirm.length > 7?
-                      <StyleButtonCrearCuenta
+                       dataFirebase.passwordConfirm.length > 7?*/}
+                     
+  
+                             
+                     { !errorFirst && !errorLast && !errorUser && !errorEmail && 
+                     !errorpass && !errorPassConf
+
+                     ?
+                     <StyleButtonCrearCuenta 
                         onClick={(e) => registrarUsuario(e)}
                         type="button"
                         className={styles.btnCrearCuenta}
@@ -654,7 +731,17 @@ useEffect(()=> {
                       >
                         Crear cuenta
                       </StyleButtonCrearCuenta>
-                      : null}
+
+                    :  <StyleButtonCrearCuenta 
+                        onClick={(e) => handleChangeError(e)}
+                        type="button"
+                        className={styles.btnCrearCuenta}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Crear cuenta
+                      </StyleButtonCrearCuenta>}
+                      {/* : null} */}
                     {/*  <StyleButtonRegistrarseConGoogle
                       onClick={(e) => ingresarUsuarioConGoogle(e)}
                       type="button"
@@ -665,6 +752,10 @@ useEffect(()=> {
                       Crear cuenta con google
                     </StyleButtonRegistrarseConGoogle> */}
                     {/* </Link> */}
+
+                    <StyleAlert className={styles.alert} open={open} onClose={handleClose}>
+                  <Alert className={styles.btnAlertt}severity="success">Revise los datos y vuelva a intentarlo</Alert>
+                </StyleAlert>
                   </form>
                 </div>
               </div>
