@@ -184,17 +184,19 @@ async function solTeacher(req, res, next) {
 }
 
 async function BorarFavoritos(id) {
-  const  relode = await User.findAll({
+  const relode = await User.findAll({
     where: {
       id: id,
     },
     include: [{ model: Class }],
   });
-  const userr = relode.toJSON();
-  console.log(userr)
-  userr.classes.map((x)=>{
-    userr.removeClass(x.id);
-  })
+  const user = await User.findByPk(id);
+  const userr = relode[0].toJSON().classes;
+  console.log(relode[0].toJSON().classes);
+  userr.map((x) => {
+    console.log(x.id);
+    user.removeClass(x.id);
+  });
 }
 
 async function solAceptadaTeacher(req, res, next) {
@@ -213,12 +215,20 @@ async function solAceptadaTeacher(req, res, next) {
 
     const foundUser = await User.findByPk(req.params.id);
     const user = foundUser.toJSON();
-    let newFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-    let html_template = fs.readFileSync('./src/mails/templates/approvedRequest.html', {encoding:'utf8', flag:'r'})
-    html_template = html_template.replace('FIRST_NAME', newFirstName)
-    sendMail(user.email, "Su solicitud ha sido aprobada...", html_template, "html");
-
-    BorarFavoritos(req.params.id)
+    let newFirstName =
+      user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+    let html_template = fs.readFileSync(
+      "./src/mails/templates/approvedRequest.html",
+      { encoding: "utf8", flag: "r" }
+    );
+    html_template = html_template.replace("FIRST_NAME", newFirstName);
+    sendMail(
+      user.email,
+      "Su solicitud ha sido aprobada...",
+      html_template,
+      "html"
+    );
+    BorarFavoritos(req.params.id);
     res.send("el Usario esta en la lista Profesores");
   } catch (err) {
     next(err);
