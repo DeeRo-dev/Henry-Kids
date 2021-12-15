@@ -30,7 +30,7 @@ async function createUser(req, res, next) {
     });
     html_template = html_template.replace("FIRST_NAME", newFirstName);
 
-    let ruta= "https://henry-kids.herokuapp.com/user/email/verificado/"+id
+    let ruta= "http://localhost:3000/Verificacion/"+id
     let rute =<A HREF={ruta}> Link de Verificacion </A>
     html_template = html_template.replace("RUTA_CONF", rute);
 

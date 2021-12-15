@@ -13,6 +13,8 @@ import ModifyClass from "./components/ModifyClass/ModifyClass";
 import RegisterTeacher from "./components/RegisterTeacher/RegisterTeacher";
 import FavsContainer from "./components/FavsContainer/FavsContainer";
 import CropImage from "./components/CropImage/CropImage"
+import Verificacion from "./components/Verificacion/Verificacion";
+
 
 
 const studentRoutes = [
@@ -22,6 +24,8 @@ const studentRoutes = [
   { path: "/home/student/profile", element: <ProfileStudent />},
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
+  { path: "/Verificacion/:id", element: <Verificacion /> },
+ 
 ];
 const teacherRoutes = [
   { path: "/home/teacher", element: <HomeTeacher /> },
@@ -30,6 +34,7 @@ const teacherRoutes = [
   { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> },
   { path: "/cropImage", element: <CropImage /> },
+  { path: "/Verificacion/:id", element: <Verificacion /> },
 
 
 ];
