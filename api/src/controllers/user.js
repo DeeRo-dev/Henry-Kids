@@ -31,6 +31,7 @@ async function createUser(req, res, next) {
 
     
     let rute =`<a href="http://localhost:3000/Verificacion/${user.userName}">Link</a>`
+    alert(rute)
     html_template = html_template.replace("RUTA_CONF", rute);
 
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
