@@ -41,13 +41,21 @@ export default function Card({
   
  
  
-  useEffect (()=> {dispatch(getFavorites(idUser))},[ dispatch])
+  useEffect (()=> {dispatch(getFavorites(idUser))},[])
 
   function onclickFav(e, idUser, id) {
     e.preventDefault();
     console.log(e.target.checked)
-    dispatch(setFavorite(idUser, id));
-    //window.location.reload()
+    dispatch(setFavorite(idUser, id))
+    .then(()=> dispatch(getFavorites(idUser)))
+
+
+
+    /* window.location.reload() */
+   /*  setTimeout(() => {
+      dispatch(getFavorites(idUser))
+    }, 1000);
+    */
     
   }
 
@@ -55,7 +63,7 @@ export default function Card({
     e.preventDefault();
     console.log(e.target.checked)
     dispatch(removeFavorite(idUser, id));
-    // window.location.reload()
+    dispatch(getFavorites(idUser))
   }
 
   let fav;
@@ -63,7 +71,7 @@ export default function Card({
       fav = false
     : fav = favoritesRedux.some(c => c.id === id)
 
-    let [favs, setFavs] = useState(false)
+   
 
 
   return (
@@ -72,32 +80,15 @@ export default function Card({
       
         <FormGroup row>
         <FormControlLabel
-          checked={fav? true : false}
+          checked={fav ? true : false}
           className={styles.icono}
           control={<Checkbox icon={<FavoriteBorder />}  checkedIcon={<Favorite />} name="checkedH" />}
           label=""
-          onChange={fav ?   (e) => onClickRemove(e, idUser, id)  : (e) => onclickFav(e, idUser, id)}
+          onChange={fav ? (e) => onClickRemove(e, idUser, id)  : (e) => onclickFav(e, idUser, id)}
           onClic
         />
       </FormGroup>
-      {/* <FavoriteBorder/>
-
-        { 
-          aux = false;
-          function cambiar (){
-            if(!aux)
-            aux = true
-          }else{
-            aux = false
-          }
-          aux ? <Favorite /> : <FavoriteBorder/>
-
-          
-          () => cambiar();
-        }
-
-
-      */}
+     
       <Link to={"/home/student/" + id}> 
         <div className={styles.cardHeader}>
           <img src={url} alt="Contenido sin imagen disponible" />
