@@ -12,6 +12,7 @@ import HelpIcon from "@material-ui/icons/Help";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import FavsContainer from "../FavsContainer/FavsContainer.jsx";
+import Help from "../Help/Help.jsx";
 import styles from "./ProfileStudent.module.css";
 import ModifyUser from "../ModifyUser/ModifyUser";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -97,8 +98,7 @@ export default function ProfileStudent() {
        <ModifyUser/>
       </TabPanel>
       <TabPanel value={value} index={1}> <FavsContainer/> </TabPanel>
-      <TabPanel value={value} index={2}>  <button className={styles.blue}> <a href="mailto:henrykids.pg08@gmail.com"> Contactarme </a></button>
-
+      <TabPanel value={value} index={2}> <Help/>
     </TabPanel>
 
       {/* <TabPanel value={value} index={3}></TabPanel> */}

@@ -10,13 +10,11 @@
   
   .home {
     background-image: url(https://i.imgur.com/sUhumGM.png);
-    background-size: cover;
     overflow-x: hidden;
     overflow-y: hidden;
-    margin-top: 1px;
     background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: initial;
+    background-position: center;
+    background-size: cover;
+    height: 72vh;
     width: 100vw;
-    height: 100vh;
   }

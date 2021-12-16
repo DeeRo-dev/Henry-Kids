@@ -90,6 +90,11 @@ html {
 .overlay {
   background: rgba(49, 49, 49, 0.8);
 }
+
+.formRegistrarse{
+
+}
+
 .modal_content {
   background-color: white;
   font: 1em Helvetica;
@@ -102,7 +107,7 @@ html {
   border-radius: 3px;
   float: left;
   height: 500px;
-  width: 250px;
+  width: 450px;
  /*  height: 400px; */
   text-align: center;
   border-radius: 20px;

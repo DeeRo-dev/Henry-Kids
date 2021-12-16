@@ -664,8 +664,7 @@ export default function LandingPage() {
                 </button>
 
                 <div>
-                  <h4> INGRESE SUS DATOS</h4>
-                  <form autoComplete="off">
+                  <form className={styles.formRegistrarse} autoComplete="off">
                     <TextField
                       fullWidth
                       placeholder="Nombre:"

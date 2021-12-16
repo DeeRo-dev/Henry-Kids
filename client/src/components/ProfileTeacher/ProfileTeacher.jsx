@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Help from "../Help/Help.jsx";
+import HelpIcon from "@material-ui/icons/Help";
 // import FavoriteIcon from "@material-ui/icons/Favorite";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 // import HelpIcon from "@material-ui/icons/Help";
@@ -89,6 +91,7 @@ export default function ProfileStudent() {
             icon={<PersonPinIcon />}
             {...a11yProps(0)}
           />
+           <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(1)} />
          {/*  <Tab label="Volver" icon={<PersonPinIcon />} {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
@@ -97,6 +100,8 @@ export default function ProfileStudent() {
         {" "}
         <ModifyTeacher />
       </TabPanel>
+      <TabPanel value={value} index={1}> <Help/>
+    </TabPanel>
       {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
   );
