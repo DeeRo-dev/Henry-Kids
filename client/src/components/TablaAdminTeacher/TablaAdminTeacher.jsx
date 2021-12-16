@@ -76,13 +76,13 @@ export default function TablaAdminTeacher () {
       align: 'right',
       format: value => value.toFixed (2),
     },
-    {
-      id: 'imgDni',
-      label: 'Img-DNI',
-      minWidth: 70,
-      align: 'right',
-      format: value => value.toLocaleString ('en-US'),
-    },
+    // {
+    //   id: 'imgDni',
+    //   label: 'Img-DNI',
+    //   minWidth: 70,
+    //   align: 'right',
+    //   format: value => value.toLocaleString ('en-US'),
+    // },
   ];
   // let acceptIcon = <CheckCircleIcon className={style.btnCheck}  onClick={(rows)=>onClickAccept(rows)}/>
   // let rejectIcon = <CancelIcon className={style.btnClose} onClick={onClickRechazar}/>
@@ -96,7 +96,7 @@ export default function TablaAdminTeacher () {
     dni, 
     cuentaBancaria,     
     email,
-    dniImag,
+    // dniImag,
   ) {
     return {
       lastName,
@@ -107,7 +107,7 @@ export default function TablaAdminTeacher () {
       dni, 
       cuentaBancaria,     
       email,
-      dniImag,
+      // dniImag,
     };
   }
 
@@ -121,7 +121,7 @@ export default function TablaAdminTeacher () {
       user.dni,
       user.cuentaBancaria,
       user.email,   
-      user.dniImag
+      // user.dniImag
     )
   );
 

@@ -178,8 +178,9 @@ function onSubmit(e){
               type="date"
               placeholder="Fecha de naciemiento:"
             onChange={(e)=> onInputChange(e)}/>
-            <p id={styles.pDNI}>Foto DNI:</p>
-            <input name="dniImag" type="file" placeholder="Foto DNI:" onChange={(e)=>convertiraBase64(e.target.files)}/>
+           {/*  <p id={styles.pDNI}>Foto DNI:</p>
+            <input name="dniImag" type="file" placeholder="Foto DNI:" onChange={(e)=>convertiraBase64(e.target.files)}/> */}
+          
           
             <div className={styles.containerBtn} >
               <StyleButtonCrearCuenta
