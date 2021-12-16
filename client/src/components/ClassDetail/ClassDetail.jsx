@@ -210,8 +210,11 @@ export default function ClassDetail() {
           </div>
           <div className={styles.contentDescription}>{detail.description}</div>
 
+          <div>
+            <a className={styles.studio} href={detail.studio_material } target='_blank' rel="noreferrer">Haciendo click aqui podras encontrar mas material sobre la clase!</a>  
+          </div>
 
-          {detail.game_link && (
+          {detail.game_link ? (
             <div className={styles.contentGame}>
               <p className={styles.titleJuego}>¡Aprendamos jugando!</p>
               <iframe
@@ -222,7 +225,8 @@ export default function ClassDetail() {
                 frameBorder="0"
                 scrolling="no"
               ></iframe>
-            </div>)}
+            </div>)
+            :null}
 
           {/* cartel datos cuenta */}
           <StyleAlert className={styles.alert} open={open}>
