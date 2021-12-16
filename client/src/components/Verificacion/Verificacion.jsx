@@ -14,7 +14,7 @@ export default function Verificacion(){
     return (
       <div ><h3 className={style.text}>
           Su usario fue validado presione
-          <Link style={style.ir} to={`/`}>  aca </Link>
+          <Link className={style.ir} to={`/`}>  aca </Link>
           para iniciar sesion</h3>
           <img
             className={style.imagen}
