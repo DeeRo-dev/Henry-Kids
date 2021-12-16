@@ -26,7 +26,7 @@ async function getAlu(req, res, next) {
       id: req.params.idUs,
       type: "student",
     },
-    include: [{ model: Class, include: Category }],
+    include: [{ model: Class, include:  [Category,Evaluation] }],
   });
   res.status(200).send(favoritos);
 }
