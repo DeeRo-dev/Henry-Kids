@@ -146,12 +146,12 @@ export default function Comments({ detail }) {
           return (
             <div className={styles.media}>
               <div className={styles.user}>
-                <Avatar src={e.user?.photo ? e.user?.photo  : ""} className={classes.img} />
-                <h3 className={styles.nombre}>{e.user?.userName}</h3>
+                <Avatar src={e.users.length ? e.users[0].photo  : ""} className={classes.img} />
+                <h3 className={styles.nombre}>{e.users[0].userName}</h3>
               </div>
               <p className={styles.comentario}>{e.name}</p>
               <div className={styles.botones}>
-                <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button>
+                {/* <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button> */}
 
                 {/*EDITAR COMENTARIO*/}
                 <button

@@ -8,4 +8,15 @@
     margin-top: 10px
   }
   
-  
+  .home {
+    background-image: url(https://i.imgur.com/sUhumGM.png);
+    background-size: cover;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-top: 1px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: initial;
+    width: 100vw;
+    height: 100vh;
+  }

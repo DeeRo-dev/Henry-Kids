@@ -70,9 +70,8 @@ export default function ModifyUser() {
   };
   // CAMBIO DE USUARIO----------------------------------------------------------------------------------------------------------------
   function handleOnChangeCambiarNombreDeUsuario(e) {
-
-
     e.preventDefault();
+    window.localStorage.setItem("userName", e.target.value)
     setUser({
       id: window.localStorage.sessionUser,
       userName: e.target.value,
@@ -80,7 +79,9 @@ export default function ModifyUser() {
   }
   function handleOnSubmitCambiarNombreDeUsuario(e) {
     e.preventDefault();
-    dispatch(editUser(userState.id, { userName: userState.userName }));
+    dispatch(editUser(userState.id, { userName: userState.userName })).then(()=>{
+      alert("Nombre de usuario actualizado")
+    });
     toggleModalCambiarNombreDeUsuario(e);
   }
 
@@ -315,13 +316,6 @@ export default function ModifyUser() {
                       placeholder="Nuevo nombre de usuario"
                       helperText={false}
                       onChange={(e) => handleOnChangeCambiarNombreDeUsuario(e)}
-                    />
-                    <TextField
-                      error={false}
-                      id="standard-error-helper-text"
-                      type="password"
-                      placeholder="Escribe tu contraseña"
-                      helperText={false}
                     />
 
                     <ButtonSave

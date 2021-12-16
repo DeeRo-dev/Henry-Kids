@@ -89,7 +89,7 @@ export default function ProfileStudent() {
             {...a11yProps(0)}
           />
           <Tab label="Favoritos" icon={<FavoriteIcon />} {...a11yProps(1)} />
-        
+          <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(2)} />
           {/* <Tab label="Ayuda" icon={<HelpIcon />} {...a11yProps(3)} /> */}
         </Tabs>
       </AppBar>
@@ -97,6 +97,10 @@ export default function ProfileStudent() {
        <ModifyUser/>
       </TabPanel>
       <TabPanel value={value} index={1}> <FavsContainer/> </TabPanel>
+      <TabPanel value={value} index={2}>  <button className={styles.blue}> <a href="mailto:henrykids.pg08@gmail.com"> Contactarme </a></button>
+
+    </TabPanel>
+
       {/* <TabPanel value={value} index={3}></TabPanel> */}
     </div>
     </div>

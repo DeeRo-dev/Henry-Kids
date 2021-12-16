@@ -325,9 +325,7 @@ export default function Nav() {
                 <MenuItem onClick={signOutUser}> Salir </MenuItem>
               </Menu>
               <h4 onClick={handleClick}>
-                {window.localStorage.userName
-                  ? window.localStorage.userName
-                  : currentUser?.userName}
+                {window.localStorage.userName}
               </h4>
             </div>
             {/* <div className={styles.imagen}>

@@ -57,6 +57,7 @@ img: imgConverted
 
   function handleOnChangeCambiarNombreDeUsuario(e) {
     e.preventDefault();
+    window.localStorage.setItem("userName", e.target.value)
     setUser({
       id: window.localStorage.sessionUser,
       userName: e.target.value,
@@ -64,7 +65,9 @@ img: imgConverted
   }
   function handleOnSubmitCambiarNombreDeUsuario(e) {
     e.preventDefault();
-    dispatch(editUser(user.id, { userName: user.userName }));
+    dispatch(editUser(user.id, { userName: user.userName })).then(()=>{
+      alert("Nombre de usuario actualizado")
+    });;
     toggleModalCambiarNombreDeUsuario(e);
   }
 
@@ -252,13 +255,6 @@ img: imgConverted
                     placeholder="Nuevo nombre de usuario"
                     helperText={false}
                     onChange={(e) => handleOnChangeCambiarNombreDeUsuario(e)}
-                  />
-                  <TextField
-                    error={false}
-                    id="standard-error-helper-text"
-                    type="password"
-                    placeholder="Escribe tu contraseña"
-                    helperText={false}
                   />
 
                   <ButtonSave
