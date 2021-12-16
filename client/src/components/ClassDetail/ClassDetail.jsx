@@ -87,7 +87,7 @@ export default function ClassDetail() {
   const handleSubmitComment = (e) => {
     e.preventDefault();
     dispatch(sendComment(comment)).then(() => {
-      window.location.reload();
+      /*window.location.reload()*/ dispatch(getClassById(id));
     });
   };
 
