@@ -402,6 +402,7 @@ export default function LandingPage() {
             navigate("/home/teacher");
             window.location.reload();
           }
+          
         });
       })
       .catch((error) => {
