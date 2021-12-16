@@ -130,9 +130,9 @@ export default function Comments({ detail }) {
     const comment = detail.comments.find(
       (element) => element.id === parseInt(e.target.name)
     );
-    dispatch(deleteComment(comment.id)).then(() => {
+    dispatch(deleteComment(comment.id))/*.then(() => {
       window.location.reload()
-    });
+    })*/;
     /*  console.log(e.target.name); */
     /* console.log(comment); */
   }
