@@ -127,3 +127,12 @@ a {
 .icono:hover{
   cursor:pointer;
 }
+label{ color:grey;}
+input[type = "radio"]{ display:none;}
+/* label:hover{color:orange;} */
+/* label:hover ~ label{color:orange;} */
+input[type = "radio"]:checked ~ label{color:orange;}
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}

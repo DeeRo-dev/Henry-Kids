@@ -33,6 +33,8 @@ export default function ClassDetail() {
     dispatch(getClassById(id));
   }, [id, dispatch]);
 
+  
+
   const detail = useSelector((state) => state.classById[0]);
   console.log(detail)
 
@@ -102,7 +104,7 @@ export default function ClassDetail() {
 
   const idUser = window.localStorage.sessionUser;
 
-  useEffect(() => { dispatch(getClasEvaUs(id)) }, [dispatch, id])
+  useEffect(() => { dispatch(getClasEvaUs(id)) }, [])
   const userss = useSelector((state) => state.valoracion2)
 
 
@@ -117,8 +119,14 @@ export default function ClassDetail() {
       classId: id,
       userId: idUser
     }
-    axios.post("https://henry-kids.herokuapp.com/evaluation/", aux)
-  }
+    axios.post("https://henry-kids.herokuapp.com/evaluation/", aux).then(() => {
+      
+    dispatch(getClasEvaUs(id))
+    
+      
+    }).then(()=>{
+      dispatch(getClassById(id))
+    });}
 
 
   const teacherClass = detail?.users?.find((user) => user.type === "teacher");
@@ -166,7 +174,6 @@ export default function ClassDetail() {
                   <div className={styles.divValoration}>
                     <h3 className={styles.titlePromedio}>Promedio de la clase:</h3>
                     <p className={styles.clasificacion}>
-
                       <input checked={userss.Promedio === 5 ? true : false} id="radio1" type="radio" name="estrellas" value="5" />
                       <label for="radio1">★</label>
                       <input checked={userss.Promedio === 4 ? true : false} id="radio2" type="radio" name="estrellas" value="4" />
