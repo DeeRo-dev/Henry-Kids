@@ -44,6 +44,7 @@ const teacherRoutes = [
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
   { path: "/home/teacher/:id", element: <ClassDetail /> },
   { path: "/Verificacion/:id", element: <Verificacion /> },
+  { path: "/home/admin/FormCategory", element: <FormCategory /> },
 ];
 
 const confirmacionRoutes = [
