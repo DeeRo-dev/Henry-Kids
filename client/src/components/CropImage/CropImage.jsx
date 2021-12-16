@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import generateDownload from "./utils/cropImage";
 import getCroppedImg from "./utils/cropImage";
@@ -19,6 +20,28 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "../../firebase/firebaseConfig";
+
+
+
+const StyleButtonElegir = withStyles({
+  root: {
+    paddingRight: "10px",
+    paddingLeft: "10px",
+    marginBottom: "50px",
+    backgroundColor: "var(--amarillo)",
+    fontFamily: "montserrat",
+    fontWeight: "bold",
+    fontSize: "18px",
+    "&:hover": {
+      backgroundColor: "var(--verde)",
+    },
+  },
+
+  label: {
+    color: "white",
+  },
+})(Button);
+
 
 export default function CropImage({ toggleModalCambiarFoto }) {
   const dispatch = useDispatch();
@@ -180,15 +203,15 @@ export default function CropImage({ toggleModalCambiarFoto }) {
           onChange={onSelectFile}
           style={{ display: "none" }}
         />
-        <Button
+        <StyleButtonElegir
           variant="contained"
           color="primary"
           onClick={triggerFileSelectPopup}
           style={{ marginRight: "10px" }}
         >
           Elegir
-        </Button>
-        <Button
+        </StyleButtonElegir>
+        <StyleButtonElegir
           className={styles.btnGuardar}
           onClick={(e) => handleOnSubmitCambiarFoto(e)}
           type="button"
@@ -197,7 +220,7 @@ export default function CropImage({ toggleModalCambiarFoto }) {
           component="span"
         >
           Guardar
-        </Button>
+        </StyleButtonElegir>
       </div>
     </div>
   );
