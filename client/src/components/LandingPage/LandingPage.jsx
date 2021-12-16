@@ -6,8 +6,13 @@ import styles from "./LandingPage.module.css";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getUser, postUser,getAlumnos,getProfesores } from "../../actions/index.js";
-import NearMeIcon from '@material-ui/icons/NearMe';
+import {
+  getUser,
+  postUser,
+  getAlumnos,
+  getProfesores,
+} from "../../actions/index.js";
+import NearMeIcon from "@material-ui/icons/NearMe";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -41,7 +46,6 @@ function Alert(props) {
 
 const StyleAlert = withStyles({
   root: {
-    
     marginBottom: "450px",
     width: "300px",
   },
@@ -52,24 +56,24 @@ export default function LandingPage() {
   const dispatch = useDispatch();
   //Usuarios
   const allUsers = useSelector((state) => state.user);
-  const username = allUsers.map(user => user.userName)
-    console.log(allUsers)
+  const username = allUsers.map((user) => user.userName);
+  console.log(allUsers);
 
-    // //EMAIL student
-    useEffect(() => {
-      dispatch(getAlumnos());
-    }, [dispatch]);
-    const allUser = useSelector((state) => state.userStudent);
-    const userEmailStudent = allUser.map(user => user.email)
-      console.log(userEmailStudent)
+  // //EMAIL student
+  useEffect(() => {
+    dispatch(getAlumnos());
+  }, [dispatch]);
+  const allUser = useSelector((state) => state.userStudent);
+  const userEmailStudent = allUser.map((user) => user.email);
+  console.log(userEmailStudent);
 
   //email teacher
-      useEffect(() => {
-        dispatch(getProfesores());
-      }, [dispatch]);
-      const allUserT = useSelector((state) => state.userTeacher);
-      const userEmailTeacher = allUserT.map(user => user.email)
-      console.log(userEmailTeacher)
+  useEffect(() => {
+    dispatch(getProfesores());
+  }, [dispatch]);
+  const allUserT = useSelector((state) => state.userTeacher);
+  const userEmailTeacher = allUserT.map((user) => user.email);
+  console.log(userEmailTeacher);
 
   const [modal, setModal] = useState(false);
   const [modalIngresar, setModalIngresar] = useState(false);
@@ -271,23 +275,20 @@ export default function LandingPage() {
     }
 
     if (user.userName.length < 2) {
-      setErrorUser(true)
-      setMsjUser("El usuario es requerido")
+      setErrorUser(true);
+      setMsjUser("El usuario es requerido");
     }
     // else  {
     //   setErrorUser(false)
     //   setMsjUser("")
     // }
-  
-    else if(username.includes(e.target.value)){
-      setErrorUser(true)
-      setMsjUser("el usuario ya esta registrado")
+    else if (username.includes(e.target.value)) {
+      setErrorUser(true);
+      setMsjUser("el usuario ya esta registrado");
+    } else {
+      setErrorUser(false);
+      setMsjUser("");
     }
-    else  {
-      setErrorUser(false)
-      setMsjUser("") }
-    
-
   }
 
   function onInputChangeFirebase(e) {
@@ -297,21 +298,20 @@ export default function LandingPage() {
       [e.target.name]: e.target.value,
     });
 
-    if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email))) {
-      setErrorEmail(true)
-      setMsjEmail("Debe ingresar un email valido")
-    } 
-    else if(userEmailStudent.includes(e.target.value)){
-      setErrorEmail(true)
-      setMsjEmail("el email ya esta registrado")
-    }
-    else if(userEmailTeacher.includes(e.target.value)){
-      setErrorEmail(true)
-      setMsjEmail("el email ya esta registrado")
-    }
-    else {
-      setErrorEmail(false)
-      setMsjEmail("")
+    if (
+      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(dataFirebase.email)
+    ) {
+      setErrorEmail(true);
+      setMsjEmail("Debe ingresar un email valido");
+    } else if (userEmailStudent.includes(e.target.value)) {
+      setErrorEmail(true);
+      setMsjEmail("el email ya esta registrado");
+    } else if (userEmailTeacher.includes(e.target.value)) {
+      setErrorEmail(true);
+      setMsjEmail("el email ya esta registrado");
+    } else {
+      setErrorEmail(false);
+      setMsjEmail("");
     }
 
     if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/.test(dataFirebase.password)) {
@@ -367,7 +367,7 @@ export default function LandingPage() {
           //  console.log(userCredential.user);
           dispatch(postUser(user))
             .then(() => {
-              window.localStorage.setItem("userName", user.userName)
+              window.localStorage.setItem("userName", user.userName);
               navigate("/home/student");
               window.location.reload();
             })
@@ -392,12 +392,12 @@ export default function LandingPage() {
           });
           console.log(typeUser);
           if (typeUser.type === "student") {
-            window.localStorage.setItem("userName", typeUser.userName)
+            window.localStorage.setItem("userName", typeUser.userName);
             localStorage.setItem("type", "student");
             navigate("/home/student");
             window.location.reload();
           } else if (typeUser.type === "teacher") {
-            window.localStorage.setItem("userName", typeUser.userName)
+            window.localStorage.setItem("userName", typeUser.userName);
             localStorage.setItem("type", "teacher");
             navigate("/home/teacher");
             window.location.reload();
@@ -424,13 +424,13 @@ export default function LandingPage() {
             } else {
               if (userGoogle[0].type === "student") {
                 window.localStorage.setItem("type", userGoogle[0].type);
-                window.localStorage.setItem("userName", userGoogle[0].userName)
+                window.localStorage.setItem("userName", userGoogle[0].userName);
                 navigate("/home/student");
                 window.location.reload();
               }
               if (userGoogle[0].type === "teacher") {
                 window.localStorage.setItem("type", userGoogle[0].type);
-                window.localStorage.setItem("userName", userGoogle[0].userName)
+                window.localStorage.setItem("userName", userGoogle[0].userName);
                 navigate("/home/teacher");
                 window.location.reload();
               }
@@ -467,7 +467,7 @@ export default function LandingPage() {
                 })
               )
                 .then(() => {
-                  window.localStorage.setItem("userName", userNameSplit[0])
+                  window.localStorage.setItem("userName", userNameSplit[0]);
                   window.localStorage.setItem("sessionUser", userFirebase.uid);
                   window.localStorage.setItem("type", user.type);
                   navigate("/home/student");
@@ -478,12 +478,12 @@ export default function LandingPage() {
                 });
             } else {
               if (userGoogle[0].type === "student") {
-                window.localStorage.setItem("userName", userGoogle[0].userName)
+                window.localStorage.setItem("userName", userGoogle[0].userName);
                 navigate("/home/student");
                 window.location.reload();
               }
               if (userGoogle[0].type === "teacher") {
-                window.localStorage.setItem("userName", userGoogle[0].userName)
+                window.localStorage.setItem("userName", userGoogle[0].userName);
                 navigate("/home/teacher");
                 window.location.reload();
               }
@@ -501,7 +501,6 @@ export default function LandingPage() {
       });
   };
 
-
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -511,12 +510,12 @@ export default function LandingPage() {
 
     setOpen(false);
   };
-function handleChangeError(e){
-  setOpen(true)
-  setTimeout(() => {
-    setOpen(false);
-  }, 2000);
-}
+  function handleChangeError(e) {
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 2000);
+  }
 
   return (
     <div className={styles.containerBackground}>
@@ -738,17 +737,17 @@ function handleChangeError(e){
                       </FormControl>
                     </div> */}
                     {/* <Link className={styles.btnCrear} to="/home"> */}
-                   {/*  {!errorFirst && !errorLast && !errorUser
+                    {/*  {!errorFirst && !errorLast && !errorUser
                       && !errorEmail && !errorpass && !errorPassConf &&
                        dataFirebase.passwordConfirm.length > 7?*/}
-                     
-  
-                             
-                     { !errorFirst && !errorLast && !errorUser && !errorEmail && 
-                     !errorpass && !errorPassConf
 
-                     ?
-                     <StyleButtonCrearCuenta 
+                    {!errorFirst &&
+                    !errorLast &&
+                    !errorUser &&
+                    !errorEmail &&
+                    !errorpass &&
+                    !errorPassConf ? (
+                      <StyleButtonCrearCuenta
                         onClick={(e) => registrarUsuario(e)}
                         type="button"
                         className={styles.btnCrearCuenta}
@@ -757,8 +756,8 @@ function handleChangeError(e){
                       >
                         Crear cuenta
                       </StyleButtonCrearCuenta>
-
-                    :  <StyleButtonCrearCuenta 
+                    ) : (
+                      <StyleButtonCrearCuenta
                         onClick={(e) => handleChangeError(e)}
                         type="button"
                         className={styles.btnCrearCuenta}
@@ -766,10 +765,11 @@ function handleChangeError(e){
                         color="primary"
                       >
                         Crear cuenta
-                      </StyleButtonCrearCuenta>}
-                      {/* : null} */}
-                    {/*  <StyleButtonRegistrarseConGoogle
-                      onClick={(e) => ingresarUsuarioConGoogle(e)}
+                      </StyleButtonCrearCuenta>
+                    )}
+                    {/* : null} */}
+                    <StyleButtonRegistrarseConGoogle
+                      onClick={(e) => RegistrarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
                       variant="contained"
@@ -779,9 +779,15 @@ function handleChangeError(e){
                     </StyleButtonRegistrarseConGoogle>
                     {/* </Link> */}
 
-                    <StyleAlert className={styles.alert} open={open} onClose={handleClose}>
-                  <Alert className={styles.btnAlertt}severity="success">Revise los datos y vuelva a intentarlo</Alert>
-                </StyleAlert>
+                    <StyleAlert
+                      className={styles.alert}
+                      open={open}
+                      onClose={handleClose}
+                    >
+                      <Alert className={styles.btnAlertt} severity="success">
+                        Revise los datos y vuelva a intentarlo
+                      </Alert>
+                    </StyleAlert>
                   </form>
                 </div>
               </div>

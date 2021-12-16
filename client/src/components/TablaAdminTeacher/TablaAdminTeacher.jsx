@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 // import { green } from '@material-ui/core/colors';
 import style from './TablaAdminTeacher.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {  getProfesores,  deleteUser,} from '../../actions';
+import {  getProfesores, deleteUserAll,} from '../../actions';
 //importar la tabla
 import {makeStyles} from '@material-ui/core/styles';
 // import { makeStyles } from '@material-ui/core/styles';
@@ -126,7 +126,7 @@ export default function TablaAdminTeacher () {
   );
 
   function onClickRechazar (id) {
-    dispatch (deleteUser (id));
+    dispatch (deleteUserAll(id));
   }
 
   return (

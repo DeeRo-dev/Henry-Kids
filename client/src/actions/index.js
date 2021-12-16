@@ -42,11 +42,12 @@ export function filterCategory(id) {
   };
 }
 
-
 export function filterCategoryAndDifficulty(categoryId, difficulty) {
   return async (dispatch) => {
     try {
-      const json = await axios.get(`/class?filter=category&category_id=${categoryId}&second_filter=difficulty&difficulty=${difficulty}`);
+      const json = await axios.get(
+        `/class?filter=category&category_id=${categoryId}&second_filter=difficulty&difficulty=${difficulty}`
+      );
       return dispatch({
         type: "FILTER_BY_CATEGORY_AND_DIFFICULTY",
         payload: json.data,
@@ -158,7 +159,7 @@ export function getCategory() {
 export function getCategoryAll() {
   return async function (dispatch) {
     var info = await axios.get("/category");
-   
+
     return dispatch({
       type: "GET_CATEGORY_ALL",
       payload: info.data,
@@ -301,9 +302,10 @@ export function deleteComment(idComment) {
     dispatch({ type: "DELETE_COMMENT" });
   };
 }
-export function deleteUser(id) {
+export function deleteUserAll(id) {
   return async function (dispatch) {
     let response = await axios.delete(`/user/${id}`);
+
     dispatch({
       type: "DELETE_USER",
       data: id,

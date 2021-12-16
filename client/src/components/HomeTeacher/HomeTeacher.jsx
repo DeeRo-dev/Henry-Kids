@@ -83,7 +83,9 @@ export default function HomeTeacher() {
           paginate={Paginate}
         />
       </div>
+      <div className={styles.footer}>
   <Footer/>
+  </div>
     </div>
   );
 }

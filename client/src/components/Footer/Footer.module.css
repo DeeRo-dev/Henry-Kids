@@ -1,37 +1,50 @@
-.contentFooter{
-  display: grid;
-  color: #000;
-  grid-template-columns: repeat(2 , 1fr);
-  margin-top: 200px;
-   /* background: #020101; */
-  background-image: url(https://img.freepik.com/foto-gratis/textura-fondo-pared-ladrillo-amarillo_1372-86.jpg?size=626&ext=jpg);
-  width: 100%;
-  height: 170px;
+.contentFooter {
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: initial;
+  margin-top: 10px;
+  text-align: center;
+  position: absolute;
+  background-image: url(https://i.imgur.com/GmQMoC5.png);
+  width: 100vw;
+  height: 110px;
 }
-.contentDer{
-  margin: auto;
+.contentDer {
+  margin-top: 15px;
+  margin-left: 20px;
+  /* float: left; */
 }
-.contenNomb{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  height: 90px;
-  width: auto;
-  margin: auto;
+.contenNomb {
+  height: 50px;
+  width: 600px;
+  margin-left: 20px;
 }
-.nombDes{
-  height: 150px;
+.derechos{
+  font-weight: bold;
+}
+.contenNomb a{
+  color: #415346;
+  height: 50px;
   width: 600px;
   margin: auto;
+
+}
+.des{
+  color: #415346;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 .nombres:hover{
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-  background: rgba(255, 238, 51, 0.295);
- 
+  border-left: 1px solid rgb(243, 234, 234);
+  border-right: 1px solid rgb(247, 243, 243);
+  background: white; 
 }
-.nombres{
+/* .nombres{
   width: 150px;
   color: #000;
   margin: auto;
-}
+} */

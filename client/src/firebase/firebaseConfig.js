@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  updatePassword
+  updatePassword,
+  deleteUser
 } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable} from "firebase/storage"
 // TODO: Add SDKs for Firebase products that you want to use
@@ -39,5 +40,6 @@ export {
   storage,
   ref,
   getDownloadURL,
-  uploadBytesResumable
+  uploadBytesResumable,
+  deleteUser
 };

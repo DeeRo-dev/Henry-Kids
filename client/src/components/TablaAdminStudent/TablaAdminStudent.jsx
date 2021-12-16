@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getAlumnos,deleteUser } from "../../actions";
+import { getAlumnos, deleteUserAll } from "../../actions";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -69,7 +69,7 @@ const useStyles = makeStyles ({
   const rows = allAlumnos.map((user) => createData(user.lastName, user.firstName, user.id, user.email, user.type))
 
   function onClickRechazar(id) {
-    dispatch(deleteUser(id));
+    dispatch(deleteUserAll(id));
   }
 
   return (

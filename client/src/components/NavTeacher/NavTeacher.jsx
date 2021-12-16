@@ -99,9 +99,9 @@ export default function NavTeacher() {
           </button>
         </div> */}
 
-      <Link to="/interaction">
+      {/* <Link to="/interaction">
         <button className={styles.inter}>Interacción</button>
-      </Link>
+      </Link> */}
       <div className={styles.contenCat}>
         <select
           name=""
