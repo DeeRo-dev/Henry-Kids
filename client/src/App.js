@@ -46,12 +46,15 @@ const teacherRoutes = [
 
 const admin = [
   { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/*", element: <HomeAdmin /> },
   { path: "/home/admin/FormCategory", element: <FormCategory /> },
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
 ];
 
 const confirmacionRoutes = [
   { path: "/home/confirmacion", element: <Confirmation /> },
+  { path: "/Verificacion/:id", element: <Verificacion /> },
+  { path: "/*", element: <LandingPage /> },
 ];
 
 const publicRoutes = [
