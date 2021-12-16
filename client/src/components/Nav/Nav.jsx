@@ -187,7 +187,7 @@ export default function Nav() {
             <div className={styles.contenCat}>
               <select
                 name=""
-                id=""
+                id="select-category"
                 className={styles.select}
                 onChange={(e) => handleCategory(e)}
               >
@@ -213,7 +213,7 @@ export default function Nav() {
             <div>
               <select
                 name=""
-                id=""
+                id="select-difficulty"
                 className={styles.select}
                 onChange={(e) => handleDifficulty(e)}
               >
