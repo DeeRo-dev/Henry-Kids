@@ -768,8 +768,8 @@ function handleChangeError(e){
                         Crear cuenta
                       </StyleButtonCrearCuenta>}
                       {/* : null} */}
-                    {/*  <StyleButtonRegistrarseConGoogle
-                      onClick={(e) => ingresarUsuarioConGoogle(e)}
+                     <StyleButtonRegistrarseConGoogle
+                      onClick={(e) => RegistrarUsuarioConGoogle(e)}
                       type="button"
                       className={styles.btnCrearCuenta}
                       variant="contained"
