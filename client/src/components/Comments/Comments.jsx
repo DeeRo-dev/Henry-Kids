@@ -44,7 +44,7 @@ export default function Comments({ detail }) {
 
   const toggleModalBorrarComentario = (event, id) => {
     event.preventDefault();
-     if (!modalBorrarComentario) {
+    /* if (!modalEditarComentario) {
       const comment = detail.comments.find(
         (element) => element.id === parseInt(event.target.name)
       );
@@ -53,7 +53,7 @@ export default function Comments({ detail }) {
         id: comment.id,
         name: comment.name,
       });
-    } 
+    } */
     setCurrentId(id);
     setModalBorrarComentario(!modalBorrarComentario);
   };
@@ -152,7 +152,7 @@ export default function Comments({ detail }) {
               </div>
               <p className={styles.comentario}>{e.name}</p>
               <div className={styles.botones}>
-                {/* <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button> */}
+                <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button>
 
                 {/*EDITAR COMENTARIO*/}
                 <button
