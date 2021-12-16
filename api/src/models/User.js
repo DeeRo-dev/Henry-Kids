@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
         },
       },
         photo: {
-        type: DataTypes.BLOB ,
+        type: DataTypes.STRING,
         validate: {
           isUrl: true
         }
