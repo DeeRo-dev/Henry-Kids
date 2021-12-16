@@ -83,7 +83,7 @@ export default function LandingPage() {
     firstName: "",
     lastName: "",
     userName: "",
-    type: "student",
+    type: "confirmacion",
     email: "",
   });
   const [dataFirebase, setDataFirebase] = useState({
@@ -368,7 +368,7 @@ export default function LandingPage() {
           dispatch(postUser(user))
             .then(() => {
               window.localStorage.setItem("userName", user.userName);
-              navigate("/home/student");
+              navigate("/home/confirmacion");
               window.location.reload();
             })
             .catch((e) => {
@@ -396,13 +396,25 @@ export default function LandingPage() {
             localStorage.setItem("type", "student");
             navigate("/home/student");
             window.location.reload();
-          } else if (typeUser.type === "teacher") {
+          }
+          if (typeUser.type === "teacher") {
             window.localStorage.setItem("userName", typeUser.userName);
             localStorage.setItem("type", "teacher");
             navigate("/home/teacher");
             window.location.reload();
           }
-          
+          if (typeUser.type === "confirmacion") {
+            window.localStorage.setItem("userName", typeUser.userName);
+            localStorage.setItem("type", "confirmacion");
+            navigate("/home/confirmacion");
+            window.location.reload();
+          }
+          if (typeUser.type === "admin") {
+            window.localStorage.setItem("userName", typeUser.userName);
+            localStorage.setItem("type", "admin");
+            navigate("/home/admin");
+            window.location.reload();
+          }
         });
       })
       .catch((error) => {
@@ -435,6 +447,18 @@ export default function LandingPage() {
                 navigate("/home/teacher");
                 window.location.reload();
               }
+              if (userGoogle[0].type === "confirmacion") {
+                window.localStorage.setItem("type", userGoogle[0].type);
+                window.localStorage.setItem("userName", userGoogle[0].userName);
+                navigate("/home/confirmacion");
+                window.location.reload();
+              }
+              if (userGoogle[0].type === "admin") {
+                window.localStorage.setItem("type", userGoogle[0].type);
+                window.localStorage.setItem("userName", userGoogle[0].userName);
+                navigate("/home/admin");
+                window.location.reload();
+              }
             }
           });
         });
@@ -463,7 +487,7 @@ export default function LandingPage() {
                   firstName: "Registrado con Google",
                   lastName: "Registrado con Google",
                   userName: userNameSplit[0],
-                  type: "student",
+                  type: "confirmacion",
                   email: userFirebase.email,
                 })
               )
@@ -471,7 +495,7 @@ export default function LandingPage() {
                   window.localStorage.setItem("userName", userNameSplit[0]);
                   window.localStorage.setItem("sessionUser", userFirebase.uid);
                   window.localStorage.setItem("type", user.type);
-                  navigate("/home/student");
+                  navigate("/home/confirmacion");
                   window.location.reload();
                 })
                 .catch((e) => {
@@ -486,6 +510,11 @@ export default function LandingPage() {
               if (userGoogle[0].type === "teacher") {
                 window.localStorage.setItem("userName", userGoogle[0].userName);
                 navigate("/home/teacher");
+                window.location.reload();
+              }
+              if (userGoogle[0].type === "admin") {
+                window.localStorage.setItem("userName", userGoogle[0].userName);
+                navigate("/home/admin");
                 window.location.reload();
               }
             }
@@ -567,7 +596,7 @@ export default function LandingPage() {
                   x
                 </button>
                 <div>
-                  <form action="" name="f1">
+                  <form action="" name="f1" className={styles.form}>
                     <input
                       onChange={(e) => onInputChangeFirebase(e)}
                       name="email"

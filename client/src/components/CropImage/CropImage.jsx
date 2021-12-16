@@ -27,7 +27,7 @@ const StyleButtonElegir = withStyles({
   root: {
     paddingRight: "10px",
     paddingLeft: "10px",
-    marginBottom: "50px",
+    marginBottom: "0px",
     backgroundColor: "var(--amarillo)",
     fontFamily: "montserrat",
     fontWeight: "bold",

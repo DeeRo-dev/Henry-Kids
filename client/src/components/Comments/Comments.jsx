@@ -53,7 +53,7 @@ export default function Comments({ detail }) {
         id: comment.id,
         name: comment.name,
       });
-    }
+    } 
     setCurrentId(id);
     setModalBorrarComentario(!modalBorrarComentario);
   };
@@ -133,8 +133,7 @@ export default function Comments({ detail }) {
     dispatch(deleteComment(comment.id)).then(() => {
       window.location.reload()
     });
-    /*  console.log(e.target.name); */
-    /* console.log(comment); */
+
   }
 
   // function DescriptionAlerts() {}
@@ -241,12 +240,11 @@ export default function Comments({ detail }) {
             </button> */}
               <AlertTitle>¿Desea eliminar el comentario?</AlertTitle>
             </StyleAlert>
-            <button /* className={styles.btn2} */ onClick={toggleModalBorrarComentario} className={styles.buttons}>Cancelar</button>
+            <button   name={currentId} /* className={styles.btn2} */onClick={(e) => onSubmitDelete(e)}  className={styles.buttons}>Confirmar</button>
             <button
-              name={currentId}
-              /* className={styles.btn1} */ onClick={(e) => onSubmitDelete(e)} className={styles.buttons}
+              /* className={styles.btn1} */onClick={toggleModalBorrarComentario} className={styles.buttons}
             >
-              Confirmar
+              Cancelar
             </button>
           </div>
         </div>
