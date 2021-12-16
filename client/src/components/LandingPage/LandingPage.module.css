@@ -129,11 +129,13 @@ html {
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;
+  height: auto;
 }
 
 .modal_content_Ingresar:hover {
   box-shadow: 0px 0px 25px rgb(255, 237, 179);
   transform: translate(-50%, -41%);
+ 
 }
 
 .containerSelect {
