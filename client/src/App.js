@@ -67,16 +67,16 @@ function App() {
                 return <Route path={e.path} element={e.element} />;
               })
             : type === "teacher"
-            ? teacherRoutes.map((e) => {
+              ? teacherRoutes.map((e) => {
                 return <Route path={e.path} element={e.element} />;
               })
-            : type === "confirmacion"
-            ? confirmacionRoutes.map((e) => {
-                return <Route path={e.path} element={e.element} />;
-              })
-            : publicRoutes.map((e) => {
-                return <Route path={e.path} element={e.element} />;
-              })}
+              : type === "confirmacion"
+                ? confirmacionRoutes.map((e) => {
+                  return <Route path={e.path} element={e.element} />;
+                })
+                : publicRoutes.map((e) => {
+                  return <Route path={e.path} element={e.element} />;
+                })}
         </Routes>
       </div>
     </BrowserRouter>
