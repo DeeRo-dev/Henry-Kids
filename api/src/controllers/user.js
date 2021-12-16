@@ -14,25 +14,25 @@ async function createUser(req, res, next) {
       lastName,
       userName,
       type,
-      type: "confirmacion",
       email,
       photo,
     });
+
     // aca le ponemos mayuscula a la primer letra del nombre.
     let newFirstName =
       user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
 
     // aca leemos el archivo html. y con el replace le decimos que cambie FIRST_NAME que se encuentra en el archivo, por el nosbre que se pasa por body firstName. (de esta forma hacemos el mail mas personal)
-    let html_template = fs.readFileSync("./src/mails/templates/confirmacion.html", {
+    let html_template = fs.readFileSync("./src/mails/templates/welcome.html", {
       encoding: "utf8",
       flag: "r",
     });
     html_template = html_template.replace("FIRST_NAME", newFirstName);
 
     
-    let rute =`<a href="http://localhost:3000/Verificacion/${user.userName}">Link</a>`
+    // let rute =`<a href="http://localhost:3000/Verificacion/${user.userName}">Link</a>`
     
-    html_template = html_template.replace("RUTA_CONF", rute);
+    // html_template = html_template.replace("RUTA_CONF", rute);
 
     //aca le pasamos a la funcion, el email del usuario, el asunto, el template, y si es html o text.
     sendMail(user.email, "Confirma tu dirección de correo electrónico", html_template, "html");
