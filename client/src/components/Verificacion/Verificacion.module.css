@@ -1,0 +1,16 @@
+  .imagen {
+    width: 500px;
+    border-radius: 50px;
+  }
+  
+  .text {
+    color: orange;
+    font: 1.5em Poppins;
+  }
+  
+  .ir {
+    color: #7cb4f8;
+    font: 1.2em Poppins;
+    text-decoration: underline;
+  }
+  
