@@ -1,0 +1,24 @@
+.allComponent {
+  margin: 100px;
+}
+
+.confirmation {
+  border-radius: 50px;
+  height: 450px;
+}
+
+.imagen {
+  width: 500px;
+  border-radius: 50px;
+}
+
+.Title {
+  color: orange;
+  font: 1.5em Poppins;
+}
+
+.ir {
+  color: #7cb4f8;
+  font: 1.2em Poppins;
+  text-decoration: underline;
+}
