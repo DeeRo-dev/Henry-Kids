@@ -101,7 +101,8 @@ html {
   padding: 50px;
   border-radius: 3px;
   float: left;
-  width: 300px;
+  height: 500px;
+  width: 250px;
  /*  height: 400px; */
   text-align: center;
   border-radius: 20px;
@@ -125,7 +126,7 @@ html {
   border-radius: 3px;
   float: left;
   width: 200px;
-  height: 190px;
+  height: 250px;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;

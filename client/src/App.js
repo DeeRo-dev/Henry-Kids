@@ -27,8 +27,6 @@ const studentRoutes = [
   { path: "/home/student/profile", element: <ProfileStudent /> },
   { path: "/home/student/register-teacher", element: <RegisterTeacher /> },
   { path: "/home/student/fav", element: <FavsContainer /> },
-  { path: "/home/admin", element: <HomeAdmin /> },
-  { path: "/home/admin/FormCategory", element: <FormCategory /> },
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
   { path: "home/create-clase", element: <FormularioClase /> },
   { path: "/Verificacion/:id", element: <Verificacion /> },
@@ -40,10 +38,15 @@ const teacherRoutes = [
   { path: "home/modify/:id", element: <ModifyClass /> },
   { path: "/*", element: <HomeTeacher /> },
   { path: "/cropImage", element: <CropImage /> },
-  { path: "/home/admin", element: <HomeAdmin /> },
   { path: "/user/solicitud/lista", element: <Solicitudes /> },
   { path: "/home/teacher/:id", element: <ClassDetail /> },
   { path: "/Verificacion/:id", element: <Verificacion /> },
+];
+
+const admin = [
+  { path: "/home/admin", element: <HomeAdmin /> },
+  { path: "/home/admin/FormCategory", element: <FormCategory /> },
+  { path: "/user/solicitud/lista", element: <Solicitudes /> },
 ];
 
 const confirmacionRoutes = [
@@ -74,6 +77,10 @@ function App() {
             ? confirmacionRoutes.map((e) => {
                 return <Route path={e.path} element={e.element} />;
               })
+            : type === "admin"
+            ? admin.map((e) => {
+              return <Route path={e.path} element={e.element} />;
+            })
             : publicRoutes.map((e) => {
                 return <Route path={e.path} element={e.element} />;
               })}
