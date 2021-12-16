@@ -3,7 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import styles from "./Comments.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useDispatch } from "react-redux";
-import { editComment, deleteComment, responseComment } from "../../actions";
+import { editComment, deleteComment, responseComment, getClassById } from "../../actions";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/styles";
 import { Button } from "@material-ui/core";
@@ -48,6 +48,9 @@ export default function Comments({ detail }) {
       const comment = detail.comments.find(
         (element) => element.id === parseInt(event.target.name)
       );
+       dispatch(deleteComment(comment.id)).then(() => {
+      /*window.location.reload()*/dispatch(getClassById(detail.id))
+    });
       setOldComment(comment.name);
       setNewComment({
         id: comment.id,
