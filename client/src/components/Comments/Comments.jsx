@@ -44,7 +44,7 @@ export default function Comments({ detail }) {
 
   const toggleModalBorrarComentario = (event, id) => {
     event.preventDefault();
-    /* if (!modalEditarComentario) {
+     if (!modalBorrarComentario) {
       const comment = detail.comments.find(
         (element) => element.id === parseInt(event.target.name)
       );
@@ -53,7 +53,7 @@ export default function Comments({ detail }) {
         id: comment.id,
         name: comment.name,
       });
-    } */
+    } 
     setCurrentId(id);
     setModalBorrarComentario(!modalBorrarComentario);
   };
