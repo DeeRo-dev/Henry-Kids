@@ -14,7 +14,7 @@ export default function Footer(){
    <div className={style.contenNomb}>
     <a className={style.nombres} target='_blank' href='https://www.linkedin.com/in/felipesanchezfullstack/'>Felipe Sanchez</a>
     <a className={style.nombres} target='_blank' href='https://www.linkedin.com/in/derek-cabrera-fullstack/'>Derek Cabrera</a>
-    <a className={style.nombres} target='_blank'  href='www.linkedin.com/in/gaston-ripamonti'>Gaston Ripamonti</a>
+    <a className={style.nombres} target='_blank'  href='https://www.linkedin.com/in/gaston-ripamonti/'>Gaston Ripamonti</a>
     <a className={style.nombres} target='_blank'  href='https://www.linkedin.com/in/ignaciopaezz/'>Ignacio Páez</a>
     <a className={style.nombres} target='_blank'  href='https://www.linkedin.com/in/isabel-aguiar-dev/'>Isabel Aguiar</a>
     <a className={style.nombres} target='_blank'  href='https://www.linkedin.com/in/yanina-paola-brancolino-fullstack-developer/'>Yanina Brancolino</a>
