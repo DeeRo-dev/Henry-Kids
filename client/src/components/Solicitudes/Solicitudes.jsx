@@ -90,26 +90,26 @@ useEffect(()=> {
       align: 'right',
       format: (value) => value.toFixed(2),
     },
-    {
-      id: 'imgDni',
-      label: 'Img-DNI',
-      minWidth: 70,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
-    },
+    // {
+    //   id: 'imgDni',
+    //   label: 'Img-DNI',
+    //   minWidth: 70,
+    //   align: 'right',
+    //   format: (value) => value.toLocaleString('en-US'),
+    // },
  
   ];
     // let acceptIcon = <CheckCircleIcon className={style.btnCheck}  onClick={(rows)=>onClickAccept(rows)}/>
     // let rejectIcon = <CancelIcon className={style.btnClose} onClick={onClickRechazar}/>
   
-  function createData(lastName, firstName, id, email,type,  dni, linkedin, cuentaBancaria , dniImag) {
+  function createData(lastName, firstName, id, email,type,  dni, linkedin, cuentaBancaria ) {
     
-    return {lastName,firstName,  id, linkedin, dni, type, cuentaBancaria , dniImag, email };
+    return {lastName,firstName,  id, linkedin, dni, type, cuentaBancaria , email };
   }
   
   
   const rows = allSolicitudes.map((user)=> createData(user.lastName, user.firstName, user.id, user.email,  user.type,
-    user.dni, user.linkedin, user.cuentaBancaria, user.dniImag) ) 
+    user.dni, user.linkedin, user.cuentaBancaria ) ) 
 
 
 

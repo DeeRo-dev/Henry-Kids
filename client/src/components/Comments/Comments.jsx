@@ -152,7 +152,7 @@ export default function Comments({ detail }) {
               </div>
               <p className={styles.comentario}>{e.name}</p>
               <div className={styles.botones}>
-                {/* <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button> */}
+                <button name={e.id} onClick={(event) => toggleModalResponderComentario(event)}>Responder</button>
 
                 {/*EDITAR COMENTARIO*/}
                 <button
