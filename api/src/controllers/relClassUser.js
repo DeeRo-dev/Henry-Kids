@@ -10,7 +10,6 @@ const Sequelize = require("sequelize");
 
 async function relClassUser(req, res, next) {
   // res.send({ mensage: "No existe un usuario con ese nombre" })
-
   try {
     const { idUs, idClas } = req.params;
     const user = await User.findByPk(idUs);
@@ -27,7 +26,7 @@ async function getAlu(req, res, next) {
       id: req.params.idUs,
       type: "student",
     },
-    include: [{ model: Class, include: Category }],
+    include: [{ model: Class, include:  [Category,Evaluation] }],
   });
   res.status(200).send(favoritos);
 }
@@ -38,7 +37,7 @@ async function getProf(req, res, next) {
       id: req.params.idUs,
       type: "teacher",
     },
-    include: [{ model: Class, include: Category }],
+    include: [{ model: Class, include: [Category,Evaluation] }],
   });
   res.status(200).send(cursos);
 }

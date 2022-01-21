@@ -5,35 +5,14 @@ import { Link } from "react-router-dom";
 import { styled } from "@material-ui/core";
 import styles from "./Home.module.css";
 import Card from "../Card/Card.jsx";
-import { editUser, getAllClasses, getFavorites } from "../../actions/index.js";
+import { editUser, getAllClasses, getFavorites, getUser } from "../../actions/index.js";
 import Paged from "../Paged/Paged.jsx";
-
+import Footer from "../Footer/Footer.jsx"
 
 export default function Home() {
-  
+
   const dispatch = useDispatch();
-  const allClasses = useSelector((state) => state.allClasses);
- 
-  let [page, setPage] = useState(1);
-  let cardsInPage = 8;
 
-  let currentPage;
-  let indexLastPage = page * cardsInPage;
-  let indexFirstPage = indexLastPage - cardsInPage;
-/* 
-  currentPage && currentPage.length > 9
-    ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
-    : (currentPage = allClasses);
- */
-    if (allClasses.length > 8) {
-      currentPage = allClasses.slice(indexFirstPage, indexLastPage);
-  } else currentPage = allClasses
-
-    useEffect(() => {
-      setPage(1);
-    }, []); 
-  
-  
   useEffect(() => {
     dispatch(getAllClasses());
     dispatch(getFavorites())
@@ -44,8 +23,41 @@ export default function Home() {
     );
   }, [dispatch]);
 
+  const allClasses = useSelector((state) => state.allClasses);
+  const favorites = useSelector(state => state.favorites)
 
-  allClasses.length > 9
+  useEffect(() => {
+    dispatch(getUser(window.localStorage.sessionUser));
+  }, [dispatch]);
+
+/*    if (favorites) {
+    for (let i = 0; i < favorites.length; i++) {
+      for (let j = 0; j < allClasses.length; j++) {
+        if (favorites[i].id === allClasses[i].id) {
+          allClasses[i].isFav= true;
+        } else allClasses[i].isFav= false
+      }
+    }
+  }
+ 
+ */
+  let [page, setPage] = useState(1);
+  let cardsInPage = 8;
+
+  let currentPage;
+  let indexLastPage = page * cardsInPage;
+  let indexFirstPage = indexLastPage - cardsInPage;
+
+  if (allClasses.length > 8){
+    currentPage = allClasses.slice(indexFirstPage, indexLastPage)
+  } else currentPage = allClasses;
+
+  useEffect(() => {
+    setPage(1);
+  }, []);
+
+
+  allClasses.length > 8
     ? (currentPage = allClasses.slice(indexFirstPage, indexLastPage))
     : (currentPage = allClasses);
 
@@ -61,30 +73,33 @@ export default function Home() {
       </div>
       <div className={styles.cards}>
         {currentPage?.map((e) => {
+         
           return (
             <div key={e.id}>
-                <Card
-                  id={e.id}
-                  title={e.title}
-                  category={e.categories[0].name}
-                  description={e.description}
-                  video_link={e.video_link}
-                  difficulty={e.difficulty}
-                  game_link={e.game_link}
-                  valoration={e.Evaluations[0].Evaluation}
-                />{" "}
+              <Card
+                id={e.id}
+                title={e.title}
+                isFav={e.isFav}
+                categories={e.categories[0]?.name}
+                description={e.description}
+                video_link={e.video_link}
+                difficulty={e.difficulty}
+                game_link={e.game_link}
+                valoration={e.Evaluations[0].Promedio} 
+              />{" "}
             </div>
-          );
+          );  
         })}
       </div>
 
-      <div>
+      <div className={styles.paged}>
         <Paged
           cardsInPage={cardsInPage}
           totalElements={allClasses.length}
           paginate={Paginate}
         />
       </div>
+        <Footer/>
     </div>
   );
 }

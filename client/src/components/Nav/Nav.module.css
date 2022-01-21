@@ -37,33 +37,47 @@
 } */
 
 
+.perfil{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-right: 15px;
+}
+
+.perfil h4{
+  margin:0px;
+  user-select: none;
+  cursor: pointer;
+}
+
 .blue {
   color: #ffffff;
   border: 2px #ff8d00 solid;
   cursor: pointer;
-  margin: 70px;
   background-color: #ff8d00;
   border-radius: 5px;
   text-decoration: none;
   padding: 5px;
   font-size: 18px;
-  transition: .3s;
-  -webkit-transition: .3s;
-  -moz-transition: .3s;
-  -o-transition: .3s;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
   display: inline-block;
   margin-right: 35px;
 }
 .blue:hover {
-  background-color:  #ffffff;
+  background-color: #ffffff;
   border: 2px #ff8d00 solid;
-  color: #ff8d00
-} 
+  color: #ff8d00;
+}
 
 .nav {
   display: flex;
-  width:100%;
-  height: 80px;
+  width: 100%;
+  height: 100px;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 1px 10px -0px var(--amarillo);
@@ -117,23 +131,21 @@
   border: none;
 } */
 
-
-.imagen{
-    display: inline-block;
-    position: relative;
-    width: 60px;
-    height: 60px;
-    overflow: hidden;
-    border-radius: 50%;
-    margin-right: 20px;
-    cursor:pointer
+.imagen {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
-
-.img{
+.img {
   width: auto;
   height: 100%;
-  float:right;
+  float: right;
 }
 .contentBoton {
   grid-column: 7/8;
@@ -165,10 +177,10 @@
   cursor: pointer;
   box-shadow: 0 4px 3px -2px #cea74a;
 }
-select:focus{
-  outline:none;
-} 
-.selects{
+select:focus {
+  outline: none;
+}
+.selects {
   font-size: 10px;
   /* color: white; */
 }
@@ -182,8 +194,8 @@ select:focus{
   margin-right: 0;
   border-radius: 4px;
 }
-.buscador{
-  background:none;
+.buscador {
+  background: none;
   border: none;
   cursor: pointer;
 }
@@ -195,7 +207,6 @@ select:focus{
   height: 80%;
   font-size: 16px;
   font-family: Roboto;
-
 }
 .inputSearch::placeholder {
   color: rgb(155, 155, 155);
@@ -209,12 +220,9 @@ select:focus{
   background: transparent;
   border: none;
 }
-.butonLoginTeach{
- background: transparent;
-
+.butonLoginTeach {
+  background: transparent;
 }
 /* 
 #FFD200 (AMARILLO)
 #FF8D00 (NARANJA) */
-
-

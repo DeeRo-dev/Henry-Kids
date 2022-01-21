@@ -36,31 +36,30 @@ export default function FavsContainer() {
         setPage(num);
     }
 
-    /* function removeFav */
+    
 
     return (
         <div className={styles.home}>
-            <Nav/>
+           
             <div className={styles.cards}>
                 {currentPage?.map(e => {
                     return (
                         <div key={e.id}>
                             {' '}
-                            <Link to={"/home/student/" + e.id}>
+                            {/* <Link to={"/home/student/" + e.id}> */}
                                 {' '}
                                 <Card
                                     id={e.id}
                                     title={e.title}
-                                    category={e.category}
+                                    categories={e.categories[0].name}
                                     description={e.description}
                                     video_link={e.video_link}
                                     difficulty={e.difficulty}
                                     game_link={e.game_link}
-                                    valoration={e.valoration}
-
+                                    valoration={e.Evaluations[0].Promedio}
                                 />
                                 {' '}
-                            </Link>
+                           {/*  </Link> */}
                         </div>
                     );
                 })}

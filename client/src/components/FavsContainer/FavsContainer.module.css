@@ -5,7 +5,16 @@
     flex-wrap: wrap;
     width: 100vw;
     height: 100vh;
-    margin-top: 100px
+    margin-top: 10px
   }
   
-  
+  .home {
+    background-image: url(https://i.imgur.com/sUhumGM.png);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 72vh;
+    width: 100vw;
+  }

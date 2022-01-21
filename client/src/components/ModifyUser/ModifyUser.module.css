@@ -8,9 +8,10 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 543px;
-  width: 2000px;
+  height: 72vh;
+  width: 100vw;
 }
+
 
 /* .form {
   font: 1em Helvetica;
@@ -155,7 +156,7 @@
   border-radius: 3px;
   float: left;
   width: 430px;
-  height: 230px;
+  /* height: 230px; */
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;

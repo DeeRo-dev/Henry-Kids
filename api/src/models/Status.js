@@ -1,23 +1,20 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const fs = require('fs');
+
+
 
 module.exports = (sequelize) => {
 
-  sequelize.define('recommendation', {
+  sequelize.define('status', {
      name: {
-      type: DataTypes.TEXT,
-      unique: true,
+      type: DataTypes.ENUM([ 'in progress', 'done', 'deleted']),
       allowNull: false
     },
     id: {
       type: DataTypes.INTEGER,
+      isUnique: true,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    },{
-      timestamps: false,
-      createdAt: false,
-      updatedAt: false,
     });
 };

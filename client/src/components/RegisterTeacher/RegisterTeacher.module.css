@@ -4,6 +4,32 @@
   margin: 100px auto 0;
   font-size: 18px;
 }
+.close_modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0px 7px;
+  background: none;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  cursor:pointer;
+}
+.about {
+  display:flex;
+  background-attachment: initial;
+  margin-bottom: 0px;
+  text-align: center;
+  position: absolute;
+  margin-top: 0px;
+}
+
+.volver{
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
 
 .modal, .overlay {
   width: 100vw;
@@ -22,7 +48,7 @@
 /* .container{
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-start; asd
 } */
 
 .modal_content {
@@ -37,8 +63,8 @@
   padding: 30px 28px;
   border-radius: 3px;
   float: left; 
-  width: 300px;
-  height: 340px;
+  width: auto;
+  height: auto;
   text-align: center;
   border-radius: 20px;
   transition: all 400ms ease;
@@ -60,6 +86,7 @@ margin-left: 26px;
 
 input[type="file"]{
   margin-left: 27px;
+  display: flex;
 }
 .inputs{
   display: flex;
@@ -76,6 +103,7 @@ margin-top: 0px;
 .modal_content:hover {
   box-shadow: 0px 0px 25px rgb(255, 237, 179);
   transform: translate(-50%, -41%);
+ 
 }
 
 .modal{
@@ -84,49 +112,7 @@ margin-top: 0px;
   background-image: url(https://i.imgur.com/2styviT.png);
   background-size: cover;
   background-repeat: no-repeat;
+  margin :auto;
 }
 
 
-
-
-/* .contentForm{
-  background: chocolate;
-  width: 400px;
-  height: 500px;
-  margin: auto;
-  margin-top: 80px;
-  border-radius: 10px;
-  border: solid 1px rgb(191, 194, 33);
-  box-shadow: 0px 4px 20px rgb(193, 196, 27);
-}
-.contentInputs{
-  display: grid;
-  grid-template-rows: repeat(6 ,1fr);
-}
-.contentPais{
-  margin-top: 10px;
-
-  grid-row: 1/2;
-}
-
-.contentRegion{
-  grid-row: 2/3;
- 
-}
-
-.contentFecha{
-  grid-row: 3/4;
-  
-}
-.contentFoto{
-  grid-row: 4/5;
-  
-} 
-
-.contentButon{
-  grid-row: 5/6;
- 
-}
-.contentCancelar{
-  background: transparent;
-} */

@@ -1,0 +1,250 @@
+/* .containerBackground {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+.background {
+  background: url("https://i.imgur.com/7Dl1ISR.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 300vw;
+} */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* .blue {
+  color: #ffd200;
+  border: 2px #ffd200 solid;
+  cursor: pointer;
+  margin: 70px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 5px;
+  font-size: 18px;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.blue:hover {
+  background-color:  #ff8d00;
+  border: 2px #ff8d00 solid;
+  color: #fff
+} */
+
+
+.blue {
+  color: #ffffff;
+  border: 2px #ff8d00 solid;
+  cursor: pointer;
+  /* margin: 70px; */
+  background-color: #ff8d00;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 9px;
+  font-size: 18px;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+ /*  display: inline-block; */
+  margin-right: 35px;
+  /* position: absolute; */
+  
+
+}
+.blue:hover {
+  background-color:  #ffffff;
+  border: 2px #ff8d00 solid;
+  color: #ff8d00
+ 
+} 
+
+.nav {
+  display: flex;
+  width:100%;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 10px -0px var(--amarillo);
+  background: #fff;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+}
+.logo {
+  background: #fff;
+  float: left;
+  width: 50px;
+  user-select: none;
+  margin-left: 12px;
+}
+/* .contentSearch {
+  display: flex;
+  flex-direction: row;
+  background: rgb(255, 242, 170);
+  width: 280px;
+  height: 40px;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 4px;
+} */
+/* .buscador{
+  background:none;
+  border: none;
+  cursor: pointer;
+} */
+/* .inputSearch {
+  border: none;
+  margin-top: 2.8px;
+  background: transparent;
+  width: 210px;
+  height: 80%;
+  font-size: 16px;
+  font-family: Roboto;
+
+}
+.inputSearch::placeholder {
+  color: rgb(155, 155, 155);
+}
+.inputSearch:focus {
+  outline: none;
+}
+.iconoBuscar {
+  font-size: 30px;
+  width: 35px;
+  background: transparent;
+  border: none;
+} */
+
+
+.imagen{
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 20px;
+    cursor:pointer;
+    background: #FFD200;
+    ;
+}
+
+
+.img{
+  width: auto;
+  height: 100%;
+  float:right;
+}
+.contentBoton {
+  grid-column: 7/8;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10px;
+}
+.botonInSesion {
+  font-family: "Akaya Telivigala", cursive;
+  background: #000;
+  color: #fff;
+  padding: 0.2em 0.6em;
+  border: 2px solid;
+  border-color: #fff;
+  transition: all 1s ease;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.select {
+  background: transparent;
+  border: none;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont;
+  font-size: 20px;
+  /* color: white; */
+}
+.select:hover {
+  border-bottom: 1px solid #ff8d00;
+  cursor: pointer;
+  box-shadow: 0 4px 3px -2px #cea74a;
+}
+select:focus{
+  outline:none;
+} 
+.selects{
+  font-size: 10px;
+  /* color: white; */
+}
+.contentSearch {
+  display: flex;
+  flex-direction: row;
+  background: rgb(255, 242, 170);
+  width: 280px;
+  height: 40px;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 4px;
+}
+.buscador{
+  background:none;
+  border: none;
+  cursor: pointer;
+}
+.inputSearch {
+  border: none;
+  margin-top: 2.8px;
+  background: transparent;
+  width: 210px;
+  height: 80%;
+  font-size: 16px;
+  font-family: Roboto;
+
+}
+.inputSearch::placeholder {
+  color: rgb(155, 155, 155);
+}
+.inputSearch:focus {
+  outline: none;
+}
+.iconoBuscar {
+  font-size: 30px;
+  width: 35px;
+  background: transparent;
+  border: none;
+}
+.butonLoginTeach{
+ background: transparent;
+
+}
+
+.initials{
+  text-transform:uppercase;
+  font-size: 30px;
+  font-weight: bolder;
+  color: #fff;
+  margin-top:9px;
+  font-family: 'Balsamiq Sans', cursive;
+}
+
+
+.btnCat{
+  transform:translate(110px, 0px)
+}
+/* 
+#FFD200 (AMARILLO)
+#FF8D00 (NARANJA) */
+
+
+.btnSoli{
+  transform:translate(50px, 0px)
+}
+
+.divEmpty{
+  width: 280px;
+}
+.divDif{
+  width:118px;
+}

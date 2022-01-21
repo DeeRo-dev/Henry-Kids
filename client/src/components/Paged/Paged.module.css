@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  margin-top: 120px;
+  margin-top: 150px;
   flex-direction: row;
   justify-content: center;
   background-position: 100% 100%;

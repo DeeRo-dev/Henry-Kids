@@ -17,12 +17,15 @@ const { searchTitle } = require("../search/searchTitle")
 // funcion para traernos todas las clases, manejamos tambien el search por titulo y los filtros.
 async function getClass(req, res, next) {
 
-  let results = []
+  let results = [];
 
   results = await Class.findAll({
     attributes: ["id", "title", "description", "difficulty", "video_link", "game_link", "studio_material"],
-    include: [ Category, Evaluation, User ],
-  })
+    order:[[Evaluation, 'Promedio', 'DESC']],
+    include: [{model: Category}, {model: Evaluation}, {model: User}, {model: Comment, include:[{model:User}]}],
+  });
+
+
 
   // Aca manejamos la busqueda por el search (por title).
   // modelo ruta 
@@ -64,6 +67,35 @@ async function getClass(req, res, next) {
       break;
 
     case "valoration":
+      break;
+  }
+
+  switch (req.query.second_filter) {
+
+    case "category":
+
+      // modelo ruta 
+      // GET https://localhost:3001/class?filter=xxxxxxxxxxx&category_id=yyyyyyy&second_filter=category&category_id=1
+
+      // Valido si tengo el category_id en el query string del request
+      if (!req.query.category_id) {
+        return res.status(400).send({ error: "category_id is required" });
+      }
+     
+      results = await filterByCategory(results, req.query.category_id)
+      break;
+
+    case "difficulty":
+      
+      // modelo ruta 
+      // GET http://localhost:3001/class?filter=category&category_id=1&second_filter=difficulty&difficulty=Intermedia
+
+      // Valido si tengo el la dificultad en el query string del request
+      if (!req.query.difficulty) {
+        return res.status(400).send({ error: "difficulty is required" });
+      }
+     
+      results = await filterByDifficulty(results, req.query.difficulty)
       break;
   }
   
@@ -113,7 +145,7 @@ async function deleteClass(req, res) {
 
     res.send("Was successfully removed");
   } catch (error) {
-    return res.status(400).send({ error: "something went wrong :(" });
+    return res.status(400).send({ error: "Something went wrong :(" });
   }
 }
 
@@ -124,7 +156,7 @@ async function editClass(req, res, next) {
     const result = await Class.update(changes, {
       where: { id: req.params.id },
     });
-    res.send("Was successfully edited");
+    res.send("It was successfully edited");
   } catch (err) {
     next(err);
   }
@@ -160,7 +192,7 @@ async function GetClassId(req, res, next) {
       where: {
         id: id,
       },
-      include: { model: User, Category, Evaluation },
+       include: [{model: Category} ,{model: Evaluation}, {model: User}, {model: Comment, include:[User]}]
     });
     res.send(classDetail);
   } catch (error) {

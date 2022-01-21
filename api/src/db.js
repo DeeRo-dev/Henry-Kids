@@ -11,7 +11,7 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 //     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 //   }
 // );
-
+console.log(DB_HOST)
 let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
@@ -67,7 +67,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Class, Category, Evaluation, User, Comment } = sequelize.models;
+const { Class, Category, Evaluation, User, Comment, AssUserClass, Status} = sequelize.models;
 
 // Aca vendrian las relaciones
 Class.belongsToMany(Category, { through: "CatCurso" });
@@ -79,18 +79,19 @@ Evaluation.belongsTo(Class);
 Class.hasMany(Comment);
 Comment.belongsTo(Class);
 
+User.belongsToMany(Comment, { through: "userComment" });
+Comment.belongsToMany(User, { through: "userComment" });
 
-User.hasOne(Evaluation)
+Status.hasMany(AssUserClass);
+AssUserClass.belongsTo(Status);
+
+
+User.hasMany(Evaluation);
 Evaluation.belongsTo(User);
 
-Class.belongsToMany(User, { through: "clasUser" });
-User.belongsToMany(Class, { through: "clasUser" });
+Class.belongsToMany(User, { through: AssUserClass});
+User.belongsToMany(Class, { through: AssUserClass});
 
-User.hasOne(Evaluation);
-Evaluation.belongsTo(User);
-
-Comment.hasOne(User)
-User.hasMany(Comment)
 
 
 module.exports = {

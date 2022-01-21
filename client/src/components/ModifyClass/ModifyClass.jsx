@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./ModifyClass.module.css";
 import { useNavigate } from "react-router-dom";
 import { Button, Snackbar } from "@material-ui/core";
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import MuiAlert from "@material-ui/lab/Alert";
-import { ModifyClasses } from "../../actions";
+import { ModifyClasses, getCategoryAll } from "../../actions";
 import { useParams } from 'react-router-dom'
 
 function Alert(props) {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyleAlert = withStyles({
   root: {
-     
+
     marginBottom: "-50px",
     width: "300px",
   },
@@ -51,7 +51,7 @@ export default function ModifyClass() {
     console.log(input)
     e.preventDefault();
     dispatch(ModifyClasses(id, input));
-    
+
     setInput({
       title: "",
       description: "",
@@ -60,9 +60,10 @@ export default function ModifyClass() {
       game_link: "",
       difficulty: "",
       date: "",
+      category: ""
     });
 
-     
+
 
     setOpen(true);
     setTimeout(() => {
@@ -91,9 +92,9 @@ export default function ModifyClass() {
       color: "white",
       fontWeight: "500",
       fontSize: "0.9em",
-     "&:hover": {
+      "&:hover": {
         backgroundColor: "var(--verde)",
-      }, 
+      },
     },
     label: {
       color: "#ff8d00",
@@ -112,9 +113,9 @@ export default function ModifyClass() {
       color: "#ff8d00",
       fontWeight: "400",
       fontSize: "1.1em",
-     "&:hover": {
+      "&:hover": {
         backgroundColor: "var(--verde)",
-      }, 
+      },
     },
 
     label: {
@@ -122,10 +123,19 @@ export default function ModifyClass() {
     },
   })(Button);
 
+  //TRAER CATEGORIAS
+  useEffect(() => {
+    dispatch(getCategoryAll());
+  }, [dispatch]);
 
 
+  const allCategory = useSelector((state) => state.categoryAll);
 
- 
+  useEffect(() => {
+    dispatch(getCategoryAll());
+  }, [dispatch]);
+
+
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -142,7 +152,8 @@ export default function ModifyClass() {
   const [linkVideo, setLinkvideo] = React.useState(false)
   const [linkGame, setLinkGame] = React.useState(false)
   const [difficult, setDifficult] = React.useState(false)
-
+  const [category, setCategory] = React.useState(false)
+ 
   return (
     <div className={styles.background}>
       <div className={styles.containerBackground}>
@@ -155,11 +166,11 @@ export default function ModifyClass() {
               </button>
             </Link>
             <div>
-                <label className= {styles.label} >SELECCIONE EL CAMPO A MODIFICAR</label>
+              <label className={styles.label} >SELECCIONE EL CAMPO A MODIFICAR</label>
               <form>
 
                 <StyleButton
-                
+
                   onClick={(e) => setTitulo(!titulo)}
                   type="button"
                   className={styles.btnCrearCuenta}
@@ -168,15 +179,15 @@ export default function ModifyClass() {
                 >
                   Titulo
                 </StyleButton>
-                {titulo? <input
+                {titulo ? <input
                   type="text"
                   name="title"
                   placeholder="Titulo"
-                  onChange={handleChange} 
-               />
-                : null        
-            }
-                
+                  onChange={handleChange}
+                />
+                  : null
+                }
+
                 <StyleButton
                   onClick={(e) => setDescripcion(!descripcion)}
                   type="button"
@@ -187,15 +198,15 @@ export default function ModifyClass() {
                   Descripcion
                 </StyleButton>
                 {
-                  descripcion?   
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="Descripcion"
-                  onChange={handleChange}
-                />
-                : null
-                }       
+                  descripcion ?
+                    <input
+                      type="text"
+                      name="description"
+                      placeholder="Descripcion"
+                      onChange={handleChange}
+                    />
+                    : null
+                }
 
                 <StyleButton
                   onClick={(e) => setMaterial(!material)}
@@ -206,16 +217,16 @@ export default function ModifyClass() {
                 >
                   Material de estudio
                 </StyleButton>
-                {material?
-                <input
-                  type="text"
-                  name="studio_material"
-                  placeholder="Material de estudio"
-                  onChange={handleChange}
-                />
-                :null
+                {material ?
+                  <input
+                    type="text"
+                    name="studio_material"
+                    placeholder="Material de estudio"
+                    onChange={handleChange}
+                  />
+                  : null
                 }
-                 <StyleButton
+                <StyleButton
                   onClick={(e) => setLinkvideo(!linkVideo)}
                   type="button"
                   className={styles.btnCrearCuenta}
@@ -224,14 +235,14 @@ export default function ModifyClass() {
                 >
                   Link al video
                 </StyleButton>
-                {linkVideo?
-                <input
-                  type="text"
-                  name="video_link"
-                  placeholder="Link al video"
-                  onChange={handleChange}
-                />
-                :null
+                {linkVideo ?
+                  <input
+                    type="text"
+                    name="video_link"
+                    placeholder="Link al video"
+                    onChange={handleChange}
+                  />
+                  : null
                 }
 
                 <StyleButton
@@ -243,14 +254,14 @@ export default function ModifyClass() {
                 >
                   Link de juegos
                 </StyleButton>
-                {linkGame?
-                <input
-                  type="text"
-                  name="game_link"
-                  placeholder="Link de juegos"
-                  onChange={handleChange}
-                />
-                : null}
+                {linkGame ?
+                  <input
+                    type="text"
+                    name="game_link"
+                    placeholder="Link de juegos"
+                    onChange={handleChange}
+                  />
+                  : null}
 
                 <StyleButton
                   onClick={(e) => setDifficult(!difficult)}
@@ -261,25 +272,59 @@ export default function ModifyClass() {
                 >
                   Dificultad
                 </StyleButton>
-     
-                {difficult?
-                <div className={styles.containerOptions}>
-                  <select
-                    name="difficulty"
-                    className={styles.select}
-                    onChange={handleChange}
-                  >
-                    <option value="" selected disabled hidden>
-                      Dificultad
-                    </option>
-                    <option value="Basica">Básica</option>
-                    <option value="Intermedia">Intermedia</option>
-                    <option value="Alta">Alta</option>
-                  </select>
-                </div>
-               :null
+
+                {difficult ?
+                  <div className={styles.containerOptions}>
+                    <select
+                      name="difficulty"
+                      className={styles.select}
+                      onChange={handleChange}
+                    >
+                      <option value="" selected disabled hidden>
+                        Dificultad
+                      </option>
+                      <option value="Basica">Básica</option>
+                      <option value="Intermedia">Intermedia</option>
+                      <option value="Alta">Alta</option>
+                    </select>
+                  </div>
+                  : null
                 }
- 
+
+
+
+
+              {/*   <StyleButton
+                  onClick={(e) => setCategory(!category)}
+                  type="button"
+                  className={styles.btnCrearCuenta}
+                  variant="contained"
+                  color="secondary"
+                >
+                  Categoria
+                </StyleButton>
+          {category ?
+                  <div className={styles.containerOptions}>
+                    <select
+                      name="difficulty"
+                      className={styles.select}
+                      onChange={handleChange}
+                    >
+                      <option value="" selected disabled hidden>
+                        Categoria
+                      </option>
+
+                      {
+                        allCategory.map((e) => (
+                          <option value={e.id} key={e.name}>{e.name}</option>
+
+                        ))
+                      }
+                    </select>
+                  </div>
+                  : null
+                } */}
+
                 <StyleSubmit
                   onClick={(e) => handleOnSubmit(e)}
                   type="button"
@@ -289,7 +334,7 @@ export default function ModifyClass() {
                 >
                   Modificar Clase
                 </StyleSubmit>
-                
+
                 <StyleAlert className={styles.alert} open={open} onClose={handleClose}>
                   <Alert severity="success">¡Clase modificada exitosamente!</Alert>
                 </StyleAlert>

@@ -1,5 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+.perfil{
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
 
 .blue {
   color: #ffd200;
@@ -18,7 +23,20 @@
   display: inline-block;
   margin-right: 5px;
 }
+.perfil{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-right: 15px;
+}
 
+.perfil h4{
+  margin:0px;
+  user-select: none;
+  cursor: pointer;
+}
 .blue:hover {
   background-color:  #ff8d00;
   border: 2px #ff8d00 solid;
@@ -53,13 +71,13 @@
 .nav {
   display: flex;
   width: 100%;
-  height: 80px;
+  height: 100px ;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 1px 10px -0px var(--amarillo);
   background: #fff;
-  /* position: fixed;
-  z-index: 1000; */
+  position: fixed;
+  z-index: 1000;
   top: 0;
 }
 

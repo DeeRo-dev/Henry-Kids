@@ -15,9 +15,10 @@ module.exports = (Sequelize) => {
       autoIncrement: true,
     },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       validate: {
         notEmpty: true,
+        len: [1, 20]
       },
       allowNull: false,
       unique: true,

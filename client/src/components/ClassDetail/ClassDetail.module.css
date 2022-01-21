@@ -1,36 +1,237 @@
-
 .contentDetail {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-
-  background: url('https://i.imgur.com/7Dl1ISR.png');
+  background: url("https://i.imgur.com/7Dl1ISR.png");
   background-position: center;
   background-size: cover;
-  overflow-x:hidden;
-  overflow-y:hidden;
+  overflow: visible;
+ 
+}
+
+.comments{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  margin-top: 150px;
+  /* border: 1px solid red; */
+}
+
+.contentDescription {
+  display: flex;
+  width: 832px;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-family: Roboto;
+  font-size: 20px;
+  background: rgba(240, 248, 255, 0.747);
+   /* border: 1px solid red;  */
+   height: auto;
+   /* overflow-y: scroll; */
+   box-shadow: 0px 0px 15px 1px black;
 }
 
 .contentTitle {
-  margin-top: 50px;
   font-family: "Merienda One", cursive;
   font-size: 20px;
-  color: var(--naranja);
-  user-select: none;
+  color: white;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 30px;
+  background-color: orange;
+}
+.contentDifficult{
+   font-weight: bold;
+  font-size: 25px;
+  font-family: "Merienda";
+  margin-top: 30px;
+}
+.contentDifyValorado{
+  margin: auto;
+  display: flex;
+  flex-direction: center;
+  justify-content: space-evenly;
+  height: 100px;
+  grid-template-columns: repeat(2, 1fr);
+  /* border: 1px solid green; */
+  margin-top: 10px;
+  border-top: 10px solid orange;
+  border-right: 1px solid orange;
+  border-bottom: 10px solid orange;
+  border-left: 1px solid orange;
+  background-color: white;
+  opacity: 90%;
 }
 
-.contentVideo {
+.titleValoration{
+  font-size: 15px !important;
+  font-family: "Merienda";
+}
+.titlePromedio{
+  font-size: 15px !important;
+  font-family: "Merienda";
+}
+.back{
+float: left;
+margin-left: 40px;
+margin-top: 49px;
+color: white;
+}
+
+
+.comment {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-content: center;
   align-items: center;
 }
 
-.contentDescription {
-  margin-top: 15px;
-  margin-bottom: 15px;
+/*
+.back{
+  margin-top: 20px;
+  margin-left: 30px;
   font-family: Roboto;
-  font-size: 20px;
+  font-weight: bolder;
+} */
+
+
+.contentVideo {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  background-color: black;
+}
+.boxLeft {
+  margin-top: 15px;
+  background: hsla(0, 0%, 100%, 0.438);
+}
+
+ label{ color:grey;}
+input[type = "radio"]{ display:none;}
+input[type = "radio"]:checked ~ label{color:orange;}
+
+
+.clasificacion2 {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  font-size: 43px;
+  margin-top: -25px;
+}
+.clasificacion2 label:hover~ label {
+  
+   color:orange
+}
+.clasificacion2 label:hover {
+  
+   color:orange
+}
+.clasificacion {
+  direction: rtl;
+  font-size:43px;
+  margin-top: -30px;
+
+}
+.inputDonar{
+  background: transparent;
+  text-decoration: none;
+  height: 40px;
+  margin-top: 30px;
+}
+.btnDonar{
+  height: 20px;
+ border:transparent; 
+ cursor: pointer; 
+ font-size: 18px;
+ font-weight: bolder;
+ font-family: Roboto;
+ text-decoration: underline;
+ background-color: white;
+ color: #7CB4F8;
+
+}
+.inputDonar:hover{
+  cursor:pointer;
+}
+
+.alert{
+  margin-left: 400px;
+  border-radius: 10px;
+  color: white;
 }
 
 
+.divAlert{
+  display:flex;
+  flex-direction:column;
+  height: 100px;
+ 
+}
 
+.icon{
+  margin-top: 5px;
+}
+
+.divValoration{
+  height: 30px;
+  border: none;
+}
+
+.titleValoration{
+  font-size:17px;
+}
+.btnIcon{
+  margin-left: 290px;
+ padding-top: 5px;
+ color: orange;
+ 
+}
+.btnIcon:hover{
+ cursor: pointer !important;
+ color: red;
+}
+
+.datosTeacher{
+  margin-top:-42px !important;
+  font-family: "Merienda";
+  width: auto !important;
+  color: orange;
+ 
+}
+
+
+.iconCuenta{
+  transform: scale(1.8);
+  margin-top:12px;
+  margin-left: 5px;
+  color: orange;
+  
+}
+
+.datosCta{
+  margin-left: 10px;
+  font-size:15px;
+  margin-top: -8px;
+  width: auto;
+  font-family: "Merienda";
+  color: orange;
+}
+.titleJuego{
+  font-family: "Merienda";
+   font-size:25px;
+   margin-top:60px
+}
+
+.studio{
+
+  font-family: "Roboto";
+   font-size:25px;
+   text-decoration: underline;
+ 
+
+}
+.studio:focus{
+  color:red
+}

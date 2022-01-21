@@ -1,0 +1,50 @@
+.contentFooter {
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: initial;
+  margin-top: 10px;
+  text-align: center;
+  position: absolute;
+  background-image: url(https://i.imgur.com/GmQMoC5.png);
+  width: 100vw;
+  height: 110px;
+}
+.contentDer {
+  margin-top: 15px;
+  margin-left: 20px;
+  /* float: left; */
+}
+.contenNomb {
+  height: 50px;
+  width: 600px;
+  margin-left: 20px;
+}
+.derechos{
+  font-weight: bold;
+}
+.contenNomb a{
+  color: #415346;
+  height: 50px;
+  width: 600px;
+  margin: auto;
+
+}
+.des{
+  color: #415346;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.nombres:hover{
+  border-left: 1px solid rgb(243, 234, 234);
+  border-right: 1px solid rgb(247, 243, 243);
+  background: white; 
+}
+/* .nombres{
+  width: 150px;
+  color: #000;
+  margin: auto;
+} */
